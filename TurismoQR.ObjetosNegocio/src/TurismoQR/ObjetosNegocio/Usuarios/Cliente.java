@@ -6,6 +6,7 @@ public class Cliente implements IObjetoNegocio
 {
 
     private String apellido;
+    
     private String nombre;
     private String mail;
     private String dni;

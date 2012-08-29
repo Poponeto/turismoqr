@@ -36,4 +36,4 @@ Una vez hecho esto les debería bajar todo el código.
 
 Abrir NetBeans, irse al tab de Services/Servicios. Darle click con el botón derecho a Servers/Servidores y poner Add Server/Agregar Servidor. Una vez hecho esto debe aparecer una opción que dice JBoss Application Server o algo así. La seleccionamos y nos aparece un cambo para poner la URL, buscamos la URL de la carpeta donde descomprimimos el JBoss y la seleccionamos, luego aceptamos. Después de hacer esto deberíamos ver dentro de Servidores a JBoss como una opción.
 
-Abrir los proyectos del repositorio (dentro del trunk) e intentar compilarlos, nada debería fallar.
+Abrir los proyectos del repositorio (dentro del trunk), probablemente les diga que falta una referencia a derbyclient.jar en algún proyecto. Si esto pasa, click sobre el proyecto --> Resolver References y busquen la referencia que está faltando dentro de la carpeta Libraries en el Trunk.

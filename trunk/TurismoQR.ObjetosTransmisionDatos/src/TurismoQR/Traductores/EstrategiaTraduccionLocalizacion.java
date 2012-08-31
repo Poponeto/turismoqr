@@ -5,8 +5,8 @@
 
 package TurismoQR.Traductores;
 
-import TurismoQR.ObjetosNegocio.IObjetoNegocio;
 import TurismoQR.ObjetosNegocio.Punto.Localizacion;
+import TurismoQR.ObjetosTransmisionDatos.DTOLocalizacion;
 import TurismoQR.ObjetosTransmisionDatos.IDTO;
 
 /**
@@ -17,7 +17,11 @@ public class EstrategiaTraduccionLocalizacion implements IEstrategiaTraduccion<L
 
     public IDTO<Localizacion> traducir(Localizacion objetoNegocio)
     {
-        throw new UnsupportedOperationException("Not supported yet.");
+        DTOLocalizacion dtoLocalizacion = new DTOLocalizacion();
+        dtoLocalizacion.setLatitud(objetoNegocio.getLatitud());
+        dtoLocalizacion.setLongitud(objetoNegocio.getLongitud());
+
+        return dtoLocalizacion;
     }
 
 }

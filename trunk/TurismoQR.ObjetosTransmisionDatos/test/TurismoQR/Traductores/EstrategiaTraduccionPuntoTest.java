@@ -5,6 +5,7 @@
 
 package TurismoQR.Traductores;
 
+import TurismoQR.ObjetosTransmisionDatos.DTOPunto;
 import TurismoQR.ObjetosNegocio.Punto.Punto;
 import TurismoQR.ObjetosTransmisionDatos.IDTO;
 import org.junit.After;
@@ -44,14 +45,13 @@ public class EstrategiaTraduccionPuntoTest {
      */
     @Test
     public void testTraducir() {
-        System.out.println("traducir");
-        Punto objetoNegocio = null;
+
+        Punto objetoNegocio = new Punto();
         EstrategiaTraduccionPunto instance = new EstrategiaTraduccionPunto();
-        IDTO expResult = null;
-        IDTO result = instance.traducir(objetoNegocio);
+        DTOPunto expResult = new DTOPunto();
+        DTOPunto result = (DTOPunto) instance.traducir(objetoNegocio);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+
     }
 
 }

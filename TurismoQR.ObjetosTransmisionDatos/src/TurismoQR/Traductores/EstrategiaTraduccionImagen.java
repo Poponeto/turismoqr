@@ -6,6 +6,7 @@
 package TurismoQR.Traductores;
 
 import TurismoQR.ObjetosNegocio.Informacion.Imagen;
+import TurismoQR.ObjetosTransmisionDatos.DTOImagen;
 import TurismoQR.ObjetosTransmisionDatos.IDTO;
 
 /**
@@ -16,7 +17,11 @@ public class EstrategiaTraduccionImagen implements IEstrategiaTraduccion<Imagen>
 
     public IDTO<Imagen> traducir(Imagen objetoNegocio)
     {
-        throw new UnsupportedOperationException("Not supported yet.");
+        DTOImagen dtoImagen = new DTOImagen();
+        dtoImagen.setExtension(objetoNegocio.getExtension());
+        dtoImagen.setUrl(objetoNegocio.getUrl());
+
+        return dtoImagen;
     }
 
 }

@@ -6,7 +6,9 @@
 package TurismoQR.Traductores;
 
 import TurismoQR.ObjetosNegocio.Punto.Punto;
+import TurismoQR.ObjetosTransmisionDatos.DTOPunto;
 import TurismoQR.ObjetosTransmisionDatos.IDTO;
+import javax.annotation.Resource;
 
 /**
  *
@@ -14,9 +16,12 @@ import TurismoQR.ObjetosTransmisionDatos.IDTO;
  */
 public class EstrategiaTraduccionPunto implements IEstrategiaTraduccion<Punto>{
 
+    @Resource
+    private ITraductor traductor;
+
     public IDTO<Punto> traducir(Punto objetoNegocio)
     {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return new DTOPunto();
     }
 
 }

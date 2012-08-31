@@ -6,6 +6,7 @@
 package TurismoQR.Traductores;
 
 import TurismoQR.ObjetosNegocio.Informacion.InformacionEnIdioma;
+import TurismoQR.ObjetosTransmisionDatos.DTOInformacionEnIdioma;
 import TurismoQR.ObjetosTransmisionDatos.IDTO;
 
 /**
@@ -16,7 +17,10 @@ public class EstrategiaTraduccionInformacionEnIdioma implements IEstrategiaTradu
 
     public IDTO<InformacionEnIdioma> traducir(InformacionEnIdioma objetoNegocio)
     {
-        throw new UnsupportedOperationException("Not supported yet.");
+        DTOInformacionEnIdioma dtoInformacionEnIdioma = new DTOInformacionEnIdioma();
+        dtoInformacionEnIdioma.setTexto(objetoNegocio.getTexto());
+
+        return dtoInformacionEnIdioma;
     }
 
 }

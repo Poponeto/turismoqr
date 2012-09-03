@@ -26,23 +26,18 @@ public class ManejadorIdiomas
     @Resource
     private AccesoDatosIdioma accesoDatosIdioma;
 
-    @Autowired
-    public ManejadorIdiomas(Idioma idioma)
-    {
-        this.idioma = idioma;
-    }
 
-    public InformacionEnIdioma seleccionarInformacionDePuntoEnIdioma(Punto punto)
+    public InformacionEnIdioma seleccionarInformacionDePuntoEnIdioma(Punto punto, Idioma idioma)
     {
-        return seleccionarInformacionEnIdioma(punto.getInformacion().getInformacionEnIdiomas());
+        return seleccionarInformacionEnIdioma(punto.getInformacion().getInformacionEnIdiomas(), idioma);
     }
     
-    public InformacionEnIdioma seleccionarInformacionDeImagenEnIdioma(Imagen imagen)
+    public InformacionEnIdioma seleccionarInformacionDeImagenEnIdioma(Imagen imagen, Idioma idioma)
     {
-        return seleccionarInformacionEnIdioma(imagen.getInformacion().getInformacionEnIdiomas());
+        return seleccionarInformacionEnIdioma(imagen.getInformacion().getInformacionEnIdiomas(), idioma);
     }
 
-    private InformacionEnIdioma seleccionarInformacionEnIdioma(Collection<InformacionEnIdioma> InformacionEnIdiomas)
+    private InformacionEnIdioma seleccionarInformacionEnIdioma(Collection<InformacionEnIdioma> InformacionEnIdiomas, Idioma idioma)
     {
         for (InformacionEnIdioma informacionEnIdioma : InformacionEnIdiomas)
         {

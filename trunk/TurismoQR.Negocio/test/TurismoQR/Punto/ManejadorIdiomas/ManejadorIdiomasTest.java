@@ -74,12 +74,12 @@ public class ManejadorIdiomasTest {
         informacion.setInformacionEnIdiomas(informacionEnIdiomas);
         punto.setInformacion(informacion);
 
-        ManejadorIdiomas manejadorIdiomas1 = new ManejadorIdiomas(idioma1);
-        InformacionEnIdioma resultado1 = manejadorIdiomas1.seleccionarInformacionDePuntoEnIdioma(punto);
+        ManejadorIdiomas manejadorIdiomas1 = new ManejadorIdiomas();
+        InformacionEnIdioma resultado1 = manejadorIdiomas1.seleccionarInformacionDePuntoEnIdioma(punto, idioma1);
         assertEquals(informacionEnIdioma1, resultado1);
 
-        ManejadorIdiomas manejadorIdiomas2 = new ManejadorIdiomas(idioma2);
-        InformacionEnIdioma resultado2 = manejadorIdiomas2.seleccionarInformacionDePuntoEnIdioma(punto);
+        ManejadorIdiomas manejadorIdiomas2 = new ManejadorIdiomas();
+        InformacionEnIdioma resultado2 = manejadorIdiomas2.seleccionarInformacionDePuntoEnIdioma(punto, idioma2);
         assertEquals(informacionEnIdioma2, resultado2);
     }
 
@@ -111,12 +111,12 @@ public class ManejadorIdiomasTest {
         informacion.setInformacionEnIdiomas(informacionEnIdiomas);
         imagen.setInformacion(informacion);
 
-        ManejadorIdiomas manejadorIdiomas1 = new ManejadorIdiomas(idioma1);
-        InformacionEnIdioma resultado1 = manejadorIdiomas1.seleccionarInformacionDeImagenEnIdioma(imagen);
+        ManejadorIdiomas manejadorIdiomas1 = new ManejadorIdiomas();
+        InformacionEnIdioma resultado1 = manejadorIdiomas1.seleccionarInformacionDeImagenEnIdioma(imagen, idioma1);
         assertEquals(informacionEnIdioma1, resultado1);
 
-        ManejadorIdiomas manejadorIdiomas2 = new ManejadorIdiomas(idioma2);
-        InformacionEnIdioma resultado2 = manejadorIdiomas2.seleccionarInformacionDeImagenEnIdioma(imagen);
+        ManejadorIdiomas manejadorIdiomas2 = new ManejadorIdiomas();
+        InformacionEnIdioma resultado2 = manejadorIdiomas2.seleccionarInformacionDeImagenEnIdioma(imagen, idioma2);
         assertEquals(informacionEnIdioma2, resultado2);
     }
 

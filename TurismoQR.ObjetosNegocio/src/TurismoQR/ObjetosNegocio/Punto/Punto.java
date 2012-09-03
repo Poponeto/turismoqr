@@ -3,7 +3,7 @@ package TurismoQR.ObjetosNegocio.Punto;
 import TurismoQR.ObjetosNegocio.Informacion.Imagen;
 import TurismoQR.ObjetosNegocio.Informacion.Link;
 import TurismoQR.ObjetosNegocio.Informacion.Informacion;
-import TurismoQR.ObjetosNegocio.Estados.IEstado;
+import TurismoQR.ObjetosNegocio.Estados.Estado;
 import TurismoQR.ObjetosNegocio.IObjetoNegocio;
 import java.util.Collection;
 
@@ -15,7 +15,7 @@ public class Punto implements IObjetoNegocio
     private Informacion informacion;
     private Collection<Imagen> imagenes;
     private Collection<Link> links;
-    private IEstado estado;
+    private Estado estado;
     private String idObjeto;
 
     public String getIdObjeto()
@@ -48,12 +48,12 @@ public class Punto implements IObjetoNegocio
         this.links = links;
     }
 
-    public IEstado getEstado()
+    public Estado getEstado()
     {
         return estado;
     }
 
-    public void setEstado(IEstado estado)
+    public void setEstado(Estado estado)
     {
         this.estado = estado;
     }

@@ -40,7 +40,7 @@ public class ServicioConsultaPuntoInteres
      */
     @WebMethod(operationName = "ConsultarPuntoInteres")
     public DTOPunto ConsultarPuntoInteres(@WebParam(name = "idPuntoInteres")
-            final String idPuntoInteres, final String idioma)
+            final String idPuntoInteres,@WebParam(name = "idioma") final String idioma)
     {
         Punto punto = accesoDatos.BuscarObjeto(idPuntoInteres);
         InformacionEnIdioma informacionPunto = manejadorIdioma.seleccionarInformacionDePuntoEnIdioma(punto);

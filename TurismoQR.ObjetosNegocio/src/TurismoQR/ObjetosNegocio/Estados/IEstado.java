@@ -11,4 +11,6 @@ package TurismoQR.ObjetosNegocio.Estados;
  */
 public interface IEstado {
 
+       public String getNombreDeEstado();
+       public void setNombreDeEstado(String nombre);
 }

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="TurismoQR.ObjetosNegocio.Punto.Punto" table="punto" >
+        <id column="idPunto" name="idObjeto">
+            <generator class="guid"/>
+        </id>
+        <property name="nombre"/>
+        <one-to-one name="localizacion" class="TurismoQR.ObjetosNegocio.Punto.Localizacion" cascade="all" />
+        <one-to-one name="informacion" class="TurismoQR.ObjetosNegocio.Informacion.Informacion" cascade="all" />
+        <list name="imagenes" cascade="all-delete-orphan" outer-join="true"> 
+            <key column="idImagen" /> 
+            <index column="orden" /> 
+            <one-to-many class="TurismoQR.ObjetosNegocio.Informacion.Imagen" /> 
+        </list>  
+        <list name="links" cascade="all-delete-orphan" outer-join="true"> 
+            <key column="idLink" /> 
+            <index column="orden" /> 
+            <one-to-many class="TurismoQR.ObjetosNegocio.Informacion.Link" /> 
+        </list>
+        <list name="estado" cascade="all-delete-orphan" outer-join="true"> 
+            <key column="idEstado" /> 
+            <index column="orden" /> 
+            <one-to-many class="TurismoQR.ObjetosNegocio.Estados.Estado" /> 
+        </list>
+    </class>
+</hibernate-mapping>

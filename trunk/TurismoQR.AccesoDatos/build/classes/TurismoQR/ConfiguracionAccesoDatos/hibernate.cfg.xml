@@ -4,9 +4,17 @@
   <session-factory>
     <property name="hibernate.dialect">org.hibernate.dialect.DerbyDialect</property>
     <property name="hibernate.connection.driver_class">org.apache.derby.jdbc.ClientDriver</property>
-    <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/turismoqr.db</property>
+    <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/turismoqr</property>
     <property name="hibernate.connection.username">root</property>
-    <property name="hibernate.connection.password">admin</property>
+    <property name="hibernate.connection.password">root</property>
+    <property name="hibernate.show_sql">true</property>
+    <property name="hibernate.format_sql">true</property>
     <mapping resource="TurismoQR/ArchivosMapeo/Periodo.hbm.xml"/>
+    <mapping resource="TurismoQR/ArchivosMapeo/Punto.hbm.xml"/>
+    <mapping resource="TurismoQR/ArchivosMapeo/Localizacion.hbm.xml"/>
+    <mapping resource="TurismoQR/ArchivosMapeo/Informacion.hbm.xml"/>
+    <mapping resource="TurismoQR/ArchivosMapeo/Recurso.hbm.xml"/>
+    <mapping resource="TurismoQR/ArchivosMapeo/Imagen.hbm.xml"/>
+    <mapping resource="TurismoQR/ArchivosMapeo/Link.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>

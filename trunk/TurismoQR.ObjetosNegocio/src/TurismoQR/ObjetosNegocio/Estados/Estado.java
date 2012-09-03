@@ -11,6 +11,18 @@ import TurismoQR.ObjetosNegocio.Periodo.PeriodoVencimiento;
  *
  * @author Federico
  */
-class Estado extends PeriodoVencimiento implements IEstado {
+public class Estado extends PeriodoVencimiento implements IEstado {
+
+    public String nombreDeEstado;
+
+    public String getNombreDeEstado() {
+        return nombreDeEstado;
+    }
+
+    public void setNombreDeEstado(String nombre) {
+        nombreDeEstado = nombre;
+    }
+
+
 
 }

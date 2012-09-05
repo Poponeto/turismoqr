@@ -10,6 +10,9 @@
 
     <body>
         <div>
+            <h1>Header</h1>
+        </div>
+        <div>
             <h1>Banner</h1>
         </div>
         <div id="homeLogin">

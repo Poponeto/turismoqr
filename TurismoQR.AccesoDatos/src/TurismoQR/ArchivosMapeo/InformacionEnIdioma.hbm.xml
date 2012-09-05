@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+  <class name="TurismoQR.ObjetosNegocio.Informacion.InformacionEnIdioma">
+       <id column="idInformacionEnIdioma" name="idObjeto">
+            <generator class="guid"/>
+        </id>
+      <property name="texto"/>
+      <one-to-one name="idioma" class="TurismoQR.ObjetosNegocio.Informacion.Idioma" cascade="all" foreign-key="idIdioma" />
+      </class>
+</hibernate-mapping>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="TurismoQR.ObjetosNegocio.Usuarios.Rol" table="rol">
+       <id column="idRol" name="idObjeto">
+            <generator class="guid"/>
+        </id>
+        <set name="permisosRol" cascade="all-delete-orphan" outer-join="true"> 
+            <key column="permisosRol" foreign-key="idPermisoRol" /> 
+            <one-to-many class="TurismoQR.ObjetosNegocio.Usuarios.Permisos.PermisoRol" /> 
+        </set>
+    </class>
+</hibernate-mapping>

@@ -19,7 +19,7 @@ public class main {
      */
     public static void main(String[] args) {
         Configuration cfg = new Configuration();
-        cfg.addJar(new File("C://Users//Rodrius//Documents//Proyecto TurismoQR//TurismoQR.ObjetosNegocio//dist//TurismoQR.ObjetosNegocio.jar"));
+        cfg.addJar(new File("D://Documentos//Proyecto 2012//TurismoQR.AccesoDatos//dist//TurismoQR.AccesoDatos.jar"));
         String[] lines = cfg.generateSchemaCreationScript(new MySQLDialect());
 
         for (int i = 0; i < lines.length; i++) {

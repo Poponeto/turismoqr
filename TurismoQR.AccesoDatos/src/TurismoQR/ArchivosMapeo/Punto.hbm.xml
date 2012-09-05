@@ -6,22 +6,20 @@
             <generator class="guid"/>
         </id>
         <property name="nombre"/>
-        <one-to-one name="localizacion" class="TurismoQR.ObjetosNegocio.Punto.Localizacion" cascade="all" />
-        <one-to-one name="informacion" class="TurismoQR.ObjetosNegocio.Informacion.Informacion" cascade="all" />
-        <list name="imagenes" cascade="all-delete-orphan" outer-join="true"> 
-            <key column="idImagen" /> 
-            <index column="orden" /> 
-            <one-to-many class="TurismoQR.ObjetosNegocio.Informacion.Imagen" /> 
-        </list>  
-        <list name="links" cascade="all-delete-orphan" outer-join="true"> 
-            <key column="idLink" /> 
-            <index column="orden" /> 
+        <many-to-one name="localizacion" class="TurismoQR.ObjetosNegocio.Punto.Localizacion" cascade="all" foreign-key="idLocalizacion"/>
+        <many-to-one name="informacion" class="TurismoQR.ObjetosNegocio.Informacion.Informacion" cascade="all" foreign-key="idInformacion" />
+        <set name="imagenes" cascade="all-delete-orphan" outer-join="true"> 
+            <key column="idImagen" foreign-key="idImagen" /> 
+           <one-to-many class="TurismoQR.ObjetosNegocio.Informacion.Imagen"/> 
+        </set>  
+        <set name="links" cascade="all-delete-orphan" outer-join="true"> 
+            <key column="idLink" foreign-key="idLink" /> 
             <one-to-many class="TurismoQR.ObjetosNegocio.Informacion.Link" /> 
-        </list>
-        <list name="estado" cascade="all-delete-orphan" outer-join="true"> 
+        </set>
+      <!--  <list name="estado" cascade="all-delete-orphan" outer-join="true"> 
             <key column="idEstado" /> 
             <index column="orden" /> 
             <one-to-many class="TurismoQR.ObjetosNegocio.Estados.Estado" /> 
-        </list>
+        </list> -->
     </class>
 </hibernate-mapping>

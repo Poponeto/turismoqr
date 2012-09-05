@@ -1,0 +1,17 @@
+create table InformacionEnIdioma (idInformacionEnIdioma varchar(255) not null, texto varchar(255), orden integer, primary key (idInformacionEnIdioma));
+create table idioma (idIdioma varchar(255) not null, nombreIdioma varchar(255), primary key (idIdioma));
+create table imagen (idImagen varchar(255) not null, extension varchar(255), informacion varchar(255), orden integer, primary key (idImagen));
+create table informacion (idInformacion varchar(255) not null, primary key (idInformacion));
+create table link (idLink varchar(255) not null, orden integer, primary key (idLink));
+create table localizacion (idLocalizacion varchar(255) not null, latitud varchar(255), longitud varchar(255), primary key (idLocalizacion));
+create table periodo (idPeriodo varchar(255) not null, fechaInicioPeriodo datetime, fechaFinPeriodo datetime, primary key (idPeriodo));
+create table punto (idPunto varchar(255) not null, nombre varchar(255), localizacion varchar(255), informacion varchar(255), primary key (idPunto));
+create table recurso (idRecurso varchar(255) not null, url varchar(255), primary key (idRecurso));
+alter table InformacionEnIdioma add index idInformacionEnIdioma (idInformacionEnIdioma), add constraint idInformacionEnIdioma foreign key (idInformacionEnIdioma) references informacion (idInformacion);
+alter table imagen add index idInformacion (informacion), add constraint idInformacion foreign key (informacion) references informacion (idInformacion);
+alter table imagen add index idImagen (idImagen), add constraint idImagen foreign key (idImagen) references punto (idPunto);
+alter table imagen add index FKB95A8273659A5014 (idImagen), add constraint FKB95A8273659A5014 foreign key (idImagen) references recurso (idRecurso);
+alter table link add index idLink (idLink), add constraint idLink foreign key (idLink) references punto (idPunto);
+alter table link add index FK32AFFA1FD5F85B (idLink), add constraint FK32AFFA1FD5F85B foreign key (idLink) references recurso (idRecurso);
+alter table punto add index idInformacion (informacion), add constraint idInformacion foreign key (informacion) references informacion (idInformacion);
+alter table punto add index idLocalizacion (localizacion), add constraint idLocalizacion foreign key (localizacion) references localizacion (idLocalizacion);

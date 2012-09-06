@@ -7,7 +7,6 @@ package TurismoQR.ObjetosTransmisionDatos;
 
 import TurismoQR.ObjetosNegocio.Punto.Punto;
 import java.util.Collection;
-import java.util.Objects;
 
 /**
  *
@@ -50,32 +49,39 @@ public class DTOPunto implements IDTO<Punto>{
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (obj == null) {
+    public boolean equals(Object obj)
+    {
+        if (obj == null)
+        {
             return false;
         }
-        if (getClass() != obj.getClass()) {
+        if (getClass() != obj.getClass())
+        {
             return false;
         }
         final DTOPunto other = (DTOPunto) obj;
-        if (!Objects.equals(this.informacion, other.informacion)) {
+        if (this.informacion != other.informacion && (this.informacion == null || !this.informacion.equals(other.informacion)))
+        {
             return false;
         }
-        if (!Objects.equals(this.imagenes, other.imagenes)) {
+        if (this.imagenes != other.imagenes && (this.imagenes == null || !this.imagenes.equals(other.imagenes)))
+        {
             return false;
         }
-        if (!Objects.equals(this.localizacion, other.localizacion)) {
+        if (this.localizacion != other.localizacion && (this.localizacion == null || !this.localizacion.equals(other.localizacion)))
+        {
             return false;
         }
         return true;
     }
 
     @Override
-    public int hashCode() {
-        int hash = 3;
-        hash = 53 * hash + Objects.hashCode(this.informacion);
-        hash = 53 * hash + Objects.hashCode(this.imagenes);
-        hash = 53 * hash + Objects.hashCode(this.localizacion);
+    public int hashCode()
+    {
+        int hash = 7;
+        hash = 53 * hash + (this.informacion != null ? this.informacion.hashCode() : 0);
+        hash = 53 * hash + (this.imagenes != null ? this.imagenes.hashCode() : 0);
+        hash = 53 * hash + (this.localizacion != null ? this.localizacion.hashCode() : 0);
         return hash;
     }
 

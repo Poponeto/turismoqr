@@ -6,7 +6,6 @@
 package TurismoQR.ObjetosTransmisionDatos;
 
 import TurismoQR.ObjetosNegocio.Informacion.InformacionEnIdioma;
-import java.util.Objects;
 
 /**
  *
@@ -25,24 +24,29 @@ public class DTOInformacionEnIdioma implements IDTO<InformacionEnIdioma>{
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (obj == null) {
+    public boolean equals(Object obj)
+    {
+        if (obj == null)
+        {
             return false;
         }
-        if (getClass() != obj.getClass()) {
+        if (getClass() != obj.getClass())
+        {
             return false;
         }
         final DTOInformacionEnIdioma other = (DTOInformacionEnIdioma) obj;
-        if (!Objects.equals(this.texto, other.texto)) {
+        if ((this.texto == null) ? (other.texto != null) : !this.texto.equals(other.texto))
+        {
             return false;
         }
         return true;
     }
 
     @Override
-    public int hashCode() {
+    public int hashCode()
+    {
         int hash = 5;
-        hash = 61 * hash + Objects.hashCode(this.texto);
+        hash = 97 * hash + (this.texto != null ? this.texto.hashCode() : 0);
         return hash;
     }
 

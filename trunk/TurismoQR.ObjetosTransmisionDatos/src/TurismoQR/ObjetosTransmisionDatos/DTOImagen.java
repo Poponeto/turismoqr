@@ -6,7 +6,6 @@
 package TurismoQR.ObjetosTransmisionDatos;
 
 import TurismoQR.ObjetosNegocio.Informacion.Imagen;
-import java.util.Objects;
 
 /**
  *
@@ -45,34 +44,37 @@ public class DTOImagen implements IDTO<Imagen> {
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (obj == null) {
+    public boolean equals(Object obj)
+    {
+        if (obj == null)
+        {
             return false;
         }
-        if (getClass() != obj.getClass()) {
+        if (getClass() != obj.getClass())
+        {
             return false;
         }
         final DTOImagen other = (DTOImagen) obj;
-        if (!Objects.equals(this.informacion, other.informacion)) {
+        if ((this.extension == null) ? (other.extension != null) : !this.extension.equals(other.extension))
+        {
             return false;
         }
-        if (!Objects.equals(this.extension, other.extension)) {
-            return false;
-        }
-        if (!Objects.equals(this.url, other.url)) {
+        if ((this.url == null) ? (other.url != null) : !this.url.equals(other.url))
+        {
             return false;
         }
         return true;
     }
 
     @Override
-    public int hashCode() {
+    public int hashCode()
+    {
         int hash = 7;
-        hash = 67 * hash + Objects.hashCode(this.informacion);
-        hash = 67 * hash + Objects.hashCode(this.extension);
-        hash = 67 * hash + Objects.hashCode(this.url);
+        hash = 11 * hash + (this.extension != null ? this.extension.hashCode() : 0);
+        hash = 11 * hash + (this.url != null ? this.url.hashCode() : 0);
         return hash;
     }
+
 
     
 }

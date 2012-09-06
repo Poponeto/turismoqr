@@ -9,14 +9,20 @@
     </head>
 
     <body>
-        <div>
+    <LINK rel="stylesheet" type="text/css" href="PaginaDeInicio/HojasDeEstilo/Home.css">
+    <div id="Contenedor">
+        <div id="Cabecera">
             <h1>Header</h1>
         </div>
-        <div>
+        <div id="Contenido">
             <h1>Banner</h1>
         </div>
-        <div id="homeLogin">
+        <div id="Menu">
             <h1>Login</h1>
         </div>
-    </body>
+        <div id="Pie">
+            <h1>Pie</h1>
+        </div>
+    </div>
+</body>
 </html>

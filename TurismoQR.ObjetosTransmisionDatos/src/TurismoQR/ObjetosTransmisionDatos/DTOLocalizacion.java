@@ -6,7 +6,6 @@
 package TurismoQR.ObjetosTransmisionDatos;
 
 import TurismoQR.ObjetosNegocio.Punto.Localizacion;
-import java.util.Objects;
 
 /**
  *
@@ -34,30 +33,36 @@ public class DTOLocalizacion implements IDTO<Localizacion> {
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (obj == null) {
+    public boolean equals(Object obj)
+    {
+        if (obj == null)
+        {
             return false;
         }
-        if (getClass() != obj.getClass()) {
+        if (getClass() != obj.getClass())
+        {
             return false;
         }
         final DTOLocalizacion other = (DTOLocalizacion) obj;
-        if (!Objects.equals(this.latitud, other.latitud)) {
+        if ((this.latitud == null) ? (other.latitud != null) : !this.latitud.equals(other.latitud))
+        {
             return false;
         }
-        if (!Objects.equals(this.longitud, other.longitud)) {
+        if ((this.longitud == null) ? (other.longitud != null) : !this.longitud.equals(other.longitud))
+        {
             return false;
         }
         return true;
     }
 
     @Override
-    public int hashCode() {
+    public int hashCode()
+    {
         int hash = 5;
-        hash = 47 * hash + Objects.hashCode(this.latitud);
-        hash = 47 * hash + Objects.hashCode(this.longitud);
+        hash = 41 * hash + (this.latitud != null ? this.latitud.hashCode() : 0);
+        hash = 41 * hash + (this.longitud != null ? this.longitud.hashCode() : 0);
         return hash;
     }
 
-    
+
 }

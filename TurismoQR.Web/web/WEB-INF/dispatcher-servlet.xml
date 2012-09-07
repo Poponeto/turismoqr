@@ -19,10 +19,11 @@
         <property name="mappings">
             <props>
                 <prop key="home.htm">homeController</prop>
-                <!--prop key="login"> ControladorLogin</prop-->
+                <prop key="/login"> ControladorLogin</prop>
                 <!--prop key="*">homeController</prop-->
             </props>
         </property>
+        <property name="defaultHandler" ref="homeController"/>
     </bean>
     
     <bean id="viewResolver"
@@ -36,5 +37,5 @@
     <bean name="homeController"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController"
           p:viewName="home" />
-    
+
 </beans>

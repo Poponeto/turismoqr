@@ -8,7 +8,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-   "http://www.w3.org/TR/html4/loose.dtd">
+    "http://www.w3.org/TR/html4/loose.dtd">
 
 <html>
     <head>
@@ -17,10 +17,11 @@
     </head>
     <body>
         <div>
-            <form:form commandName="login" method="POST" name="login">
-                Username: <form:input path="username"/>
-                Password: <form:password path="password"/>
-            </form:form>
+            Ingresar como Turista!
+        </div>
+        <div>
+                Username:
+                Password:
         </div>
     </body>
 </html>

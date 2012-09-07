@@ -19,6 +19,8 @@
         <property name="mappings">
             <props>
                 <prop key="home.htm">homeController</prop>
+                <!--prop key="login"> ControladorLogin</prop-->
+                <!--prop key="*">homeController</prop-->
             </props>
         </property>
     </bean>
@@ -29,7 +31,7 @@
           p:suffix=".jsp" />
     
     <!--
-    The index controller.
+    The home controller.
     -->
     <bean name="homeController"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController"

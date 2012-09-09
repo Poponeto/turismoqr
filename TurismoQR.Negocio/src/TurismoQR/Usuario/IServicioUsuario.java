@@ -9,6 +9,6 @@ package TurismoQR.Usuario;
  *
  * @author Federico
  */
-public interface IServicioUsuario {
+public interface IServicioUsuario  {
 
 }

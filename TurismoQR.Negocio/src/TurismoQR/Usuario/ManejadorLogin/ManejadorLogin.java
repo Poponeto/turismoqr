@@ -2,10 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package TurismoQR.Usuario.ManejadorLogin;
-
-
 
 import TurismoQR.AccesoDatos.AccesoDatosUsuario;
 import TurismoQR.ObjetosNegocio.Usuarios.Usuario;
@@ -17,27 +14,21 @@ import org.springframework.stereotype.Service;
  *
  * @author Federico
  */
-
 @Service
-public class ManejadorLogin {
+public class ManejadorLogin
+{
 
     @Resource
     private AccesoDatosUsuario accesoDatosUsuario;
 
     public Boolean esUsuarioDelSistema(DTOUsuario dtoUsuario)
     {
-        try
-        {
-            Usuario usuario = accesoDatosUsuario.buscarUsuario(dtoUsuario.getNombreUsuario(), dtoUsuario.getContraseña());
 
-            if (usuario != null)
-            {
-                return true;
-            }
-        }
-        catch(Exception e)
+        Usuario usuario = accesoDatosUsuario.buscarUsuario(dtoUsuario.getNombreUsuario(), dtoUsuario.getContraseña());
+
+        if (usuario != null)
         {
-            return false;
+            return true;
         }
 
         return false;

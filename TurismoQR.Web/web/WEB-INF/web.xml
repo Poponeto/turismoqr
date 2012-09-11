@@ -10,6 +10,11 @@
         <param-name>configuracionProyectos</param-name>
         <param-value>classpath:TurismoQR/**/*SpringConfig.xml</param-value>
     </context-param>
+    <context-param>
+        <description>Configuraciones de seguridad</description>
+        <param-name>securityContext</param-name>
+        <param-value>/WEB-INF/securityContext.xml</param-value>
+    </context-param>
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
@@ -30,4 +35,11 @@
     <welcome-file-list>
         <welcome-file>redirect.jsp</welcome-file>
     </welcome-file-list>
+    <login-config>
+        <auth-method>FORM</auth-method>
+        <form-login-config>
+            <form-login-page>/WEB-INF/jsp/Login.jsp</form-login-page>
+            <form-error-page/>
+        </form-login-config>
+    </login-config>
 </web-app>

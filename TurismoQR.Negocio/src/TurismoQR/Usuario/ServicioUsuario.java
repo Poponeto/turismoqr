@@ -5,7 +5,9 @@
 
 package TurismoQR.Usuario;
 
+import TurismoQR.ObjetosNegocio.Usuarios.Usuario;
 import TurismoQR.ObjetosTransmisionDatos.DTOUsuario;
+import TurismoQR.Traductores.ITraductor;
 import TurismoQR.Usuario.ManejadorLogin.ManejadorLogin;
 import javax.annotation.Resource;
 import org.springframework.dao.DataAccessException;
@@ -21,11 +23,15 @@ import org.springframework.transaction.annotation.Transactional;
 public class ServicioUsuario implements IServicioUsuario {
 
     @Resource
-    ManejadorLogin manejadorLogin;
+    private ManejadorLogin manejadorLogin;
+    @Resource
+    private ITraductor traductor;
 
     public DTOUsuario cargarUsuario(String nombreUsuario) throws UsernameNotFoundException, DataAccessException
     {
-        return manejadorLogin.cargarUsuario(nombreUsuario);
+        Usuario usuario = manejadorLogin.cargarUsuario(nombreUsuario);
+
+        return (DTOUsuario)traductor.traducir(usuario);
     }
 
 

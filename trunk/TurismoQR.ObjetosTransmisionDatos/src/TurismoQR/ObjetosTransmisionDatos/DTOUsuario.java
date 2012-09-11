@@ -6,7 +6,9 @@
 package TurismoQR.ObjetosTransmisionDatos;
 
 import java.util.Collection;
+import java.util.HashSet;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.GrantedAuthorityImpl;
 import org.springframework.security.core.userdetails.UserDetails;
 /**
  *
@@ -16,10 +18,12 @@ public class DTOUsuario implements UserDetails{
 
     private String contraseña;
     private String nombreUsuario;
+    private Collection<GrantedAuthority> autoridades = new HashSet<GrantedAuthority>();
 
-    private void agregarPermiso(String permiso)
+    public void agregarPermiso(String permiso)
     {
-
+        GrantedAuthority autoridad = new GrantedAuthorityImpl(permiso);
+        autoridades.add(autoridad);
     }
 
     public String getContraseña()
@@ -44,7 +48,7 @@ public class DTOUsuario implements UserDetails{
 
     public Collection<GrantedAuthority> getAuthorities()
     {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return autoridades;
     }
 
     public String getPassword()

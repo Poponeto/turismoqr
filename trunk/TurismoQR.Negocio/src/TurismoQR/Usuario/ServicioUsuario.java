@@ -5,9 +5,9 @@
 
 package TurismoQR.Usuario;
 
-import TurismoQR.ObjetosNegocio.Usuarios.Usuario;
 import TurismoQR.ObjetosTransmisionDatos.DTOUsuario;
 import TurismoQR.Usuario.ManejadorLogin.ManejadorLogin;
+import javax.annotation.Resource;
 import org.springframework.dao.DataAccessException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,23 +20,12 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class ServicioUsuario implements IServicioUsuario {
 
+    @Resource
     ManejadorLogin manejadorLogin;
 
     public DTOUsuario cargarUsuario(String nombreUsuario) throws UsernameNotFoundException, DataAccessException
     {
-        Usuario usuario = manejadorLogin.cargarUsuario(nombreUsuario);
-
-        if(usuario == null)
-        {
-           throw new UsernameNotFoundException("No existe un usuario con este nombre y password");
-        }
-
-        DTOUsuario dtoUsuario = new DTOUsuario();
-
-
-        dtoUsuario.setContraseña(usuario.getContraseña());
-        dtoUsuario.setNombreUsuario(usuario.getContraseña());
-
+        return manejadorLogin.cargarUsuario(nombreUsuario);
     }
 
 

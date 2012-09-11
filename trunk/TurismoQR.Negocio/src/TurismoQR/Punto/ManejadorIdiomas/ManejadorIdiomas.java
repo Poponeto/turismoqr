@@ -21,7 +21,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class ManejadorIdiomas
 {
-    private Idioma idioma;
 
     @Resource
     private AccesoDatosIdioma accesoDatosIdioma;

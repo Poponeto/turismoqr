@@ -10,32 +10,7 @@
 
     <context:annotation-config/>
     <context:component-scan base-package="Controladores">
-
-        <bean id="controladorLogin"
-        class="org.acegisecurity.providers.ProviderManager">
-            <property name="proveedores">
-                <list>
-                    <ref local="logueoBD" />
-                    <ref local="autenticacionAnonima" />
-                </list>
-            </property>
-        </bean>
         
-        <bean id="autenticacionAnonima" class=
-        "org.acegisecurity.providers.anonymous.AnonymousAuthenticationProvider">
-            <property name="key" value="usuarioAnonimo" />
-        </bean>
-
-        <bean id="logueoBD"
-        class="org.acegisecurity.providers.dao.DaoAuthenticationProvider">
-            <property name="passwordEncoder" ref="passwordEncoder" />
-            <property name="userDetailsService" ref="acegiUserDetailsService" />
-        </bean>
-        
-        <bean id="passwordEncoder"
-        class="org.acegisecurity.providers.encoding.Md5PasswordEncoder">
-            <property name="encodeHashAsBase64" value="true" />
-        </bean>
             <!--bean id="propertyConfigurer"
           class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"
           p:location="/WEB-INF/jdbc.properties" />

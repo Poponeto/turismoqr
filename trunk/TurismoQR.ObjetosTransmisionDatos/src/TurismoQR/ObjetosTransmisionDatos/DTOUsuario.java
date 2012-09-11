@@ -14,7 +14,7 @@ import org.springframework.security.core.userdetails.UserDetails;
  *
  * @author Federico
  */
-public class DTOUsuario implements UserDetails{
+public class DTOUsuario implements UserDetails, IDTO{
 
     private String contraseña;
     private String nombreUsuario;

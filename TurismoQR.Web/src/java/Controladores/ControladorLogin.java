@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 @SessionAttributes
 public class ControladorLogin implements UserDetailsService {
 
+    
     IServicioUsuario servicioUsuario;
 
     @Autowired
@@ -37,7 +38,7 @@ public class ControladorLogin implements UserDetailsService {
 
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException, DataAccessException
     {
-        return null;
+        return servicioUsuario.cargarUsuario(username);
     }
 
  

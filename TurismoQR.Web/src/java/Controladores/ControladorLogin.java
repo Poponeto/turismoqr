@@ -1,15 +1,14 @@
 package Controladores;
 
 
-import TurismoQR.ObjetosTransmisionDatos.DTOUsuario;
-import TurismoQR.Usuario.ManejadorLogin.ManejadorLogin;
+import TurismoQR.Usuario.IServicioUsuario;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.Errors;
-import org.springframework.validation.Validator;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 /*
@@ -25,35 +24,21 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 @Controller
 @RequestMapping("/Login")
 @SessionAttributes
-public class ControladorLogin implements Validator {
+public class ControladorLogin implements UserDetailsService {
 
-    private ManejadorLogin manejadorLogin;
+    IServicioUsuario servicioUsuario;
 
     @Autowired
-    public void setManejadorLogin(ManejadorLogin manejadorLogin)
+    public void setServicioUsuario(IServicioUsuario servicioUsuario)
     {
-        this.manejadorLogin = manejadorLogin;
+        this.servicioUsuario = servicioUsuario;
     }
 
-    @RequestMapping(method = RequestMethod.POST)
-    public String onSubmit(@ModelAttribute("Usuario") DTOUsuario dtoUsuario)
+
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException, DataAccessException
     {
-        manejadorLogin.esUsuarioDelSistema(dtoUsuario);
-        return "";
+        return null;
     }
 
-    public boolean supports(Class<?> type)
-    {
-        return DTOUsuario.class.equals(type);
-    }
-
-    public void validate(Object comando, Errors errors)
-    {
-        DTOUsuario usuario = (DTOUsuario)comando;
-
-        if (manejadorLogin.esUsuarioDelSistema(usuario))
-        {
-            errors.reject("usuario.incorrecto");
-        }
-    }
+ 
 }

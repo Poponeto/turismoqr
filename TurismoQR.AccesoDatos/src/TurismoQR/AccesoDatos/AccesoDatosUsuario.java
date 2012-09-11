@@ -26,13 +26,12 @@ public class AccesoDatosUsuario extends AccesoDatos  {
         super(sessionFactory);
     }
 
-    public Usuario buscarUsuario(String nombreUsuario, String password)
+    public Usuario buscarUsuario(String nombreUsuario)
     {
         DetachedCriteria criterioDeBusqueda = DetachedCriteria.forClass(Usuario.class);
         DetachedCriteria buscarUsuario = criterioDeBusqueda.createCriteria("BuscarUsuario");
 
-        buscarUsuario.add(Restrictions.and(Restrictions.eq("password", password), 
-                                           Restrictions.eq("nombreDeUsuario", nombreUsuario)));
+        buscarUsuario.add(Restrictions.eq("nombreUsuario", nombreUsuario));
 
         return BuscarObjeto(buscarUsuario);
     }

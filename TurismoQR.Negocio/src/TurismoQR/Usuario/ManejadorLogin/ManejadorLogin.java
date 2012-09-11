@@ -21,16 +21,11 @@ public class ManejadorLogin
     @Resource
     private AccesoDatosUsuario accesoDatosUsuario;
 
-    public Boolean esUsuarioDelSistema(DTOUsuario dtoUsuario)
+    public Usuario cargarUsuario(String nombreUsuario)
     {
 
-        Usuario usuario = accesoDatosUsuario.buscarUsuario(dtoUsuario.getNombreUsuario(), dtoUsuario.getContraseña());
+        Usuario usuario = accesoDatosUsuario.buscarUsuario(nombreUsuario);
 
-        if (usuario != null)
-        {
-            return true;
-        }
-
-        return false;
+        return usuario;
     }
 }

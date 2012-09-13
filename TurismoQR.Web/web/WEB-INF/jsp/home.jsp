@@ -9,20 +9,23 @@
     </head>
 
     <body>
-    <LINK rel="stylesheet" type="text/css" href="PaginaDeInicio/HojasDeEstilo/Home.css">
-    <div id="Contenedor">
-        <div id="Cabecera">
-            <h1>Turismo QR</h1>
+        <LINK rel="stylesheet" type="text/css" href="PaginaDeInicio/HojasDeEstilo/Home.css">
+        <div id="Contenedor">
+            <div id="Cabecera">
+                <h1>Turismo QR</h1>
+            </div>
+            <div id="Contenido">
+                <h1>Banner</h1>
+            </div>
+            <div id="Menu">
+                <%@ include  file="Login.jsp" %>
+                <div>
+                    Registro Cliente
+                </div>>
+            </div>
+            <div id="Pie">
+                <h1>Pie</h1>
+            </div>
         </div>
-        <div id="Contenido">
-            <h1>Banner</h1>
-        </div>
-        <div id="Menu">
-            <%@ include  file="Login.jsp" %>
-        </div>
-        <div id="Pie">
-            <h1>Pie</h1>
-        </div>
-    </div>
-</body>
+    </body>
 </html>

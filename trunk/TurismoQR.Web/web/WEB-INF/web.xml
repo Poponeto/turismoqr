@@ -15,6 +15,15 @@
         <param-name>securityContext</param-name>
         <param-value>/WEB-INF/securityContext.xml</param-value>
     </context-param>
+    <filter>
+        <description>Filtro que delega a otros filstros</description>
+        <filter-name>filtroDelegadorDeSeguridad</filter-name>
+        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>filtroDelegadorDeSeguridad</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
@@ -38,9 +47,8 @@
     <login-config>
         <auth-method>FORM</auth-method>
         <form-login-config>
-            <form-login-page>/WEB-INF/jsp/Login.jsp</form-login-page>
+            <form-login-page>/WEB-INF/jsp/home.jsp</form-login-page>
             <form-error-page/>
-
         </form-login-config>
     </login-config>
 </web-app>

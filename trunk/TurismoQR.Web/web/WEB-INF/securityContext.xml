@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:security="http://www.springframework.org/schema/security"
        xmlns:aop="http://www.springframework.org/schema/aop"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:flow="http://www.springframework.org/schema/webflow-config"
@@ -22,32 +23,93 @@
           http://www.springframework.org/schema/osgi http://www.springframework.org/schema/osgi/spring-osgi-3.0.xsd
           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
           http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
-">
+          http://www.springframework.org/schema/security
+          http://www.springframework.org/schema/security/spring-security-3.0.3.xsd">
+
+    <bean id="filtroDelegadorDeSeguridad" class="org.springframework.security.web.FilterChainProxy">
+        <security:filter-chain-map path-type="ant">
+            <security:filter-chain pattern="/**" filters="
+            filtroDePersistenciaDeContexto,
+            filtroDeAutenticacion,
+            filtroDeAutenticacionAnonima,
+            filtroDeManejoDeExcepciones,
+            filtroInterceptorDeSeguridad" />
+        </security:filter-chain-map>
+    </bean>
+
+    <bean id="filtroDePersistenciaDeContexto"
+    class="org.springframework.security.web.context.SecurityContextPersistenceFilter">
+        <property name='securityContextRepository'>
+            <bean class='org.springframework.security.web.context.HttpSessionSecurityContextRepository'>
+                <property name='allowSessionCreation' value='false' />
+            </bean>
+        </property>
+    </bean>
+
+    <bean id="filtroDeManejoDeExcepciones"
+     class="org.springframework.security.web.access.ExceptionTranslationFilter">
+        <property name="authenticationEntryPoint" ref="puntoDeAccesoDeAutenticacion"/>
+        <property name="accessDeniedHandler" ref="manejadorDeAccesoDenegado"/>
+    </bean>
+
+    <bean id="filtroInterceptorDeSeguridad"
+        class="org.springframework.security.web.access.intercept.FilterSecurityInterceptor">
+        <property name="authenticationManager" ref="controladorLogin"/>
+        <property name="accessDecisionManager" ref="accessDecisionManager"/>
+        <property name="securityMetadataSource">
+            <security:filter-security-metadata-source>
+                <!--security:intercept-url pattern="/**" access="ROL_TURISTA"/-->
+                <security:intercept-url pattern="/**" access="ROL_TURISTA"/>
+            </security:filter-security-metadata-source>
+        </property>
+    </bean>
+
+    <bean id="filtroDeAutenticacion" class=
+"org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter">
+        <property name="authenticationManager" ref="controladorLogin"/>
+        <property name="filterProcessesUrl" value="/login"/>
+    </bean>
+
+<bean id="filtroDeAutenticacionAnonima"
+    class="org.springframework.security.web.authentication.AnonymousAuthenticationFilter">
+  <property name="key" value="usuarioAnonimo"/>
+  <property name="userAttribute" value="usuarioAnonimo,ROL_TURISTA"/>
+</bean>
+
+    <bean id="puntoDeAccesoDeAutenticacion"
+     class="org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint">
+        <property name="loginFormUrl" value="/home.htm"/>
+    </bean>
+    
+    <bean id="manejadorDeAccesoDenegado"
+     class="org.springframework.security.web.access.AccessDeniedHandlerImpl">
+    </bean>
+
 
     <bean id="controladorLogin"
         class="org.acegisecurity.providers.ProviderManager">
-            <property name="proveedores">
-                <list>
-                    <ref local="logueoBD" />
-                    <ref local="autenticacionAnonima" />
-                </list>
-            </property>
-        </bean>
+        <property name="proveedores">
+            <list>
+                <ref local="logueoBD" />
+                <ref local="autenticacionAnonima" />
+            </list>
+        </property>
+    </bean>
 
-        <bean id="autenticacionAnonima" class=
+    <bean id="autenticacionAnonima" class=
         "org.acegisecurity.providers.anonymous.AnonymousAuthenticationProvider">
-            <property name="key" value="usuarioAnonimo" />
-        </bean>
+        <property name="key" value="usuarioAnonimo" />
+    </bean>
 
-        <bean id="logueoBD"
+    <bean id="logueoBD"
         class="org.acegisecurity.providers.dao.DaoAuthenticationProvider">
-            <property name="passwordEncoder" ref="passwordEncoder" />
-            <property name="userDetailsService" ref="acegiUserDetailsService" />
-        </bean>
+        <property name="passwordEncoder" ref="passwordEncoder" />
+        <property name="userDetailsService" ref="acegiUserDetailsService" />
+    </bean>
 
-        <bean id="passwordEncoder"
+    <bean id="passwordEncoder"
         class="org.acegisecurity.providers.encoding.Md5PasswordEncoder">
-            <property name="encodeHashAsBase64" value="true" />
-        </bean>
+        <property name="encodeHashAsBase64" value="true" />
+    </bean>
 
 </beans>

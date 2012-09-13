@@ -54,7 +54,7 @@
 
     <bean id="filtroInterceptorDeSeguridad"
         class="org.springframework.security.web.access.intercept.FilterSecurityInterceptor">
-        <property name="authenticationManager" ref="controladorLogin"/>
+        <property name="authenticationManager" ref="proveedorDeAutenticacion"/>
         <property name="accessDecisionManager" ref="accessDecisionManager"/>
         <property name="securityMetadataSource">
             <security:filter-security-metadata-source>
@@ -66,7 +66,7 @@
 
     <bean id="filtroDeAutenticacion" class=
 "org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter">
-        <property name="authenticationManager" ref="controladorLogin"/>
+        <property name="authenticationManager" ref="proveedorDeAutenticacion"/>
         <property name="filterProcessesUrl" value="/login"/>
         <property name="authenticationSuccessHandler" value="manejadorDeAutenticacionPorURL"/>
     </bean>
@@ -92,29 +92,29 @@
     </bean>
 
 
-    <bean id="controladorLogin"
-        class="org.acegisecurity.providers.ProviderManager">
+    <bean id="proveedorDeAutenticacion"
+        class="org.springframework.security.authentication.ProviderManager">
         <property name="proveedores">
             <list>
-                <ref local="logueoBD" />
+                <ref local="autenticacionPorBaseDeDatos" />
                 <ref local="autenticacionAnonima" />
             </list>
         </property>
     </bean>
 
     <bean id="autenticacionAnonima" class=
-        "org.acegisecurity.providers.anonymous.AnonymousAuthenticationProvider">
+        "org.springframework.security.authentication.AnonymousAuthenticationProvider">
         <property name="key" value="usuarioAnonimo" />
     </bean>
 
-    <bean id="logueoBD"
-        class="org.acegisecurity.providers.dao.DaoAuthenticationProvider">
+    <bean id="autenticacionPorBaseDeDatos"
+        class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">
         <property name="passwordEncoder" ref="passwordEncoder" />
-        <property name="userDetailsService" ref="acegiUserDetailsService" />
+        <property name="userDetailsService" ref="ControladorLogin" />
     </bean>
-
+    
     <bean id="passwordEncoder"
-        class="org.acegisecurity.providers.encoding.Md5PasswordEncoder">
+        class="org.springframework.security.authentication.encoding.Md5PasswordEncoder">
         <property name="encodeHashAsBase64" value="true" />
     </bean>
 

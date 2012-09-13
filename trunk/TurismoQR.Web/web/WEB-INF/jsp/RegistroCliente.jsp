@@ -1,6 +1,6 @@
 <%-- 
-    Document   : PaginaAdministracion
-    Created on : Sep 13, 2012, 10:37:56 AM
+    Document   : RegistroCliente
+    Created on : Sep 13, 2012, 12:36:15 PM
     Author     : ftacchini
 --%>
 

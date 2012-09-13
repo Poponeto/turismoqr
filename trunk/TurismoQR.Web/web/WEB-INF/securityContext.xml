@@ -68,13 +68,19 @@
 "org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter">
         <property name="authenticationManager" ref="controladorLogin"/>
         <property name="filterProcessesUrl" value="/login"/>
+        <property name="authenticationSuccessHandler" value="manejadorDeAutenticacionPorURL"/>
     </bean>
 
-<bean id="filtroDeAutenticacionAnonima"
+    <bean id="filtroDeAutenticacionAnonima"
     class="org.springframework.security.web.authentication.AnonymousAuthenticationFilter">
-  <property name="key" value="usuarioAnonimo"/>
-  <property name="userAttribute" value="usuarioAnonimo,ROL_TURISTA"/>
-</bean>
+        <property name="key" value="usuarioAnonimo"/>
+        <property name="userAttribute" value="usuarioAnonimo,ROL_TURISTA"/>
+    </bean>
+
+    <bean id="manejadorDeAutenticacionPorURL"
+     class="org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler">
+        <property name="defaultTargetUrl" value="/Administracion"/>
+    </bean>
 
     <bean id="puntoDeAccesoDeAutenticacion"
      class="org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint">

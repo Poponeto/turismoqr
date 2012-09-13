@@ -16,7 +16,7 @@
         <param-value>/WEB-INF/securityContext.xml</param-value>
     </context-param>
     <filter>
-        <description>Filtro que delega a otros filstros</description>
+        <description>Filtro que delega a otros filtros</description>
         <filter-name>filtroDelegadorDeSeguridad</filter-name>
         <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
     </filter>
@@ -44,11 +44,4 @@
     <welcome-file-list>
         <welcome-file>redirect.jsp</welcome-file>
     </welcome-file-list>
-    <login-config>
-        <auth-method>FORM</auth-method>
-        <form-login-config>
-            <form-login-page>/WEB-INF/jsp/home.jsp</form-login-page>
-            <form-error-page/>
-        </form-login-config>
-    </login-config>
 </web-app>

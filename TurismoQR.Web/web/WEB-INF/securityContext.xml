@@ -55,14 +55,25 @@
     <bean id="filtroInterceptorDeSeguridad"
         class="org.springframework.security.web.access.intercept.FilterSecurityInterceptor">
         <property name="authenticationManager" ref="proveedorDeAutenticacion"/>
-        <property name="accessDecisionManager" ref="accessDecisionManager"/>
+        <property name="accessDecisionManager" ref="accesoPorConcensoUnanime"/>
         <property name="securityMetadataSource">
             <security:filter-security-metadata-source>
-                <!--security:intercept-url pattern="/**" access="ROL_TURISTA"/-->
+                <security:intercept-url pattern="/administracion/**" access="ROL_USUARIO"/>
                 <security:intercept-url pattern="/**" access="ROL_TURISTA"/>
             </security:filter-security-metadata-source>
         </property>
     </bean>
+
+    <bean id="accesoPorConcensoUnanime"
+        class="org.springframework.security.access.vote.UnanimousBased">
+        <property name="decisionVoters">
+            <list>
+                <bean class="org.springframework.security.access.vote.RoleVoter">
+                    <property name="rolePrefix" value="ROL_"/>
+                </bean>
+            </list>
+        </property>
+    </bean>    
 
     <bean id="filtroDeAutenticacion" class=
 "org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter">
@@ -79,7 +90,7 @@
 
     <bean id="manejadorDeAutenticacionPorURL"
      class="org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler">
-        <property name="defaultTargetUrl" value="/Administracion"/>
+        <property name="defaultTargetUrl" value="/administracion/inicio"/>
     </bean>
 
     <bean id="puntoDeAccesoDeAutenticacion"

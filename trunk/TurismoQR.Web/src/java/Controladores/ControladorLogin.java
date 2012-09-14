@@ -29,11 +29,11 @@ public class ControladorLogin implements UserDetailsService {
     
     IServicioUsuario servicioUsuario;
 
-    @Autowired
-    public void setServicioUsuario(IServicioUsuario servicioUsuario)
-    {
-        this.servicioUsuario = servicioUsuario;
-    }
+    //@Autowired
+    //public void setServicioUsuario(IServicioUsuario servicioUsuario)
+    //{
+    //    this.servicioUsuario = servicioUsuario;
+    //}
 
 
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException, DataAccessException

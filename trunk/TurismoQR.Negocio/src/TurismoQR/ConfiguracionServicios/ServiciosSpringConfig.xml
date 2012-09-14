@@ -24,9 +24,11 @@
           http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
 ">
 
-    <tx:annotation-driven transaction-manager="txManager"/>
+    <!--tx:annotation-driven transaction-manager="txManager"/>
 
     <bean id="txManager"
-        class="org.springframework.transaction.jta.JtaTransactionManager"/>
-
+        class="org.springframework.transaction.jta.JtaTransactionManager"/-->
+    <context:annotation-config/>
+    <context:component-scan base-package="TurismoQR.Punto"/>
+    <context:component-scan base-package="TurismoQR.Usuario"/>
 </beans>

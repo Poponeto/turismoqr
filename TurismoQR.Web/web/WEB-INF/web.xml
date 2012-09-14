@@ -3,17 +3,11 @@
     <context-param>
         <description>Archivo de configuracion de spring de la web.</description>
         <param-name>contextConfigLocation</param-name>
-        <param-value>/WEB-INF/applicationContext.xml</param-value>
-    </context-param>
-    <context-param>
-        <description>Archivos de configuracion de spring en proyectos.</description>
-        <param-name>configuracionProyectos</param-name>
-        <param-value>classpath:TurismoQR/**/*SpringConfig.xml</param-value>
-    </context-param>
-    <context-param>
-        <description>Configuraciones de seguridad</description>
-        <param-name>securityContext</param-name>
-        <param-value>/WEB-INF/securityContext.xml</param-value>
+        <param-value>
+            /WEB-INF/applicationContext.xml
+            classpath:TurismoQR/**/*SpringConfig.xml
+            /WEB-INF/securityContext.xml
+        </param-value>
     </context-param>
     <filter>
         <description>Filtro que delega a otros filtros</description>

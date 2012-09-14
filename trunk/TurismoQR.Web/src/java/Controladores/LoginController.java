@@ -2,14 +2,11 @@ package Controladores;
 
 
 import TurismoQR.Usuario.IServicioUsuario;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.stereotype.Service;
 
 /*
  * To change this template, choose Tools | Templates
@@ -21,10 +18,8 @@ import org.springframework.web.bind.annotation.SessionAttributes;
  * @author Federico
  */
 
-@Controller
-@RequestMapping("/Login")
-@SessionAttributes
-public class ControladorLogin implements UserDetailsService {
+@Service
+public class LoginController implements UserDetailsService {
 
     
     IServicioUsuario servicioUsuario;

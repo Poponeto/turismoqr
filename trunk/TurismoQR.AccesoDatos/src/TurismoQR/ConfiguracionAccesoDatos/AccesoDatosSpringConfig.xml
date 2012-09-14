@@ -7,6 +7,8 @@
           http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
 ">
     <!--tx:annotation-driven transaction-manager="txManager"/-->
+    <context:annotation-config/>
+    <context:component-scan base-package="TurismoQR.AccesoDatos"/>
 
     <bean id="sessionFactory"
 class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">

@@ -2,6 +2,7 @@ package Controladores;
 
 
 import TurismoQR.Usuario.IServicioUsuario;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -18,17 +19,17 @@ import org.springframework.stereotype.Service;
  * @author Federico
  */
 
-@Service
+@Service("loginController")
 public class LoginController implements UserDetailsService {
 
     
     IServicioUsuario servicioUsuario;
 
-    //@Autowired
-    //public void setServicioUsuario(IServicioUsuario servicioUsuario)
-    //{
-    //    this.servicioUsuario = servicioUsuario;
-    //}
+    @Autowired
+    public void LoginController(IServicioUsuario servicioUsuario)
+    {
+        this.servicioUsuario = servicioUsuario;
+    }
 
 
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException, DataAccessException

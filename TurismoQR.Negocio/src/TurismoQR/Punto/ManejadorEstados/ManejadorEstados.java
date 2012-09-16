@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
  * @author ftacchini
  */
 
-@Service
+@Service("manejadorEstados")
 public class ManejadorEstados {
 
     public Boolean esEstadoValidoConsulta(IEstado estado)

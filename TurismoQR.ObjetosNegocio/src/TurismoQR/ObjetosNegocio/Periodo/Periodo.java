@@ -38,12 +38,12 @@ public abstract class Periodo implements IObjetoNegocio, IPeriodo
         this.fechaInicioPeriodo = fechaInicioPeriodo;
     }
 
-    public Date getFechafinPeriodo()
+    public Date getFechaFinPeriodo()
     {
         return fechaFinPeriodo;
     }
 
-    public void setFechafinPeriodo(Date fechafinPeriodo)
+    public void setFechaFinPeriodo(Date fechafinPeriodo)
     {
         this.fechaFinPeriodo = fechafinPeriodo;
     }

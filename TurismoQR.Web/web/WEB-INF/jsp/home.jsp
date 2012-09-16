@@ -21,7 +21,7 @@
                 <%@ include  file="Login.jsp" %>
                 <div>
                     Registro Cliente
-                </div>>
+                </div>
             </div>
             <div id="Pie">
                 <h1>Pie</h1>

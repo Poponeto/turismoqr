@@ -59,7 +59,8 @@
         <property name="securityMetadataSource">
             <security:filter-security-metadata-source>
                 <security:intercept-url pattern="/administracion/**" access="ROL_USUARIO"/>
-                <security:intercept-url pattern="/**" access="ROL_TURISTA"/>
+                <security:intercept-url pattern="/home.htm" access="ROL_TURISTA"/>
+                <!--security:intercept-url pattern="/**" access="denyAll"/-->
             </security:filter-security-metadata-source>
         </property>
     </bean>
@@ -79,7 +80,9 @@
 "org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter">
         <property name="authenticationManager" ref="proveedorDeAutenticacion"/>
         <property name="filterProcessesUrl" value="/login"/>
-        <property name="authenticationSuccessHandler" value="manejadorDeAutenticacionPorURL"/>
+        <property name="passwordParameter" value="password"/>
+        <property name="usernameParameter" value="usuario"/>
+        <property name="authenticationSuccessHandler" ref="manejadorDeAutenticacionPorURL"/>
     </bean>
 
     <bean id="filtroDeAutenticacionAnonima"
@@ -105,7 +108,7 @@
 
     <bean id="proveedorDeAutenticacion"
         class="org.springframework.security.authentication.ProviderManager">
-        <property name="proveedores">
+        <property name="providers">
             <list>
                 <ref local="autenticacionPorBaseDeDatos" />
                 <ref local="autenticacionAnonima" />
@@ -121,7 +124,7 @@
     <bean id="autenticacionPorBaseDeDatos"
         class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">
         <property name="passwordEncoder" ref="passwordEncoder" />
-        <property name="userDetailsService" ref="ControladorLogin" />
+        <property name="userDetailsService" ref="loginController" />
     </bean>
     
     <bean id="passwordEncoder"

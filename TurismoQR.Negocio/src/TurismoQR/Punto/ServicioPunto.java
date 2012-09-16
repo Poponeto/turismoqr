@@ -13,6 +13,8 @@ import TurismoQR.ObjetosNegocio.Punto.Punto;
 import TurismoQR.ObjetosTransmisionDatos.DTOImagen;
 import TurismoQR.ObjetosTransmisionDatos.DTOInformacionEnIdioma;
 import TurismoQR.ObjetosTransmisionDatos.DTOPunto;
+import TurismoQR.ObjetosTransmisionDatos.DTOCodigoQR;
+import TurismoQR.Punto.GeneradorCodigo.GeneradorCodigoQR;
 import TurismoQR.Punto.ManejadorEstados.ManejadorEstados;
 import TurismoQR.Punto.ManejadorIdiomas.ManejadorIdiomas;
 import TurismoQR.Traductores.ITraductor;
@@ -34,6 +36,8 @@ public class ServicioPunto implements IServicioPunto {
     private IAccesoDatos accesoDatos;
     @Resource
     private ITraductor traductor;
+    @Resource
+    private GeneradorCodigoQR generadorCodigo;
     
     public DTOPunto ConsultarPuntoInteres(String idPuntoInteres, String nombreIdioma)
     {
@@ -54,6 +58,21 @@ public class ServicioPunto implements IServicioPunto {
         }
 
         return null;
+    }
+    
+    /**
+     * Genera un codigo QR en base al Id de un punto de interes
+     * @param idPuntoInteres Id del punto de interes para el cual se creara el codigo QR.
+     * @return DTOCodigoQR DTO con datos correspondientes al codigo QR generado.
+     */
+    public DTOCodigoQR GenerarCodigoQR(String idPuntoInteres, int tamaño, String rutaImagen, String formatoImagen)
+    {
+        String rutaCodigoQR = generadorCodigo.generarCodigoQR(idPuntoInteres, tamaño, rutaImagen, formatoImagen);
+        
+        DTOCodigoQR dtoCodigoQR = new DTOCodigoQR();
+        dtoCodigoQR.setRutaImagenCodigo(rutaCodigoQR);
+        
+        return dtoCodigoQR;
     }
 
     private Collection<DTOImagen> crearDTOImagenes(Collection<Imagen> imagenes, final Idioma idioma)

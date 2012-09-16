@@ -21,24 +21,39 @@ import TurismoQR.Traductores.ITraductor;
 import java.util.ArrayList;
 import java.util.Collection;
 import javax.annotation.Resource;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
  * @author Federico
  */
+@Transactional
+@Service
 public class ServicioPunto implements IServicioPunto {
 
-    @Resource
-    private ManejadorIdiomas manejadorIdioma;
-    @Resource
-    private ManejadorEstados manejadorEstado;
-    @Resource
-    private IAccesoDatos accesoDatos;
-    @Resource
-    private ITraductor traductor;
-    @Resource
-    private GeneradorCodigoQR generadorCodigo;
     
+    private ManejadorIdiomas manejadorIdioma;
+    
+    private ManejadorEstados manejadorEstado;
+    
+    private IAccesoDatos accesoDatos;
+    
+    private ITraductor traductor;
+
+    private GeneradorCodigoQR generadorCodigo;
+    @Autowired
+    public ServicioPunto(ManejadorIdiomas manejadorIdioma, ManejadorEstados manejadorEstado,
+            IAccesoDatos accesoDatos, ITraductor traductor, GeneradorCodigoQR generadorCodigo)
+    {
+        this.manejadorIdioma = manejadorIdioma;
+        this.manejadorEstado = manejadorEstado;
+        this.accesoDatos = accesoDatos;
+        this.traductor = traductor;
+        this.generadorCodigo = generadorCodigo;
+    }
+
     public DTOPunto ConsultarPuntoInteres(String idPuntoInteres, String nombreIdioma)
     {
          Punto punto = accesoDatos.BuscarObjeto(idPuntoInteres);
@@ -65,9 +80,9 @@ public class ServicioPunto implements IServicioPunto {
      * @param idPuntoInteres Id del punto de interes para el cual se creara el codigo QR.
      * @return DTOCodigoQR DTO con datos correspondientes al codigo QR generado.
      */
-    public DTOCodigoQR GenerarCodigoQR(String idPuntoInteres, int tamaÃ±o, String rutaImagen, String formatoImagen)
+    public DTOCodigoQR GenerarCodigoQR(String idPuntoInteres, int tamaño, String rutaImagen, String formatoImagen)
     {
-        String rutaCodigoQR = generadorCodigo.generarCodigoQR(idPuntoInteres, tamaÃ±o, rutaImagen, formatoImagen);
+        String rutaCodigoQR = generadorCodigo.generarCodigoQR(idPuntoInteres, tamaño, rutaImagen, formatoImagen);
         
         DTOCodigoQR dtoCodigoQR = new DTOCodigoQR();
         dtoCodigoQR.setRutaImagenCodigo(rutaCodigoQR);

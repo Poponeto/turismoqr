@@ -16,12 +16,21 @@
         <title>Login</title>
     </head>
     <body>
-        <div>
-            Ingresar como Turista!
-        </div>
-        <div>
-                Username:
-                Password:
-        </div>
+        <form name="formularioDeLogin" action="<core:url value='login'/>" method="POST">
+            <div>
+                Ingresar como Turista!
+            </div>
+            <div>
+                <div>
+                    Username:
+                    <input type='text' id='username' name='usuario'>
+                </div>
+                <div>
+                    Password:
+                    <input type='password' name='password'>
+                </div>
+            </div>
+            <input type="submit" value="Iniciar sesión" />
+        </form>
     </body>
 </html>

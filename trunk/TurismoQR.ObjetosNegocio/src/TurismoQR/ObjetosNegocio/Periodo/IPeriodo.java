@@ -15,7 +15,7 @@ public interface IPeriodo {
 
     public Date getFechaInicioPeriodo();
     public void setFechaInicioPeriodo(Date fechaInicioPeriodo);
-    public Date getFechafinPeriodo();
-    public void setFechafinPeriodo(Date fechafinPeriodo);
+    public Date getFechaFinPeriodo();
+    public void setFechaFinPeriodo(Date fechafinPeriodo);
 
 }

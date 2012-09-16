@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
  * @author Federico
  */
 
-@Service
+@Service("traductor")
 public class Traductor implements ITraductor {
 
     private FabricaDeEstrategiaTraduccion fabricaDeEstrategiaTraduccion;

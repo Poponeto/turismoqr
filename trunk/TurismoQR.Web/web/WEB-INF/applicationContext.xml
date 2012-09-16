@@ -29,8 +29,9 @@
     <!--import resource="classpath:"/-->
     <context:annotation-config/>
     <context:component-scan base-package="Controladores"/>
-        
-            <!--bean id="propertyConfigurer"
+    <context:component-scan base-package="TurismoQR"/>
+    
+    <!--bean id="propertyConfigurer"
           class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"
           p:location="/WEB-INF/jdbc.properties" />
     

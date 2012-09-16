@@ -11,19 +11,23 @@ import TurismoQR.ObjetosNegocio.Informacion.InformacionEnIdioma;
 import TurismoQR.ObjetosNegocio.Punto.Punto;
 import java.util.Collection;
 import javax.annotation.Resource;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
  *
  * @author Federico
  */
-@Service
+@Service("manejadorIdiomas")
 public class ManejadorIdiomas
 {
-
-    @Resource
     private AccesoDatosIdioma accesoDatosIdioma;
 
+    @Autowired
+    public ManejadorIdiomas(AccesoDatosIdioma accesoDatosIdioma)
+    {
+        this.accesoDatosIdioma = accesoDatosIdioma;
+    }
 
     public InformacionEnIdioma seleccionarInformacionDePuntoEnIdioma(Punto punto, Idioma idioma)
     {

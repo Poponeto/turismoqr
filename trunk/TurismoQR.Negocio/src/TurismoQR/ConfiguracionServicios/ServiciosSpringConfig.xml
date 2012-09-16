@@ -29,6 +29,5 @@
     <bean id="txManager"
         class="org.springframework.transaction.jta.JtaTransactionManager"/-->
     <context:annotation-config/>
-    <context:component-scan base-package="TurismoQR.Punto"/>
-    <context:component-scan base-package="TurismoQR.Usuario"/>
+
 </beans>

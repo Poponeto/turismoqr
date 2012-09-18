@@ -20,7 +20,6 @@ import TurismoQR.Punto.ManejadorIdiomas.ManejadorIdiomas;
 import TurismoQR.Traductores.ITraductor;
 import java.util.ArrayList;
 import java.util.Collection;
-import javax.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -44,8 +43,11 @@ public class ServicioPunto implements IServicioPunto {
 
     private GeneradorCodigoQR generadorCodigo;
     @Autowired
-    public ServicioPunto(ManejadorIdiomas manejadorIdioma, ManejadorEstados manejadorEstado,
-            IAccesoDatos accesoDatos, ITraductor traductor, GeneradorCodigoQR generadorCodigo)
+    public ServicioPunto(ManejadorIdiomas manejadorIdioma,
+            ManejadorEstados manejadorEstado,
+            IAccesoDatos accesoDatos, 
+            ITraductor traductor,
+            GeneradorCodigoQR generadorCodigo)
     {
         this.manejadorIdioma = manejadorIdioma;
         this.manejadorEstado = manejadorEstado;
@@ -56,7 +58,7 @@ public class ServicioPunto implements IServicioPunto {
 
     public DTOPunto ConsultarPuntoInteres(String idPuntoInteres, String nombreIdioma)
     {
-         Punto punto = accesoDatos.BuscarObjeto(idPuntoInteres);
+         Punto punto = accesoDatos.BuscarObjeto(Punto.class, idPuntoInteres);
 
         if (punto != null && manejadorEstado.esEstadoValidoConsulta(punto.getEstado()))
         {

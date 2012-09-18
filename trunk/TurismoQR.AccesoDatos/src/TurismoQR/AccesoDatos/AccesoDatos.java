@@ -20,47 +20,45 @@ class AccesoDatos extends HibernateDaoSupport implements IAccesoDatos
     }
 
     @Transactional
-    public <E extends IObjetoNegocio> E BuscarObjeto(E Objeto)
+    public <E extends IObjetoNegocio> E BuscarObjeto(E objeto)
     {
-        // TODO Auto-generated method stub
-        return null;
+        return (E) getHibernateTemplate().findByExample(objeto).get(0);
     }
 
     @Transactional
-    public <E extends IObjetoNegocio> E BuscarObjeto(String idObjeto)
+    public <E extends IObjetoNegocio> E BuscarObjeto(Class<E> clase, String idObjeto)
     {
-        // TODO Auto-generated method stub
-        return null;
+        return getHibernateTemplate().get(clase, idObjeto);
     }
 
     @Transactional
     public <E extends IObjetoNegocio> Collection<E> BuscarConjuntoObjetos(E Objeto)
     {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return getHibernateTemplate().findByExample(Objeto);
     }
 
     @Transactional
-    public <E extends IObjetoNegocio> Collection<E> BuscarConjuntoObjetos()
+    public <E extends IObjetoNegocio> Collection<E> BuscarConjuntoObjetos(Class<E> clase)
     {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return getHibernateTemplate().loadAll(clase);
     }
 
     @Transactional
-    public <E extends IObjetoNegocio> E BuscarObjeto()
+    public <E extends IObjetoNegocio> E BuscarObjeto(Class<E> clase)
     {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return (E) getHibernateTemplate().loadAll(clase).get(0);
     }
 
     @Transactional
     public <E extends IObjetoNegocio> E BuscarObjeto(DetachedCriteria criteria)
     {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return (E) getHibernateTemplate().findByCriteria(criteria, 0, 1).get(0);
     }
 
     @Transactional
     public <E extends IObjetoNegocio> Collection<E> BuscarConjuntoObjetos(DetachedCriteria criteria)
     {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return (Collection<E>) getHibernateTemplate().findByCriteria(criteria);
     }
 
     @Transactional
@@ -77,4 +75,5 @@ class AccesoDatos extends HibernateDaoSupport implements IAccesoDatos
             getHibernateTemplate().saveOrUpdate(objetoNegocio);
         }
     }
+
 }

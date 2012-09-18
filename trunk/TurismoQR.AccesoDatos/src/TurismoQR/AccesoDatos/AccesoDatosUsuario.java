@@ -29,11 +29,11 @@ public class AccesoDatosUsuario extends AccesoDatos  {
     public Usuario buscarUsuario(String nombreUsuario)
     {
         DetachedCriteria criterioDeBusqueda = DetachedCriteria.forClass(Usuario.class);
-        DetachedCriteria buscarUsuario = criterioDeBusqueda.createCriteria("BuscarUsuario");
+        //DetachedCriteria buscarUsuario = criterioDeBusqueda.createCriteria("BuscarUsuario");
 
-        buscarUsuario.add(Restrictions.eq("nombreUsuario", nombreUsuario));
+        criterioDeBusqueda.add(Restrictions.eq("nombreUsuario", nombreUsuario));
 
-        return BuscarObjeto(buscarUsuario);
+        return BuscarObjeto(criterioDeBusqueda);
     }
 
 }

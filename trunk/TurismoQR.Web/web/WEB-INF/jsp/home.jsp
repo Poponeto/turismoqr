@@ -9,7 +9,7 @@
     </head>
 
     <body>
-        <LINK rel="stylesheet" type="text/css" href="PaginaDeInicio/HojasDeEstilo/Home.css">
+        <LINK rel="stylesheet" type="text/css" href="Vistas/PaginaDeInicio/HojasDeEstilo/Home.css">
         <div id="Contenedor">
             <div id="Cabecera">
                 <h1>Turismo QR</h1>

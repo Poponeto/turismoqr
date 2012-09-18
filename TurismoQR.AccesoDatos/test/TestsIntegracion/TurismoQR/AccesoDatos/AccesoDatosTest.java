@@ -61,18 +61,6 @@ public class AccesoDatosTest {
     /**
      * Test of BuscarObjeto method, of class AccesoDatos.
      */
-    @Test
-    public void testBuscarObjeto_String()
-    {
-        System.out.println("BuscarObjeto");
-        String idObjeto = "";
-        AccesoDatos instance = null;
-        Object expResult = null;
-        Object result = instance.BuscarObjeto(idObjeto);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
 
     /**
      * Test of BuscarConjuntoObjetos method, of class AccesoDatos.
@@ -93,32 +81,9 @@ public class AccesoDatosTest {
     /**
      * Test of BuscarConjuntoObjetos method, of class AccesoDatos.
      */
-    @Test
-    public void testBuscarConjuntoObjetos()
-    {
-        System.out.println("BuscarConjuntoObjetos");
-        AccesoDatos instance = null;
-        Collection expResult = null;
-        Collection result = instance.BuscarConjuntoObjetos();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
     /**
      * Test of BuscarObjeto method, of class AccesoDatos.
      */
-    @Test
-    public void testBuscarObjeto()
-    {
-        System.out.println("BuscarObjeto");
-        AccesoDatos instance = null;
-        Object expResult = null;
-        Object result = instance.BuscarObjeto();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
 
     /**
      * Test of BuscarObjeto method, of class AccesoDatos.

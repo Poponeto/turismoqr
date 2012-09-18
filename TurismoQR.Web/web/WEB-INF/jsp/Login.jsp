@@ -26,7 +26,7 @@
                     <input type='text' id='username' name='usuario'>
                 </div>
                 <div>
-                    Password:
+                    Password: 
                     <input type='password' name='password'>
                 </div>
             </div>

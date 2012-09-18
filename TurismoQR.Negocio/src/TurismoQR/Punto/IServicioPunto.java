@@ -5,6 +5,7 @@
 
 package TurismoQR.Punto;
 
+import TurismoQR.ObjetosTransmisionDatos.DTOCodigoQR;
 import TurismoQR.ObjetosTransmisionDatos.DTOPunto;
 
 /**
@@ -14,4 +15,6 @@ import TurismoQR.ObjetosTransmisionDatos.DTOPunto;
 public interface IServicioPunto {
 
     public DTOPunto ConsultarPuntoInteres(String idPuntoInteres, String nombreIdioma);
+    public DTOCodigoQR GenerarCodigoQR(String idPuntoInteres, int tamaño, String rutaImagen, String formatoImagen);
+
 }

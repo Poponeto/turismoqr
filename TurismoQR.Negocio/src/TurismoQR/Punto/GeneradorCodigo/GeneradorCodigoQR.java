@@ -14,17 +14,21 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.util.Random;
 import javax.imageio.ImageIO;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  * Clase que genera el codigo QR requerido para cada punto de interes.
  * @author Chelo
  */
+@Service
 public class GeneradorCodigoQR {
     private static final String FORMATO_IMAGEN = "gif";
     private static final String RUTA_HOME = System.getProperty("user.home"); 
     private static final String DIRECCION_CONSULTA = "www.google.com"; 
     private static final int ancho = 500; 
     private static final int alto = 500;
+
 
     public String generarCodigoQR(String idPuntoInteres, int tamaño, String rutaImagen, String formatoImagen){
         BitMatrix qrCode;

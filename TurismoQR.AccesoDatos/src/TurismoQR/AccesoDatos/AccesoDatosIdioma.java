@@ -28,10 +28,10 @@ public class AccesoDatosIdioma extends AccesoDatos{
     public Idioma BuscarIdiomaPorNombre(String nombreIdioma)
     {
         DetachedCriteria criterioDeBusqueda = DetachedCriteria.forClass(Idioma.class);
-        DetachedCriteria buscarPorNombreDeIdioma = criterioDeBusqueda.createCriteria("BuscarIdiomaPorNombre");
+        //DetachedCriteria buscarPorNombreDeIdioma = criterioDeBusqueda.createCriteria("BuscarIdiomaPorNombre");
 
-        buscarPorNombreDeIdioma.add(Restrictions.eq("nombreIdioma", nombreIdioma));
+        criterioDeBusqueda.add(Restrictions.eq("nombreIdioma", nombreIdioma));
 
-        return BuscarObjeto(buscarPorNombreDeIdioma);
+        return BuscarObjeto(criterioDeBusqueda);
     }
 }

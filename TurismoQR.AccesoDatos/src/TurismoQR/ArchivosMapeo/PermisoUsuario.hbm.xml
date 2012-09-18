@@ -5,7 +5,6 @@
       <id column="idPermisoUsuario" name="idObjeto">
             <generator class="guid"/>
         </id>
-         <one-to-one name="permiso" class="TurismoQR.ObjetosNegocio.Usuarios.Permisos.Permiso" cascade="all" foreign-key="idPermiso" />
-
+         <many-to-one name="permiso" class="TurismoQR.ObjetosNegocio.Usuarios.Permisos.Permiso" cascade="all" foreign-key="idPermiso"  />
       </class>
 </hibernate-mapping>

@@ -20,8 +20,8 @@ public class EstrategiaTraduccionUsuario implements IEstrategiaTraduccion<Usuari
 
         DTOUsuario dtoUsuario = new DTOUsuario();
 
-        dtoUsuario.setContraseña(usuario.getContraseña());
-        dtoUsuario.setNombreUsuario(usuario.getContraseña());
+        dtoUsuario.setContraseña(usuario.getContrasenia());
+        dtoUsuario.setNombreUsuario(usuario.getContrasenia());
 
         for (PermisoUsuario permiso : usuario.getPermisosUsuario())
         {

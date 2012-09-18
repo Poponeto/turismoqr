@@ -8,7 +8,7 @@
         <property name="nombreUsuario"/>
         <property name="contrasenia" column="contrasenia"/>
          <set name="permisosUsuario" cascade="all-delete-orphan" outer-join="true" inverse="true">
-            <key column="permisosUsuario" foreign-key="idPermisoUsuario"/> 
+            <key column="Usuario" foreign-key="idPermisoUsuario"/> 
             <one-to-many class="TurismoQR.ObjetosNegocio.Usuarios.Permisos.PermisoUsuario" />
         </set>
         

@@ -8,7 +8,7 @@ create table localizacion (idLocalizacion varchar(255) not null, latitud varchar
 create table periodo (idPeriodo varchar(255) not null, fechaInicioPeriodo datetime, fechaFinPeriodo datetime, primary key (idPeriodo));
 create table permiso (idPermiso varchar(255) not null, nombre varchar(255), descripcion varchar(255), primary key (idPermiso));
 create table permisoRol (idPermisoRol varchar(255) not null, permisosRol varchar(255), primary key (idPermisoRol));
-create table permisoUsuario (idPermisoUsuario varchar(255) not null, permiso varchar(255), permisosUsuario varchar(255), primary key (idPermisoUsuario));
+create table permisoUsuario (idPermisoUsuario varchar(255) not null, permiso varchar(255), Usuario varchar(255), primary key (idPermisoUsuario));
 create table punto (idPunto varchar(255) not null, nombre varchar(255), localizacion varchar(255), informacion varchar(255), primary key (idPunto));
 create table recurso (idRecurso varchar(255) not null, url varchar(255), primary key (idRecurso));
 create table rol (idRol varchar(255) not null, primary key (idRol));
@@ -20,7 +20,7 @@ alter table imagen add index FKB95A8273659A5014 (idImagen), add constraint FKB95
 alter table link add index idLink (idLink), add constraint idLink foreign key (idLink) references punto (idPunto);
 alter table link add index FK32AFFA1FD5F85B (idLink), add constraint FK32AFFA1FD5F85B foreign key (idLink) references recurso (idRecurso);
 alter table permisoRol add index idPermisoRol (permisosRol), add constraint idPermisoRol foreign key (permisosRol) references rol (idRol);
+alter table permisoUsuario add index idPermisoUsuario (Usuario), add constraint idPermisoUsuario foreign key (Usuario) references usuario (idUsuario);
 alter table permisoUsuario add index idPermiso (permiso), add constraint idPermiso foreign key (permiso) references permiso (idPermiso);
-alter table permisoUsuario add index idPermisoUsuario (permisosUsuario), add constraint idPermisoUsuario foreign key (permisosUsuario) references usuario (idUsuario);
 alter table punto add index idInformacion (informacion), add constraint idInformacion foreign key (informacion) references informacion (idInformacion);
 alter table punto add index idLocalizacion (localizacion), add constraint idLocalizacion foreign key (localizacion) references localizacion (idLocalizacion);

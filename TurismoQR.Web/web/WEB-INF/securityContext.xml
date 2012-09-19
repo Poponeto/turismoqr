@@ -59,6 +59,8 @@
         <property name="securityMetadataSource">
             <security:filter-security-metadata-source>
                 <security:intercept-url pattern="/administracion/**" access="ROL_USUARIO"/>
+                <security:intercept-url pattern="/punto/**" access="ROL_TURISTA"/>
+                <security:intercept-url pattern="/usuario/**" access="ROL_TURISTA"/>
                 <security:intercept-url pattern="/home.htm" access="ROL_TURISTA"/>
                 <!--security:intercept-url pattern="/**" access="denyAll"/-->
             </security:filter-security-metadata-source>

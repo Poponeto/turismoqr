@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 
 @Controller("login")
+@RequestMapping("/login")
 public class LoginController implements UserDetailsService {
 
     

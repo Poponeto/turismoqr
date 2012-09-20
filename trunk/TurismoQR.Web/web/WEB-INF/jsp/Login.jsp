@@ -16,21 +16,25 @@
         <title>Login</title>
     </head>
     <body>
-        <form name="formularioDeLogin" action="<core:url value='login'/>" method="POST">
-            <div>
-                Ingresar como Turista!
-            </div>
-            <div>
+        <div>
+            <form name="loginComoTurista" action="<core:url value='login/ingresarComoTurista.htm'/>" method="GET">
                 <div>
-                    Username:
-                    <input type='text' id='username' name='usuario'>
+                    <input type="submit" value="Ingresar como turista!" />
                 </div>
+            </form>
+            <form name="formularioDeLogin" action="<core:url value='loginUsuario'/>" method="POST">
                 <div>
-                    Password: 
-                    <input type='password' name='password'>
+                    <div>
+                        Username:
+                        <input type='text' id='username' name='usuario'>
+                    </div>
+                    <div>
+                        Password:
+                        <input type='password' name='password'>
+                    </div>
                 </div>
-            </div>
-            <input type="submit" value="Iniciar sesión" />
-        </form>
+                <input type="submit" value="Iniciar sesión" />
+            </form>
+        </div>
     </body>
 </html>

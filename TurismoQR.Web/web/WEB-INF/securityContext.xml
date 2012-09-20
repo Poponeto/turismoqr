@@ -81,7 +81,7 @@
     <bean id="filtroDeAutenticacion" class=
 "org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter">
         <property name="authenticationManager" ref="proveedorDeAutenticacion"/>
-        <property name="filterProcessesUrl" value="/login"/>
+        <property name="filterProcessesUrl" value="/loginUsuario"/>
         <property name="passwordParameter" value="password"/>
         <property name="usernameParameter" value="usuario"/>
         <property name="authenticationSuccessHandler" ref="manejadorDeAutenticacionPorURL"/>

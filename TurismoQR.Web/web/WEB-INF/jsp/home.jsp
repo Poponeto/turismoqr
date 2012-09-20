@@ -9,23 +9,29 @@
     </head>
 
     <body>
-        <LINK rel="stylesheet" type="text/css" href="Vistas/PaginaDeInicio/HojasDeEstilo/Home.css">
-        <div id="Contenedor">
-            <div id="Cabecera">
-                <h1>Turismo QR</h1>
-            </div>
-            <div id="Contenido">
-                <h1>Banner</h1>
-            </div>
-            <div id="Menu">
+    <LINK rel="stylesheet" type="text/css" href="Vistas/PaginaDeInicio/HojasDeEstilo/Home.css">
+    <div id="Contenedor">
+        <div id="Cabecera">
+            <h1>Turismo QR</h1>
+        </div>
+        <div id="Contenido">
+            <h1>Banner</h1>
+        </div>
+        <div id="Menu">
+            <div>
                 <%@ include  file="Login.jsp" %>
-                <div>
-                    Registro Cliente
-                </div>
             </div>
-            <div id="Pie">
-                <h1>Pie</h1>
+            <div>
+                <form name="registrarCliente" action="<core:url value='registro/accederRegistrarCliente.htm'/>" method="GET">
+                    <div>
+                        <input type="submit" value="Registrarse como Cliente" />
+                    </div>
+                </form>
             </div>
         </div>
-    </body>
+        <div id="Pie">
+            <h1>Pie</h1>
+        </div>
+    </div>
+</body>
 </html>

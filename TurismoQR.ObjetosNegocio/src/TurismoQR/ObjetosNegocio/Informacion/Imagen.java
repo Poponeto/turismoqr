@@ -14,16 +14,16 @@ import TurismoQR.ObjetosNegocio.Recurso.Recurso;
 public class Imagen extends Recurso {
 
     private String extension;
-    private Informacion informacion;
+    private Informacion informacionImagen;
 
-    public Informacion getInformacion()
+    public Informacion getInformacionImagen()
     {
-        return informacion;
+        return informacionImagen;
     }
 
-    public void setInformacion(Informacion informacion)
+    public void setInformacionImagen(Informacion informacion)
     {
-        this.informacion = informacion;
+        this.informacionImagen = informacion;
     }
 
     public String getExtension()

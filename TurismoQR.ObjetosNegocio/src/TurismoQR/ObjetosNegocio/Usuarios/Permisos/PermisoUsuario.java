@@ -10,15 +10,18 @@ import TurismoQR.ObjetosNegocio.Periodo.PeriodoVencimiento;
  *
  * @author Federico
  */
-public class PermisoUsuario extends PeriodoVencimiento {
+public class PermisoUsuario extends PeriodoVencimiento
+{
 
     private Permiso permiso;
 
-    public Permiso getPermiso() {
+    public Permiso getPermiso()
+    {
         return permiso;
     }
 
-    public void setPermiso(Permiso permiso) {
+    public void setPermiso(Permiso permiso)
+    {
         this.permiso = permiso;
     }
 }

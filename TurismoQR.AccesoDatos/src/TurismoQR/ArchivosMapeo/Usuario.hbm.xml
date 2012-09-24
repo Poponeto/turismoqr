@@ -6,8 +6,8 @@
             <generator class="guid"/>
         </id>
         <property name="nombreUsuario"/>
-        <property name="contrasenia" column="contrasenia"/>
-         <set name="permisosUsuario" cascade="all-delete-orphan" outer-join="true" inverse="true">
+        <property name="contraseña" column="contrasenia"/>
+         <set name="permisosUsuario" cascade="all-delete-orphan" outer-join="true">
             <key column="Usuario" foreign-key="idPermisoUsuario"/> 
             <one-to-many class="TurismoQR.ObjetosNegocio.Usuarios.Permisos.PermisoUsuario" />
         </set>

@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller("buscarPunto")
 public class BuscarPuntoController {
 
-    @RequestMapping("/paginaBuscarPunto.htm")
+    @RequestMapping("/buscarPunto/paginaBuscarPunto.htm")
     public String redirigir()
     {
         return "Punto/BuscarPunto";

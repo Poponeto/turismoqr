@@ -20,8 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @author Federico
  */
 
-@Controller("login")
-@RequestMapping("/login")
+@Controller("loginController")
 public class LoginController implements UserDetailsService {
 
     
@@ -39,10 +38,10 @@ public class LoginController implements UserDetailsService {
         return servicioUsuario.cargarUsuario(username);
     }
 
-    @RequestMapping("/ingresarComoTurista.htm")
+    @RequestMapping("login/ingresarComoTurista.htm")
     public String ingresarComoTurista()
     {
-        return "/buscarPunto/paginaBuscarPunto.htm";
+        return "redirect:/buscarPunto/paginaBuscarPunto.htm";
     }
 
  

@@ -2,11 +2,9 @@ package TurismoQR.ObjetosNegocio.Usuarios;
 
 import TurismoQR.ObjetosNegocio.IObjetoNegocio;
 
-public class Cliente implements IObjetoNegocio
-{
+public class Cliente implements IObjetoNegocio {
 
     private String apellido;
-    
     private String nombre;
     private String mail;
     private String dni;
@@ -15,83 +13,67 @@ public class Cliente implements IObjetoNegocio
     private Usuario usuario;
     private String idObjeto;
 
-    public String getIdObjeto()
-    {
+    public String getIdObjeto() {
         return idObjeto;
     }
 
-    public void setIdObjeto(String idObjeto)
-    {
+    public void setIdObjeto(String idObjeto) {
         this.idObjeto = idObjeto;
     }
 
-    public Usuario getUsuario()
-    {
+    public Usuario getUsuario() {
         return usuario;
     }
 
-    public void setUsuario(Usuario usuario)
-    {
+    public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
 
-    public String getApellido()
-    {
+    public String getApellido() {
         return apellido;
     }
 
-    public void setApellido(String apellido)
-    {
+    public void setApellido(String apellido) {
         this.apellido = apellido;
     }
 
-    public String getCelular()
-    {
+    public String getCelular() {
         return celular;
     }
 
-    public void setCelular(String celular)
-    {
+    public void setCelular(String celular) {
         this.celular = celular;
     }
 
-    public String getDni()
-    {
+    public String getDni() {
         return dni;
     }
 
-    public void setDni(String dni)
-    {
+    public void setDni(String dni) {
         this.dni = dni;
     }
 
-    public String getTelefonoFijo()
-    {
+    public String getTelefonoFijo() {
         return telefonoFijo;
     }
 
-    public void setTelefonoFijo(String telefonoFijo)
-    {
+    public void setTelefonoFijo(String telefonoFijo) {
         this.telefonoFijo = telefonoFijo;
     }
 
-    public String getMail()
-    {
+    public String getMail() {
         return mail;
     }
 
-    public void setMail(String mail)
-    {
+    public void setMail(String mail) {
         this.mail = mail;
     }
 
-    public String getNombre()
-    {
+    public String getNombre() {
         return nombre;
     }
 
-    public void setNombre(String nombre)
-    {
+    public void setNombre(String nombre) {
         this.nombre = nombre;
     }
 }

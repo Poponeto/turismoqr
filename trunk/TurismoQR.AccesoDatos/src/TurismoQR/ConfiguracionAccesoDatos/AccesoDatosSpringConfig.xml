@@ -26,7 +26,8 @@
           http://www.springframework.org/schema/security
           http://www.springframework.org/schema/security/spring-security-3.0.xsd">
 
-    <!--tx:annotation-driven transaction-manager="txManager"/-->
+<!--   <tx:annotation-driven transaction-manager="txManager" proxy-target-class="true"/>-->
+        
     <context:annotation-config/>
 
     <bean id="sessionFactory"
@@ -38,8 +39,8 @@ class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
         </property>
     </bean>
 
-    <!--bean id="txManager"
+<!--    <bean id="txManager"
         class="org.springframework.orm.hibernate3.HibernateTransactionManager">
         <property name="sessionFactory" ref="sessionFactory"/>
-    </bean-->
+    </bean>-->
 </beans>

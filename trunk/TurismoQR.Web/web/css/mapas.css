@@ -1,0 +1,49 @@
+/* 
+    Document   : mapas
+    Created on : 24/09/2012, 23:00:22
+    Author     : Chelo
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/* 
+   TODO customize this sample style
+   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
+*/
+#contenedorPrincipal {
+    width: 99%;
+    padding: 10px;
+    border-radius: 7px;
+    -webkit-border-radius: 7px;
+    -moz-border-radius: 7px;
+    padding: 10px;
+    border: 1px solid black;
+    background: black;
+}
+
+#contenedorMapa {
+    height: 500px;
+    width: 48%;
+    display: inline-block;
+    margin-left: 15px;
+}
+
+#contenedorFormulario {
+    height: 100%;
+    width: 48%;
+    display: inline-block;
+    vertical-align: top;
+    padding: 15px;
+    border-radius: 7px;
+    -webkit-border-radius: 7px;
+    -moz-border-radius: 7px;
+    border: 1px solid black;
+    background: white;
+}
+
+#contenedorFormulario input
+,#contenedorFormulario textarea{
+    width: 98%;
+}
+
+

@@ -17,6 +17,16 @@ public class InformacionEnIdioma implements IObjetoNegocio {
     private String idObjeto;
     private Idioma idioma;
 
+    public InformacionEnIdioma(){
+        
+    }
+
+    public InformacionEnIdioma(String textoInformacion, String idObjeto, Idioma idioma) {
+        texto = textoInformacion;
+        this.idObjeto = idObjeto;
+        this.idioma = idioma;
+    }
+
     public Idioma getIdioma()
     {
         return idioma;

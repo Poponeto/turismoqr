@@ -24,10 +24,10 @@
           http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
 ">
 
-    <!--tx:annotation-driven transaction-manager="txManager"/>
+    <tx:annotation-driven transaction-manager="txManager"  proxy-target-class="true"/>
 
     <bean id="txManager"
-        class="org.springframework.transaction.jta.JtaTransactionManager"/-->
+        class="org.springframework.transaction.jta.JtaTransactionManager"/>
     <context:annotation-config/>
 
 </beans>

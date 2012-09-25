@@ -5,11 +5,11 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Welcome to Spring Web MVC project</title>
+        <title>Bienvenido a TurismoQR</title>
     </head>
 
     <body>
-    <LINK rel="stylesheet" type="text/css" href="HojasDeEstilo/Home.css">
+    <link rel="stylesheet" type="text/css" href="css/Home.css">
     <div id="Contenedor">
         <div id="Cabecera">
             <h1>Turismo QR</h1>

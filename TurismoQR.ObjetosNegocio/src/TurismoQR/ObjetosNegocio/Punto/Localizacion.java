@@ -9,6 +9,16 @@ public class Localizacion implements IObjetoNegocio
     private String longitud;
     private String idObjeto;
 
+    public Localizacion() {
+        
+    }
+
+    public Localizacion(String latitud, String longitud, String idObjeto) {
+        this.latitud = latitud;
+        this.longitud = longitud;
+        this.idObjeto = idObjeto;
+    }
+
     public String getIdObjeto()
     {
         return idObjeto;

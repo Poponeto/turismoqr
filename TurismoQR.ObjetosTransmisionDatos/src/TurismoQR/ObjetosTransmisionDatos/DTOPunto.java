@@ -17,6 +17,15 @@ public class DTOPunto implements IDTO<Punto>{
     private DTOInformacionEnIdioma informacion;
     private Collection<DTOImagen> imagenes;
     private DTOLocalizacion localizacion;
+    private Collection<DTOLink> links;
+
+    public Collection<DTOLink> getLinks() {
+        return links;
+    }
+
+    public void setLinks(Collection<DTOLink> links) {
+        this.links = links;
+    }
 
     public DTOLocalizacion getLocalizacion()
     {

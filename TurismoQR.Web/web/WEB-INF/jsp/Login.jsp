@@ -22,6 +22,11 @@
                     <input type="submit" value="Ingresar como turista!" />
                 </div>
             </form>
+            <form name="crearPuntoDeInteres" action="<core:url value='/crearPunto/crearPuntoDeInteres.htm'/>" method="GET">
+                <div>
+                    <input type="submit" value="Crear Nuevo Punto De Interes" />
+                </div>
+            </form>
             <form name="formularioDeLogin" action="<core:url value='loginUsuario'/>" method="POST">
                 <div>
                     <div>

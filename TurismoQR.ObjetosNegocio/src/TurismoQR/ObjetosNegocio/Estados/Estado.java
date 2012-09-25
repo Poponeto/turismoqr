@@ -15,6 +15,10 @@ public class Estado extends PeriodoVencimiento implements IEstado {
 
     public String nombreDeEstado;
 
+    public Estado(String nombre) {
+        nombreDeEstado = nombre;
+    }
+
     public String getNombreDeEstado() {
         return nombreDeEstado;
     }

@@ -6,10 +6,15 @@
 package TurismoQR.Punto;
 
 import TurismoQR.AccesoDatos.IAccesoDatos;
+import TurismoQR.ObjetosNegocio.Estados.Estado;
 import TurismoQR.ObjetosNegocio.Informacion.Idioma;
 import TurismoQR.ObjetosNegocio.Informacion.Imagen;
+import TurismoQR.ObjetosNegocio.Informacion.Informacion;
 import TurismoQR.ObjetosNegocio.Informacion.InformacionEnIdioma;
+import TurismoQR.ObjetosNegocio.Informacion.Link;
+import TurismoQR.ObjetosNegocio.Punto.Localizacion;
 import TurismoQR.ObjetosNegocio.Punto.Punto;
+import TurismoQR.ObjetosNegocio.Punto.PuntoDeInteres;
 import TurismoQR.ObjetosTransmisionDatos.DTOImagen;
 import TurismoQR.ObjetosTransmisionDatos.DTOInformacionEnIdioma;
 import TurismoQR.ObjetosTransmisionDatos.DTOPunto;
@@ -75,6 +80,53 @@ public class ServicioPunto implements IServicioPunto {
         }
 
         return null;
+    }
+
+    /**
+     * Servicio que permite guardar un punto en base a los datos especificados por el usuario
+     * @param datosPunto Un DTO que contiene todos los datos necesarios para crear el punto
+     */
+    public void CrearPuntoInteres(DTOPunto datosPunto, String nombreIdioma)
+    {
+        //Crea un nuevo punto de interes
+        Punto nuevoPuntoDeInteres = new PuntoDeInteres();
+
+        //Setea el estado del punto a habilitado
+        nuevoPuntoDeInteres.setEstado(new Estado("Habilitado"));
+
+        //Setea las imagenes correspondientes al punto, si las hubiera.
+        Collection<Imagen> imagenes = null;
+        for(DTOImagen dtoImagen : datosPunto.getImagenes()) {
+            Imagen imagen = new Imagen();
+            imagen.setExtension(dtoImagen.getExtension());
+            Informacion informacion = new Informacion();
+            Collection<InformacionEnIdioma> info = null;
+            info.add(new InformacionEnIdioma(dtoImagen.getInformacion().getTexto(), null, new Idioma(nombreIdioma, null)));
+            informacion.setInformacionEnIdiomas(info);
+            imagen.setInformacion(informacion);
+
+            imagenes.add(imagen);
+        }
+        nuevoPuntoDeInteres.setImagenes(imagenes);
+
+        //Setea la informacion del punto
+        Collection<InformacionEnIdioma> infoPunto = null;
+        InformacionEnIdioma informacionEnIdioma = new InformacionEnIdioma(datosPunto.getInformacion().getTexto(), null, new Idioma(nombreIdioma, null));
+        infoPunto.add(informacionEnIdioma);
+        Informacion info = new Informacion();
+        info.setInformacionEnIdiomas(infoPunto);
+        nuevoPuntoDeInteres.setInformacion(info);
+
+        //Setea los datos de localizacion del punto
+        Localizacion localizacion = new Localizacion(datosPunto.getLocalizacion().getLatitud(), datosPunto.getLocalizacion().getLongitud(), null);
+        nuevoPuntoDeInteres.setLocalizacion(localizacion);
+
+        //Setea los links relacionados con el punto, si los hubiera
+        Collection<Link> links = null;
+        nuevoPuntoDeInteres.setLinks(links);
+
+        //Persiste el punto creado previamente
+        accesoDatos.Guardar(nuevoPuntoDeInteres);
     }
     
     /**

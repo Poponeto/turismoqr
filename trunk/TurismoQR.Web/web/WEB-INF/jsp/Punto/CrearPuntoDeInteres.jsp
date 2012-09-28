@@ -13,9 +13,9 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Nuevo Punto de Interes</title>
         <script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=true"></script>
-        <script type="text/javascript" src="../js/Mapa.js"></script>
-        <script type="text/javascript" src="../js/jquery-1.8.1.min.js"></script>
-        <link rel="stylesheet" type="text/css" href="../css/mapas.css">
+        <script type="text/javascript" src="../Vistas/JavaScript/Mapa.js"></script>
+        <script type="text/javascript" src="../Vistas/JavaScript/JQuery/jquery-1.8.1.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="../Vistas/HojasDeEstilo/Mapas.css">
         <script>
             $(document).ready(function(){
                 tqrmapas.contenedorMapas = "contenedorMapa";

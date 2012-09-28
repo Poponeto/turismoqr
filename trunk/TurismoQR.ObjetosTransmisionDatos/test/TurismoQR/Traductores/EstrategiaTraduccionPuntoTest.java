@@ -44,13 +44,24 @@ public class EstrategiaTraduccionPuntoTest {
      * Test of traducir method, of class EstrategiaTraduccionPunto.
      */
     @Test
-    public void testTraducir() {
+    public void testTraducir_Punto() {
 
         Punto objetoNegocio = new Punto();
         EstrategiaTraduccionPunto instance = new EstrategiaTraduccionPunto();
         DTOPunto expResult = new DTOPunto();
         DTOPunto result = (DTOPunto) instance.traducir(objetoNegocio);
         assertEquals(expResult, result);
+
+    }
+
+    @Test
+    public void testTraducir_DTOPunto() {
+
+        Punto punto = new Punto();
+        EstrategiaTraduccionPunto instance = new EstrategiaTraduccionPunto();
+        DTOPunto dto = new DTOPunto();
+        Punto result = instance.traducir(dto);
+        assertEquals(punto, result);
 
     }
 

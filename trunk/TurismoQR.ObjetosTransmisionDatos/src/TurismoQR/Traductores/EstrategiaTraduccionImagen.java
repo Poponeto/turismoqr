@@ -17,11 +17,20 @@ public class EstrategiaTraduccionImagen implements IEstrategiaTraduccion<Imagen>
 
     public IDTO<Imagen> traducir(Imagen objetoNegocio)
     {
-        DTOImagen dtoImagen = new DTOImagen();
-        dtoImagen.setExtension(objetoNegocio.getExtension());
-        dtoImagen.setUrl(objetoNegocio.getUrl());
+        DTOImagen imagen = new DTOImagen();
+        imagen.setExtension(objetoNegocio.getExtension());
+        imagen.setUrl(objetoNegocio.getUrl());
 
-        return dtoImagen;
+        return imagen;
+    }
+
+    public Imagen traducir(IDTO<Imagen> dto)
+    {
+        Imagen imagen = new Imagen();
+        imagen.setExtension(((DTOImagen)dto).getExtension());
+        imagen.setUrl(((DTOImagen)dto).getUrl());
+
+        return imagen;
     }
 
 }

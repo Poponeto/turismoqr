@@ -21,6 +21,10 @@ import static org.junit.Assert.*;
  */
 public class EstrategiaTraduccionInformacionEnIdiomaTest {
 
+    private InformacionEnIdioma objetoNegocio;
+    private DTOInformacionEnIdioma dto;
+    private  EstrategiaTraduccionInformacionEnIdioma instance;
+
     public EstrategiaTraduccionInformacionEnIdiomaTest() {
     }
 
@@ -34,6 +38,14 @@ public class EstrategiaTraduccionInformacionEnIdiomaTest {
 
     @Before
     public void setUp() {
+        objetoNegocio = new InformacionEnIdioma();
+        objetoNegocio.setTexto("info");
+
+        dto = new DTOInformacionEnIdioma();
+        dto.setTexto("info");
+
+        instance = new EstrategiaTraduccionInformacionEnIdioma();
+
     }
 
     @After
@@ -44,16 +56,16 @@ public class EstrategiaTraduccionInformacionEnIdiomaTest {
      * Test of traducir method, of class EstrategiaTraduccionInformacionEnIdioma.
      */
     @Test
-    public void testTraducir() {
-
-        InformacionEnIdioma objetoNegocio = new InformacionEnIdioma();
-        objetoNegocio.setTexto("info");
-        EstrategiaTraduccionInformacionEnIdioma instance = new EstrategiaTraduccionInformacionEnIdioma();
-        DTOInformacionEnIdioma expResult = new DTOInformacionEnIdioma();
-        expResult.setTexto("info");
+    public void testTraducir_InformacionEnIdioma() {
         DTOInformacionEnIdioma result = (DTOInformacionEnIdioma) instance.traducir(objetoNegocio);
-        assertEquals(expResult, result);
- 
+        assertEquals(dto, result);
+    }
+
+    @Test
+    public void testTraducir_DTOInformacionEnIdioma() {
+        InformacionEnIdioma result = instance.traducir(dto);
+        assertEquals(objetoNegocio.getNombre(), result.getNombre());
+        assertEquals(objetoNegocio.getTexto(), result.getTexto());
     }
 
 }

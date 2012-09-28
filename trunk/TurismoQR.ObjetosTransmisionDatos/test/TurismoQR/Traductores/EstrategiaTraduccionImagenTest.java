@@ -20,6 +20,10 @@ import static org.junit.Assert.*;
  */
 public class EstrategiaTraduccionImagenTest {
 
+    private Imagen objetoNegocio;
+    private DTOImagen dto;
+    EstrategiaTraduccionImagen instance;
+
     public EstrategiaTraduccionImagenTest() {
     }
 
@@ -33,6 +37,15 @@ public class EstrategiaTraduccionImagenTest {
 
     @Before
     public void setUp() {
+        objetoNegocio = new Imagen();
+        objetoNegocio.setExtension("a");
+        objetoNegocio.setUrl("b");
+
+        dto = new DTOImagen();
+        dto.setExtension("a");
+        dto.setUrl("b");
+
+        instance = new EstrategiaTraduccionImagen();
     }
 
     @After
@@ -43,17 +56,18 @@ public class EstrategiaTraduccionImagenTest {
      * Test of traducir method, of class EstrategiaTraduccionImagen.
      */
     @Test
-    public void testTraducir() {
+    public void testTraducir_Imagen() {
 
-        Imagen objetoNegocio = new Imagen();
-        objetoNegocio.setExtension("a");
-        objetoNegocio.setUrl("b");
-        EstrategiaTraduccionImagen instance = new EstrategiaTraduccionImagen();
-        DTOImagen expResult = new DTOImagen();
-        expResult.setExtension("a");
-        expResult.setUrl("b");
         DTOImagen result = (DTOImagen) instance.traducir(objetoNegocio);
-        assertEquals(expResult, result);
+        assertEquals(dto, result);
+    }
+
+    @Test
+    public void testTraducir_DTOImagen() {
+
+        Imagen result = instance.traducir(dto);
+        assertEquals(objetoNegocio.getExtension(), result.getExtension());
+        assertEquals(objetoNegocio.getInformacion(), result.getInformacion());
     }
 
 }

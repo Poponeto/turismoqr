@@ -24,4 +24,13 @@ public class EstrategiaTraduccionLocalizacion implements IEstrategiaTraduccion<L
         return dtoLocalizacion;
     }
 
+    public Localizacion traducir(IDTO<Localizacion> dto)
+    {
+        Localizacion localizacion = new Localizacion();
+        localizacion.setLatitud(((DTOLocalizacion)dto).getLatitud());
+        localizacion.setLongitud(((DTOLocalizacion)dto).getLongitud());
+
+        return localizacion;
+    }
+
 }

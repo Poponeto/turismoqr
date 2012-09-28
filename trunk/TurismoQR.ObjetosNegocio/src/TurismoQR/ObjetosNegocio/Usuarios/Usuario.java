@@ -1,6 +1,7 @@
 package TurismoQR.ObjetosNegocio.Usuarios;
 
 import TurismoQR.ObjetosNegocio.IObjetoNegocio;
+import TurismoQR.ObjetosNegocio.Informacion.Idioma;
 import TurismoQR.ObjetosNegocio.Usuarios.Permisos.PermisoUsuario;
 import java.util.Collection;
 
@@ -11,6 +12,17 @@ public class Usuario implements IObjetoNegocio
     private String nombreUsuario;
     private Collection<PermisoUsuario> permisosUsuario;
     private String idObjeto;
+    private Idioma idioma;
+
+    public Idioma getIdioma()
+    {
+        return idioma;
+    }
+
+    public void setIdioma(Idioma idioma)
+    {
+        this.idioma = idioma;
+    }
 
     public String getIdObjeto()
     {

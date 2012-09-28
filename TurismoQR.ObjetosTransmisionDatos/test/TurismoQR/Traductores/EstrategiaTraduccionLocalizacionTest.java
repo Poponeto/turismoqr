@@ -21,6 +21,10 @@ import static org.junit.Assert.*;
  */
 public class EstrategiaTraduccionLocalizacionTest {
 
+    Localizacion objetoNegocio;
+    DTOLocalizacion dto;
+    EstrategiaTraduccionLocalizacion instance;
+
     public EstrategiaTraduccionLocalizacionTest() {
     }
 
@@ -34,6 +38,13 @@ public class EstrategiaTraduccionLocalizacionTest {
 
     @Before
     public void setUp() {
+        objetoNegocio = new Localizacion();
+        objetoNegocio.setLatitud("1");
+        objetoNegocio.setLongitud("1");
+        instance = new EstrategiaTraduccionLocalizacion();
+        dto = new DTOLocalizacion();
+        dto.setLatitud("1");
+        dto.setLongitud("1");
     }
 
     @After
@@ -44,18 +55,20 @@ public class EstrategiaTraduccionLocalizacionTest {
      * Test of traducir method, of class EstrategiaTraduccionLocalizacion.
      */
     @Test
-    public void testTraducir() {
-
-        Localizacion objetoNegocio = new Localizacion();
-        objetoNegocio.setLatitud("1");
-        objetoNegocio.setLongitud("1");
-        EstrategiaTraduccionLocalizacion instance = new EstrategiaTraduccionLocalizacion();
-        DTOLocalizacion expResult = new DTOLocalizacion();
-        expResult.setLatitud("1");
-        expResult.setLongitud("1");
+    public void testTraducir_Localizacion() {
+ 
         DTOLocalizacion result = (DTOLocalizacion) instance.traducir(objetoNegocio);
-        assertEquals(expResult, result);
+        assertEquals(dto, result);
     
+    }
+
+    @Test
+    public void testTraducir_DTOLocalizacion() {
+
+        Localizacion result = instance.traducir(dto);
+        assertEquals(objetoNegocio.getLatitud(), result.getLatitud());
+        assertEquals(objetoNegocio.getLongitud(), result.getLongitud());
+
     }
 
 }

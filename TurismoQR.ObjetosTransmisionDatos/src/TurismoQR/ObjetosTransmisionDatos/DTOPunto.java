@@ -18,6 +18,17 @@ public class DTOPunto implements IDTO<Punto>{
     private Collection<DTOImagen> imagenes;
     private DTOLocalizacion localizacion;
     private Collection<DTOLink> links;
+    private String idPunto;
+
+    public String getIdPunto()
+    {
+        return idPunto;
+    }
+
+    public void setIdPunto(String idPunto)
+    {
+        this.idPunto = idPunto;
+    }
 
     public Collection<DTOLink> getLinks() {
         return links;
@@ -81,18 +92,30 @@ public class DTOPunto implements IDTO<Punto>{
         {
             return false;
         }
+        if (this.links != other.links && (this.links == null || !this.links.equals(other.links)))
+        {
+            return false;
+        }
+        if ((this.idPunto == null) ? (other.idPunto != null) : !this.idPunto.equals(other.idPunto))
+        {
+            return false;
+        }
         return true;
     }
 
     @Override
     public int hashCode()
     {
-        int hash = 7;
-        hash = 53 * hash + (this.informacion != null ? this.informacion.hashCode() : 0);
-        hash = 53 * hash + (this.imagenes != null ? this.imagenes.hashCode() : 0);
-        hash = 53 * hash + (this.localizacion != null ? this.localizacion.hashCode() : 0);
+        int hash = 5;
+        hash = 71 * hash + (this.informacion != null ? this.informacion.hashCode() : 0);
+        hash = 71 * hash + (this.imagenes != null ? this.imagenes.hashCode() : 0);
+        hash = 71 * hash + (this.localizacion != null ? this.localizacion.hashCode() : 0);
+        hash = 71 * hash + (this.links != null ? this.links.hashCode() : 0);
+        hash = 71 * hash + (this.idPunto != null ? this.idPunto.hashCode() : 0);
         return hash;
     }
+
+    
 
     
 }

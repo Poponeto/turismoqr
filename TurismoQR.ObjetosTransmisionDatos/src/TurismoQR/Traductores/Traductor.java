@@ -32,4 +32,11 @@ public class Traductor implements ITraductor {
         return estrategiaTraduccion.traducir(objetoNegocio);
     }
 
+    public <E extends IObjetoNegocio> E traducir(IDTO<E> dto)
+    {
+        IEstrategiaTraduccion estrategiaTraduccion = fabricaDeEstrategiaTraduccion.crearEstrategiaTraduccion(dto);
+        return (E) estrategiaTraduccion.traducir(dto);
+
+    }
+
 }

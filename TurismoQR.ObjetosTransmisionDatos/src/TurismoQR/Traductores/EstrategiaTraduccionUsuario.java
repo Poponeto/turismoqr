@@ -22,13 +22,21 @@ public class EstrategiaTraduccionUsuario implements IEstrategiaTraduccion<Usuari
 
         dtoUsuario.setContraseña(usuario.getContraseña());
         dtoUsuario.setNombreUsuario(usuario.getContraseña());
-
-        for (PermisoUsuario permiso : usuario.getPermisosUsuario())
+        
+        if (usuario.getPermisosUsuario() != null)
         {
-            dtoUsuario.agregarPermiso(permiso.getPermiso().getNombre());
+            for (PermisoUsuario permiso : usuario.getPermisosUsuario())
+            {
+                dtoUsuario.agregarPermiso(permiso.getPermiso().getNombre());
+            }
         }
         
         return dtoUsuario;
+    }
+
+    public Usuario traducir(IDTO<Usuario> dto)
+    {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
 }

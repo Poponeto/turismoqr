@@ -14,11 +14,22 @@ import TurismoQR.ObjetosNegocio.IObjetoNegocio;
 public class InformacionEnIdioma implements IObjetoNegocio {
 
     private String texto;
+    private String nombre;
     private String idObjeto;
     private Idioma idioma;
 
     public InformacionEnIdioma(){
         
+    }
+
+    public String getNombre()
+    {
+        return nombre;
+    }
+
+    public void setNombre(String nombre)
+    {
+        this.nombre = nombre;
     }
 
     public InformacionEnIdioma(String textoInformacion, String idObjeto, Idioma idioma) {

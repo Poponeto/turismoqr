@@ -6,10 +6,11 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Bienvenido a TurismoQR</title>
+        <link rel="stylesheet" type="text/css" href="Vistas/HojasDeEstilo/Home.css">
     </head>
 
     <body>
-    <link rel="stylesheet" type="text/css" href="css/Home.css">
+    
     <div id="Contenedor">
         <div id="Cabecera">
             <h1>Turismo QR</h1>

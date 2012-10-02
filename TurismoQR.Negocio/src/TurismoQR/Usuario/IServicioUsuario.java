@@ -7,8 +7,6 @@ package TurismoQR.Usuario;
 
 import TurismoQR.ObjetosTransmisionDatos.DTOUsuario;
 import org.springframework.dao.DataAccessException;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 /**

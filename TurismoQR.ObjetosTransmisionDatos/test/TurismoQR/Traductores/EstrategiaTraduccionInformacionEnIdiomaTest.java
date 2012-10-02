@@ -7,7 +7,6 @@ package TurismoQR.Traductores;
 
 import TurismoQR.ObjetosNegocio.Informacion.InformacionEnIdioma;
 import TurismoQR.ObjetosTransmisionDatos.DTOInformacionEnIdioma;
-import TurismoQR.ObjetosTransmisionDatos.IDTO;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;

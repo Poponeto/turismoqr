@@ -7,31 +7,51 @@ package ServicioConsultaPuntoInteres;
 
 import TurismoQR.ObjetosTransmisionDatos.DTOPunto;
 import TurismoQR.Punto.IServicioPunto;
-import javax.jws.WebParam;
-import javax.jws.WebService;
-import javax.annotation.Resource;
-import javax.jws.WebMethod;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ws.server.endpoint.annotation.Endpoint;
+import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
+import org.springframework.ws.server.endpoint.annotation.RequestPayload;
+import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
+import org.w3c.dom.Element;
 
 /**
  *
  * @author Federico
  */
-@WebService()
+@Endpoint
 public class ServicioConsultaPuntoInteres
 {
     
-    @Resource
     IServicioPunto servicioPunto;
     
+    @Autowired
+    public ServicioConsultaPuntoInteres(IServicioPunto servicioPunto)
+    {
+        this.servicioPunto = servicioPunto;
+    }
     
     /**
      * Web service operation
      */
-    @WebMethod(operationName = "ConsultarPuntoInteres")
-    public DTOPunto ConsultarPuntoInteres(@WebParam(name = "idPuntoInteres")
-            final String idPuntoInteres,@WebParam(name = "nombreIdioma") final String nombreIdioma)
+    @PayloadRoot(localPart = "ConsultarPuntoInteres", namespace = "http://TurismoQR.ServiciosWeb")
+
+    public @ResponsePayload DTOPunto ConsultarPuntoInteres(
+            @RequestPayload Element mensaje
+            )
     {
+        String idPuntoInteres = obtenerIdPuntoInteres(mensaje);
+        String nombreIdioma = obtenerIdiomaPuntoInteres(mensaje);
+
         return servicioPunto.ConsultarPuntoInteres(idPuntoInteres, nombreIdioma);
     }
 
+    private String obtenerIdPuntoInteres(Element mensaje)
+    {
+        return null;
+    }
+
+    private String obtenerIdiomaPuntoInteres(Element mensaje)
+    {
+        return null;
+    }
 }

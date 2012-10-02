@@ -15,8 +15,10 @@
     </head>
     <body>
         <div>Header</div>
-        <div>Informacion de punto</div>
-        <div>Imagen</div>
+        <div>
+            <h1>Nombre punto</h1>
+            <textarea cols="100" rows="50">Descripcion</textarea>
+        </div>
         <div>Contenedor de imagenes</div>
         <h1>Hello World!</h1>
     </body>

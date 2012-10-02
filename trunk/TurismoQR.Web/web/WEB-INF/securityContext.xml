@@ -95,7 +95,7 @@
 
     <bean id="manejadorDeAutenticacionPorURL"
      class="org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler">
-        <property name="defaultTargetUrl" value="/administracion/inicio"/>
+        <property name="defaultTargetUrl" value="/administracion/paginaAdministracion.htm"/>
     </bean>
 
     <bean id="puntoDeAccesoDeAutenticacion"

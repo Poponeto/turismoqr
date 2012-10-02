@@ -14,9 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 
 @Controller("buscarPunto")
+@RequestMapping("/buscarPunto")
 public class BuscarPuntoController {
 
-    @RequestMapping("/buscarPunto/paginaBuscarPunto.htm")
+    @RequestMapping("/paginaBuscarPunto.htm")
     public String redirigir()
     {
         return "Punto/BuscarPunto";

@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 
 @Controller("loginController")
+@RequestMapping("/login")
 public class LoginController implements UserDetailsService {
 
     
@@ -38,7 +39,7 @@ public class LoginController implements UserDetailsService {
         return servicioUsuario.cargarUsuario(username);
     }
 
-    @RequestMapping("login/ingresarComoTurista.htm")
+    @RequestMapping("/ingresarComoTurista.htm")
     public String ingresarComoTurista()
     {
         return "redirect:/buscarPunto/paginaBuscarPunto.htm";

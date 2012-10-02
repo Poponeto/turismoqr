@@ -4,8 +4,8 @@
         <description>Archivo de configuracion de spring de la web.</description>
         <param-name>contextConfigLocation</param-name>
         <param-value>
+			classpath:TurismoQR/**/*SpringConfig.xml
             /WEB-INF/applicationContext.xml
-            classpath:TurismoQR/**/*SpringConfig.xml
             /WEB-INF/securityContext.xml
         </param-value>
     </context-param>

@@ -14,11 +14,20 @@ import java.util.Collection;
  */
 public class DTOPunto implements IDTO<Punto>{
 
+    private String nombrePunto;
     private DTOInformacionEnIdioma informacion;
     private Collection<DTOImagen> imagenes;
     private DTOLocalizacion localizacion;
     private Collection<DTOLink> links;
     private String idPunto;
+
+    public String getNombrePunto() {
+        return nombrePunto;
+    }
+
+    public void setNombrePunto(String nombrePunto) {
+        this.nombrePunto = nombrePunto;
+    }
 
     public String getIdPunto()
     {

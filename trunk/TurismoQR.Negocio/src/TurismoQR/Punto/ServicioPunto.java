@@ -89,41 +89,37 @@ public class ServicioPunto implements IServicioPunto {
     public void CrearPuntoInteres(DTOPunto datosPunto, String nombreIdioma)
     {
         //Crea un nuevo punto de interes
-        Punto nuevoPuntoDeInteres = new PuntoDeInteres();
+        Punto nuevoPuntoDeInteres = new Punto();
 
         //Setea el estado del punto a habilitado
         nuevoPuntoDeInteres.setEstado(new Estado("Habilitado"));
 
         //Setea las imagenes correspondientes al punto, si las hubiera.
-        Collection<Imagen> imagenes = null;
-        for(DTOImagen dtoImagen : datosPunto.getImagenes()) {
-            Imagen imagen = new Imagen();
-            imagen.setExtension(dtoImagen.getExtension());
-            Informacion informacion = new Informacion();
-            Collection<InformacionEnIdioma> info = null;
-            info.add(new InformacionEnIdioma(dtoImagen.getInformacion().getTexto(), null, new Idioma(nombreIdioma, null)));
-            informacion.setInformacionEnIdiomas(info);
-            imagen.setInformacion(informacion);
-
-            imagenes.add(imagen);
+        Collection<DTOImagen> dtoImagenes = datosPunto.getImagenes();
+        if (dtoImagenes != null && !dtoImagenes.isEmpty()) {
+            Collection<Imagen> imagenes = null;
+            for(DTOImagen dtoImagen : datosPunto.getImagenes()) {
+                imagenes.add(traductor.traducir(dtoImagen));
+            }
+            nuevoPuntoDeInteres.setImagenes(imagenes);
         }
-        nuevoPuntoDeInteres.setImagenes(imagenes);
+       
 
         //Setea la informacion del punto
-        Collection<InformacionEnIdioma> infoPunto = null;
-        InformacionEnIdioma informacionEnIdioma = new InformacionEnIdioma(datosPunto.getInformacion().getTexto(), null, new Idioma(nombreIdioma, null));
-        infoPunto.add(informacionEnIdioma);
-        Informacion info = new Informacion();
-        info.setInformacionEnIdiomas(infoPunto);
-        nuevoPuntoDeInteres.setInformacion(info);
+        if(datosPunto.getInformacion() != null) {
+            Collection<InformacionEnIdioma> infoEnIdiomas = null;
+            infoEnIdiomas.add(traductor.traducir(datosPunto.getInformacion()));
+            Informacion info = new Informacion();
+            info.setInformacionEnIdiomas(infoEnIdiomas);
+            nuevoPuntoDeInteres.setInformacion(info);
+        }
 
         //Setea los datos de localizacion del punto
-        Localizacion localizacion = new Localizacion(datosPunto.getLocalizacion().getLatitud(), datosPunto.getLocalizacion().getLongitud(), null);
-        nuevoPuntoDeInteres.setLocalizacion(localizacion);
+        nuevoPuntoDeInteres.setLocalizacion(traductor.traducir(datosPunto.getLocalizacion()));
 
         //Setea los links relacionados con el punto, si los hubiera
-        Collection<Link> links = null;
-        nuevoPuntoDeInteres.setLinks(links);
+//        Collection<Link> links = null;
+//        nuevoPuntoDeInteres.setLinks(links);
 
         //Persiste el punto creado previamente
         accesoDatos.Guardar(nuevoPuntoDeInteres);

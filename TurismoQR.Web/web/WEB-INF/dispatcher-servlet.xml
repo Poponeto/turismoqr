@@ -29,6 +29,7 @@
           http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
 
     <mvc:resources mapping="/Vistas/**" location="classpath:/Vistas/"/>
+    <mvc:resources mapping="/resources/**" location="/, classpath:/META-INF/web-resources/" />
     <context:annotation-config/>
     <context:component-scan base-package="Controladores"/>
     <bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping"/>
@@ -54,5 +55,10 @@
     <bean name="homeController"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController"
           p:viewName="home" />
+
+    <!--
+    Bean para manejar subida de archivos al servidor.
+    -->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"></bean>
 
 </beans>

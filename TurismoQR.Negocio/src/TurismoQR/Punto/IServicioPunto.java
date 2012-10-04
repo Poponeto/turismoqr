@@ -15,6 +15,7 @@ import TurismoQR.ObjetosTransmisionDatos.DTOPunto;
 public interface IServicioPunto {
 
     public DTOPunto ConsultarPuntoInteres(String idPuntoInteres, String nombreIdioma);
+    public void CrearPuntoInteres(DTOPunto dtoPunto, String nombreIdioma);
     public DTOCodigoQR GenerarCodigoQR(String idPuntoInteres, int tamaño, String rutaImagen, String formatoImagen);
 
 }

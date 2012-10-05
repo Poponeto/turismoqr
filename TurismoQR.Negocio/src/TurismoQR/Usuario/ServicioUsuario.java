@@ -34,6 +34,7 @@ public class ServicioUsuario implements IServicioUsuario {
     {
         this.manejadorLogin = manejadorLogin;
         this.traductor = traductor;
+
     }
 
     public DTOUsuario cargarUsuario(String nombreUsuario) throws UsernameNotFoundException, DataAccessException

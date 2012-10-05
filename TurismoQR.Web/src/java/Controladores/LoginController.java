@@ -36,7 +36,8 @@ public class LoginController implements UserDetailsService {
 
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException, DataAccessException
     {
-        return servicioUsuario.cargarUsuario(username);
+        UserDetails userDetails = servicioUsuario.cargarUsuario(username);
+        return userDetails;
     }
 
     @RequestMapping("/ingresarComoTurista.htm")

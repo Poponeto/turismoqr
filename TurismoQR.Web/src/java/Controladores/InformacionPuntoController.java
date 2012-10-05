@@ -49,8 +49,8 @@ public class InformacionPuntoController {
     public String obtenerInformacionPuntoIdiomaDefault(
             @PathVariable String idPunto)
     {
-        String idioma = null;
+        String idioma = "Español";
         //TODO Obtener el idioma por default del usuario
-        return "redirect:/informacionPunto/" + idioma + "/{idPunto}/obtenerInformacionPunto.htm";
+        return "redirect:/informacionPunto/" + idioma + "/" + idPunto +"/obtenerInformacionPunto.htm";
     }
 }

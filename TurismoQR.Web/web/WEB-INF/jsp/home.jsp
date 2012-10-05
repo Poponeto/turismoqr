@@ -39,9 +39,6 @@
                 </form>
             </div>
         </div>
-        <div id="Pie">
-            <h1>Pie</h1>
-        </div>
     </div>
 </body>
 </html>

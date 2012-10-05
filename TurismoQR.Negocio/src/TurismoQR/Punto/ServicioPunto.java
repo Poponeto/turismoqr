@@ -19,6 +19,7 @@ import TurismoQR.ObjetosTransmisionDatos.DTOImagen;
 import TurismoQR.ObjetosTransmisionDatos.DTOInformacionEnIdioma;
 import TurismoQR.ObjetosTransmisionDatos.DTOPunto;
 import TurismoQR.ObjetosTransmisionDatos.DTOCodigoQR;
+import TurismoQR.ObjetosTransmisionDatos.DTOLocalizacion;
 import TurismoQR.Punto.GeneradorCodigo.GeneradorCodigoQR;
 import TurismoQR.Punto.ManejadorEstados.ManejadorEstados;
 import TurismoQR.Punto.ManejadorIdiomas.ManejadorIdiomas;
@@ -61,6 +62,10 @@ public class ServicioPunto implements IServicioPunto {
         this.generadorCodigo = generadorCodigo;
     }
 
+    /*
+     * Servicio que permite buscar la informacion de un punto de interes en base a
+     * su id, y al idioma en que la informacion quiere obtenerse
+     */
     public DTOPunto ConsultarPuntoInteres(String idPuntoInteres, String nombreIdioma)
     {
          Punto punto = accesoDatos.BuscarObjeto(Punto.class, idPuntoInteres);
@@ -72,10 +77,12 @@ public class ServicioPunto implements IServicioPunto {
 
             DTOPunto dtoPunto = (DTOPunto) traductor.traducir(punto);
             DTOInformacionEnIdioma dtoInformacion = (DTOInformacionEnIdioma) traductor.traducir(informacionPunto);
+            DTOLocalizacion dtoLocalizacion = (DTOLocalizacion) traductor.traducir(punto.getLocalizacion());
 
             dtoPunto.setImagenes(crearDTOImagenes(punto.getImagenes(), idioma));
             dtoPunto.setInformacion(dtoInformacion);
-
+            dtoPunto.setLocalizacion(dtoLocalizacion);
+            //TODO set links
             return dtoPunto;
         }
 

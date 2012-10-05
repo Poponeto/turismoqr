@@ -12,13 +12,25 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Administracion TurismoQR</title>
+        <script type="text/javascript" src="../Vistas/JavaScript/Mapa.js"></script>
         <script type="text/javascript" src="../Vistas/JavaScript/JQuery/jquery-1.8.1.min.js"></script>
         <script type="text/javascript" src="../Vistas/JavaScript/JQuery/jquery-ui-1.8.24.custom.min.js"></script>
         <script type="text/javascript" src="../Vistas/JavaScript/InicializadorComponentes.js"></script>
         <link rel="stylesheet" type="text/css" href="../Vistas/HojasDeEstilo/jquery-ui-1.8.24.custom.css">
+        <link rel="stylesheet" type="text/css" href="../Vistas/HojasDeEstilo/Mapas.css">
         <script type="text/javascript" >
             $(document).ready(function(){
                 inicializarComponentes();
+
+                tqrmapas.contenedorMapas = "contenedorMapa";
+                tqrmapas.obtenerUbicacionUsuario(function(){
+                    tqrmapas.crearMapa();
+                    tqrmapas.crearNuevoMarcador("Posicion actual", function(){
+                        var posicionInicialMarcador = tqrmapas.obtenerLocalizacionMarcador(tqrmapas.marcador);
+                        $('#latitudValue').text(posicionInicialMarcador.lat());
+                        $('#longitudValue').text(posicionInicialMarcador.lng());
+                    });
+                });
             });
         </script>
     </head>
@@ -26,31 +38,17 @@
         <div id="Contenedor">
             <div id="Cabecera">
                 <h1>Turismo QR</h1>
+                <%@ include  file="../Utils/MenuCabecera.jsp" %>
             </div>
-            <div id="Contenido">
-                <h1>Mapa con ubicación actual y puntos de interés marcados</h1>
-            </div>
-            <div id="Menu">
-                <div id="BotonPaginaInicio">
-                    Home
-                </div>
-                <div id="menuAcordion">
-                        <h3><a href="#">First header</a></h3>
-                        <div>
-                            <input id="boton" type="button" href=""/>
-                        </div>
-                        <h3><a href="#">Second header</a></h3>
-                        <div>
+            
+            <div id="contenedorMapa"></div>
 
-                        </div>
-                </div>
-                <div id="BannerPaginaInicio">
-                    Banner
-                </div>
+            <div id="BannerPaginaInicio">
+                Banner
             </div>
-            <div id="Pie">
-                <h1>Pie</h1>
-            </div>
+        </div>
+        <div id="Pie">
+            <h1>Pie</h1>
         </div>
     </body>
 </html>

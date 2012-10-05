@@ -43,11 +43,22 @@
             </props>
         </property>
     </bean>
+
+    <!--bean name="jsonViewResolver"
+            class="org.springframework.web.servlet.view.XmlViewResolver" >
+        <property name="location">
+            <value>/WEB-INF/spring-views.xml</value>
+        </property>
+        <property name="order" value="0" />
+    </bean-->
     
     <bean id="viewResolver"
           class="org.springframework.web.servlet.view.InternalResourceViewResolver"
           p:prefix="/WEB-INF/jsp/"
-          p:suffix=".jsp" />
+          p:suffix=".jsp" >
+        <!--property name="order" value="1" /-->
+    </bean>
+    
     
     <!--
     The home controller.

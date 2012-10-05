@@ -115,6 +115,7 @@
                 <config-file>web/WEB-INF/applicationContext.xml</config-file>
                 <config-file>web/WEB-INF/dispatcher-servlet.xml</config-file>
                 <config-file>web/WEB-INF/securityContext.xml</config-file>
+                <config-file>web/WEB-INF/spring-views.xml</config-file>
             </config-files>
             <config-file-groups>
                 <config-file-group name="Default Group">

@@ -61,7 +61,7 @@
                 <security:intercept-url pattern="/administracion/**" access="ROL_ADMINISTRADOR"/>
                 <security:intercept-url pattern="/punto/**" access="ROL_TURISTA"/>
                 <security:intercept-url pattern="/usuario/**" access="ROL_TURISTA"/>
-                <security:intercept-url pattern="/home.htm" access="ROL_TURISTA"/>
+                <!--security:intercept-url pattern="/home.htm" access="ROL_TURISTA, ROL_ADMINISTRADOR"/-->
                 <!--security:intercept-url pattern="/**" access="denyAll"/-->
             </security:filter-security-metadata-source>
         </property>

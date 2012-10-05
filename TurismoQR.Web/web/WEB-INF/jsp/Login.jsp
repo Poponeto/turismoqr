@@ -14,20 +14,12 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Login</title>
-        <script type="text/javascript" src="../Vistas/JavaScript/JQuery/jquery-1.8.1.min.js"></script>
-        <script type="text/javascript" src="../Vistas/JavaScript/JQuery/jquery-ui-1.8.24.custom.min.js"></script>
-        <link rel="stylesheet" type="text/css" href="../Vistas/HojasDeEstilo/jquery-ui-1.8.24.custom.css">
-        <script type="text/javascript">
-            $(document).ready(function(){
-
-            });
-        </script>
     </head>
     <body>
         <div>
             <form name="loginComoTurista" action="<core:url value='login/ingresarComoTurista.htm'/>" method="GET">
                 <div>
-                    <input type="submit" value="Ingresar como turista!" />
+                    <input id="botonIngresarComoTurista" type="submit" value="Ingresar como turista!" />
                 </div>
             </form>
             <form name="crearPuntoDeInteres" action="<core:url value='/crearPunto/crearPuntoDeInteres.htm'/>" method="GET">
@@ -39,14 +31,14 @@
                 <div>
                     <div>
                         Username:
-                        <input type='text' id='username' name='usuario'>
+                        <input id="lineaDatosUsuario" type='text' id='username' name='usuario'>
                     </div>
                     <div>
                         Password:
-                        <input type='password' name='password'>
+                        <input id="lineaDatosPassword" type='password' name='password'>
                     </div>
                 </div>
-                <input type="submit" value="Iniciar sesión" />
+                <input id="botonIniciarSesion" type="submit" value="Iniciar sesión" />
             </form>
         </div>
     </body>

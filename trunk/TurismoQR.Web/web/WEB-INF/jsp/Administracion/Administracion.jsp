@@ -14,10 +14,11 @@
         <title>Administracion TurismoQR</title>
         <script type="text/javascript" src="../Vistas/JavaScript/JQuery/jquery-1.8.1.min.js"></script>
         <script type="text/javascript" src="../Vistas/JavaScript/JQuery/jquery-ui-1.8.24.custom.min.js"></script>
+        <script type="text/javascript" src="../Vistas/JavaScript/InicializadorComponentes.js"></script>
         <link rel="stylesheet" type="text/css" href="../Vistas/HojasDeEstilo/jquery-ui-1.8.24.custom.css">
         <script type="text/javascript" >
             $(document).ready(function(){
-                
+                inicializarComponentes();
             });
         </script>
     </head>
@@ -33,10 +34,15 @@
                 <div id="BotonPaginaInicio">
                     Home
                 </div>
-                <div id="OpcionesDeMenu">
-                    AcordionPunto
-                    AcordionUsuario
-                    AcordionCliente
+                <div id="menuAcordion">
+                        <h3><a href="#">First header</a></h3>
+                        <div>
+                            <input id="boton" type="button" href=""/>
+                        </div>
+                        <h3><a href="#">Second header</a></h3>
+                        <div>
+
+                        </div>
                 </div>
                 <div id="BannerPaginaInicio">
                     Banner

@@ -11,5 +11,5 @@ function inicializarComponentes()
     $('[id*="lineaDatos"]').addClass('ui-textfield');​
     $('[id*="acordion"]').accordion();
     $('[id*="tabs"]').tabs();
-    $('[id*="menuSeleccionable"]').selectmenu();
+    $('[id*="menuDeOpciones"]').selectmenu(); //http://jqueryui.com/demos/button/#splitbutton
 }

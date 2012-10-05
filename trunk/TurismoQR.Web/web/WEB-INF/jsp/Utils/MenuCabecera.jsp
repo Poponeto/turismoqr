@@ -5,8 +5,9 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-   "http://www.w3.org/TR/html4/loose.dtd">
+    "http://www.w3.org/TR/html4/loose.dtd">
 
 <html>
     <head>
@@ -19,12 +20,68 @@
         <script type="text/javascript" >
             $(document).ready(function(){
                 inicializarComponentes();
-                //Llamar a metodo con respuesta JSON para incializar menus y opciones
             });
         </script>
     </head>
     <body>
-        <div>
+        <a href="<spring:url value="/j_spring_security_logout" htmlEscape="true" />">Logout</a>
+        <div id ="contenedorDeMenus">
+            <div id ="menuDeOpcionesPunto">
+                <button>
+                    Punto
+                </button>
+                <ul>
+                    <sec:authorize url="/crearPunto/crearPuntoDeInteres.htm">
+                        <li>Crear Punto de Interés</li>
+                    </sec:authorize>
+                    <sec:authorize url="/crearPunto/crearPuntoDeInteres.htm">
+                        <li>Crear Punto Comercial</li>
+                    </sec:authorize>
+                    <sec:authorize url="/buscarPunto/paginaBuscarPunto.htm">
+                        <li>Buscar Punto</li>
+                    </sec:authorize>
+                    <sec:authorize url="/buscarPunto/paginaBuscarPunto.htm">
+                        <li>Genrar Código QR de Punto</li>
+                    </sec:authorize>
+                </ul>
+            </div>
+
+            <div id ="menuDeOpcionesUsuario">
+                <button>
+                    Usuario
+                </button>
+                <ul>
+                    <sec:authorize url="/crearPunto/crearPuntoDeInteres.htm">
+                        <li>Información Personal</li>
+                    </sec:authorize>
+                    <sec:authorize url="/crearPunto/crearPuntoDeInteres.htm">
+                        <li>Usuarios del Sistema</li>
+                    </sec:authorize>
+                    <sec:authorize url="/buscarPunto/paginaBuscarPunto.htm">
+                        <li>Clientes del Sistema</li>
+                    </sec:authorize>
+                    <sec:authorize url="/buscarPunto/paginaBuscarPunto.htm">
+                        <li>Crear Usuario</li>
+                    </sec:authorize>
+                </ul>
+            </div>
+
+            <div id ="menuDeOpcionesInformes">
+                <sec:authorize ifAnyGranted="PERMISO_VERINFORMES">
+                    <button>
+                        Informes
+                    </button>
+                    <ul>
+
+                    </ul>
+                </sec:authorize>
+            </div>
+
         </div>
+
+        <div id="contenedorDeInformacionTurismoQR">
+            <a>¿Quiénes Somos?</a>
+        </div>
+
     </body>
 </html>

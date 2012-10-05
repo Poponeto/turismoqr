@@ -26,6 +26,10 @@
           http://www.springframework.org/schema/security
           http://www.springframework.org/schema/security/spring-security-3.0.xsd">
 
+    <security:http>
+        <security:logout logout-url="/logout" logout-success-url="/home.htm" />
+    </security:http>
+
     <bean id="filtroDelegadorDeSeguridad" class="org.springframework.security.web.FilterChainProxy">
         <security:filter-chain-map path-type="ant">
             <security:filter-chain pattern="/**" filters="
@@ -58,10 +62,10 @@
         <property name="accessDecisionManager" ref="accesoPorConcensoUnanime"/>
         <property name="securityMetadataSource">
             <security:filter-security-metadata-source>
-                <security:intercept-url pattern="/administracion/**" access="ROL_ADMINISTRADOR"/>
-                <security:intercept-url pattern="/punto/**" access="ROL_TURISTA"/>
-                <security:intercept-url pattern="/usuario/**" access="ROL_TURISTA"/>
-                <!--security:intercept-url pattern="/home.htm" access="ROL_TURISTA, ROL_ADMINISTRADOR"/-->
+                <security:intercept-url pattern="/administracion/**" access="PERMISO_ADMINISTRADOR"/>
+                <security:intercept-url pattern="/punto/**" access="PERMISO_TURISTA"/>
+                <security:intercept-url pattern="/usuario/**" access="PERMISO_TURISTA"/>
+                <!--security:intercept-url pattern="/home.htm" access="PERMISO_TURISTA, PERMISO_ADMINISTRADOR"/-->
                 <!--security:intercept-url pattern="/**" access="denyAll"/-->
             </security:filter-security-metadata-source>
         </property>
@@ -72,11 +76,11 @@
         <property name="decisionVoters">
             <list>
                 <bean class="org.springframework.security.access.vote.RoleVoter">
-                    <property name="rolePrefix" value="ROL_"/>
+                    <property name="rolePrefix" value="PERMISO_"/>
                 </bean>
             </list>
         </property>
-    </bean>    
+    </bean>
 
     <bean id="filtroDeAutenticacion" class=
 "org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter">
@@ -90,7 +94,7 @@
     <bean id="filtroDeAutenticacionAnonima"
     class="org.springframework.security.web.authentication.AnonymousAuthenticationFilter">
         <property name="key" value="usuarioAnonimo"/>
-        <property name="userAttribute" value="usuarioAnonimo,ROL_TURISTA"/>
+        <property name="userAttribute" value="usuarioAnonimo,PERMISO_TURISTA"/>
     </bean>
 
     <bean id="manejadorDeAutenticacionPorURL"

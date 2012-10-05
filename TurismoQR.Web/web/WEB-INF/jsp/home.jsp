@@ -34,7 +34,7 @@
             <div>
                 <form name="registrarCliente" action="<core:url value='registro/accederRegistrarCliente.htm'/>" method="GET">
                     <div>
-                        <input type="submit" value="Registrarse como Cliente" />
+                        <input id="botonRegistrarCliente" type="submit" value="Registrarse como Cliente" />
                     </div>
                 </form>
             </div>

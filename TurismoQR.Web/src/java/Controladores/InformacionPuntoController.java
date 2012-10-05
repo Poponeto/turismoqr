@@ -39,7 +39,7 @@ public class InformacionPuntoController {
     {
         DTOPunto dtoPunto = servicioPunto.ConsultarPuntoInteres(idPunto, idioma);
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject(dtoPunto);
+        modelAndView.addObject("punto", dtoPunto);
         modelAndView.setViewName("Punto/InformacionPunto");
         return modelAndView;
     }

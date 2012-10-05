@@ -10,5 +10,6 @@ function inicializarComponentes()
     $('[id*="boton"]').button();
     $('[id*="lineaDatos"]').addClass('ui-textfield');​
     $('[id*="acordion"]').accordion();
-
+    $('[id*="tabs"]').tabs();
+    $('[id*="menuSeleccionable"]').selectmenu();
 }

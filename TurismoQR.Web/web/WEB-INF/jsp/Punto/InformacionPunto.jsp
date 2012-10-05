@@ -21,27 +21,47 @@
         <link rel="stylesheet" type="text/css" href="../Vistas/HojasDeEstilo/Mapas.css">
         <script type="text/javascript">
             $(document).ready(function(){
+
+                inicializarComponentes();
+
                 tqrmapas.contenedorMapas = "contenedorMapa";
-                tqrmapas.lat = '<core:out value="${dtoPunto.localizacion.latitud}" />';
-                tqrmapas.lng = '<core:out value="${dtoPunto.localizacion.longitud}" />';
+                tqrmapas.lat = '<core:out value="${punto.localizacion.latitud}" />';
+                tqrmapas.lng = '<core:out value="${punto.localizacion.longitud}" />';
                 tqrmapas.crearMapa();
-                tqrmapas.crearNuevoMarcador('<core:out value="${dtoPunto.informacion.nombre}" />', null, tqrmapas.lat, tqrmapas.lng);
+                tqrmapas.crearNuevoMarcador('<core:out value="${punto.informacion.nombre}" />', null, tqrmapas.lat, tqrmapas.lng);
             });
-            </script>
-        </head>
-        <body>
-            <div>Header</div>
-            <div>
-                <a>dropdown</a>
+        </script>
+    </head>
+    <body>
+
+        <div>Header</div>
+        <a>dropdown</a>
+
+        <div id="tabsInformacionPunto">
+            <ul>
+                <li><a href="#tabInformacionPunto">Informacion</a></li>
+                <li><a href="#tabLinks">Links</a></li>
+            </ul>
+            <div id="tabInformacionPunto">
                 <h1>
-                    <core:out value="${dtoPunto.informacion.nombre}" />
+                    <core:out value="${punto.informacion.nombre}" />
                 </h1>
                 <textarea cols="100" rows="50">
-                    <core:out value="${dtoPunto.informacion.texto}" />
+                    <core:out value="${punto.informacion.texto}" />
                 </textarea>
             </div>
-            <div>Contenedor de imagenes</div>
-            <div>Links</div>
-            <div id="contenedorMapa"></div>
-        </body>
-    </html>
+            <div id="tabLinks">
+                <ul>
+                    <c:forEach var="link" items="${punto.links}">
+                        <li>
+                        <c:out value="${link.url}" />
+                        </li>
+                    </c:forEach>
+                </ul>
+            </div>
+        </div>
+
+        <div>Contenedor de imagenes</div>
+        <div id="contenedorMapa"></div>
+    </body>
+</html>

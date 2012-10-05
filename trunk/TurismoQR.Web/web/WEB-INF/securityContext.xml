@@ -58,7 +58,7 @@
         <property name="accessDecisionManager" ref="accesoPorConcensoUnanime"/>
         <property name="securityMetadataSource">
             <security:filter-security-metadata-source>
-                <security:intercept-url pattern="/administracion/**" access="ROL_USUARIO"/>
+                <security:intercept-url pattern="/administracion/**" access="ROL_ADMINISTRADOR"/>
                 <security:intercept-url pattern="/punto/**" access="ROL_TURISTA"/>
                 <security:intercept-url pattern="/usuario/**" access="ROL_TURISTA"/>
                 <security:intercept-url pattern="/home.htm" access="ROL_TURISTA"/>
@@ -125,7 +125,7 @@
 
     <bean id="autenticacionPorBaseDeDatos"
         class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">
-        <property name="passwordEncoder" ref="passwordEncoder" />
+        <!--property name="passwordEncoder" ref="passwordEncoder" /-->
         <property name="userDetailsService" ref="loginController" />
     </bean>
     

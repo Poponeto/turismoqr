@@ -7,6 +7,7 @@ import org.hibernate.criterion.DetachedCriteria;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 class AccesoDatos extends HibernateDaoSupport implements IAccesoDatos
@@ -16,6 +17,7 @@ class AccesoDatos extends HibernateDaoSupport implements IAccesoDatos
     public AccesoDatos(SessionFactory sessionFactory)
     {
         super.setSessionFactory(sessionFactory);
+        getHibernateTemplate().setAllowCreate(false);
     }
 
     public <E extends IObjetoNegocio> E BuscarObjeto(E objeto)

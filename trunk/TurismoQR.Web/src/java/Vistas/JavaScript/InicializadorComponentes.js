@@ -4,12 +4,12 @@
  */
 function inicializarComponentes()
 {
-    $('#Contenedor').addClass('ui-widget');​
-    $('#Cabecera').addClass('ui-widget-header');​
-    $('#Menu , #Contenido , #Pie').addClass('ui-widget-content');
+    $('#Contenedor').addClass('ui-widget');
+	$('#Cabecera').addClass('ui-widget-header');
+	$('#Menu , #Contenido , #Pie').addClass('ui-widget-content');
     $('[id*="boton"]').button();
-    $('[id*="lineaDatos"]').addClass('ui-textfield');​
-    $('[id*="acordion"]').accordion();
+	$('[id*="lineaDatos"]').addClass('ui-textfield');
+	$('[id*="acordion"]').accordion();
     $('[id*="tabs"]').tabs();
     $('[id*="menuDeOpciones"]').selectmenu(); //http://jqueryui.com/demos/button/#splitbutton
 }

@@ -23,4 +23,10 @@ public class AdministracionController {
     {
         return "Administracion/Administracion";
     }
+
+    @RequestMapping("/aboutUS.htm")
+    public String aboutUS()
+    {
+        return "AboutUS";
+    }
 }

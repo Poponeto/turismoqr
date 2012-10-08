@@ -12,6 +12,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Administracion TurismoQR</title>
+        <script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=true"></script>
         <script type="text/javascript" src="../Vistas/JavaScript/Mapa.js"></script>
         <script type="text/javascript" src="../Vistas/JavaScript/JQuery/jquery-1.8.1.min.js"></script>
         <script type="text/javascript" src="../Vistas/JavaScript/JQuery/jquery-ui-1.8.24.custom.min.js"></script>

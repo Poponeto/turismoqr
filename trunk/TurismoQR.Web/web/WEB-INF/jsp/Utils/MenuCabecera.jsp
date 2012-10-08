@@ -16,71 +16,97 @@
         <script type="text/javascript" src="../Vistas/JavaScript/JQuery/jquery-1.8.1.min.js"></script>
         <script type="text/javascript" src="../Vistas/JavaScript/JQuery/jquery-ui-1.8.24.custom.min.js"></script>
         <script type="text/javascript" src="../Vistas/JavaScript/InicializadorComponentes.js"></script>
+        <script type="text/javascript" src="../Vistas/JavaScript/MenuCabecera.js"></script>
         <link rel="stylesheet" type="text/css" href="../Vistas/HojasDeEstilo/jquery-ui-1.8.24.custom.css">
+        <link rel="stylesheet" type="text/css" href="../Vistas/HojasDeEstilo/MenuCabecera.css">
+        <link rel="stylesheet" type="text/css" media="screen" href="../Vistas/HojasDeEstilo/jquery.ui.potato.menu.css" />
+        <script type="text/javascript" src="../Vistas/JavaScript/JQuery/jquery.ui.potato.menu.js"></script>
+
+
+
         <script type="text/javascript" >
             $(document).ready(function(){
                 inicializarComponentes();
+                inicializarComponentesMenuCabecera();
             });
         </script>
     </head>
     <body>
-        <a href="<spring:url value="/j_spring_security_logout" htmlEscape="true" />">Logout</a>
-        <div id ="contenedorDeMenus">
-            <div id ="menuDeOpcionesPunto">
-                <button>
-                    Punto
-                </button>
+        <a>Logout</a>
+        <ul id ="contenedorDeMenusInicio">
+            <li id ="menuDeOpcionesPunto">
+                <a href="#">
+                    <img id="imagenMenu0" alt="" src="../Vistas/HojasDeEstilo/images/profile.gif"/>&nbsp;Punto&nbsp;&nbsp;&nbsp<img id="imagenMenu1" alt="" src="../Vistas/HojasDeEstilo/images/down.png"/>
+                </a>
                 <ul>
                     <sec:authorize url="/crearPunto/crearPuntoDeInteres.htm">
-                        <li>Crear Punto de Interés</li>
+                        <li style="width:220px">
+                            <a href="./crearPunto/crearPuntoDeInteres.htm">Crear Punto de Interés</a>
+                        </li>
                     </sec:authorize>
                     <sec:authorize url="/crearPunto/crearPuntoDeInteres.htm">
-                        <li>Crear Punto Comercial</li>
+                        <li style="width:220px">
+                            <a href="#">Crear Punto Comercial</a>
+                        </li>
                     </sec:authorize>
                     <sec:authorize url="/buscarPunto/paginaBuscarPunto.htm">
-                        <li>Buscar Punto</li>
+                        <li style="width:220px">
+                            <a href="./buscarPunto/paginaBuscarPunto.htm">Buscar Punto</a>
+                        </li>
                     </sec:authorize>
-                    <sec:authorize url="/buscarPunto/paginaBuscarPunto.htm">
-                        <li>Genrar Código QR de Punto</li>
+                    <sec:authorize url="./buscarPunto/paginaBuscarPunto.htm">
+                        <li style="width:220px">
+                            <a href="#">Genrar Código QR de Punto</a>
+                        </li>
                     </sec:authorize>
                 </ul>
-            </div>
+            </li>
 
-            <div id ="menuDeOpcionesUsuario">
-                <button>
-                    Usuario
-                </button>
+            <li id ="menuDeOpcionesUsuario">
+                <a href="#">
+                    <img id="imagenMenu2" alt="" src="../Vistas/HojasDeEstilo/images/action.gif"/>&nbsp;Usuario&nbsp;&nbsp;&nbsp<img alt=""  id="imagenMenu3" src="../Vistas/HojasDeEstilo/images/down.png"/>
+                </a>
+                
                 <ul>
                     <sec:authorize url="/crearPunto/crearPuntoDeInteres.htm">
-                        <li>Información Personal</li>
+                        <li style="width:170px">
+                            <a href="./crearPunto/crearPuntoDeInteres.htm">Información Personal</a>
+                        </li>
                     </sec:authorize>
                     <sec:authorize url="/crearPunto/crearPuntoDeInteres.htm">
-                        <li>Usuarios del Sistema</li>
+                        <li style="width:170px">
+                            <a href="./crearPunto/crearPuntoDeInteres.htm">Usuarios del Sistema</a>
+                        </li>
                     </sec:authorize>
                     <sec:authorize url="/buscarPunto/paginaBuscarPunto.htm">
-                        <li>Clientes del Sistema</li>
+                        <li style="width:170px">
+                            <a href="./crearPunto/crearPuntoDeInteres.htm">Clientes del Sistema</a>
+                        </li>
                     </sec:authorize>
                     <sec:authorize url="/buscarPunto/paginaBuscarPunto.htm">
-                        <li>Crear Usuario</li>
+                        <li style="width:170px">
+                            <a href="./crearPunto/crearPuntoDeInteres.htm">Crear Usuario</a>
+                        </li>
                     </sec:authorize>
                 </ul>
-            </div>
+            </li>
 
-            <div id ="menuDeOpcionesInformes">
-                <sec:authorize ifAnyGranted="PERMISO_VERINFORMES">
-                    <button>
-                        Informes
-                    </button>
+            <!--sec:authorize ifAnyGranted="PERMISO_VERINFORMES"-->
+                <li id ="menuDeOpcionesInformes">
+
+                    <a href="./crearPunto/crearPuntoDeInteres.htm"><img alt=""  id="imagenMenu4" src="../Vistas/HojasDeEstilo/images/chart.gif"/>&nbsp;Informes&nbsp;&nbsp;&nbsp<img alt=""  id="imagenMenu5" src="../Vistas/HojasDeEstilo/images/down.png"/></a>
+                    
                     <ul>
 
                     </ul>
-                </sec:authorize>
-            </div>
 
-        </div>
+                </li>
+            <!-- /sec:authorize-->
+
+        </ul>
 
         <div id="contenedorDeInformacionTurismoQR">
-            <a>¿Quiénes Somos?</a>
+            <a href="./aboutUS.htm">¿Quiénes Somos?</a>
         </div>
 
     </body>

@@ -47,6 +47,16 @@ public class ServicioPunto implements IServicioPunto {
     
     private ITraductor traductor;
 
+    private Collection<DTOImagen> imagenesPunto;
+
+    public Collection<DTOImagen> getImagenesPunto() {
+        return imagenesPunto;
+    }
+
+    public void setImagenesPunto(Collection<DTOImagen> imagenesPunto) {
+        this.imagenesPunto = imagenesPunto;
+    }
+
     private GeneradorCodigoQR generadorCodigo;
     @Autowired
     public ServicioPunto(ManejadorIdiomas manejadorIdioma,
@@ -60,6 +70,7 @@ public class ServicioPunto implements IServicioPunto {
         this.accesoDatos = accesoDatos;
         this.traductor = traductor;
         this.generadorCodigo = generadorCodigo;
+        this.imagenesPunto = new ArrayList<DTOImagen>();
     }
 
     /*
@@ -147,7 +158,7 @@ public class ServicioPunto implements IServicioPunto {
         return dtoCodigoQR;
     }
 
-    private Collection<DTOImagen> crearDTOImagenes(Collection<Imagen> imagenes, final Idioma idioma)
+    public Collection<DTOImagen> crearDTOImagenes(Collection<Imagen> imagenes, final Idioma idioma)
     {
         Collection<DTOImagen> dtoImagenes = new ArrayList<DTOImagen>();
 
@@ -159,7 +170,7 @@ public class ServicioPunto implements IServicioPunto {
         return dtoImagenes;
     }
 
-    private DTOImagen crearDTOImagen(Imagen imagen, final Idioma idioma)
+    public DTOImagen crearDTOImagen(Imagen imagen, final Idioma idioma)
     {
         InformacionEnIdioma informacionImagen = manejadorIdioma.seleccionarInformacionDeImagenEnIdioma(imagen, idioma);
 

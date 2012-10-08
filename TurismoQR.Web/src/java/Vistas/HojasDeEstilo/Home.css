@@ -8,22 +8,41 @@
 
 
 #Contenedor {
-  /* # la almoadilla aplica el estilo a los tag html con ese id */
-  margin: 0 auto;
-  text-align:left;
-  /*width:780px; /* para 800 x 600 */
-  width: 100%;
-  height: 25%;
+    /* # la almoadilla aplica el estilo a los tag html con ese id */
+    margin: 0 auto;
+    text-align:left;
+    /*width:780px; /* para 800 x 600 */
+    width: 100%;
  }
  
  #Menu {
-  float: right;
-  width: 20%;
+    display: inline-block;
+    padding: 10px;
+    width:  97%;
+    height: 100%;
  }
 
  #Contenido {
-  float: left;
-  width: 75%;
+    display: inline-block;
+/*    padding: 10px;
+    padding-left:  30px;*/
+    width: 100%;
  }
 
+ form[name="formularioDeLogin"] {
+    padding: 10px;
+    border: 3px double lightBlue;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+}
 
+form[name="formularioDeLogin"] table,
+form[name="formularioDeLogin"] table input{
+    width: 100%;
+}
+
+form[name="loginComoTurista"],
+form[name="registrarCliente"] {
+    display: inline-block;
+}

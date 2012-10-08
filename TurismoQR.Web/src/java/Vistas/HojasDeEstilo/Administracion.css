@@ -1,0 +1,19 @@
+/* 
+    Document   : Administracion
+    Created on : 08/10/2012, 18:06:27
+    Author     : Chelo
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/* 
+   TODO customize this sample style
+   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
+*/
+
+#contenedorDeMenusInicio a {
+    border-radius: 0px;
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+}
+

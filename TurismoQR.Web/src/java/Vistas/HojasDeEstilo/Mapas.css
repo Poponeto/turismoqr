@@ -22,15 +22,14 @@
 }
 
 #contenedorMapa {
-    height: 500px;
-    width: 48%;
+    height: 100%;
+    width: 100%;
     display: inline-block;
-    margin-left: 15px;
 }
 
 #contenedorFormulario {
     height: 100%;
-    width: 48%;
+    width: 95%;
     display: inline-block;
     vertical-align: top;
     padding: 15px;

@@ -26,9 +26,12 @@
           http://www.springframework.org/schema/security
           http://www.springframework.org/schema/security/spring-security-3.0.xsd">
 
-    <security:http>
+    <!--security:http>
         <security:logout logout-url="/logout" logout-success-url="/home.htm" />
-    </security:http>
+    </security:http-->
+    <bean id="webInvocator" class="org.springframework.security.web.access.DefaultWebInvocationPrivilegeEvaluator">
+        <constructor-arg ref="filtroInterceptorDeSeguridad"/>
+    </bean>
 
     <bean id="filtroDelegadorDeSeguridad" class="org.springframework.security.web.FilterChainProxy">
         <security:filter-chain-map path-type="ant">

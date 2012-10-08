@@ -11,13 +11,13 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
  * @author Chelo
  */
 public class FormularioArchivo {
-    CommonsMultipartFile[] fichero;
+    CommonsMultipartFile files;
 
-    public CommonsMultipartFile[] getFichero() {
-        return fichero;
+    public CommonsMultipartFile getFiles() {
+        return files;
     }
 
-    public void setFichero(CommonsMultipartFile[] fichero) {
-        this.fichero = fichero;
+    public void setFiles(CommonsMultipartFile files) {
+        this.files = files;
     } 
 }

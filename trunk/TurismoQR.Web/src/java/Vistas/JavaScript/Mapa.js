@@ -14,6 +14,32 @@
     contenedorMapas : null,
     marcador : null,
 
+
+    /**
+     * Crea el mapa y setea valores iniciales a los elementos.
+     */
+    iniciarMapas : function() {
+        tqrmapas.contenedorMapas = "contenedorMapa";
+        tqrmapas.obtenerUbicacionUsuario(function(){
+            tqrmapas.crearMapa();
+            tqrmapas.crearNuevoMarcador("Posicion actual", function(){
+                var posicionInicialMarcador = tqrmapas.obtenerLocalizacionMarcador(tqrmapas.marcador);
+                $('#latitudValue').text(posicionInicialMarcador.lat());
+                $('#longitudValue').text(posicionInicialMarcador.lng());
+                $('#latitudPunto').attr('value', posicionInicialMarcador.lat());
+                $('#longitudPunto').attr('value', posicionInicialMarcador.lng());
+
+                google.maps.event.addListener(tqrmapas.marcador, 'position_changed', function(){
+                    var posicionActualMarcador = tqrmapas.obtenerLocalizacionMarcador(this);
+                    $('#latitudValue').text(posicionActualMarcador.lat());
+                    $('#longitudValue').text(posicionActualMarcador.lng());
+                    $('#latitudPunto').attr('value', posicionActualMarcador.lat());
+                    $('#longitudPunto').attr('value', posicionActualMarcador.lng());
+                });
+            });
+        });
+    },
+    
     /**
      * Obtiene la posicion actual del usuario
      * @param exito Funcion que sera ejecutada en caso de que la ubicacion del usuario se recupere con exito.

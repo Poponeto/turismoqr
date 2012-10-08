@@ -30,6 +30,9 @@
 
     <mvc:resources mapping="/Vistas/**" location="classpath:/Vistas/"/>
     <mvc:resources mapping="/resources/**" location="/, classpath:/META-INF/web-resources/" />
+
+    <mvc:annotation-driven/>
+
     <context:annotation-config/>
     <context:component-scan base-package="Controladores"/>
     <bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping"/>
@@ -68,8 +71,49 @@
           p:viewName="home" />
 
     <!--
-    Bean para manejar subida de archivos al servidor.
+    Bean para manejar la respuesta de la subida de imagenes
     -->
-    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"></bean>
+    <bean id="multipartResolver"
+    class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
+
+    <bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
+      <property name="mediaTypes">
+        <map>
+          <entry key="json" value="application/json"/>
+        </map>
+      </property>
+      <property name="defaultViews">
+        <list>
+          <bean class="org.springframework.web.servlet.view.json.MappingJacksonJsonView">
+            <property name="prefixJson" value="true"/>
+          </bean>
+        </list>
+      </property>
+    </bean>
+
+    <bean
+        class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+        <property name="messageConverters">
+            <list>
+                <bean class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">
+                    <property name="objectMapper" ref="jacksonObjectMapper" />
+                </bean>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="jacksonObjectMapper" class="org.codehaus.jackson.map.ObjectMapper" />
+    <bean id="jacksonSerializationConfig" class="org.codehaus.jackson.map.SerializationConfig"
+        factory-bean="jacksonObjectMapper" factory-method="getSerializationConfig" />
+    <bean
+        class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+        <property name="targetObject" ref="jacksonSerializationConfig" />
+        <property name="targetMethod" value="setSerializationInclusion" />
+        <property name="arguments">
+            <list>
+                <value type="org.codehaus.jackson.map.annotate.JsonSerialize.Inclusion">NON_DEFAULT</value>
+            </list>
+        </property>
+    </bean>
 
 </beans>

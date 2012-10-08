@@ -17,28 +17,22 @@
     </head>
     <body>
         <div>
-            <form name="loginComoTurista" action="<core:url value='login/ingresarComoTurista.htm'/>" method="GET">
-                <div>
-                    <input id="botonIngresarComoTurista" type="submit" value="Ingresar como turista!" />
-                </div>
-            </form>
-            <form name="crearPuntoDeInteres" action="<core:url value='/crearPunto/crearPuntoDeInteres.htm'/>" method="GET">
-                <div>
-                    <input type="submit" value="Crear Nuevo Punto De Interes" />
-                </div>
-            </form>
             <form name="formularioDeLogin" action="<core:url value='loginUsuario'/>" method="POST">
                 <div>
                     <div>
-                        Username:
-                        <input id="lineaDatosUsuario" type='text' id='username' name='usuario'>
-                    </div>
-                    <div>
-                        Password:
-                        <input id="lineaDatosPassword" type='password' name='password'>
+                        <table>
+                            <tr>
+                                <td>Usuario:</td>
+                                <td><input id="lineaDatosUsuario" type='text' id='username' name='usuario'></td>
+                            </tr>
+                            <tr>
+                                <td>Contraseña:</td>
+                                <td><input id="lineaDatosPassword" type='password' name='password'></td>
+                            </tr>
+                        </table>
                     </div>
                 </div>
-                <input id="botonIniciarSesion" type="submit" value="Iniciar sesión" />
+                <input id="botonIniciarSesion" type="submit" value="Iniciar sesión" style="width: 100%;" />
             </form>
         </div>
     </body>

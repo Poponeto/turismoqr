@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.portlet.ModelAndView;
 import TurismoQR.Punto.IServicioPunto;
+import TurismoQR.Punto.ManejadorIdiomas.ManejadorIdiomas;
 import Utils.FormularioArchivo;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -29,15 +30,17 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
  * @author Chelo
  */
 @Controller("crearPuntoController")
-@RequestMapping("/crearPunto")
+@RequestMapping("administracion/crearPunto")
 public class CrearPuntoController {
 
     IServicioPunto servicioPunto;
+    ManejadorIdiomas manejadorIdioma;
 
     @Autowired
-    public void LoginController(IServicioPunto servicioPunto)
+    public void LoginController(IServicioPunto servicioPunto, ManejadorIdiomas manejadorIdioma)
     {
         this.servicioPunto = servicioPunto;
+        this.manejadorIdioma = manejadorIdioma;
     }
 
     @RequestMapping("/crearPuntoDeInteres.htm")
@@ -52,6 +55,7 @@ public class CrearPuntoController {
             @RequestParam("informacionPunto") String informacionPunto,
             @RequestParam("latitudPunto") String latitudPunto,
             @RequestParam("longitudPunto") String longitudPunto,
+            @RequestParam("idioma") String idioma,
             ModelMap modelo
         )
     {
@@ -61,14 +65,13 @@ public class CrearPuntoController {
         localizacionPunto.setLatitud(latitudPunto);
         localizacionPunto.setLongitud(longitudPunto);
         dtoPunto.setLocalizacion(localizacionPunto);
+        dtoPunto.setImagenes(servicioPunto.getImagenesPunto());
 
-        servicioPunto.CrearPuntoInteres(dtoPunto, "Español");
+        servicioPunto.CrearPuntoInteres(dtoPunto, idioma);
 
         modelo.put("nombrePunto", nombrePunto);
-////        ModelAndView modeloVista = new ModelAndView("/Punto/ConfirmacionGuardarPunto", "modelo", modelo);
-//        return modelo;
+        
         return "Administracion/Punto/ConfirmacionGuardarPunto";
-//        return modelo;
     }
 
     @RequestMapping("/agregarImagen.htm")
@@ -76,53 +79,4 @@ public class CrearPuntoController {
     {
         return "Administracion/Punto/AgregarImagen";
     }
-
-//    @RequestMapping("/crearPunto/agregarImagen.htm")
-//    public @ModelAttribute("formularioArchivo") FormularioArchivo getInitialMessage() {
-//        return new FormularioArchivo();
-//    }
-
-    @RequestMapping("/subirImagen.htm")
-    public String guardaFichero(@ModelAttribute FormularioArchivo formularioArchivo, ModelMap modelo) {
-        System.out.println("Entre al controller");
-        String mensajeImagen = "";
-        try {
-            grabarFicheroALocal(formularioArchivo);
-            mensajeImagen = "Fichero grabado correctamente";
-        } catch (Exception e) {
-            e.printStackTrace();
-            mensajeImagen = "No se ha podido grabar el fichero";
-        }
-        modelo.put("mensajeImagen", mensajeImagen);
-        return "Administracion/Punto/ConfirmacionImagen";
-    }
-
-    private void grabarFicheroALocal(FormularioArchivo formularioArchivo) throws Exception {
-
-//        Collection<File> localFiles=null;
-        for(CommonsMultipartFile upload : formularioArchivo.getFichero()){
-//        CommonsMultipartFile uploaded = formularioArchivo.getFichero();
-            File localFile = new File(System.getProperty("user.home") + "\\" +  upload.getOriginalFilename());
-            FileOutputStream os = null;
-//        }
-//        if(localFiles != null && !localFiles.isEmpty()){
-//            for(File file : localFiles) {
-                try {
-                    
-                    os = new FileOutputStream(localFile);
-                    os.write(upload.getBytes());
-
-                } finally {
-                    if (os != null) {
-                        try {
-                            os.close();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }
-            }
-        }
-        
-//    }
 }

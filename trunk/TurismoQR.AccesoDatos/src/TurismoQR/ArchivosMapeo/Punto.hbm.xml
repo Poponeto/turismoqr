@@ -6,20 +6,22 @@
             <generator class="guid"/>
         </id>
         <property name="nombre"/>
-        <many-to-one name="localizacion" class="TurismoQR.ObjetosNegocio.Punto.Localizacion" cascade="all" foreign-key="idLocalizacion"/>
-        <many-to-one name="informacion" class="TurismoQR.ObjetosNegocio.Informacion.Informacion" cascade="all" foreign-key="idInformacion" />
-        <set name="imagenes" cascade="all-delete-orphan" outer-join="true"> 
-            <key column="idImagen" foreign-key="idImagen" /> 
-           <one-to-many class="TurismoQR.ObjetosNegocio.Informacion.Imagen"/> 
-        </set>  
-        <set name="links" cascade="all-delete-orphan" outer-join="true"> 
-            <key column="idLink" foreign-key="idLink" /> 
-            <one-to-many class="TurismoQR.ObjetosNegocio.Informacion.Link" /> 
+        <many-to-one name="localizacion" unique="true" class="TurismoQR.ObjetosNegocio.Punto.Localizacion" column="Localizacion" not-null="true" cascade="all" lazy="false"/>
+        <many-to-one name="informacion" unique="true" class="TurismoQR.ObjetosNegocio.Informacion.Informacion" column="Informacion" cascade="all"  lazy="false"/>
+
+        <set name="imagenes" cascade="all-delete-orphan" outer-join="true">
+            <key column="Punto" foreign-key="idPuntoImagenes"/>
+            <one-to-many class="TurismoQR.ObjetosNegocio.Informacion.Imagen"/>
         </set>
-      <!--  <list name="estado" cascade="all-delete-orphan" outer-join="true"> 
-            <key column="idEstado" /> 
-            <index column="orden" /> 
-            <one-to-many class="TurismoQR.ObjetosNegocio.Estados.Estado" /> 
-        </list> -->
+
+        <set name="links" cascade="all-delete-orphan" outer-join="true">
+            <key column="Punto" foreign-key="idPuntoLinks"/>
+            <one-to-many class="TurismoQR.ObjetosNegocio.Informacion.Link" />
+        </set>
+        
+        <set name="estados" cascade="all-delete-orphan" outer-join="true">
+            <key column="Punto" foreign-key="idPuntoEstados"/>
+            <one-to-many class="TurismoQR.ObjetosNegocio.Estados.Estado" />
+        </set>
     </class>
 </hibernate-mapping>

@@ -20,7 +20,6 @@ public class EstrategiaTraduccionInformacionEnIdioma implements IEstrategiaTradu
         DTOInformacionEnIdioma dtoInformacionEnIdioma = new DTOInformacionEnIdioma();
         dtoInformacionEnIdioma.setTexto(objetoNegocio.getTexto());
         dtoInformacionEnIdioma.setNombre(objetoNegocio.getNombre());
-
         return dtoInformacionEnIdioma;
     }
 

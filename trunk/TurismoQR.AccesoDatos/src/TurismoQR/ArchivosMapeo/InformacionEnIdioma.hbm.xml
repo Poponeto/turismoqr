@@ -6,6 +6,7 @@
             <generator class="guid"/>
         </id>
       <property name="texto"/>
-      <one-to-one name="idioma" class="TurismoQR.ObjetosNegocio.Informacion.Idioma" cascade="all" foreign-key="idIdioma" />
+      <property name="nombre"/>
+      <many-to-one name="idioma" class="TurismoQR.ObjetosNegocio.Informacion.Idioma" unique="true" column="Idioma" not-null="true" cascade="all"/>
       </class>
 </hibernate-mapping>

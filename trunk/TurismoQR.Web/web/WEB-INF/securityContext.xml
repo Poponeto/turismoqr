@@ -92,6 +92,11 @@
         <property name="passwordParameter" value="password"/>
         <property name="usernameParameter" value="usuario"/>
         <property name="authenticationSuccessHandler" ref="manejadorDeAutenticacionPorURL"/>
+        <property name="authenticationFailureHandler" ref="manejadorDeFallosDeLogin"/>
+    </bean>
+
+    <bean id="manejadorDeFallosDeLogin" class="org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler">
+        <property name="defaultFailureUrl" value="/home.htm?failure=true"/>
     </bean>
 
     <bean id="filtroDeAutenticacionAnonima"

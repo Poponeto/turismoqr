@@ -28,6 +28,7 @@ public class Traductor implements ITraductor {
 
     public <E extends IObjetoNegocio> IDTO<E> traducir(E objetoNegocio)
     {
+        String a = objetoNegocio.getIdObjeto();
         IEstrategiaTraduccion estrategiaTraduccion = fabricaDeEstrategiaTraduccion.crearEstrategiaTraduccion(objetoNegocio);
         return estrategiaTraduccion.traducir(objetoNegocio);
     }

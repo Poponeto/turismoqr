@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package TurismoQR.Punto;
 
 import TurismoQR.AccesoDatos.IAccesoDatos;
@@ -11,14 +10,12 @@ import TurismoQR.ObjetosNegocio.Informacion.Idioma;
 import TurismoQR.ObjetosNegocio.Informacion.Imagen;
 import TurismoQR.ObjetosNegocio.Informacion.Informacion;
 import TurismoQR.ObjetosNegocio.Informacion.InformacionEnIdioma;
-import TurismoQR.ObjetosNegocio.Informacion.Link;
-import TurismoQR.ObjetosNegocio.Punto.Localizacion;
 import TurismoQR.ObjetosNegocio.Punto.Punto;
-import TurismoQR.ObjetosNegocio.Punto.PuntoDeInteres;
 import TurismoQR.ObjetosTransmisionDatos.DTOImagen;
 import TurismoQR.ObjetosTransmisionDatos.DTOInformacionEnIdioma;
 import TurismoQR.ObjetosTransmisionDatos.DTOPunto;
 import TurismoQR.ObjetosTransmisionDatos.DTOCodigoQR;
+import TurismoQR.ObjetosTransmisionDatos.DTOIdioma;
 import TurismoQR.ObjetosTransmisionDatos.DTOLocalizacion;
 import TurismoQR.Punto.GeneradorCodigo.GeneradorCodigoQR;
 import TurismoQR.Punto.ManejadorEstados.ManejadorEstados;
@@ -36,16 +33,14 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Transactional
 @Service
-public class ServicioPunto implements IServicioPunto {
+public class ServicioPunto implements IServicioPunto
+{
 
-    
     private ManejadorIdiomas manejadorIdioma;
-    
     private ManejadorEstados manejadorEstado;
-    
     private IAccesoDatos accesoDatos;
-    
     private ITraductor traductor;
+    private GeneradorCodigoQR generadorCodigo;
 
     private Collection<DTOImagen> imagenesPunto;
 
@@ -61,7 +56,7 @@ public class ServicioPunto implements IServicioPunto {
     @Autowired
     public ServicioPunto(ManejadorIdiomas manejadorIdioma,
             ManejadorEstados manejadorEstado,
-            IAccesoDatos accesoDatos, 
+            IAccesoDatos accesoDatos,
             ITraductor traductor,
             GeneradorCodigoQR generadorCodigo)
     {
@@ -79,7 +74,7 @@ public class ServicioPunto implements IServicioPunto {
      */
     public DTOPunto ConsultarPuntoInteres(String idPuntoInteres, String nombreIdioma)
     {
-         Punto punto = accesoDatos.BuscarObjeto(Punto.class, idPuntoInteres);
+        Punto punto = accesoDatos.BuscarObjeto(Punto.class, idPuntoInteres);
 
         if (punto != null && manejadorEstado.esEstadoValidoConsulta(punto.getEstado()))
         {
@@ -89,6 +84,9 @@ public class ServicioPunto implements IServicioPunto {
             DTOPunto dtoPunto = (DTOPunto) traductor.traducir(punto);
             DTOInformacionEnIdioma dtoInformacion = (DTOInformacionEnIdioma) traductor.traducir(informacionPunto);
             DTOLocalizacion dtoLocalizacion = (DTOLocalizacion) traductor.traducir(punto.getLocalizacion());
+            DTOIdioma dtoIdioma = (DTOIdioma) traductor.traducir(informacionPunto.getIdioma());
+
+            dtoInformacion.setIdioma(dtoIdioma);
 
             dtoPunto.setImagenes(crearDTOImagenes(punto.getImagenes(), idioma));
             dtoPunto.setInformacion(dtoInformacion);
@@ -114,17 +112,20 @@ public class ServicioPunto implements IServicioPunto {
 
         //Setea las imagenes correspondientes al punto, si las hubiera.
         Collection<DTOImagen> dtoImagenes = datosPunto.getImagenes();
-        if (dtoImagenes != null && !dtoImagenes.isEmpty()) {
+        if (dtoImagenes != null && !dtoImagenes.isEmpty())
+        {
             Collection<Imagen> imagenes = null;
-            for(DTOImagen dtoImagen : datosPunto.getImagenes()) {
+            for (DTOImagen dtoImagen : datosPunto.getImagenes())
+            {
                 imagenes.add(traductor.traducir(dtoImagen));
             }
             nuevoPuntoDeInteres.setImagenes(imagenes);
         }
-       
+
 
         //Setea la informacion del punto
-        if(datosPunto.getInformacion() != null) {
+        if (datosPunto.getInformacion() != null)
+        {
             Collection<InformacionEnIdioma> infoEnIdiomas = null;
             infoEnIdiomas.add(traductor.traducir(datosPunto.getInformacion()));
             Informacion info = new Informacion();
@@ -142,7 +143,7 @@ public class ServicioPunto implements IServicioPunto {
         //Persiste el punto creado previamente
         accesoDatos.Guardar(nuevoPuntoDeInteres);
     }
-    
+
     /**
      * Genera un codigo QR en base al Id de un punto de interes
      * @param idPuntoInteres Id del punto de interes para el cual se creara el codigo QR.
@@ -151,10 +152,10 @@ public class ServicioPunto implements IServicioPunto {
     public DTOCodigoQR GenerarCodigoQR(String idPuntoInteres, int tamaño, String rutaImagen, String formatoImagen)
     {
         String rutaCodigoQR = generadorCodigo.generarCodigoQR(idPuntoInteres, tamaño, rutaImagen, formatoImagen);
-        
+
         DTOCodigoQR dtoCodigoQR = new DTOCodigoQR();
         dtoCodigoQR.setRutaImagenCodigo(rutaCodigoQR);
-        
+
         return dtoCodigoQR;
     }
 
@@ -181,5 +182,4 @@ public class ServicioPunto implements IServicioPunto {
 
         return dtoImagen;
     }
-
 }

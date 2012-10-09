@@ -6,6 +6,7 @@ import TurismoQR.ObjetosNegocio.Informacion.Informacion;
 import TurismoQR.ObjetosNegocio.Estados.Estado;
 import TurismoQR.ObjetosNegocio.IObjetoNegocio;
 import java.util.Collection;
+import java.util.HashSet;
 
 public class Punto implements IObjetoNegocio
 {
@@ -15,7 +16,18 @@ public class Punto implements IObjetoNegocio
     private Informacion informacion;
     private Collection<Imagen> imagenes;
     private Collection<Link> links;
-    private Estado estado;
+    private Collection<Estado> estados;
+
+
+    public Collection<Estado> getEstados()
+    {
+        return estados;
+    }
+
+    private void setEstados(Collection<Estado> estados)
+    {
+        this.estados = estados;
+    }
     private String idObjeto;
 
     public String getIdObjeto()
@@ -50,12 +62,20 @@ public class Punto implements IObjetoNegocio
 
     public Estado getEstado()
     {
-        return estado;
+        for(Estado estado : estados)
+        {
+            if (estado.esActual())
+            {
+                return estado;
+            }
+        }
+        return null;
     }
 
     public void setEstado(Estado estado)
     {
-        this.estado = estado;
+        this.estados = new HashSet();
+        estados.add(estado);
     }
 
     public Informacion getInformacion()

@@ -5,6 +5,8 @@
 
 package TurismoQR.ObjetosNegocio.Periodo;
 
+import java.util.Date;
+
 /**
  *
  * @author Federico
@@ -13,6 +15,6 @@ public abstract class PeriodoVencimiento extends Periodo{
 
     public Boolean esActual()
     {
-          throw new UnsupportedOperationException("Not supported yet.");
+          return this.getFechaFinPeriodo() == null || this.getFechaFinPeriodo().before(new Date());
     }
 }

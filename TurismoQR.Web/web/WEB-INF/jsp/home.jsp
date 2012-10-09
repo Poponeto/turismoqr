@@ -41,9 +41,6 @@
                                         <img src="./Vistas/Imagenes/TQR2.jpg" data-thumb="./Vistas/Imagenes/TQR2.jpg" alt="" />
                                         <img src="./Vistas/Imagenes/TQR3.jpg" data-thumb="./Vistas/Imagenes/TQR3.jpg" alt="" />
                                         <img src="./Vistas/Imagenes/TQR4.jpg" data-thumb="./Vistas/Imagenes/TQR4.jpg" alt="" />
-                                        <img src="./Vistas/Imagenes/TQR5.jpg" data-thumb="./Vistas/Imagenes/TQR5.jpg" alt="" />
-                                        <img src="./Vistas/Imagenes/TQR6.jpg" data-thumb="./Vistas/Imagenes/TQR6.jpg" alt="" />
-                                        <img src="./Vistas/Imagenes/TQR7.jpg" data-thumb="./Vistas/Imagenes/TQR7.jpg" alt="" />
                                         
                                     </div>
                                 </div>

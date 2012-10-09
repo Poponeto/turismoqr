@@ -24,5 +24,6 @@
     <mapping resource="TurismoQR/ArchivosMapeo/PermisoRol.hbm.xml"/>
     <mapping resource="TurismoQR/ArchivosMapeo/Rol.hbm.xml"/>
     <mapping resource="TurismoQR/ArchivosMapeo/Cliente.hbm.xml"/>
+    <mapping resource="TurismoQR/ArchivosMapeo/Estado.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>

@@ -4,7 +4,7 @@
     <joined-subclass name="TurismoQR.ObjetosNegocio.Informacion.Imagen" table="imagen" extends="TurismoQR.ObjetosNegocio.Recurso.Recurso">
         <key column="idImagen"/>  
         <property name="extension"/>
-        <many-to-one name="informacion" class="TurismoQR.ObjetosNegocio.Informacion.Informacion" cascade="all" foreign-key="idInformacion" />
+        <many-to-one name="informacion" unique="true" class="TurismoQR.ObjetosNegocio.Informacion.Informacion" column="Informacion" cascade="all"/>
     </joined-subclass>
 </hibernate-mapping>
  

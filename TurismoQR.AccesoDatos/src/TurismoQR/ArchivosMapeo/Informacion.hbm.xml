@@ -5,8 +5,8 @@
       <id column="idInformacion" name="idObjeto">
             <generator class="guid"/>
         </id>
-        <set name="informacionEnIdiomas" cascade="all-delete-orphan" inverse="true" outer-join="true">
-            <key column="idInformacionEnIdioma" foreign-key="idInformacionEnIdioma"/> 
+        <set name="informacionEnIdiomas" cascade="all-delete-orphan" outer-join="true">
+            <key column="Informacion" foreign-key="idInformacion"/> 
             <one-to-many class="TurismoQR.ObjetosNegocio.Informacion.InformacionEnIdioma" /> 
         </set> 
       </class>

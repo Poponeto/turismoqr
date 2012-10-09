@@ -2,12 +2,13 @@ package TurismoQR.AccesoDatos;
 
 import TurismoQR.ObjetosNegocio.IObjetoNegocio;
 import java.util.Collection;
+import org.hibernate.FlushMode;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.DetachedCriteria;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 class AccesoDatos extends HibernateDaoSupport implements IAccesoDatos
@@ -60,11 +61,13 @@ class AccesoDatos extends HibernateDaoSupport implements IAccesoDatos
 
     public void Guardar(IObjetoNegocio objetoNegocio)
     {
+        getSession().setFlushMode(FlushMode.AUTO);
         getHibernateTemplate().saveOrUpdate(objetoNegocio);
     }
 
     public void Guardar(Collection<IObjetoNegocio> objetosNegocio)
     {
+        getSession().setFlushMode(FlushMode.AUTO);
         for (IObjetoNegocio objetoNegocio : objetosNegocio)
         {
             getHibernateTemplate().saveOrUpdate(objetoNegocio);

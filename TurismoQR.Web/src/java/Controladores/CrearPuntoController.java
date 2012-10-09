@@ -5,25 +5,17 @@
 
 package Controladores;
 
+import TurismoQR.ObjetosTransmisionDatos.DTOIdioma;
+import TurismoQR.ObjetosTransmisionDatos.DTOInformacionEnIdioma;
 import TurismoQR.ObjetosTransmisionDatos.DTOLocalizacion;
 import TurismoQR.ObjetosTransmisionDatos.DTOPunto;
-import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.portlet.ModelAndView;
 import TurismoQR.Punto.IServicioPunto;
 import TurismoQR.Punto.ManejadorIdiomas.ManejadorIdiomas;
-import Utils.FormularioArchivo;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 /**
  *
@@ -59,8 +51,16 @@ public class CrearPuntoController {
             ModelMap modelo
         )
     {
+        DTOIdioma idiomaPunto = new DTOIdioma();
+        idiomaPunto.setNombreIdioma(idioma);
+
         DTOPunto dtoPunto = new DTOPunto();
         dtoPunto.setNombrePunto(nombrePunto);
+        DTOInformacionEnIdioma infoIdioma = new DTOInformacionEnIdioma();
+        infoIdioma.setIdioma(idiomaPunto);
+        infoIdioma.setNombre(nombrePunto);
+        infoIdioma.setTexto(informacionPunto);
+        dtoPunto.setInformacion(infoIdioma);
         DTOLocalizacion localizacionPunto = new DTOLocalizacion();
         localizacionPunto.setLatitud(latitudPunto);
         localizacionPunto.setLongitud(longitudPunto);

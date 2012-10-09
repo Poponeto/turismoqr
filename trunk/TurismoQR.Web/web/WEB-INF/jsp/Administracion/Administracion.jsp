@@ -59,9 +59,13 @@
                         <div id="Contenido">
                             <div class="slider-wrapper theme-default" style="background-color: black;">
                                 <div id="slider" class="nivoSlider" style="height: 500px;">
-                                    <img src="../Vistas/Imagenes/1920x1080_widescreen_wallpaper_movie-1080p.jpg" data-thumb="../Vistas/Imagenes/1920x1080_widescreen_wallpaper_movie-1080p.jpg" alt="" />
-                                    <img src="../Vistas/Imagenes/joker188-1920x1080.jpg" data-thumb="../Vistas/Imagenes/joker188-1920x1080.jpg" alt="" />
-                                    <img src="../Vistas/Imagenes/race_car_gt_tour-hd.jpg" data-thumb="../Vistas/Imagenes/race_car_gt_tour-hd.jpg" alt="" title="" />
+									<img src="./Vistas/Imagenes/TQR1.jpg" data-thumb="../Vistas/Imagenes/TQR1.jpg" alt="" />
+                                        <img src="../Vistas/Imagenes/TQR2.jpg" data-thumb="../Vistas/Imagenes/TQR2.jpg" alt="" />
+                                        <img src="../Vistas/Imagenes/TQR3.jpg" data-thumb="../Vistas/Imagenes/TQR3.jpg" alt="" />
+                                        <img src="../Vistas/Imagenes/TQR4.jpg" data-thumb="../Vistas/Imagenes/TQR4.jpg" alt="" />
+                                        <img src="../Vistas/Imagenes/TQR5.jpg" data-thumb="../Vistas/Imagenes/TQR5.jpg" alt="" />
+                                        <img src="../Vistas/Imagenes/TQR6.jpg" data-thumb="../Vistas/Imagenes/TQR6.jpg" alt="" />
+                                        <img src="../Vistas/Imagenes/TQR7.jpg" data-thumb="../Vistas/Imagenes/TQR7.jpg" alt="" />
                                 </div>
                             </div>
                         </div>

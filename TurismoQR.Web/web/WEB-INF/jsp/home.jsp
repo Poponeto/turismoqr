@@ -37,10 +37,9 @@
                             <div id="Contenido">
                                 <div class="slider-wrapper theme-default" style="background-color: black;">
                                     <div id="slider" class="nivoSlider" style="height: 500px;">
-                                        <img src="./Vistas/Imagenes/TQR1.jpg" data-thumb="./Vistas/Imagenes/TQR1.jpg" alt="" />
-                                        <img src="./Vistas/Imagenes/TQR2.jpg" data-thumb="./Vistas/Imagenes/TQR2.jpg" alt="" />
-                                        <img src="./Vistas/Imagenes/TQR3.jpg" data-thumb="./Vistas/Imagenes/TQR3.jpg" alt="" />
-                                        <img src="./Vistas/Imagenes/TQR4.jpg" data-thumb="./Vistas/Imagenes/TQR4.jpg" alt="" />
+                                        <img src="./Vistas/Imagenes/Slider1.jpg" data-thumb="./Vistas/Imagenes/Slider1.jpg" alt="" />
+                                        <img src="./Vistas/Imagenes/Slider2.jpg" data-thumb="./Vistas/Imagenes/Slider2.jpg" alt="" />
+                                        <img src="./Vistas/Imagenes/Slider3.jpg" data-thumb="./Vistas/Imagenes/Slider3.jpg" alt="" />
                                         
                                     </div>
                                 </div>

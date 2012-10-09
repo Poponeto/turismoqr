@@ -8,11 +8,22 @@ function iniciarCrearPunto() {
         autoOpen: false,
         width: '60%',
         buttons: {
-//                "Ok": function() {
-//                        $(this).dialog("close");
-//                },
+                "Ok": function() {
+                        $('#contenedorPrincipal').css('opacity','1');
+                        $(this).dialog("close");
+                },
                 "Cancel": function() {
                         cancelarTodo();
+                        $(this).dialog("close");
+                }
+        }
+    });
+
+    $('#dialogError').dialog({
+        autoOpen: false,
+        width: '60%',
+        buttons: {
+                "Ok": function() {
                         $(this).dialog("close");
                 }
         }
@@ -30,6 +41,10 @@ function iniciarCrearPunto() {
 
     $('input[value="Crear punto"]').button();
     $('.ui-widget-header').focus();
+    $('#idiomaSeleccionado').on("change", function(){
+        $('input[name="idioma"]').attr("value", $(this).attr("value"));
+    });
+    $('#idiomaSeleccionado').change();
 }
 
 function cancelarTodo() {

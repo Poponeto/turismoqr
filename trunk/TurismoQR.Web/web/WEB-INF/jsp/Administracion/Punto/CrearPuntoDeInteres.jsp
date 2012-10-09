@@ -29,7 +29,6 @@
         <script type="text/javascript" src="../../Vistas/JavaScript/JQuery/FileUploadPlugin/jquery.fileupload-ui.js"></script>
         <script type="text/javascript" src="../../Vistas/JavaScript/JQuery/FileUploadPlugin/main.js"></script>
         <script type="text/javascript" src="../../Vistas/JavaScript/JQuery/jquery-ui-1.8.24.custom.min.js"></script>
-        <link rel="stylesheet" type="text/css" href="../../Vistas/HojasDeEstilo/Mapas.css">
         <link rel="stylesheet" type="text/css" href="../../Vistas/HojasDeEstilo/jquery-ui-1.8.24.custom.css">
         <link rel="stylesheet" href="http://blueimp.github.com/cdn/css/bootstrap.min.css">
         <link rel="stylesheet" href="../../Vistas/HojasDeEstilo/style.css">
@@ -38,7 +37,7 @@
         <link rel="stylesheet" href="http://blueimp.github.com/Bootstrap-Image-Gallery/css/bootstrap-image-gallery.min.css">
         <link rel="stylesheet" href="../../Vistas/HojasDeEstilo/jquery.fileupload-ui.css">
         <link rel="stylesheet" href="../../Vistas/HojasDeEstilo/subirArchivoPopUp.css">
-
+        <link rel="stylesheet" type="text/css" href="../../Vistas/HojasDeEstilo/Mapas.css">
         <script type="text/javascript" src="../../Vistas/JavaScript/Mapa.js"></script>
         <script type="text/javascript" src="../../Vistas/JavaScript/InicializadorComponentes.js"></script>
         <script type="text/javascript" src="../../Vistas/JavaScript/IniciarPaginaCrearPunto.js"></script>
@@ -62,8 +61,8 @@
             </div>
             <div style="display: inline-block; position: absolute; right: 30px; margin-top: -9px; top: 50%;" align="right">
                 <label style="display: inline-block;">Idioma: </label>
-                <select NAME="idioma" SIZE=1 >
-                    <option VALUE="Español">Español</option>
+                <select id="idiomaSeleccionado" size=1 >
+                    <option value="Español">Español</option>
                 </select>
             </div>
         </div>
@@ -73,18 +72,18 @@
                     <tr>
                         <td>
                             <div id="contenedorFormulario">
-                                <form name="crearPuntoDeInteres" action="<core:url value='/crearPunto/guardarPuntoDeInteres.htm'/>" method="POST">
+                                <form name="crearPuntoDeInteres" action="<core:url value='../crearPunto/guardarPuntoDeInteres.htm'/>" method="POST">
                                     <fieldset>
                                         <legend>Datos punto de interes</legend>
                                         <div>
                                             <label for="nombrePunto">
                                                 Nombre:<br>
-                                                <input id="nombrePunto" name="nombrePunto" type="text" placeholder="Ingrese el nombre del punto de interes"/>
+                                                <input id="nombrePunto" name="nombrePunto" type="text" placeholder="Ingrese el nombre del punto de interes" required="true"/>
                                             </label>
                                             <br>
                                             <label for="informacionPunto">
                                                 Informacion relacionada:<br>
-                                                <textarea id="informacionPunto" name="informacionPunto" placeholder="Ingrese la informacion correspondiente al punto" rows="18"></textarea>
+                                                <textarea id="informacionPunto" name="informacionPunto" placeholder="Ingrese la informacion correspondiente al punto" rows="18" required="true"></textarea>
                                             </label>
                                             <br>
                                             <div style="position: relative;">
@@ -97,7 +96,7 @@
                                                     </label>
                                                 </div>
                                                 <div style="display: inline-block; position: absolute; top: 0px; right: 0px;">
-                                                    <a id="dialog_link" class="btn btn-success" href="#">Agregar Imagen...</a>
+                                                    <a id="dialog_link" class="btn btn-success" style="color: white;" href="#">Agregar Imagen...</a>
                                                 </div>
                                             </div>
                                             <br>
@@ -106,6 +105,7 @@
                                             </div>
                                         </div>
                                     </fieldset>
+                                    <input id="idioma" name="idioma" type="text" style="display: none;"/>
                                 </form>
                             </div>
                         </td>
@@ -124,7 +124,7 @@
                 <td class="name" rowspan="2"><span>{%=file.name%}</span></td>
                 <td class="size" rowspan="2"><span>{%=o.formatFileSize(file.size)%}</span></td>
                 {% if (file.error) { %}
-                    <td class="error" colspan="2" rowspan="2"><span class="label label-important">Error</span> {%=file.error%}</td>
+                    <td class="error" colspan="2" rowspan="2"><span class="label">Completo</span></td>
                 {% } else if (o.files.valid && !i) { %}
                     <td rowspan="2">
                         <div class="progress progress-success progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="bar" style="width:0%;"></div></div>
@@ -159,7 +159,7 @@
                     <td></td>
                     <td class="name"><span>{%=file.name%}</span></td>
                     <td class="size"><span>{%=o.formatFileSize(file.size)%}</span></td>
-                    <td class="error" colspan="2"><span class="label label-important">Error</span> {%=file.error%}</td>
+                    <td class="error" colspan="2"><span class="label">Completo</span></td>
                 {% } else { %}
                     <td class="preview">{% if (file.thumbnail_url) { %}
                         <a href="{%=file.url%}" title="{%=file.name%}" rel="gallery" download="{%=file.name%}"><img src="{%=file.thumbnail_url%}"></a>
@@ -175,7 +175,7 @@
                         <i class="icon-trash icon-white"></i>
                         <span>Delete</span>
                     </button>
-                    <input type="checkbox" name="delete" value="1">
+<!--                    <input type="checkbox" name="delete" value="1">-->
                 </td>
             </tr>
         {% } %}
@@ -183,7 +183,7 @@
 
         <div id="dialog">
             <div>
-                <form id="fileupload" action="<core:url value='/crearPunto/subirArchivo.htm'/>" method="POST" enctype="multipart/form-data">
+                <form id="fileupload" action="<core:url value='../crearPunto/subirArchivo.htm'/>" method="POST" enctype="multipart/form-data">
                     <table role="presentation" class="table table-striped"><tbody class="files" data-toggle="modal-gallery" data-target="#modal-gallery"></tbody></table>
                     <div id="archivos">
                         <span class="btn btn-success fileinput-button">
@@ -191,6 +191,7 @@
                             <span>Seleccionar imagenes...</span>
                             <input type="file" name="files" id="files" commandName="formularioArchivo" multiple>
                         </span>
+                        <input id="idioma" name="idioma" type="text" style="display: none;"/>
                         <input class="btn btn-primary start" value="Subir imagenes" onclick="subirArchivos()"/>
                     </div>
                 </form>

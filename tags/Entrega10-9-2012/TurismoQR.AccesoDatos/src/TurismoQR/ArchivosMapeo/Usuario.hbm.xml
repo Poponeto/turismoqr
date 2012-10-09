@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="TurismoQR.ObjetosNegocio.Usuarios.Usuario" table="usuario">
+        <id column="idUsuario" name="idObjeto">
+            <generator class="guid"/>
+        </id>
+        <property name="nombreUsuario"/>
+        <property name="contraseña" column="contrasenia"/>
+         <set name="permisosUsuario" cascade="all-delete-orphan" outer-join="true">
+            <key column="Usuario" foreign-key="idPermisoUsuario"/> 
+            <one-to-many class="TurismoQR.ObjetosNegocio.Usuarios.Permisos.PermisoUsuario" />
+        </set>
+        
+    </class>
+</hibernate-mapping>

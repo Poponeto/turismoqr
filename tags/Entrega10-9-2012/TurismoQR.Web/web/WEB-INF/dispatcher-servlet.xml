@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:security="http://www.springframework.org/schema/security"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:flow="http://www.springframework.org/schema/webflow-config"
+       xmlns:jms="http://www.springframework.org/schema/jms"
+       xmlns:jee="http://www.springframework.org/schema/jee"
+       xmlns:lang="http://www.springframework.org/schema/lang"
+       xmlns:osgi="http://www.springframework.org/schema/osgi"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+          http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+          http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+          http://www.springframework.org/schema/webflow-config http://www.springframework.org/schema/webflow-config/spring-webflow-config-2.0.xsd
+          http://www.springframework.org/schema/jms http://www.springframework.org/schema/jms/spring-jms-3.0.xsd
+          http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-3.0.xsd
+          http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang-3.0.xsd
+          http://www.springframework.org/schema/osgi http://www.springframework.org/schema/osgi/spring-osgi-3.0.xsd
+          http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+          http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
+          http://www.springframework.org/schema/security/spring-security-3.0.xsd http://www.springframework.org/schema/mvc
+          http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd http://www.springframework.org/schema/security
+          http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
+
+    <mvc:resources mapping="/Vistas/**" location="classpath:/Vistas/"/>
+    <mvc:resources mapping="/resources/**" location="/, classpath:/META-INF/web-resources/" />
+
+    <mvc:annotation-driven/>
+
+    <context:annotation-config/>
+    <context:component-scan base-package="Controladores"/>
+    <bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping"/>
+    <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter"/>
+    <bean class="org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter"/>
+
+    <bean id="urlMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+        <property name="mappings">
+            <props>
+                <prop key="home.htm">homeController</prop>
+            </props>
+        </property>
+    </bean>
+
+    <!--bean name="jsonViewResolver"
+            class="org.springframework.web.servlet.view.XmlViewResolver" >
+        <property name="location">
+            <value>/WEB-INF/spring-views.xml</value>
+        </property>
+        <property name="order" value="0" />
+    </bean-->
+    
+    <bean id="viewResolver"
+          class="org.springframework.web.servlet.view.InternalResourceViewResolver"
+          p:prefix="/WEB-INF/jsp/"
+          p:suffix=".jsp" >
+        <!--property name="order" value="1" /-->
+    </bean>
+    
+    
+    <!--
+    The home controller.
+    -->
+    <bean name="homeController"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+          p:viewName="home" />
+
+    <!--
+    Bean para manejar la respuesta de la subida de imagenes
+    -->
+    <bean id="multipartResolver"
+    class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
+
+    <bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
+      <property name="mediaTypes">
+        <map>
+          <entry key="json" value="application/json"/>
+        </map>
+      </property>
+      <property name="defaultViews">
+        <list>
+          <bean class="org.springframework.web.servlet.view.json.MappingJacksonJsonView">
+            <property name="prefixJson" value="true"/>
+          </bean>
+        </list>
+      </property>
+    </bean>
+
+    <bean
+        class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+        <property name="messageConverters">
+            <list>
+                <bean class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">
+                    <property name="objectMapper" ref="jacksonObjectMapper" />
+                </bean>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="jacksonObjectMapper" class="org.codehaus.jackson.map.ObjectMapper" />
+    <bean id="jacksonSerializationConfig" class="org.codehaus.jackson.map.SerializationConfig"
+        factory-bean="jacksonObjectMapper" factory-method="getSerializationConfig" />
+    <bean
+        class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+        <property name="targetObject" ref="jacksonSerializationConfig" />
+        <property name="targetMethod" value="setSerializationInclusion" />
+        <property name="arguments">
+            <list>
+                <value type="org.codehaus.jackson.map.annotate.JsonSerialize.Inclusion">NON_DEFAULT</value>
+            </list>
+        </property>
+    </bean>
+
+</beans>

@@ -1,0 +1,50 @@
+CREATE SCHEMA `turismoqr` ;
+
+create table InformacionEnIdioma (idInformacionEnIdioma varchar(255) not null, texto varchar(255), nombre varchar(255), Idioma varchar(255) not null unique, Informacion varchar(255), primary key (idInformacionEnIdioma));
+create table cliente (idCliente varchar(255) not null, apellido varchar(255), nombre varchar(255), mail varchar(255), dni varchar(255), celular varchar(255), telefonoFijo varchar(255), primary key (idCliente));
+create table estado (idEstado varchar(255) not null, nombreDeEstado varchar(255), fechaInicioPeriodo datetime, fechaFinPeriodo datetime, Punto varchar(255), primary key (idEstado));
+create table idioma (idIdioma varchar(255) not null, nombreIdioma varchar(255), primary key (idIdioma));
+create table imagen (idImagen varchar(255) not null, extension varchar(255), Informacion varchar(255) unique, Punto varchar(255), primary key (idImagen));
+create table informacion (idInformacion varchar(255) not null, primary key (idInformacion));
+create table link (idLink varchar(255) not null, Punto varchar(255), primary key (idLink));
+create table localizacion (idLocalizacion varchar(255) not null, latitud varchar(255), longitud varchar(255), primary key (idLocalizacion));
+create table periodo (idPeriodo varchar(255) not null, fechaInicioPeriodo datetime, fechaFinPeriodo datetime, primary key (idPeriodo));
+create table permiso (idPermiso varchar(255) not null, nombre varchar(255), descripcion varchar(255), primary key (idPermiso));
+create table permisoRol (idPermisoRol varchar(255) not null, permisosRol varchar(255), primary key (idPermisoRol));
+create table permisoUsuario (idPermisoUsuario varchar(255) not null, permiso varchar(255), Usuario varchar(255), primary key (idPermisoUsuario));
+create table punto (idPunto varchar(255) not null, nombre varchar(255), Localizacion varchar(255) not null unique, Informacion varchar(255) unique, primary key (idPunto));
+create table recurso (idRecurso varchar(255) not null, url varchar(255), primary key (idRecurso));
+create table rol (idRol varchar(255) not null, primary key (idRol));
+create table usuario (idUsuario varchar(255) not null, nombreUsuario varchar(255), contrasenia varchar(255), primary key (idUsuario));
+alter table InformacionEnIdioma add index idInformacion (Informacion), add constraint idInformacion foreign key (Informacion) references informacion (idInformacion);
+alter table InformacionEnIdioma add index FK869F40BB9781D979 (Idioma), add constraint FK869F40BB9781D979 foreign key (Idioma) references idioma (idIdioma);
+alter table estado add index idPuntoEstados (Punto), add constraint idPuntoEstados foreign key (Punto) references punto (idPunto);
+alter table imagen add index FKB95A8273EC58074B (Informacion), add constraint FKB95A8273EC58074B foreign key (Informacion) references informacion (idInformacion);
+alter table imagen add index idPuntoImagenes (Punto), add constraint idPuntoImagenes foreign key (Punto) references punto (idPunto);
+alter table imagen add index FKB95A8273659A5014 (idImagen), add constraint FKB95A8273659A5014 foreign key (idImagen) references recurso (idRecurso);
+alter table link add index FK32AFFA1FD5F85B (idLink), add constraint FK32AFFA1FD5F85B foreign key (idLink) references recurso (idRecurso);
+alter table link add index idPuntoLinks (Punto), add constraint idPuntoLinks foreign key (Punto) references punto (idPunto);
+alter table permisoRol add index idPermisoRol (permisosRol), add constraint idPermisoRol foreign key (permisosRol) references rol (idRol);
+alter table permisoUsuario add index idPermisoUsuario (Usuario), add constraint idPermisoUsuario foreign key (Usuario) references usuario (idUsuario);
+alter table permisoUsuario add index idPermiso (permiso), add constraint idPermiso foreign key (permiso) references permiso (idPermiso);
+alter table punto add index FK6612344EC58074B (Informacion), add constraint FK6612344EC58074B foreign key (Informacion) references informacion (idInformacion);
+alter table punto add index FK6612344F143869C (Localizacion), add constraint FK6612344F143869C foreign key (Localizacion) references localizacion (idLocalizacion);
+INSERT INTO `turismoqr`.`permiso` (`idPermiso`, `nombre`, `descripcion`) VALUES ('1', 'PERMISO_ADMINISTRADOR', 'permiso del administrador');
+INSERT INTO `turismoqr`.`usuario` (`idUsuario`, `nombreUsuario`, `contrasenia`) VALUES ('1', 'admin', 'admin');
+INSERT INTO `turismoqr`.`permisousuario` (`idPermisoUsuario`, `permiso`, `Usuario`) VALUES ('1', '1', '1');
+
+INSERT INTO `turismoqr`.`localizacion` (`idLocalizacion`, `latitud`, `longitud`) VALUES ('1', '0', '0');
+INSERT INTO `turismoqr`.`idioma` (`idIdioma`, `nombreIdioma`) VALUES ('1', 'español');
+INSERT INTO `turismoqr`.`idioma` (`idIdioma`, `nombreIdioma`) VALUES ('2', 'ingles');
+INSERT INTO `turismoqr`.`informacion` (`idInformacion`) VALUES ('1');
+INSERT INTO `turismoqr`.`informacion` (`idInformacion`) VALUES ('2');
+
+INSERT INTO `turismoqr`.`informacionenidioma` (`idInformacionEnIdioma`, `texto`, `Idioma`, `Informacion`) VALUES ('1', 'Informacion en idioma para el punto', '1', '1');
+INSERT INTO `turismoqr`.`informacionenidioma` (`idInformacionEnIdioma`, `texto`, `Idioma`, `Informacion`) VALUES ('2', 'Informacion en idioma para la imagen', '1', '2');
+
+INSERT INTO `turismoqr`.`punto` (`idPunto`, `nombre`, `Localizacion`, `Informacion`) VALUES ('1', 'Punto de Interes', '1', '1');
+INSERT INTO `turismoqr`.`recurso` (`idRecurso`, `url`) VALUES ('1', 'imagen');
+INSERT INTO `turismoqr`.`imagen` (`idImagen`, `extension`, `Informacion`, `Punto`) VALUES ('1', 'jpg', '2', '1');
+INSERT INTO `turismoqr`.`recurso` (`idRecurso`, `url`) VALUES ('2', 'link');
+INSERT INTO `turismoqr`.`link` (`idLink`, `Punto`) VALUES ('2', '1');
+INSERT INTO `turismoqr`.`estado` (`idEstado`, `nombreDeEstado`, `Punto`) VALUES ('1', 'habilitado', '1');

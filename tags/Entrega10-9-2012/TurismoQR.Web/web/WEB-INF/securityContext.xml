@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:security="http://www.springframework.org/schema/security"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:flow="http://www.springframework.org/schema/webflow-config"
+       xmlns:jms="http://www.springframework.org/schema/jms"
+       xmlns:jee="http://www.springframework.org/schema/jee"
+       xmlns:lang="http://www.springframework.org/schema/lang"
+       xmlns:osgi="http://www.springframework.org/schema/osgi"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:p="http://www.springframework.org/schema/p"
+
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+          http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+          http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+          http://www.springframework.org/schema/webflow-config http://www.springframework.org/schema/webflow-config/spring-webflow-config-2.0.xsd
+          http://www.springframework.org/schema/jms http://www.springframework.org/schema/jms/spring-jms-3.0.xsd
+          http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-3.0.xsd
+          http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang-3.0.xsd
+          http://www.springframework.org/schema/osgi http://www.springframework.org/schema/osgi/spring-osgi-3.0.xsd
+          http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+          http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
+          http://www.springframework.org/schema/security
+          http://www.springframework.org/schema/security/spring-security-3.0.xsd">
+
+    <!--security:http>
+        <security:logout logout-url="/logout" logout-success-url="/home.htm" />
+    </security:http-->
+    <bean id="webInvocator" class="org.springframework.security.web.access.DefaultWebInvocationPrivilegeEvaluator">
+        <constructor-arg ref="filtroInterceptorDeSeguridad"/>
+    </bean>
+
+    <bean id="filtroDelegadorDeSeguridad" class="org.springframework.security.web.FilterChainProxy">
+        <security:filter-chain-map path-type="ant">
+            <security:filter-chain pattern="/**" filters="
+            filtroDePersistenciaDeContexto,
+            filtroDeAutenticacion,
+            filtroDeAutenticacionAnonima,
+            filtroDeManejoDeExcepciones,
+            filtroInterceptorDeSeguridad" />
+        </security:filter-chain-map>
+    </bean>
+
+    <bean id="filtroDePersistenciaDeContexto"
+    class="org.springframework.security.web.context.SecurityContextPersistenceFilter">
+        <property name='securityContextRepository'>
+            <bean class='org.springframework.security.web.context.HttpSessionSecurityContextRepository'>
+                <property name='allowSessionCreation' value='false' />
+            </bean>
+        </property>
+    </bean>
+
+    <bean id="filtroDeManejoDeExcepciones"
+     class="org.springframework.security.web.access.ExceptionTranslationFilter">
+        <property name="authenticationEntryPoint" ref="puntoDeAccesoDeAutenticacion"/>
+        <property name="accessDeniedHandler" ref="manejadorDeAccesoDenegado"/>
+    </bean>
+
+    <bean id="filtroInterceptorDeSeguridad"
+        class="org.springframework.security.web.access.intercept.FilterSecurityInterceptor">
+        <property name="authenticationManager" ref="proveedorDeAutenticacion"/>
+        <property name="accessDecisionManager" ref="accesoPorConcensoUnanime"/>
+        <property name="securityMetadataSource">
+            <security:filter-security-metadata-source>
+                <security:intercept-url pattern="/administracion/**" access="PERMISO_ADMINISTRADOR"/>
+                <security:intercept-url pattern="/punto/**" access="PERMISO_TURISTA"/>
+                <security:intercept-url pattern="/usuario/**" access="PERMISO_TURISTA"/>
+                <!--security:intercept-url pattern="/home.htm" access="PERMISO_TURISTA, PERMISO_ADMINISTRADOR"/-->
+                <!--security:intercept-url pattern="/**" access="denyAll"/-->
+            </security:filter-security-metadata-source>
+        </property>
+    </bean>
+
+    <bean id="accesoPorConcensoUnanime"
+        class="org.springframework.security.access.vote.UnanimousBased">
+        <property name="decisionVoters">
+            <list>
+                <bean class="org.springframework.security.access.vote.RoleVoter">
+                    <property name="rolePrefix" value="PERMISO_"/>
+                </bean>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="filtroDeAutenticacion" class=
+"org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter">
+        <property name="authenticationManager" ref="proveedorDeAutenticacion"/>
+        <property name="filterProcessesUrl" value="/loginUsuario"/>
+        <property name="passwordParameter" value="password"/>
+        <property name="usernameParameter" value="usuario"/>
+        <property name="authenticationSuccessHandler" ref="manejadorDeAutenticacionPorURL"/>
+        <property name="authenticationFailureHandler" ref="manejadorDeFallosDeLogin"/>
+    </bean>
+
+    <bean id="manejadorDeFallosDeLogin" class="org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler">
+        <property name="defaultFailureUrl" value="/home.htm?failure=true"/>
+    </bean>
+
+    <bean id="filtroDeAutenticacionAnonima"
+    class="org.springframework.security.web.authentication.AnonymousAuthenticationFilter">
+        <property name="key" value="usuarioAnonimo"/>
+        <property name="userAttribute" value="usuarioAnonimo,PERMISO_TURISTA"/>
+    </bean>
+
+    <bean id="manejadorDeAutenticacionPorURL"
+     class="org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler">
+        <property name="defaultTargetUrl" value="/administracion/paginaAdministracion.htm"/>
+    </bean>
+
+    <bean id="puntoDeAccesoDeAutenticacion"
+     class="org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint">
+        <property name="loginFormUrl" value="/home.htm"/>
+    </bean>
+    
+    <bean id="manejadorDeAccesoDenegado"
+     class="org.springframework.security.web.access.AccessDeniedHandlerImpl">
+    </bean>
+
+
+    <bean id="proveedorDeAutenticacion"
+        class="org.springframework.security.authentication.ProviderManager">
+        <property name="providers">
+            <list>
+                <ref local="autenticacionPorBaseDeDatos" />
+                <ref local="autenticacionAnonima" />
+            </list>
+        </property>
+    </bean>
+
+    <bean id="autenticacionAnonima" class=
+        "org.springframework.security.authentication.AnonymousAuthenticationProvider">
+        <property name="key" value="usuarioAnonimo" />
+    </bean>
+
+    <bean id="autenticacionPorBaseDeDatos"
+        class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">
+        <!--property name="passwordEncoder" ref="passwordEncoder" /-->
+        <property name="userDetailsService" ref="loginController" />
+    </bean>
+    
+    <bean id="passwordEncoder"
+        class="org.springframework.security.authentication.encoding.Md5PasswordEncoder">
+        <property name="encodeHashAsBase64" value="true" />
+    </bean>
+
+</beans>

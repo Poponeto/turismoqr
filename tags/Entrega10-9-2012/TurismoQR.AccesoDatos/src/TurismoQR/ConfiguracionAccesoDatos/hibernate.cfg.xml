@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+  <session-factory>
+    <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+    <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+    <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/turismoqr</property>
+    <property name="hibernate.connection.username">root</property>
+    <property name="hibernate.connection.password">root</property>
+    <property name="hibernate.show_sql">true</property>
+    <property name="hibernate.format_sql">true</property>
+    <mapping resource="TurismoQR/ArchivosMapeo/Periodo.hbm.xml"/>
+    <mapping resource="TurismoQR/ArchivosMapeo/Punto.hbm.xml"/>
+    <mapping resource="TurismoQR/ArchivosMapeo/Localizacion.hbm.xml"/>
+    <mapping resource="TurismoQR/ArchivosMapeo/Informacion.hbm.xml"/>
+    <mapping resource="TurismoQR/ArchivosMapeo/Recurso.hbm.xml"/>
+    <mapping resource="TurismoQR/ArchivosMapeo/Imagen.hbm.xml"/>
+    <mapping resource="TurismoQR/ArchivosMapeo/Link.hbm.xml"/>
+    <mapping resource="TurismoQR/ArchivosMapeo/Idioma.hbm.xml"/>
+    <mapping resource="TurismoQR/ArchivosMapeo/InformacionEnIdioma.hbm.xml"/>
+    <mapping resource="TurismoQR/ArchivosMapeo/Usuario.hbm.xml"/>
+    <mapping resource="TurismoQR/ArchivosMapeo/PermisoUsuario.hbm.xml"/>
+    <mapping resource="TurismoQR/ArchivosMapeo/Permiso.hbm.xml"/>
+    <mapping resource="TurismoQR/ArchivosMapeo/PermisoRol.hbm.xml"/>
+    <mapping resource="TurismoQR/ArchivosMapeo/Rol.hbm.xml"/>
+    <mapping resource="TurismoQR/ArchivosMapeo/Cliente.hbm.xml"/>
+    <mapping resource="TurismoQR/ArchivosMapeo/Estado.hbm.xml"/>
+  </session-factory>
+</hibernate-configuration>

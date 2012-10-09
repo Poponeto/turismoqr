@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="TurismoQR.ObjetosNegocio.Usuarios.Cliente" table="cliente">
+        <id column="idCliente" name="idObjeto">
+            <generator class="guid"/>
+        </id>
+        <property name="apellido"/>
+        <property name="nombre"/>
+        <property name="mail"/>
+        <property name="dni"/>
+        <property name="celular"/>
+        <property name="telefonoFijo"/>
+        <one-to-one name="usuario" class="TurismoQR.ObjetosNegocio.Usuarios.Usuario" cascade="all" foreign-key="idUsuario" />
+    </class>
+</hibernate-mapping>

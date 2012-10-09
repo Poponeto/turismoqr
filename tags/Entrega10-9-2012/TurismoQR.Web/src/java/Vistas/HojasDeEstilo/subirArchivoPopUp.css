@@ -1,0 +1,35 @@
+/* 
+    Document   : subirArchivoPopUp
+    Created on : 06/10/2012, 22:00:26
+    Author     : Chelo
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/* 
+   TODO customize this sample style
+   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
+*/
+
+table[role="presentation"] td {
+    vertical-align: middle;
+    background-color: #F9F9F9;
+    border: none;
+}
+
+td button, td input[type="button"] {
+    width: 100%;
+}
+
+td button .btn-danger {
+    width: auto;
+}
+
+div[role="progressbar"] {
+    margin: 0px;
+}
+
+button btn-danger {
+    background-position: -408px -96px;
+    background-image: url("../img/glyphicons-halflings-white.png");
+}

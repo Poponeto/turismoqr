@@ -1,0 +1,19 @@
+/* 
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+function inicializarComponentes()
+{
+    $('#Contenedor').addClass('ui-widget');
+    $('#Cabecera').addClass('ui-widget-header');
+    $('#Menu , #Contenido , #Pie').addClass('ui-widget-content');
+    $('[id*="boton"]').button();
+    $('[id*="lineaDatos"]').addClass('ui-textfield');
+    $('[id*="acordion"]').accordion();
+    $('[id*="tabs"]').tabs();
+
+    $('[id*="contenedorDeMenus"]').buttonset();
+    $('[id*="contenedorDeMenus"]').ptMenu(); //http://www.codingwhiz.com/jqueryui/jquery-ui-themeroller-enabled-dropdown-menu.html
+
+    
+}

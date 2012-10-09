@@ -45,4 +45,7 @@
     width: 98%;
 }
 
+img {
+  max-width: none;
+}
 

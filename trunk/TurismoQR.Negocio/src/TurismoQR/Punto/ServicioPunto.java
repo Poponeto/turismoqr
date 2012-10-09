@@ -10,6 +10,7 @@ import TurismoQR.ObjetosNegocio.Informacion.Idioma;
 import TurismoQR.ObjetosNegocio.Informacion.Imagen;
 import TurismoQR.ObjetosNegocio.Informacion.Informacion;
 import TurismoQR.ObjetosNegocio.Informacion.InformacionEnIdioma;
+import TurismoQR.ObjetosNegocio.Informacion.Link;
 import TurismoQR.ObjetosNegocio.Punto.Punto;
 import TurismoQR.ObjetosTransmisionDatos.DTOImagen;
 import TurismoQR.ObjetosTransmisionDatos.DTOInformacionEnIdioma;
@@ -23,6 +24,7 @@ import TurismoQR.Punto.ManejadorIdiomas.ManejadorIdiomas;
 import TurismoQR.Traductores.ITraductor;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -106,27 +108,35 @@ public class ServicioPunto implements IServicioPunto
         //Crea un nuevo punto de interes
         Punto nuevoPuntoDeInteres = new Punto();
 
+        nuevoPuntoDeInteres.setNombre(datosPunto.getNombrePunto());
+
         //Setea el estado del punto a habilitado
         nuevoPuntoDeInteres.setEstado(new Estado("Habilitado"));
 
         //Setea las imagenes correspondientes al punto, si las hubiera.
         Collection<DTOImagen> dtoImagenes = datosPunto.getImagenes();
+        Collection<Imagen> imagenesPuntoGuardar = new HashSet<Imagen>();
         if (dtoImagenes != null && !dtoImagenes.isEmpty())
         {
-            Collection<Imagen> imagenes = null;
             for (DTOImagen dtoImagen : datosPunto.getImagenes())
             {
-                imagenes.add(traductor.traducir(dtoImagen));
+                imagenesPuntoGuardar.add(traductor.traducir(dtoImagen));
             }
-            nuevoPuntoDeInteres.setImagenes(imagenes);
+        } else if (imagenesPunto != null && !imagenesPunto.isEmpty()) {
+            for (DTOImagen dtoImagenPunto : this.imagenesPunto) {
+                imagenesPuntoGuardar.add(traductor.traducir(dtoImagenPunto));
+            }
         }
+        nuevoPuntoDeInteres.setImagenes(imagenesPuntoGuardar);
 
 
         //Setea la informacion del punto
         if (datosPunto.getInformacion() != null)
         {
-            Collection<InformacionEnIdioma> infoEnIdiomas = null;
-            infoEnIdiomas.add(traductor.traducir(datosPunto.getInformacion()));
+            Collection<InformacionEnIdioma> infoEnIdiomas = new HashSet<InformacionEnIdioma>();
+            InformacionEnIdioma infoIdioma = traductor.traducir(datosPunto.getInformacion());
+            infoIdioma.setIdioma(manejadorIdioma.obtenerIdioma(datosPunto.getInformacion().getIdioma().getNombreIdioma()));
+            infoEnIdiomas.add(infoIdioma);
             Informacion info = new Informacion();
             info.setInformacionEnIdiomas(infoEnIdiomas);
             nuevoPuntoDeInteres.setInformacion(info);
@@ -136,8 +146,8 @@ public class ServicioPunto implements IServicioPunto
         nuevoPuntoDeInteres.setLocalizacion(traductor.traducir(datosPunto.getLocalizacion()));
 
         //Setea los links relacionados con el punto, si los hubiera
-//        Collection<Link> links = null;
-//        nuevoPuntoDeInteres.setLinks(links);
+        Collection<Link> links = new HashSet<Link>();
+        nuevoPuntoDeInteres.setLinks(links);
 
         //Persiste el punto creado previamente
         accesoDatos.Guardar(nuevoPuntoDeInteres);

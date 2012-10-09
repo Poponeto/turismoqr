@@ -56,7 +56,7 @@
                         </sec:authorize>
                         <sec:authorize url="./buscarPunto/paginaBuscarPunto.htm">
                             <li style="width:220px">
-                                <a href="#">Genrar Código QR de Punto</a>
+                                <a href="#">Generar Código QR de Punto</a>
                             </li>
                         </sec:authorize>
                     </ul>

@@ -20,9 +20,7 @@
         <link rel="stylesheet" type="text/css" href="../Vistas/HojasDeEstilo/jquery-ui-1.8.24.custom.css">
         <link rel="stylesheet" type="text/css" href="../Vistas/HojasDeEstilo/Mapas.css">
         <link rel="stylesheet" type="text/css" href="../Vistas/HojasDeEstilo/Administracion.css">
-        <link rel="stylesheet" type="text/css" href="../Vistas/HojasDeEstilo/nivo-slider.css">
-        <link rel="stylesheet" type="text/css" href="../Vistas/HojasDeEstilo/default.css">
-        <script type="text/javascript" src="../Vistas/JavaScript/JQuery/jquery.nivo.slider.js"></script>
+        
         <script type="text/javascript" >
             $(document).ready(function(){
                 inicializarComponentes();
@@ -54,10 +52,10 @@
         <div id="Contenedor">
             <table id="contenidoPrincipal" style="width: 100%;">
                 <tr>
-                    <td>
+                    <td style="width: 50%;">
                         <div id="contenedorMapa"></div>
                     </td>
-                    <td style="width: 50%;">
+                    <td>
                         <div id="Contenido">
                             <div class="slider-wrapper theme-default" style="background-color: black;">
                                 <div id="slider" class="nivoSlider" style="height: 500px;">
@@ -71,5 +69,10 @@
                 </tr>
             </table>
         </div>
+
+        <link rel="stylesheet" type="text/css" href="../Vistas/HojasDeEstilo/nivo-slider.css">
+        <link rel="stylesheet" type="text/css" href="../Vistas/HojasDeEstilo/default.css">
+        <script type="text/javascript" src="../Vistas/JavaScript/JQuery/jquery.nivo.slider.js"></script>
+
     </body>
 </html>

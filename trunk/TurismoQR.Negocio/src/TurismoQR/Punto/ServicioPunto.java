@@ -52,7 +52,6 @@ public class ServicioPunto implements IServicioPunto
         this.imagenesPunto = imagenesPunto;
     }
 
-    private GeneradorCodigoQR generadorCodigo;
     @Autowired
     public ServicioPunto(ManejadorIdiomas manejadorIdioma,
             ManejadorEstados manejadorEstado,

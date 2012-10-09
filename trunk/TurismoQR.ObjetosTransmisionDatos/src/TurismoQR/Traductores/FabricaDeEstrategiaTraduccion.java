@@ -45,6 +45,7 @@ public class FabricaDeEstrategiaTraduccion
     {
         for(Class estrategia : estrategias)
         {
+
             ParameterizedType interfaceType = (ParameterizedType)estrategia.getGenericInterfaces()[0];
             Class argumentClass = (Class)interfaceType.getActualTypeArguments()[0];
 
@@ -63,6 +64,33 @@ public class FabricaDeEstrategiaTraduccion
                     Logger.getLogger(FabricaDeEstrategiaTraduccion.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
+
+
+        }
+
+        for(Class estrategia : estrategias)
+        {
+
+            ParameterizedType interfaceType = (ParameterizedType)estrategia.getGenericInterfaces()[0];
+            Class argumentClass = (Class)interfaceType.getActualTypeArguments()[0];
+
+            if (argumentClass.equals(claseDeEstrategia.getSuperclass()))
+            {
+                try
+                {
+                    return (IEstrategiaTraduccion) estrategia.newInstance();
+                }
+                catch (InstantiationException ex)
+                {
+                    Logger.getLogger(FabricaDeEstrategiaTraduccion.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                catch (IllegalAccessException ex)
+                {
+                    Logger.getLogger(FabricaDeEstrategiaTraduccion.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+
+
         }
 
         return null;

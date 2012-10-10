@@ -35,15 +35,13 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Transactional
 @Service
-public class ServicioPunto implements IServicioPunto
-{
+public class ServicioPunto implements IServicioPunto {
 
     private ManejadorIdiomas manejadorIdioma;
     private ManejadorEstados manejadorEstado;
     private IAccesoDatos accesoDatos;
     private ITraductor traductor;
     private GeneradorCodigoQR generadorCodigo;
-
     private Collection<DTOImagen> imagenesPunto;
 
     public Collection<DTOImagen> getImagenesPunto() {
@@ -59,8 +57,7 @@ public class ServicioPunto implements IServicioPunto
             ManejadorEstados manejadorEstado,
             IAccesoDatos accesoDatos,
             ITraductor traductor,
-            GeneradorCodigoQR generadorCodigo)
-    {
+            GeneradorCodigoQR generadorCodigo) {
         this.manejadorIdioma = manejadorIdioma;
         this.manejadorEstado = manejadorEstado;
         this.accesoDatos = accesoDatos;
@@ -70,28 +67,49 @@ public class ServicioPunto implements IServicioPunto
     }
 
     /*
+     * Devuelve todos los idiomas posibles para la información de un punto de interés
+     */
+    public Collection<DTOIdioma> consultarPosiblesIdiomas() {
+        Collection<Idioma> idiomas = manejadorIdioma.obtenerPosiblesIdiomas();
+        Collection<DTOIdioma> dtoIdiomas = new ArrayList<DTOIdioma>();
+
+        for (Idioma idioma : idiomas) {
+            dtoIdiomas.add((DTOIdioma) traductor.traducir(idioma));
+        }
+
+        return dtoIdiomas;
+    }
+
+    /*
+     * Devuelve todos los idiomas posibles para la información de un punto de interés
+     * específico
+     */
+    public Collection<DTOIdioma> consultarPosiblesIdiomas(String idPuntoInteres) {
+
+        Punto punto = accesoDatos.BuscarObjeto(Punto.class, idPuntoInteres);
+        Collection<InformacionEnIdioma> informacionEnIdiomas = punto.getInformacion().getInformacionEnIdiomas();
+
+        Collection<DTOIdioma> dtoIdiomas = new ArrayList<DTOIdioma>();
+
+        for (InformacionEnIdioma informacionEnIdioma : informacionEnIdiomas) {
+            dtoIdiomas.add((DTOIdioma) traductor.traducir(informacionEnIdioma.getIdioma()));
+        }
+
+        return dtoIdiomas;
+    }
+
+    /*
      * Servicio que permite buscar la informacion de un punto de interes en base a
      * su id, y al idioma en que la informacion quiere obtenerse
      */
-    public DTOPunto ConsultarPuntoInteres(String idPuntoInteres, String nombreIdioma)
-    {
+    public DTOPunto ConsultarPuntoInteres(String idPuntoInteres, String nombreIdioma) {
         Punto punto = accesoDatos.BuscarObjeto(Punto.class, idPuntoInteres);
 
-        if (punto != null && manejadorEstado.esEstadoValidoConsulta(punto.getEstado()))
-        {
-            Idioma idioma = manejadorIdioma.obtenerIdioma(nombreIdioma);
-            InformacionEnIdioma informacionPunto = manejadorIdioma.seleccionarInformacionDePuntoEnIdioma(punto, idioma);
-
+        if (punto != null && manejadorEstado.esEstadoValidoConsulta(punto.getEstado())) {
             DTOPunto dtoPunto = (DTOPunto) traductor.traducir(punto);
-            DTOInformacionEnIdioma dtoInformacion = (DTOInformacionEnIdioma) traductor.traducir(informacionPunto);
-            DTOLocalizacion dtoLocalizacion = (DTOLocalizacion) traductor.traducir(punto.getLocalizacion());
-            DTOIdioma dtoIdioma = (DTOIdioma) traductor.traducir(informacionPunto.getIdioma());
+            
+            completarDTOPunto(punto, dtoPunto, nombreIdioma);
 
-            dtoInformacion.setIdioma(dtoIdioma);
-
-            dtoPunto.setImagenes(crearDTOImagenes(punto.getImagenes(), idioma));
-            dtoPunto.setInformacion(dtoInformacion);
-            dtoPunto.setLocalizacion(dtoLocalizacion);
             //TODO set links
             return dtoPunto;
         }
@@ -103,8 +121,7 @@ public class ServicioPunto implements IServicioPunto
      * Servicio que permite guardar un punto en base a los datos especificados por el usuario
      * @param datosPunto Un DTO que contiene todos los datos necesarios para crear el punto
      */
-    public void CrearPuntoInteres(DTOPunto datosPunto, String nombreIdioma)
-    {
+    public void CrearPuntoInteres(DTOPunto datosPunto, String nombreIdioma) {
         //Crea un nuevo punto de interes
         Punto nuevoPuntoDeInteres = new Punto();
 
@@ -116,10 +133,8 @@ public class ServicioPunto implements IServicioPunto
         //Setea las imagenes correspondientes al punto, si las hubiera.
         Collection<DTOImagen> dtoImagenes = datosPunto.getImagenes();
         Collection<Imagen> imagenesPuntoGuardar = new HashSet<Imagen>();
-        if (dtoImagenes != null && !dtoImagenes.isEmpty())
-        {
-            for (DTOImagen dtoImagen : datosPunto.getImagenes())
-            {
+        if (dtoImagenes != null && !dtoImagenes.isEmpty()) {
+            for (DTOImagen dtoImagen : datosPunto.getImagenes()) {
                 imagenesPuntoGuardar.add(traductor.traducir(dtoImagen));
             }
         } else if (imagenesPunto != null && !imagenesPunto.isEmpty()) {
@@ -131,8 +146,7 @@ public class ServicioPunto implements IServicioPunto
 
 
         //Setea la informacion del punto
-        if (datosPunto.getInformacion() != null)
-        {
+        if (datosPunto.getInformacion() != null) {
             Collection<InformacionEnIdioma> infoEnIdiomas = new HashSet<InformacionEnIdioma>();
             InformacionEnIdioma infoIdioma = traductor.traducir(datosPunto.getInformacion());
             infoIdioma.setIdioma(manejadorIdioma.obtenerIdioma(datosPunto.getInformacion().getIdioma().getNombreIdioma()));
@@ -158,8 +172,7 @@ public class ServicioPunto implements IServicioPunto
      * @param idPuntoInteres Id del punto de interes para el cual se creara el codigo QR.
      * @return DTOCodigoQR DTO con datos correspondientes al codigo QR generado.
      */
-    public DTOCodigoQR GenerarCodigoQR(String idPuntoInteres, int tamaño, String rutaImagen, String formatoImagen)
-    {
+    public DTOCodigoQR GenerarCodigoQR(String idPuntoInteres, int tamaño, String rutaImagen, String formatoImagen) {
         String rutaCodigoQR = generadorCodigo.generarCodigoQR(idPuntoInteres, tamaño, rutaImagen, formatoImagen);
 
         DTOCodigoQR dtoCodigoQR = new DTOCodigoQR();
@@ -168,20 +181,17 @@ public class ServicioPunto implements IServicioPunto
         return dtoCodigoQR;
     }
 
-    public Collection<DTOImagen> crearDTOImagenes(Collection<Imagen> imagenes, final Idioma idioma)
-    {
+    public Collection<DTOImagen> crearDTOImagenes(Collection<Imagen> imagenes, final Idioma idioma) {
         Collection<DTOImagen> dtoImagenes = new ArrayList<DTOImagen>();
 
-        for (Imagen imagen : imagenes)
-        {
+        for (Imagen imagen : imagenes) {
             dtoImagenes.add(crearDTOImagen(imagen, idioma));
         }
 
         return dtoImagenes;
     }
 
-    public DTOImagen crearDTOImagen(Imagen imagen, final Idioma idioma)
-    {
+    public DTOImagen crearDTOImagen(Imagen imagen, final Idioma idioma) {
         InformacionEnIdioma informacionImagen = manejadorIdioma.seleccionarInformacionDeImagenEnIdioma(imagen, idioma);
 
         DTOImagen dtoImagen = (DTOImagen) traductor.traducir(imagen);
@@ -190,5 +200,21 @@ public class ServicioPunto implements IServicioPunto
         dtoImagen.setInformacion(dtoInformacion);
 
         return dtoImagen;
+    }
+
+    protected void completarDTOPunto(Punto punto, DTOPunto dtoPunto, String nombreIdioma)
+    {
+            Idioma idioma = manejadorIdioma.obtenerIdioma(nombreIdioma);
+            InformacionEnIdioma informacionPunto = manejadorIdioma.seleccionarInformacionDePuntoEnIdioma(punto, idioma);
+
+            DTOInformacionEnIdioma dtoInformacion = (DTOInformacionEnIdioma) traductor.traducir(informacionPunto);
+            DTOLocalizacion dtoLocalizacion = (DTOLocalizacion) traductor.traducir(punto.getLocalizacion());
+            DTOIdioma dtoIdioma = (DTOIdioma) traductor.traducir(informacionPunto.getIdioma());
+
+            dtoInformacion.setIdioma(dtoIdioma);
+
+            dtoPunto.setImagenes(crearDTOImagenes(punto.getImagenes(), idioma));
+            dtoPunto.setInformacion(dtoInformacion);
+            dtoPunto.setLocalizacion(dtoLocalizacion);
     }
 }

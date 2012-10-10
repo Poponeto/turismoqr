@@ -8,6 +8,7 @@ package TurismoQR.Punto;
 import TurismoQR.ObjetosNegocio.Informacion.Idioma;
 import TurismoQR.ObjetosNegocio.Informacion.Imagen;
 import TurismoQR.ObjetosTransmisionDatos.DTOCodigoQR;
+import TurismoQR.ObjetosTransmisionDatos.DTOIdioma;
 import TurismoQR.ObjetosTransmisionDatos.DTOImagen;
 import TurismoQR.ObjetosTransmisionDatos.DTOPunto;
 import java.util.Collection;
@@ -25,5 +26,6 @@ public interface IServicioPunto {
     public void setImagenesPunto(Collection<DTOImagen> imagenesPunto);
     public Collection<DTOImagen> crearDTOImagenes(Collection<Imagen> imagenes, final Idioma idioma);
     public DTOImagen crearDTOImagen(Imagen imagen, final Idioma idioma);
-
+    public Collection<DTOIdioma> consultarPosiblesIdiomas(String idPuntoInteres);
+    public Collection<DTOIdioma> consultarPosiblesIdiomas();
 }

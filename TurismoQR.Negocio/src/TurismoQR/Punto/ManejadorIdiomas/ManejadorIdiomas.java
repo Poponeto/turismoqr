@@ -29,6 +29,11 @@ public class ManejadorIdiomas
         this.accesoDatosIdioma = accesoDatosIdioma;
     }
 
+    public Collection<Idioma> obtenerPosiblesIdiomas()
+    {
+        return accesoDatosIdioma.BuscarConjuntoObjetos(Idioma.class);
+    }
+
     public InformacionEnIdioma seleccionarInformacionDePuntoEnIdioma(Punto punto, Idioma idioma)
     {
         return seleccionarInformacionEnIdioma(punto.getInformacion().getInformacionEnIdiomas(), idioma);

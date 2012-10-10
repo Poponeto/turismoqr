@@ -7,7 +7,9 @@ package TurismoQR.Usuario;
 
 import TurismoQR.ObjetosNegocio.Usuarios.Usuario;
 import TurismoQR.ObjetosTransmisionDatos.DTOUsuario;
+import TurismoQR.ObjetosTransmisionDatos.IDTO;
 import TurismoQR.Traductores.ITraductor;
+import TurismoQR.Usuario.ManejadorUsuarios.ManejadorUsuarios;
 import TurismoQR.Usuario.ManejadorLogin.ManejadorLogin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -26,13 +28,15 @@ public class ServicioUsuario implements IServicioUsuario {
 
 
     private ManejadorLogin manejadorLogin;
+    private ManejadorUsuarios manejadorGuardado;
 
     private ITraductor traductor;
 
     @Autowired
-    public ServicioUsuario(ManejadorLogin manejadorLogin, ITraductor traductor)
+    public ServicioUsuario(ManejadorLogin manejadorLogin, ManejadorUsuarios manejadorGuardado, ITraductor traductor)
     {
         this.manejadorLogin = manejadorLogin;
+        this.manejadorGuardado = manejadorGuardado;
         this.traductor = traductor;
 
     }
@@ -42,6 +46,13 @@ public class ServicioUsuario implements IServicioUsuario {
         Usuario usuario = manejadorLogin.cargarUsuario(nombreUsuario);
 
         return (DTOUsuario)traductor.traducir(usuario);
+    }
+
+    public boolean crearUsuario(IDTO<Usuario> dtoUsuario)
+    {
+        Usuario usuario = traductor.traducir(dtoUsuario);
+
+        return manejadorGuardado.guardarUsuario(usuario);
     }
 
 

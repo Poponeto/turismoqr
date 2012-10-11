@@ -5,8 +5,10 @@
 
 package Controladores;
 
+import TurismoQR.ObjetosTransmisionDatos.DTOIdioma;
 import TurismoQR.ObjetosTransmisionDatos.DTOPunto;
 import TurismoQR.Punto.IServicioPunto;
+import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -38,30 +40,19 @@ public class InformacionPuntoController {
             @PathVariable String idPunto, ModelMap model)
     {
         DTOPunto dtoPunto = servicioPunto.ConsultarPuntoInteres(idPunto, idioma);
+        Collection<DTOIdioma> dtoIdiomas = servicioPunto.consultarPosiblesIdiomas(idPunto);
         model.put("punto", dtoPunto);
+        model.put("idiomas", dtoIdiomas);
 
         return "Punto/InformacionPunto";
     }
-    /*
-    @RequestMapping(value = "/{idioma}/{idPunto}/obtenerInformacionPunto.htm",
-                    method = RequestMethod.GET)
-    public ModelAndView obtenerInformacionPunto(
-            @PathVariable String idioma,
-            @PathVariable String idPunto)
-    {
-        Map model = new HashMap();
-        DTOPunto dtoPunto = servicioPunto.ConsultarPuntoInteres(idPunto, idioma);
-        model.put("punto", dtoPunto);
-
-        return new ModelAndView("Punto/InformacionPunto", model);
-    }*/
 
     @RequestMapping(value = "/{idPunto}/obtenerInformacionPuntoIdiomaDefault.htm",
                     method = RequestMethod.POST)
     public String obtenerInformacionPuntoIdiomaDefault(
             @PathVariable String idPunto)
     {
-        String idioma = "Español";
+        String idioma = "espanol";
         //TODO Obtener el idioma por default del usuario
         return "redirect:/informacionPunto/" + idioma + "/" + idPunto +"/obtenerInformacionPunto.htm";
     }

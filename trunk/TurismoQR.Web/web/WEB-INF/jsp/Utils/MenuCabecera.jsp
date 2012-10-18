@@ -36,12 +36,12 @@
             <ul id ="contenedorDeMenusInicio" style="display: inline-block;">
                 <li id ="menuDeOpcionesPunto">
                     <a href="#">
-                        <img id="imagenMenu0" alt="" src="../Vistas/HojasDeEstilo/images/profile.gif"/>&nbsp;Punto&nbsp;&nbsp;&nbsp<img id="imagenMenu1" alt="" src="../Vistas/HojasDeEstilo/images/down.png"/>
+                        <img id="imagenMenu0" alt="" src="${pageContext.request.contextPath}/Vistas/HojasDeEstilo/images/profile.gif"/>&nbsp;Punto&nbsp;&nbsp;&nbsp<img id="imagenMenu1" alt="" src="../Vistas/HojasDeEstilo/images/down.png"/>
                     </a>
                     <ul>
                         <sec:authorize url="/crearPunto/crearPuntoDeInteres.htm">
                             <li style="width:220px">
-                                <a href="./crearPunto/crearPuntoDeInteres.htm">Crear Punto de Interés</a>
+                                <a href="${pageContext.request.contextPath}/crearPunto/crearPuntoDeInteres.htm">Crear Punto de Interés</a>
                             </li>
                         </sec:authorize>
                         <sec:authorize url="/crearPunto/crearPuntoDeInteres.htm">
@@ -51,10 +51,10 @@
                         </sec:authorize>
                         <sec:authorize url="/buscarPunto/paginaBuscarPunto.htm">
                             <li style="width:220px">
-                                <a href="./buscarPunto/paginaBuscarPunto.htm">Buscar Punto</a>
+                                <a href="${pageContext.request.contextPath}/buscarPunto/paginaBuscarPunto.htm">Buscar Punto</a>
                             </li>
                         </sec:authorize>
-                        <sec:authorize url="./buscarPunto/paginaBuscarPunto.htm">
+                        <sec:authorize url="/buscarPunto/paginaBuscarPunto.htm">
                             <li style="width:220px">
                                 <a href="#">Generar Código QR de Punto</a>
                             </li>
@@ -64,28 +64,28 @@
 
                 <li id ="menuDeOpcionesUsuario">
                     <a href="#">
-                        <img id="imagenMenu2" alt="" src="../Vistas/HojasDeEstilo/images/action.gif"/>&nbsp;Usuario&nbsp;&nbsp;&nbsp<img alt=""  id="imagenMenu3" src="../Vistas/HojasDeEstilo/images/down.png"/>
+                        <img id="imagenMenu2" alt="" src="${pageContext.request.contextPath}/Vistas/HojasDeEstilo/images/action.gif"/>&nbsp;Usuario&nbsp;&nbsp;&nbsp<img alt=""  id="imagenMenu3" src="../Vistas/HojasDeEstilo/images/down.png"/>
                     </a>
 
                     <ul>
                         <sec:authorize url="/crearPunto/crearPuntoDeInteres.htm">
                             <li style="width:170px">
-                                <a href="./crearPunto/crearPuntoDeInteres.htm">Información Personal</a>
+                                <a href="${pageContext.request.contextPath}/crearPunto/crearPuntoDeInteres.htm">Información Personal</a>
                             </li>
                         </sec:authorize>
                         <sec:authorize url="/crearPunto/crearPuntoDeInteres.htm">
                             <li style="width:170px">
-                                <a href="./crearPunto/crearPuntoDeInteres.htm">Usuarios del Sistema</a>
+                                <a href="${pageContext.request.contextPath}/crearPunto/crearPuntoDeInteres.htm">Usuarios del Sistema</a>
                             </li>
                         </sec:authorize>
                         <sec:authorize url="/buscarPunto/paginaBuscarPunto.htm">
                             <li style="width:170px">
-                                <a href="./crearPunto/crearPuntoDeInteres.htm">Clientes del Sistema</a>
+                                <a href="${pageContext.request.contextPath}/crearPunto/crearPuntoDeInteres.htm">Clientes del Sistema</a>
                             </li>
                         </sec:authorize>
                         <sec:authorize url="/buscarPunto/paginaBuscarPunto.htm">
                             <li style="width:170px">
-                                <a href="./crearPunto/crearPuntoDeInteres.htm">Crear Usuario</a>
+                                <a href="${pageContext.request.contextPath}/crearPunto/crearPuntoDeInteres.htm">Crear Usuario</a>
                             </li>
                         </sec:authorize>
                     </ul>
@@ -94,7 +94,7 @@
                 <!--sec:authorize ifAnyGranted="PERMISO_VERINFORMES"-->
                     <li id ="menuDeOpcionesInformes">
 
-                        <a href="./crearPunto/crearPuntoDeInteres.htm"><img alt=""  id="imagenMenu4" src="../Vistas/HojasDeEstilo/images/chart.gif"/>&nbsp;Informes&nbsp;&nbsp;&nbsp<img alt=""  id="imagenMenu5" src="../Vistas/HojasDeEstilo/images/down.png"/></a>
+                        <a href="${pageContext.request.contextPath}/crearPunto/crearPuntoDeInteres.htm"><img alt=""  id="imagenMenu4" src="../Vistas/HojasDeEstilo/images/chart.gif"/>&nbsp;Informes&nbsp;&nbsp;&nbsp<img alt=""  id="imagenMenu5" src="../Vistas/HojasDeEstilo/images/down.png"/></a>
 
                         <ul>
 
@@ -108,7 +108,7 @@
 
         <div class="menuderecho">
             <div id="contenedorDeInformacionTurismoQR">
-                <a href="./aboutUS.htm">¿Quiénes Somos?</a>
+                <a href="${pageContext.request.contextPath}/aboutUS.htm">¿Quiénes Somos?</a>
             </div>
             <div id="contenedorDeLogoutTurismoQR">
                 <a>Logout</a>

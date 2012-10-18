@@ -26,10 +26,8 @@
 
     <body style="margin: 0px;">
         <div id="Contenedor">
-            <div id="Cabecera" style="padding: 15px 30px; height: 70px;">
-                <img alt="" src="./Vistas/Imagenes/TurismoQRLogo.jpg" style="display: inline-block; margin-right: 15px;  height: 70px;"/>
-                <img alt="" src="./Vistas/Imagenes/TurismoQRTitulo.png" style="display: inline-block;  height: 60px;"/>
-            </div>
+            <%@ include  file="Utils/Cabecera.jsp" %>
+        
             <div>
                 <table id="contenidoPrincipal" style="width: 100%;">
                     <tr>

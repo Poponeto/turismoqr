@@ -46,10 +46,7 @@
                 <h3>Informacion punto de interes</h3>
             </div>
             <div style="display: inline-block; position: absolute; right: 30px; margin-top: -9px; top: 50%;" align="right">
-                <label style="display: inline-block;">Idioma: </label>
-                <select id="idiomaSeleccionado" size=1 >
-                    <option value="Español">Español</option>
-                </select>
+                <%@ include  file="../Utils/ComboIdiomas.jsp" %>
             </div>
         </div>
 
@@ -68,11 +65,11 @@
             </div>
             <div id="tabLinks">
                 <ul>
-                    <c:forEach var="link" items="${punto.links}">
+                    <core:forEach var="link" items="${punto.links}">
                         <li>
-                        <c:out value="${link.url}" />
+                        <core:out value="${link.url}" />
                         </li>
-                    </c:forEach>
+                    </core:forEach>
                 </ul>
             </div>
         </div>

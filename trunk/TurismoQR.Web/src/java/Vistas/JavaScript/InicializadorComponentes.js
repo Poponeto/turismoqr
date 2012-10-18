@@ -12,8 +12,6 @@ function inicializarComponentes()
     $('[id*="acordion"]').accordion();
     $('[id*="tabs"]').tabs();
 
-    $('[id*="contenedorDeMenus"]').buttonset();
-    $('[id*="contenedorDeMenus"]').ptMenu(); //http://www.codingwhiz.com/jqueryui/jquery-ui-themeroller-enabled-dropdown-menu.html
-
+    
     
 }

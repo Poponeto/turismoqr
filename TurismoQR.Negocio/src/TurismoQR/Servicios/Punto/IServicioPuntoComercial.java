@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package TurismoQR.Punto;
+package TurismoQR.Servicios.Punto;
 
 /**
  *

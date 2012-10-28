@@ -5,9 +5,10 @@
 
 package Controladores;
 
+import TurismoQR.Servicios.Idioma.IServicioIdioma;
 import TurismoQR.ObjetosTransmisionDatos.DTOIdioma;
 import TurismoQR.ObjetosTransmisionDatos.DTOPunto;
-import TurismoQR.Punto.IServicioPunto;
+import TurismoQR.Servicios.Punto.IServicioPunto;
 import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,11 +27,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class InformacionPuntoController {
 
     IServicioPunto servicioPunto;
+    IServicioIdioma servicioIdioma;
 
     @Autowired
-    public void InformacionPuntoController(IServicioPunto servicioPunto)
+    public void InformacionPuntoController(
+            IServicioPunto servicioPunto,
+            IServicioIdioma servicioIdioma)
     {
         this.servicioPunto = servicioPunto;
+        this.servicioIdioma = servicioIdioma;
     }
 
     @RequestMapping(value = "/{idioma}/{idPunto}/obtenerInformacionPunto.htm",
@@ -40,7 +45,7 @@ public class InformacionPuntoController {
             @PathVariable String idPunto, ModelMap model)
     {
         DTOPunto dtoPunto = servicioPunto.ConsultarPuntoInteres(idPunto, idioma);
-        Collection<DTOIdioma> dtoIdiomas = servicioPunto.consultarPosiblesIdiomas(idPunto);
+        Collection<DTOIdioma> dtoIdiomas = servicioIdioma.consultarPosiblesIdiomas(idPunto);
         model.put("punto", dtoPunto);
         model.put("idiomas", dtoIdiomas);
 

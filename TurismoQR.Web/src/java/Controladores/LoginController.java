@@ -1,7 +1,7 @@
 package Controladores;
 
 
-import TurismoQR.Usuario.IServicioUsuario;
+import TurismoQR.Servicios.Usuario.IServicioUsuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.security.core.userdetails.UserDetails;

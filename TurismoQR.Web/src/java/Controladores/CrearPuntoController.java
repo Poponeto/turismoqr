@@ -13,8 +13,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import TurismoQR.Punto.IServicioPunto;
-import TurismoQR.Punto.ManejadorIdiomas.ManejadorIdiomas;
+import TurismoQR.Servicios.Punto.IServicioPunto;
+import TurismoQR.Manejadores.ManejadorIdiomas.ManejadorIdiomas;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**

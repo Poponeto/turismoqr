@@ -5,6 +5,7 @@
 
 package TurismoQR.Punto.ManejadorIdiomas;
 
+import TurismoQR.Manejadores.ManejadorIdiomas.ManejadorIdiomas;
 import java.util.Collection;
 import java.util.ArrayList;
 import TurismoQR.ObjetosNegocio.Informacion.Informacion;

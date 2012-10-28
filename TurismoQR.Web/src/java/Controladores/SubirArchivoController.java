@@ -10,8 +10,8 @@ import TurismoQR.ObjetosNegocio.Informacion.Imagen;
 import TurismoQR.ObjetosNegocio.Informacion.Informacion;
 import TurismoQR.ObjetosNegocio.Informacion.InformacionEnIdioma;
 import TurismoQR.ObjetosTransmisionDatos.DTOImagen;
-import TurismoQR.Punto.IServicioPunto;
-import TurismoQR.Punto.ManejadorIdiomas.ManejadorIdiomas;
+import TurismoQR.Servicios.Punto.IServicioPunto;
+import TurismoQR.Manejadores.ManejadorIdiomas.ManejadorIdiomas;
 import Utils.UploadedFile;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -89,7 +89,7 @@ public class SubirArchivoController {
             imagenParaDTO.setInformacion(infoImagen);
         }
         Collection<DTOImagen> DTOImagenes = servicioPunto.getImagenesPunto();
-        DTOImagenes.add(servicioPunto.crearDTOImagen(imagenParaDTO, idiomaSeleccionado));
+        //DTOImagenes.add(servicioPunto.crearDTOImagen(imagenParaDTO, idiomaSeleccionado));
         servicioPunto.setImagenesPunto(DTOImagenes);
 
         modelo.put("mensajeImagen", "Mensaje que permite saber el estado de la imagen");

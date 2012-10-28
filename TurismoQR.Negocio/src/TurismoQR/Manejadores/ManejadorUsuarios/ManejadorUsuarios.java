@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package TurismoQR.Usuario.ManejadorUsuarios;
+package TurismoQR.Manejadores.ManejadorUsuarios;
 
 import TurismoQR.AccesoDatos.AccesoDatosUsuario;
 import TurismoQR.ObjetosNegocio.Usuarios.Usuario;

@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package TurismoQR.Punto.ManejadorEstados;
+package TurismoQR.Manejadores.ManejadorEstados;
 import TurismoQR.ObjetosNegocio.Estados.IEstado;
 import org.springframework.stereotype.Service;
 

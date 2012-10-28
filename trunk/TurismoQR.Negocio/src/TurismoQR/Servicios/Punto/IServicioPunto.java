@@ -3,12 +3,9 @@
  * and open the template in the editor.
  */
 
-package TurismoQR.Punto;
+package TurismoQR.Servicios.Punto;
 
-import TurismoQR.ObjetosNegocio.Informacion.Idioma;
-import TurismoQR.ObjetosNegocio.Informacion.Imagen;
 import TurismoQR.ObjetosTransmisionDatos.DTOCodigoQR;
-import TurismoQR.ObjetosTransmisionDatos.DTOIdioma;
 import TurismoQR.ObjetosTransmisionDatos.DTOImagen;
 import TurismoQR.ObjetosTransmisionDatos.DTOPunto;
 import java.util.Collection;
@@ -19,13 +16,17 @@ import java.util.Collection;
  */
 public interface IServicioPunto {
 
+    public Collection<DTOPunto> ConsultarPuntosInteresZona(
+            String latitudDesde,
+            String latitudHasta,
+            String longitudDesde,
+            String longitudHasta,
+            String nombreIdioma);
+    public Collection<DTOPunto> ConsultarPuntosDeInteres(String nombreIdioma);
     public DTOPunto ConsultarPuntoInteres(String idPuntoInteres, String nombreIdioma);
     public void CrearPuntoInteres(DTOPunto dtoPunto, String nombreIdioma);
     public DTOCodigoQR GenerarCodigoQR(String idPuntoInteres, int tamaño, String rutaImagen, String formatoImagen);
     public Collection<DTOImagen> getImagenesPunto();
     public void setImagenesPunto(Collection<DTOImagen> imagenesPunto);
-    public Collection<DTOImagen> crearDTOImagenes(Collection<Imagen> imagenes, final Idioma idioma);
-    public DTOImagen crearDTOImagen(Imagen imagen, final Idioma idioma);
-    public Collection<DTOIdioma> consultarPosiblesIdiomas(String idPuntoInteres);
-    public Collection<DTOIdioma> consultarPosiblesIdiomas();
+    
 }

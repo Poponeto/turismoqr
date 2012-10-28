@@ -6,14 +6,14 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Bienvenido a TurismoQR</title>
-        <link rel="stylesheet" type="text/css" href="./Vistas/HojasDeEstilo/Home.css">
-        <script type="text/javascript" src="./Vistas/JavaScript/JQuery/jquery-1.8.1.min.js"></script>
-        <script type="text/javascript" src="./Vistas/JavaScript/JQuery/jquery-ui-1.8.24.custom.min.js"></script>
-        <script type="text/javascript" src="./Vistas/JavaScript/JQuery/jquery.nivo.slider.js"></script>
-        <script type="text/javascript" src="./Vistas/JavaScript/InicializadorComponentes.js"></script>
-        <link rel="stylesheet" type="text/css" href="./Vistas/HojasDeEstilo/jquery-ui-1.8.24.custom.css">
-        <link rel="stylesheet" type="text/css" href="./Vistas/HojasDeEstilo/nivo-slider.css">
-        <link rel="stylesheet" type="text/css" href="./Vistas/HojasDeEstilo/default.css">
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/Vistas/HojasDeEstilo/Home.css">
+        <script type="text/javascript" src="${pageContext.request.contextPath}/Vistas/JavaScript/JQuery/jquery-1.8.1.min.js"></script>
+        <script type="text/javascript" src="${pageContext.request.contextPath}/Vistas/JavaScript/JQuery/jquery-ui-1.8.24.custom.min.js"></script>
+        <script type="text/javascript" src="${pageContext.request.contextPath}/Vistas/JavaScript/JQuery/jquery.nivo.slider.js"></script>
+        <script type="text/javascript" src="${pageContext.request.contextPath}/Vistas/JavaScript/InicializadorComponentes.js"></script>
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/Vistas/HojasDeEstilo/jquery-ui-1.8.24.custom.css">
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/Vistas/HojasDeEstilo/nivo-slider.css">
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/Vistas/HojasDeEstilo/default.css">
         <script type="text/javascript">
             $(document).ready(function(){
                 inicializarComponentes();
@@ -26,7 +26,7 @@
 
     <body style="margin: 0px;">
         <div id="Contenedor">
-            <%@ include  file="Utils/Cabecera.jsp" %>
+            <%@ include  file="/WEB-INF/jsp/Utils/Cabecera.jsp" %>
         
             <div>
                 <table id="contenidoPrincipal" style="width: 100%;">
@@ -35,9 +35,9 @@
                             <div id="Contenido">
                                 <div class="slider-wrapper theme-default" style="background-color: black;">
                                     <div id="slider" class="nivoSlider" style="height: 500px;">
-                                        <img src="./Vistas/Imagenes/Slider1.jpg" data-thumb="./Vistas/Imagenes/Slider1.jpg" alt="" />
-                                        <img src="./Vistas/Imagenes/Slider2.jpg" data-thumb="./Vistas/Imagenes/Slider2.jpg" alt="" />
-                                        <img src="./Vistas/Imagenes/Slider3.jpg" data-thumb="./Vistas/Imagenes/Slider3.jpg" alt="" />
+                                        <img src="${pageContext.request.contextPath}/Vistas/Imagenes/Slider1.jpg" data-thumb="${pageContext.request.contextPath}/Vistas/Imagenes/Slider1.jpg" alt="" />
+                                        <img src="${pageContext.request.contextPath}/Vistas/Imagenes/Slider2.jpg" data-thumb="${pageContext.request.contextPath}/Vistas/Imagenes/Slider2.jpg" alt="" />
+                                        <img src="${pageContext.request.contextPath}/Vistas/Imagenes/Slider3.jpg" data-thumb="${pageContext.request.contextPath}/Vistas/Imagenes/Slider3.jpg" alt="" />
                                         
                                     </div>
                                 </div>

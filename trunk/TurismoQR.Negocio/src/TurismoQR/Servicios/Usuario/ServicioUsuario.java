@@ -3,14 +3,14 @@
  * and open the template in the editor.
  */
 
-package TurismoQR.Usuario;
+package TurismoQR.Servicios.Usuario;
 
 import TurismoQR.ObjetosNegocio.Usuarios.Usuario;
 import TurismoQR.ObjetosTransmisionDatos.DTOUsuario;
 import TurismoQR.ObjetosTransmisionDatos.IDTO;
 import TurismoQR.Traductores.ITraductor;
-import TurismoQR.Usuario.ManejadorUsuarios.ManejadorUsuarios;
-import TurismoQR.Usuario.ManejadorLogin.ManejadorLogin;
+import TurismoQR.Manejadores.ManejadorUsuarios.ManejadorUsuarios;
+import TurismoQR.Manejadores.ManejadorLogin.ManejadorLogin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

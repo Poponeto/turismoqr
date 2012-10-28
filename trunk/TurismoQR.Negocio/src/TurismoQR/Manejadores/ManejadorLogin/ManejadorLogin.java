@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package TurismoQR.Usuario.ManejadorLogin;
+package TurismoQR.Manejadores.ManejadorLogin;
 
 import TurismoQR.AccesoDatos.AccesoDatosUsuario;
 import TurismoQR.ObjetosNegocio.Usuarios.Usuario;

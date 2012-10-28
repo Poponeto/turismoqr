@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package TurismoQR.Punto.ManejadorIdiomas;
+package TurismoQR.Manejadores.ManejadorIdiomas;
 
 import TurismoQR.AccesoDatos.AccesoDatosIdioma;
 import TurismoQR.ObjetosNegocio.Informacion.Idioma;

@@ -3,12 +3,12 @@
  * and open the template in the editor.
  */
 
-package TurismoQR.Punto;
+package TurismoQR.Servicios.Punto;
 
 import TurismoQR.AccesoDatos.IAccesoDatos;
-import TurismoQR.Punto.GeneradorCodigo.GeneradorCodigoQR;
-import TurismoQR.Punto.ManejadorEstados.ManejadorEstados;
-import TurismoQR.Punto.ManejadorIdiomas.ManejadorIdiomas;
+import TurismoQR.Manejadores.GeneradorCodigo.GeneradorCodigoQR;
+import TurismoQR.Manejadores.ManejadorEstados.ManejadorEstados;
+import TurismoQR.Manejadores.ManejadorIdiomas.ManejadorIdiomas;
 import TurismoQR.Traductores.ITraductor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

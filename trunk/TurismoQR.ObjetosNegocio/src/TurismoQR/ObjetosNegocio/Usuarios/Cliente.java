@@ -1,19 +1,35 @@
 package TurismoQR.ObjetosNegocio.Usuarios;
 
 import TurismoQR.ObjetosNegocio.IObjetoNegocio;
+import TurismoQR.ObjetosNegocio.Punto.PuntoComercial;
+import java.util.Collection;
 
-public class Cliente implements IObjetoNegocio
+public abstract class Cliente implements IObjetoNegocio
 {
-
-    private String apellido;
     
-    private String nombre;
     private String mail;
-    private String dni;
     private String celular;
     private String telefonoFijo;
     private Usuario usuario;
     private String idObjeto;
+    private Collection<PuntoComercial> puntosDeCliente;
+    private int cantidadDePuntosPermitidos;
+
+    public int getCantidadDePuntosPermitidos() {
+        return cantidadDePuntosPermitidos;
+    }
+
+    public void setCantidadDePuntosPermitidos(int cantidadDePuntosPermitidos) {
+        this.cantidadDePuntosPermitidos = cantidadDePuntosPermitidos;
+    }
+
+    public Collection<PuntoComercial> getPuntosDeCliente() {
+        return puntosDeCliente;
+    }
+
+    public void setPuntosDeCliente(Collection<PuntoComercial> puntosDeCliente) {
+        this.puntosDeCliente = puntosDeCliente;
+    }
 
     public String getIdObjeto()
     {
@@ -35,16 +51,6 @@ public class Cliente implements IObjetoNegocio
         this.usuario = usuario;
     }
 
-    public String getApellido()
-    {
-        return apellido;
-    }
-
-    public void setApellido(String apellido)
-    {
-        this.apellido = apellido;
-    }
-
     public String getCelular()
     {
         return celular;
@@ -53,16 +59,6 @@ public class Cliente implements IObjetoNegocio
     public void setCelular(String celular)
     {
         this.celular = celular;
-    }
-
-    public String getDni()
-    {
-        return dni;
-    }
-
-    public void setDni(String dni)
-    {
-        this.dni = dni;
     }
 
     public String getTelefonoFijo()
@@ -85,13 +81,4 @@ public class Cliente implements IObjetoNegocio
         this.mail = mail;
     }
 
-    public String getNombre()
-    {
-        return nombre;
-    }
-
-    public void setNombre(String nombre)
-    {
-        this.nombre = nombre;
-    }
 }

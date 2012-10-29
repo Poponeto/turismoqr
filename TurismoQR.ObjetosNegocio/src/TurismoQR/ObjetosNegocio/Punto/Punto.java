@@ -1,5 +1,6 @@
 package TurismoQR.ObjetosNegocio.Punto;
 
+import TurismoQR.ObjetosNegocio.Categorias.Categoria;
 import TurismoQR.ObjetosNegocio.Informacion.Imagen;
 import TurismoQR.ObjetosNegocio.Informacion.Link;
 import TurismoQR.ObjetosNegocio.Informacion.Informacion;
@@ -17,7 +18,15 @@ public class Punto implements IObjetoNegocio
     private Collection<Imagen> imagenes;
     private Collection<Link> links;
     private Collection<Estado> estados;
+    private Categoria categoria;
 
+    public Categoria getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
+    }
 
     public Collection<Estado> getEstados()
     {

@@ -16,7 +16,7 @@ public class Empresa extends Cliente{
 
     private String cuit;
     private String razonSocial;
-    private Collection<Persona> contactos;
+    private Collection<ContactoEmpresa> contactos;
     private Rubro rubro;
 
     public Rubro getRubro() {
@@ -27,11 +27,11 @@ public class Empresa extends Cliente{
         this.rubro = rubro;
     }
 
-    public Collection<Persona> getContactos() {
+    public Collection<ContactoEmpresa> getContactos() {
         return contactos;
     }
 
-    public void setContactos(Collection<Persona> contactos) {
+    public void setContactos(Collection<ContactoEmpresa> contactos) {
         this.contactos = contactos;
     }
 

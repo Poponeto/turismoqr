@@ -14,6 +14,11 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <div>Datos básicos de cliente</div>
+
+        <div>Datos Empresa (Llamada de ayax para mostrar formulario?) Tabla que contiene contactos</div>
+        
+        <div>Datos particular (Llamada de ayax para mostrar formulario?) Parecido al formulario de un contacto</div>
+
     </body>
 </html>

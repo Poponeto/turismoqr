@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <joined-subclass name="TurismoQR.ObjetosNegocio.Usuarios.Empresa" table="empresa" extends="TurismoQR.ObjetosNegocio.Usuarios.Cliente">
+        <key column="idEmpresa"/>
+
+        <property name="cuit"/>
+        <property name="razonSocial"/>
+
+        <set name="contactos" cascade="all-delete-orphan" outer-join="true">
+            <key column="empresa" foreign-key="idEmpresa"/>
+            <one-to-many class="TurismoQR.ObjetosNegocio.Usuarios.ContactoEmpresa" />
+        </set>
+
+        <many-to-one name="rubro" unique="true" class="TurismoQR.ObjetosNegocio.Categorias.Rubro" column="Rubro" not-null="true" cascade="all"/>
+
+    </joined-subclass>
+</hibernate-mapping>

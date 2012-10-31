@@ -8,6 +8,7 @@
         <property name="nombre"/>
         <many-to-one name="localizacion" unique="true" class="TurismoQR.ObjetosNegocio.Punto.Localizacion" column="Localizacion" not-null="true" cascade="all"/>
         <many-to-one name="informacion" unique="true" class="TurismoQR.ObjetosNegocio.Informacion.Informacion" column="Informacion" cascade="all"/>
+        <many-to-one name="categoria" unique="true" class="TurismoQR.ObjetosNegocio.Categorias.Categoria" column="categoriaPunto" cascade="all"/>
 
         <set name="imagenes" cascade="all-delete-orphan" outer-join="true">
             <key column="Punto" foreign-key="idPuntoImagenes"/>

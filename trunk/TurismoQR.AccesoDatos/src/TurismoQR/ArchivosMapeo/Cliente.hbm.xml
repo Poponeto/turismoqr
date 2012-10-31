@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-    <class name="TurismoQR.ObjetosNegocio.Usuarios.Cliente" table="cliente">
-        <id column="idCliente" name="idObjeto">
-            <generator class="guid"/>
-        </id>
-        <property name="apellido"/>
-        <property name="nombre"/>
-        <property name="mail"/>
-        <property name="dni"/>
-        <property name="celular"/>
-        <property name="telefonoFijo"/>
+    <joined-subclass name="TurismoQR.ObjetosNegocio.Usuarios.Cliente" table="cliente" extends="TurismoQR.ObjetosNegocio.Usuarios.Contacto">
+        <key column="idCliente"/>
+
+        <property name="cantidadDePuntosPermitidos"/>
+        
         <one-to-one name="usuario" class="TurismoQR.ObjetosNegocio.Usuarios.Usuario" cascade="all" foreign-key="idUsuario" />
-    </class>
+
+        <set name="puntosDeCliente" cascade="all-delete-orphan" outer-join="true">
+            <key column="cliente" foreign-key="idCliente"/>
+            <one-to-many class="TurismoQR.ObjetosNegocio.Punto.PuntoComercial" />
+        </set>
+
+    </joined-subclass>
 </hibernate-mapping>

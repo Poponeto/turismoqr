@@ -5,7 +5,7 @@
        <id column="idRol" name="idObjeto">
             <generator class="guid"/>
         </id>
-        <set name="permisosRol" cascade="all-delete-orphan" outer-join="true"> 
+        <set name="permisosRol" cascade="none" outer-join="true">
             <key column="permisosRol" foreign-key="idPermisoRol" /> 
             <one-to-many class="TurismoQR.ObjetosNegocio.Usuarios.Permisos.PermisoRol" /> 
         </set>

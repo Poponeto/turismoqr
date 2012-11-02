@@ -19,6 +19,7 @@ public class EstrategiaTraduccionPunto implements IEstrategiaTraduccion<Punto>{
     {
         DTOPunto dtoPunto = new DTOPunto();
         dtoPunto.setIdPunto(objetoNegocio.getIdObjeto());
+        dtoPunto.setNombrePunto(objetoNegocio.getNombre());
         return dtoPunto;
     }
 

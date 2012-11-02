@@ -26,8 +26,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping("/informacionPunto")
 public class InformacionPuntoController {
 
-    IServicioPunto servicioPunto;
-    IServicioIdioma servicioIdioma;
+    private IServicioPunto servicioPunto;
+    private IServicioIdioma servicioIdioma;
 
     @Autowired
     public void InformacionPuntoController(

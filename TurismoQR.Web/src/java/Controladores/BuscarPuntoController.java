@@ -44,17 +44,13 @@ public class BuscarPuntoController {
     @RequestMapping(value = "/paginaBuscarPunto.htm",method = RequestMethod.GET)
     public String redirigir(ModelMap model)
     {
-        Collection<DTOPunto> puntos = servicioPunto.ConsultarPuntosDeInteres(null);
-        
-        model.addAttribute("puntos", puntos);
-
         return "Punto/BuscarPunto";
     }
 
     @RequestMapping(value = "/obtenerInformacionTabla.htm",method = RequestMethod.GET)
     public @ResponseBody Tabla obtenerInformacionTabla()
     {
-        Collection<DTOPunto> puntos = servicioPunto.ConsultarPuntosDeInteres(null);
+            Collection<DTOPunto> puntos = servicioPunto.ConsultarPuntosDeInteres(null);
 
         Tabla tabla = new Tabla();
         Collection<IFila> filas = new HashSet<IFila>();

@@ -63,94 +63,13 @@
         </script>
     </head>
     <body style="padding: 0px;">
-        <div id="Cabecera" style="padding: 15px 30px; height: 70px;">
-            <img alt="" src="../../Vistas/Imagenes/TurismoQRLogo.jpg" style="display: inline-block; margin-right: 15px;  height: 70px;"/>
-            <img alt="" src="../../Vistas/Imagenes/TurismoQRTitulo.png" style="display: inline-block;  height: 60px;"/>
-        </div>
+        
+        <%@ include  file="/WEB-INF/jsp/Utils/Cabecera.jsp" %>
+
         <div id="contenedorMenu" class="ui-widget-header">
-            <div style="display: inline-block;">
-                <ul id ="contenedorDeMenusInicio" style="display: inline-block;">
-                    <li id ="menuDeOpcionesPunto">
-                        <a href="#">
-                            <img id="imagenMenu0" alt="" src="../../Vistas/HojasDeEstilo/images/profile.gif"/>&nbsp;Punto&nbsp;&nbsp;&nbsp<img id="imagenMenu1" alt="" src="../../Vistas/HojasDeEstilo/images/down.png"/>
-                        </a>
-                        <ul>
-                            <sec:authorize url="/crearPunto/crearPuntoDeInteres.htm">
-                                <li style="width:220px">
-                                    <a href="./crearPunto/crearPuntoDeInteres.htm">Crear Punto de Interés</a>
-                                </li>
-                            </sec:authorize>
-                            <sec:authorize url="/crearPunto/crearPuntoDeInteres.htm">
-                                <li style="width:220px">
-                                    <a href="#">Crear Punto Comercial</a>
-                                </li>
-                            </sec:authorize>
-                            <sec:authorize url="/buscarPunto/paginaBuscarPunto.htm">
-                                <li style="width:220px">
-                                    <a href="./buscarPunto/paginaBuscarPunto.htm">Buscar Punto</a>
-                                </li>
-                            </sec:authorize>
-                            <sec:authorize url="./buscarPunto/paginaBuscarPunto.htm">
-                                <li style="width:220px">
-                                    <a href="#">Generar Código QR de Punto</a>
-                                </li>
-                            </sec:authorize>
-                        </ul>
-                    </li>
-
-                    <li id ="menuDeOpcionesUsuario">
-                        <a href="#">
-                            <img id="imagenMenu2" alt="" src="../../Vistas/HojasDeEstilo/images/action.gif"/>&nbsp;Usuario&nbsp;&nbsp;&nbsp<img alt=""  id="imagenMenu3" src="../../Vistas/HojasDeEstilo/images/down.png"/>
-                        </a>
-
-                        <ul>
-                            <sec:authorize url="/crearPunto/crearPuntoDeInteres.htm">
-                                <li style="width:170px">
-                                    <a href="./crearPunto/crearPuntoDeInteres.htm">Información Personal</a>
-                                </li>
-                            </sec:authorize>
-                            <sec:authorize url="/crearPunto/crearPuntoDeInteres.htm">
-                                <li style="width:170px">
-                                    <a href="./crearPunto/crearPuntoDeInteres.htm">Usuarios del Sistema</a>
-                                </li>
-                            </sec:authorize>
-                            <sec:authorize url="/buscarPunto/paginaBuscarPunto.htm">
-                                <li style="width:170px">
-                                    <a href="./crearPunto/crearPuntoDeInteres.htm">Clientes del Sistema</a>
-                                </li>
-                            </sec:authorize>
-                            <sec:authorize url="/buscarPunto/paginaBuscarPunto.htm">
-                                <li style="width:170px">
-                                    <a href="./crearPunto/crearPuntoDeInteres.htm">Crear Usuario</a>
-                                </li>
-                            </sec:authorize>
-                        </ul>
-                    </li>
-
-                    <!--sec:authorize ifAnyGranted="PERMISO_VERINFORMES"-->
-                        <li id ="menuDeOpcionesInformes">
-
-                            <a href="./crearPunto/crearPuntoDeInteres.htm"><img alt=""  id="imagenMenu4" src="../../Vistas/HojasDeEstilo/images/chart.gif"/>&nbsp;Informes&nbsp;&nbsp;&nbsp<img alt=""  id="imagenMenu5" src="../../Vistas/HojasDeEstilo/images/down.png"/></a>
-
-                            <ul>
-
-                            </ul>
-
-                        </li>
-                    <!-- /sec:authorize-->
-
-                </ul>
-            </div>
-
-            <div class="menuderecho">
-                <div id="contenedorDeInformacionTurismoQR">
-                    <a href="./aboutUS.htm">¿Quiénes Somos?</a>
-                </div>
-                <div id="contenedorDeLogoutTurismoQR">
-                    <a>Logout</a>
-                </div>
-            </div>
+            <%@ include  file="/WEB-INF/jsp/Utils/MenuCabecera.jsp" %>
         </div>
+
         <div style="position: relative; padding: 0px 30px;" class="ui-widget-header">
             <div style="display: inline-block;">
                 <h3>Crear nuevo punto de interes</h3>

@@ -59,15 +59,13 @@ public class ManejadorIdiomas
 
     public Idioma obtenerIdioma(String nombreIdioma)
     {
-        try
+        if(nombreIdioma != null)
         {
             return accesoDatosIdioma.BuscarIdiomaPorNombre(nombreIdioma);
         }
-        catch(Exception e)
-        {
-            //TODO
-            return accesoDatosIdioma.BuscarIdiomaPorNombre("DEFAULT");
-        }
+
+        //Si no se especifica el idioma, se retorna el idioma por default
+        return accesoDatosIdioma.BuscarObjeto(Idioma.class, "default");
 
     }
 

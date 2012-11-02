@@ -1,7 +1,7 @@
 <%-- 
-    Document   : ConfirmacionGuardarPunto
-    Created on : 25/09/2012, 01:16:13
-    Author     : Chelo
+    Document   : TablaUsuarios
+    Created on : 02-nov-2012, 1:01:08
+    Author     : Federico
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -14,6 +14,6 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Hello World Guardar Punto!</h1>
+        <h1>Hello World!</h1>
     </body>
 </html>

@@ -28,11 +28,7 @@
                 tqrmapas.contenedorMapas = "contenedorMapa";
                 tqrmapas.obtenerUbicacionUsuario(function(){
                     tqrmapas.crearMapa();
-                    tqrmapas.crearNuevoMarcador("Posicion actual", function(){
-                        var posicionInicialMarcador = tqrmapas.obtenerLocalizacionMarcador(tqrmapas.marcador);
-                        $('#latitudValue').text(posicionInicialMarcador.lat());
-                        $('#longitudValue').text(posicionInicialMarcador.lng());
-                    });
+                    tqrmapas.crearNuevoMarcador("Posicion actual");
                 });
             });
             
@@ -42,10 +38,10 @@
         </script>
     </head>
     <body style="margin: 0px;">
-        <%@ include  file="../Utils/Cabecera.jsp" %>
+        <%@ include  file="/WEB-INF/jsp/Utils/Cabecera.jsp" %>
 
         <div id="contenedorMenu" class="ui-widget-header">
-            <%@ include  file="../Utils/MenuCabecera.jsp" %>
+            <%@ include  file="/WEB-INF/jsp/Utils/MenuCabecera.jsp" %>
         </div>
 
         <div id="Contenedor">
@@ -58,9 +54,9 @@
                         <div id="Contenido">
                             <div class="slider-wrapper theme-default" style="background-color: black;">
                                 <div id="slider" class="nivoSlider" style="height: 500px;">
-                                    <img src="../Vistas/Imagenes/Slider5.jpg" data-thumb="../Vistas/Imagenes/Slider5.jpg" alt="" />
-                                    <img src="../Vistas/Imagenes/Slider6.jpg" data-thumb="../Vistas/Imagenes/Slider6.jpg" alt="" />
-                                    <img src="../Vistas/Imagenes/Slider4.jpg" data-thumb="../Vistas/Imagenes/Slider4.jpg" alt="" />
+                                    <img src="${pageContext.request.contextPath}/Vistas/Imagenes/Slider5.jpg" data-thumb="../Vistas/Imagenes/Slider5.jpg" alt="" />
+                                    <img src="${pageContext.request.contextPath}/Vistas/Imagenes/Slider6.jpg" data-thumb="../Vistas/Imagenes/Slider6.jpg" alt="" />
+                                    <img src="${pageContext.request.contextPath}/Vistas/Imagenes/Slider4.jpg" data-thumb="../Vistas/Imagenes/Slider4.jpg" alt="" />
                                 </div>
                             </div>
                         </div>
@@ -69,9 +65,9 @@
             </table>
         </div>
 
-    <link rel="stylesheet" type="text/css" href=${pageContext.request.contextPath}"Vistas/HojasDeEstilo/nivo-slider.css">
-    <link rel="stylesheet" type="text/css" href=${pageContext.request.contextPath}"Vistas/HojasDeEstilo/default.css">
-    <script type="text/javascript" src=${pageContext.request.contextPath}"Vistas/JavaScript/JQuery/jquery.nivo.slider.js"></script>
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/Vistas/HojasDeEstilo/nivo-slider.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/Vistas/HojasDeEstilo/default.css">
+    <script type="text/javascript" src="${pageContext.request.contextPath}/Vistas/JavaScript/JQuery/jquery.nivo.slider.js"></script>
 
 </body>
 </html>

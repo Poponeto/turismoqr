@@ -11,7 +11,5 @@ function inicializarComponentes()
     $('[id*="lineaDatos"]').addClass('ui-textfield');
     $('[id*="acordion"]').accordion();
     $('[id*="tabs"]').tabs();
-
-    
     
 }

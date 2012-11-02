@@ -7,6 +7,6 @@
         </id>
       <property name="texto"/>
       <property name="nombre"/>
-      <many-to-one name="idioma" class="TurismoQR.ObjetosNegocio.Informacion.Idioma" unique="true" column="Idioma" not-null="true" cascade="all"/>
+      <many-to-one name="idioma" class="TurismoQR.ObjetosNegocio.Informacion.Idioma" column="Idioma" not-null="true" cascade="all"/>
       </class>
 </hibernate-mapping>

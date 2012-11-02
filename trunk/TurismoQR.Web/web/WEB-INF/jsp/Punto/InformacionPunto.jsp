@@ -14,16 +14,10 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Informacion del Punto de Interes</title>
-        <script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=true"></script>
-        <script type="text/javascript" src="${pageContext.request.contextPath}/Vistas/JavaScript/Mapa.js"></script>
-        <script type="text/javascript" src="${pageContext.request.contextPath}/Vistas/JavaScript/JQuery/jquery-1.8.1.min.js"></script>
-        <script type="text/javascript" src="${pageContext.request.contextPath}/Vistas/JavaScript/JQuery/jquery-ui-1.8.24.custom.min.js"></script>
-        <script type="text/javascript" src="${pageContext.request.contextPath}/Vistas/JavaScript/InicializadorComponentes.js"></script>
-        <script type="text/javascript" src="${pageContext.request.contextPath}/Vistas/JavaScript/ComboIdiomas.js"></script>
-        <link rel="stylesheet" type="text/css" media="screen" href="${pageContext.request.contextPath}/Vistas/HojasDeEstilo/jquery.ui.potato.menu.css" />
-        <script type="text/javascript" src="${pageContext.request.contextPath}/Vistas/JavaScript/JQuery/jquery.ui.potato.menu.js"></script>
-        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/Vistas/HojasDeEstilo/jquery-ui-1.8.24.custom.css">
-        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/Vistas/HojasDeEstilo/Mapas.css">
+
+        <%@ include file="/WEB-INF/jsp/Utils/ArchivosMapa.html" %>
+        <%@ include file="/WEB-INF/jsp/Utils/ArchivosJQuery.html" %>
+
         <script type="text/javascript">
             
             $(document).ready(function(){

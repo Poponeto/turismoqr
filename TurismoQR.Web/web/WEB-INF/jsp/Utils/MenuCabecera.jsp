@@ -13,19 +13,12 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Menu Cabecera</title>
-        <script type="text/javascript" src="${pageContext.request.contextPath}/Vistas/JavaScript/JQuery/jquery-1.8.1.min.js"></script>
-        <script type="text/javascript" src="${pageContext.request.contextPath}/Vistas/JavaScript/JQuery/jquery-ui-1.8.24.custom.min.js"></script>
-        <script type="text/javascript" src="${pageContext.request.contextPath}/Vistas/JavaScript/InicializadorComponentes.js"></script>
-        <script type="text/javascript" src="${pageContext.request.contextPath}/Vistas/JavaScript/JQuery/jquery.ui.potato.menu.js"></script>
-        <script type="text/javascript" src="${pageContext.request.contextPath}/Vistas/JavaScript/MenuCabecera.js"></script>
-        <link rel="stylesheet" type="text/css" media="screen" href="${pageContext.request.contextPath}/Vistas/HojasDeEstilo/jquery.ui.potato.menu.css" />
-        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/Vistas/HojasDeEstilo/MenuCabecera.css">
-        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/Vistas/HojasDeEstilo/jquery-ui-1.8.24.custom.css">
+
+        <%@ include file="/WEB-INF/jsp/Utils/ArchivosPotatoMenu.html" %>
 
         <script type="text/javascript" >
             $(document).ready(function(){
                 
-                inicializarComponentes();
                 inicializarComponentesMenuCabecera();
             });
         </script>

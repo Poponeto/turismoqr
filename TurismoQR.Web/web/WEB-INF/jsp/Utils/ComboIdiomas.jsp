@@ -12,6 +12,8 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+        <script type="text/javascript" src="${pageContext.request.contextPath}/Vistas/JavaScript/ComboIdiomas.js"></script>
         <title>JSP Page</title>
     </head>
     <body>

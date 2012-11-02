@@ -45,7 +45,7 @@ alter table punto add index FK6612344F143869C (Localizacion), add constraint FK6
 alter table punto add index FK66123446B4AD834 (categoriaPunto), add constraint FK66123446B4AD834 foreign key (categoriaPunto) references categoria (idCategoria);
 alter table puntoComercial add index idCliente (cliente), add constraint idCliente foreign key (cliente) references cliente (idCliente);
 alter table puntoComercial add index FK96198B1BBF7EDB52 (idpuntoComercial), add constraint FK96198B1BBF7EDB52 foreign key (idpuntoComercial) references punto (idPunto);
-alter table rubro add index FK67D24FC6B66D9EC (categoriaRubro), add constraint FK67D24FC6B66D9EC foreign key (categoriaRubro) references categoria (idCategoria);INSERT INTO `turismoqr`.`permiso` (`idPermiso`, `nombre`, `descripcion`) VALUES ('1', 'PERMISO_ADMINISTRADOR', 'permiso del administrador');
+alter table rubro add index FK67D24FC6B66D9EC (categoriaRubro), add constraint FK67D24FC6B66D9EC foreign key (categoriaRubro) references categoria (idCategoria);
 ALTER TABLE `turismoqr`.`informacionenidioma`
 DROP INDEX `Idioma` ;
 

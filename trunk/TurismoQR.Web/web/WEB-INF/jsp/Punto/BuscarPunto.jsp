@@ -23,9 +23,17 @@
         <script type="text/javascript" >
             $(document).ready(function(){
                 inicializarComponentes();
+
                 tqrmapas.contenedorMapas = "contenedorMapa";
-                tqrmapas.crearMapa();
-                inicilizarTablaPuntos();
+                tqrmapas.obtenerUbicacionUsuario(function(){
+                    tqrmapas.crearMapa();
+                    tqrmapas.crearNuevoMarcador("Posicion actual");
+                });
+
+            });
+
+            $(window).load(function() {
+                inicializarPaginaBuscarPuntos("${pageContext.request.contextPath}/buscarPunto/obtenerInformacionTabla.htm", tqrmapas);
             });
 
         </script>
@@ -39,9 +47,11 @@
             </div>
         </sec:authorize>
 
-        <div id="contenedorMapa"></div>
+        <div id="contenedorMapa" style="position: absolute; width: 90%; margin-top: 30px; height: 400px;" ></div>
 
+        <div id="contenedorTabla" style="position: absolute; margin-top: 30px;">
+            <%@ include  file="/WEB-INF/jsp/Punto/TablaPuntos.jsp" %>
+        </div>
 
-        <%@ include  file="/WEB-INF/jsp/Punto/TablaPuntos.jsp" %>
     </body>
 </html>

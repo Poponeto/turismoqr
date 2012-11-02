@@ -140,7 +140,7 @@
         }
         var latLong = new google.maps.LatLng(latitud, longitud);
 
-        tqrmapas.marcador = new google.maps.Marker({
+        var marcador = new google.maps.Marker({
 		    position: latLong,
 		    draggable: true,
 		    map: tqrmapas.mapa,
@@ -149,13 +149,8 @@
 
         var infoWindow = new google.maps.InfoWindow({content : titulo});
 
-        google.maps.event.addListener(tqrmapas.marcador, 'click', function(){
-//            infoWindow.open(tqrmapas.contenedorMapas, this);
-	});
+        google.maps.event.addListener(marcador, 'click', funcion);
 
-        if(funcion){
-            funcion();
-        }
     },
 
     /**
@@ -167,6 +162,11 @@
          * Pendiente
          */
         return marcador;
+    },
+
+    navegarAPosicion : function(latitud, longitud) {
+        var position = new google.maps.LatLng( latitud, longitud );
+        tqrmapas.mapa.panTo(position);
     }
 };
 

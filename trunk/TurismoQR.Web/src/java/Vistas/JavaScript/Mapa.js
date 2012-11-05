@@ -13,12 +13,14 @@
     browserSoportado : false,
     contenedorMapas : null,
     marcador : null,
+    geocoder: null,
 
 
     /**
      * Crea el mapa y setea valores iniciales a los elementos.
      */
     iniciarMapas : function() {
+        tqrmapas.geocoder = new google.maps.Geocoder();
         tqrmapas.contenedorMapas = "contenedorMapa";
         tqrmapas.obtenerUbicacionUsuario(function(){
             tqrmapas.crearMapa();
@@ -39,6 +41,26 @@
             });
         });
     },
+
+    geocodeDireccion : function() {
+        var address = $('#direccionPunto').attr('value') 
+            + ',' + $('#alturaPunto').attr('value')
+            + ',' + $('#departamentoPunto').attr('value')
+            + ',' + $('#codigoPostalPunto').attr('value')
+            + ', Mendoza';
+        
+        tqrmapas.geocoder.geocode( { 'address': address}, function(results, status) {
+          if (status == google.maps.GeocoderStatus.OK) {
+            tqrmapas.mapa.setCenter(results[0].geometry.location);
+            var marker = new google.maps.Marker({
+                map: tqrmapas.mapa,
+                position: results[0].geometry.location
+            });
+          } else {
+            alert("Geocode was not successful for the following reason: " + status);
+          }
+        });
+      },
     
     /**
      * Obtiene la posicion actual del usuario

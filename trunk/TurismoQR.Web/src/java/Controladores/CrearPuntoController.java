@@ -15,7 +15,25 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import TurismoQR.Servicios.Punto.IServicioPunto;
 import TurismoQR.Manejadores.ManejadorIdiomas.ManejadorIdiomas;
+import TurismoQR.ObjetosNegocio.Informacion.Idioma;
+import TurismoQR.ObjetosNegocio.Informacion.Imagen;
+import TurismoQR.ObjetosNegocio.Informacion.Informacion;
+import TurismoQR.ObjetosNegocio.Informacion.InformacionEnIdioma;
+import TurismoQR.ObjetosTransmisionDatos.DTOImagen;
+import TurismoQR.Servicios.Idioma.IServicioIdioma;
+import Utils.UploadedFile;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import org.apache.commons.fileupload.FileItem;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 /**
  *
@@ -26,18 +44,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class CrearPuntoController {
 
     IServicioPunto servicioPunto;
+    private IServicioIdioma servicioIdioma;
     ManejadorIdiomas manejadorIdioma;
 
     @Autowired
-    public void LoginController(IServicioPunto servicioPunto, ManejadorIdiomas manejadorIdioma)
+    public void LoginController(IServicioPunto servicioPunto, IServicioIdioma servicioIdioma, ManejadorIdiomas manejadorIdioma)
     {
         this.servicioPunto = servicioPunto;
+        this.servicioIdioma = servicioIdioma;
         this.manejadorIdioma = manejadorIdioma;
     }
 
     @RequestMapping("/crearPuntoDeInteres.htm")
-    public String redirigir()
+    public String redirigir(ModelMap model)
     {
+        Collection<DTOIdioma> dtoIdiomas = servicioIdioma.consultarPosiblesIdiomas();
+        model.put("idiomas", dtoIdiomas);
         return "Administracion/Punto/CrearPuntoDeInteres";
     }
 
@@ -78,5 +100,65 @@ public class CrearPuntoController {
     public String agregarImagen()
     {
         return "Administracion/Punto/AgregarImagen";
+    }
+
+    @RequestMapping("/subirArchivo.htm")
+    public @ResponseBody List<UploadedFile> handleRequest(@RequestParam("files") CommonsMultipartFile files,
+            @RequestParam(value="comentarioImagen", required=false) String comentarioImagen,
+            @RequestParam(value="idioma") String idioma, HttpServletRequest request,
+            ModelMap modelo)
+            throws ServletException, IOException, Exception {
+
+        Idioma idiomaSeleccionado = manejadorIdioma.obtenerIdioma(idioma);
+
+        List<UploadedFile> uploadedFiles = new ArrayList<UploadedFile>();
+        FileItem file = files.getFileItem();
+
+        FileOutputStream os = null;
+        String nombre = file.getName();
+        File archivoADisco = new File(nombre);
+        String urlImagen = System.getProperty("user.home") + "/" + archivoADisco.getName();
+        archivoADisco = new File(System.getProperty("user.home") + "/" + archivoADisco.getName());
+
+        file.write(archivoADisco);
+
+//        System.out.println(System.getProperty("user.home") + "/" + archivoADisco.getName());
+        UploadedFile archivoSubido = new UploadedFile(file.getName(),
+                Long.valueOf(file.getSize()).intValue(),
+                archivoADisco.getPath(), request.getContextPath()+"/imagenes/mostrarImagen?img="+archivoADisco.getPath(),
+                "/borrarArchivo", "DELETE");
+        uploadedFiles.add(archivoSubido);
+
+        System.out.println(comentarioImagen);
+
+        Imagen imagenParaDTO = new Imagen();
+        imagenParaDTO.setUrl(urlImagen);
+        imagenParaDTO.setExtension(file.getName().substring(file.getName().indexOf(".")));
+
+        if(comentarioImagen != null && !comentarioImagen.isEmpty()) {
+            List<InformacionEnIdioma> listaInfo = new ArrayList<InformacionEnIdioma>();
+            InformacionEnIdioma contenidoInfo = new InformacionEnIdioma(comentarioImagen, null, idiomaSeleccionado);
+            listaInfo.add(contenidoInfo);
+            Informacion infoImagen = new Informacion();
+            infoImagen.setInformacionEnIdiomas(listaInfo);
+            imagenParaDTO.setInformacion(infoImagen);
+        }
+        Collection<DTOImagen> DTOImagenes = servicioPunto.getImagenesPunto();
+        //DTOImagenes.add(servicioPunto.crearDTOImagen(imagenParaDTO, idiomaSeleccionado));
+        servicioPunto.setImagenesPunto(DTOImagenes);
+
+        modelo.put("detallesImagen", uploadedFiles);
+
+        return uploadedFiles;
+    }
+
+    @RequestMapping("/borrarArchivo.htm")
+    public String handleRequestDelete(@RequestParam("archivo") String archivo) {
+        File file = new File("String con la ruta");
+        if (file.delete())
+           System.out.println("El fichero ha sido borrado satisfactoriamente");
+        else
+           System.out.println("El fichero no puede ser borrado");
+        return "done";
     }
 }

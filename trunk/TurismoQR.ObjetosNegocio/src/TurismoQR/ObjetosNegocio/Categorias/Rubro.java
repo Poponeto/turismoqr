@@ -5,11 +5,13 @@
 
 package TurismoQR.ObjetosNegocio.Categorias;
 
+import TurismoQR.ObjetosNegocio.IObjetoNegocio;
+
 /**
  *
  * @author ftacchini
  */
-public class Rubro {
+public class Rubro implements IObjetoNegocio{
 
     private String nombreRubro;
     private Categoria categoriaPorDefault;

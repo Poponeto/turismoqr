@@ -13,5 +13,8 @@
             <one-to-many class="TurismoQR.ObjetosNegocio.Punto.PuntoComercial" />
         </set>
 
+        <many-to-one name="ciclo" unique="true" class="TurismoQR.ObjetosNegocio.Estados.Ciclo" column="ciclo" cascade="all"/>
+
+
     </joined-subclass>
 </hibernate-mapping>

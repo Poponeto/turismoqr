@@ -7,6 +7,7 @@ package TurismoQR.Manejadores.ManejadorUsuarios;
 
 import TurismoQR.AccesoDatos.AccesoDatosUsuario;
 import TurismoQR.ObjetosNegocio.Usuarios.Usuario;
+import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -36,5 +37,10 @@ public class ManejadorUsuarios {
         {
             return false;
         }
+    }
+
+    public Collection<Usuario> obtenerUsuarios()
+    {
+        return accesoDatosUsuario.BuscarConjuntoObjetos(Usuario.class);
     }
 }

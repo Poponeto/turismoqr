@@ -7,55 +7,90 @@ var mapaParaAgregarPuntos;
 var funcionClickFila;
 var funcionClickMarcador;
 
-function inicilizarTablaPuntos(url)
+function inicilizarTablaPuntos(urlbase)
 {
     jQuery("#tablaPuntos").jqGrid({
-                    url: url,
-                    datatype: "json",
-                    mtype: "GET",
-                    colNames:['Identificador','Nombre Identificador', 'Latitud', 'Longitud','Links','Imagenes'],
-                    colModel:[
-                        {name:'identificador',index:'identificador', width:210},
-                        {name:'nombreIdentificador',index:'nombreIdentificador', width:210},
-                        {name:'latitud',index:'latitud', width:100},
-                        {name:'longitud',index:'longitud', width:100, align:"right"},
-                        {name:'tieneLinks',index:'tieneLinks', width:100, align:"right"},
-                        {name:'tieneImagenes',index:'tieneImagenes', width:100,align:"right"},
-                    ],
-                    rowNum:10,
-                    rowList:[10,20,30],
-                    pager: '#paginador',
-                    sortname: 'identificador',
-                    viewrecords: true,
-                    sortorder: "desc",
-                    jsonReader: {
-                        repeatitems : false,
-                        id: "identificador"
-                    },
-                    caption: "Puntos de Interes",
-                    height: '100%',
-                    loadComplete: function() {
+        url: urlbase + "/buscarPunto/obtenerInformacionTabla.htm",
+        datatype: "json",
+        mtype: "GET",
+        colNames:['Identificador','Nombre Identificador', 'Latitud', 'Longitud','Links','Imagenes'],
+        colModel:[
+        {
+            name:'identificador',
+            index:'identificador',
+            width:210
+        },
 
-                        funcionExito($('#tablaPuntos').jqGrid('getRowData'));
-                    },
-                    onSelectRow: function(id){
-                        funcionClickFila(jQuery('#tablaPuntos').jqGrid('getRowData',id));
-                    }
-                });
-                jQuery("#tablaPuntos").jqGrid('navGrid','#paginador',{edit:false,add:false,del:false});
+        {
+            name:'nombreIdentificador',
+            index:'nombreIdentificador',
+            width:210
+        },
+
+        {
+            name:'latitud',
+            index:'latitud',
+            width:100
+        },
+
+        {
+            name:'longitud',
+            index:'longitud',
+            width:100,
+            align:"right"
+        },
+
+        {
+            name:'tieneLinks',
+            index:'tieneLinks',
+            width:100,
+            align:"right"
+        },
+
+        {
+            name:'tieneImagenes',
+            index:'tieneImagenes',
+            width:100,
+            align:"right"
+        },
+        ],
+        rowNum:10,
+        rowList:[10,20,30],
+        pager: '#paginador',
+        sortname: 'identificador',
+        viewrecords: true,
+        sortorder: "desc",
+        jsonReader: {
+            repeatitems : false,
+            id: "identificador"
+        },
+        caption: "Puntos de Interes",
+        height: '100%',
+        loadComplete: function() {
+
+            funcionExito($('#tablaPuntos').jqGrid('getRowData'), urlbase);
+        },
+        onSelectRow: function(id){
+            funcionClickFila(jQuery('#tablaPuntos').jqGrid('getRowData',id));
+        }
+    });
+    jQuery("#tablaPuntos").jqGrid('navGrid','#paginador',{
+        edit:false,
+        add:false,
+        del:false
+    });
 }
 
-function inicializarPaginaBuscarPuntos(url, mapa)
+function inicializarPaginaBuscarPuntos(urlbase, mapa)
 {
     funcionExito = cargarPuntosEnMapa;
     funcionClickFila = navegarAPunto;
-    funcionClickMarcador = mostrarMenuPunto;
     mapaParaAgregarPuntos = mapa;
     
-    inicilizarTablaPuntos(url);
+    inicilizarTablaPuntos(urlbase);
 }
 
-function cargarPuntosEnMapa(filas)
+function cargarPuntosEnMapa(filas, url)
 {
     for(var fila in filas)
     {
@@ -68,20 +103,24 @@ function cargarPuntosEnMapa(filas)
             map: tqrmapas.mapa,
             title: filas[fila].nombreIdentificador,
             identificador: filas[fila].identificador
-         });
+        });
 
-         google.maps.event.addListener(marker, 'click', function(){   
-             alert(this.identificador);
-         });
+        google.maps.event.addListener(marker, 'click', function(){
+            
+            var marker = this;
+
+            $.get(url + '/buscarPunto/obtenerMenuPunto.htm' , { idPunto: this.identificador }, function(data) {
+                
+                var infoWindow = new google.maps.InfoWindow({content : data});
+                infoWindow.open(tqrmapas.mapa, marker);
+
+
+            });
+        });
     }
 }
 
 function navegarAPunto(fila)
 {
-     mapaParaAgregarPuntos.navegarAPosicion(fila.latitud, fila.longitud);
-}
-
-function mostrarMenuPunto(posicion)
-{
-    alert(posicion);
+    mapaParaAgregarPuntos.navegarAPosicion(fila.latitud, fila.longitud);
 }

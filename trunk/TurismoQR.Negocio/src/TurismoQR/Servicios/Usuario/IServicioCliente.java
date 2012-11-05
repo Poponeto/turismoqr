@@ -5,9 +5,16 @@
 
 package TurismoQR.Servicios.Usuario;
 
+import TurismoQR.ObjetosTransmisionDatos.IDTO;
+
 /**
  *
  * @author ftacchini
  */
+
+
 public interface IServicioCliente {
+
+    public Boolean registrarCliente(IDTO dtoEmpresa);
+
 }

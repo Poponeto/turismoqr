@@ -29,6 +29,9 @@ public class InformacionPuntoController {
     private IServicioPunto servicioPunto;
     private IServicioIdioma servicioIdioma;
 
+    private static final String obtenerInformacionPuntoIdiomaDefault = "obtenerInformacionPuntoIdiomaDefault.htm";
+    private static final String obtenerInformacionPunto = "obtenerInformacionPunto.htm";
+
     @Autowired
     public void InformacionPuntoController(
             IServicioPunto servicioPunto,
@@ -38,7 +41,14 @@ public class InformacionPuntoController {
         this.servicioIdioma = servicioIdioma;
     }
 
-    @RequestMapping(value = "/{idioma}/{idPunto}/obtenerInformacionPunto.htm",
+    public static String generarURLInformacionPunto(String idPunto)
+    {
+        return "informacionPunto/" + idPunto + "/" + obtenerInformacionPuntoIdiomaDefault;
+    }
+    
+    private static String a;
+
+    @RequestMapping(value = "/{idioma}/{idPunto}/" + obtenerInformacionPunto,
                     method = RequestMethod.GET)
     public String obtenerInformacionPunto(
             @PathVariable String idioma,
@@ -52,7 +62,7 @@ public class InformacionPuntoController {
         return "Punto/InformacionPunto";
     }
 
-    @RequestMapping(value = "/{idPunto}/obtenerInformacionPuntoIdiomaDefault.htm",
+    @RequestMapping(value = "/{idPunto}/" + obtenerInformacionPuntoIdiomaDefault,
                     method = RequestMethod.POST)
     public String obtenerInformacionPuntoIdiomaDefault(
             @PathVariable String idPunto)

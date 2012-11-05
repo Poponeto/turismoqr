@@ -33,7 +33,7 @@
             });
 
             $(window).load(function() {
-                inicializarPaginaBuscarPuntos("${pageContext.request.contextPath}/buscarPunto/obtenerInformacionTabla.htm", tqrmapas);
+                inicializarPaginaBuscarPuntos("${pageContext.request.contextPath}", tqrmapas);
             });
 
         </script>
@@ -47,9 +47,9 @@
             </div>
         </sec:authorize>
 
-        <div id="contenedorMapa" style="position: absolute; width: 90%; margin-top: 30px; height: 400px;" ></div>
+        <div id="contenedorMapa" style="position: absolute; width: 90%; margin-left: auto; margin-right: auto; margin-top: 15px; height: 400px;" ></div>
 
-        <div id="contenedorTabla" style="position: absolute; margin-top: 30px;">
+        <div id="contenedorTabla" style="position: absolute; margin-top: 15px; width: 90%; margin-left: auto; margin-right: auto;">
             <%@ include  file="/WEB-INF/jsp/Punto/TablaPuntos.jsp" %>
         </div>
 

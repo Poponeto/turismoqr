@@ -186,6 +186,8 @@
         return marcador;
     },
 
+
+
     navegarAPosicion : function(latitud, longitud) {
         var position = new google.maps.LatLng( latitud, longitud );
         tqrmapas.mapa.panTo(position);

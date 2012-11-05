@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package Controladores;
 
 import org.springframework.stereotype.Controller;
@@ -18,44 +17,63 @@ import Utils.Tabla;
 import java.util.Collection;
 import java.util.HashSet;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.access.WebInvocationPrivilegeEvaluator;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  *
  * @author ftacchini
  */
-
 @Controller("buscarPunto")
 @RequestMapping("/buscarPunto")
-public class BuscarPuntoController {
-    
+public class BuscarPuntoController
+{
+
     private IServicioPunto servicioPunto;
     private IServicioIdioma servicioIdioma;
+    private WebInvocationPrivilegeEvaluator evaluadorDePrivilegios;
 
     @Autowired
     public void InformacionPuntoController(
             IServicioPunto servicioPunto,
-            IServicioIdioma servicioIdioma)
+            IServicioIdioma servicioIdioma,
+            WebInvocationPrivilegeEvaluator evaluadorDePrivilegios)
     {
         this.servicioPunto = servicioPunto;
         this.servicioIdioma = servicioIdioma;
+        this.evaluadorDePrivilegios = evaluadorDePrivilegios;
     }
 
-    @RequestMapping(value = "/paginaBuscarPunto.htm",method = RequestMethod.GET)
-    public String redirigir(ModelMap model)
+    @RequestMapping(value = "/paginaBuscarPunto.htm", method = RequestMethod.GET)
+    public String redirigir()
     {
         return "Punto/BuscarPunto";
     }
 
-    @RequestMapping(value = "/obtenerInformacionTabla.htm",method = RequestMethod.GET)
-    public @ResponseBody Tabla obtenerInformacionTabla()
+    @RequestMapping(value = "/obtenerMenuPunto.htm", method = RequestMethod.GET)
+    public String obtenerMenuPunto(@RequestParam("idPunto") String idPunto, ModelMap model)
     {
-            Collection<DTOPunto> puntos = servicioPunto.ConsultarPuntosDeInteres(null);
+        DTOPunto dtoPunto = servicioPunto.ConsultarPuntoInteres(idPunto, null);
+
+        model.addAttribute("punto", dtoPunto);
+
+        return "Punto/MenuMarcador";
+    }
+
+    @RequestMapping(value = "/obtenerInformacionTabla.htm", method = RequestMethod.GET)
+    public 
+    @ResponseBody
+    Tabla obtenerInformacionTabla()
+    {
+        Collection<DTOPunto> puntos = servicioPunto.ConsultarPuntosDeInteres(null);
 
         Tabla tabla = new Tabla();
         Collection<IFila> filas = new HashSet<IFila>();
-        
-        for(DTOPunto punto : puntos)
+
+        for (DTOPunto punto : puntos)
         {
             FilaTablaPunto fila = new FilaTablaPunto();
             fila.setIdentificador(punto.getIdPunto());
@@ -72,7 +90,7 @@ public class BuscarPuntoController {
         tabla.setPage(1);
         tabla.setRecords(filas.size());
         tabla.setTotal(1);
-        
+
         return tabla;
     }
 }

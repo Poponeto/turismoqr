@@ -32,5 +32,6 @@
     <mapping resource="TurismoQR/ArchivosMapeo/Empresa.hbm.xml"/>
     <mapping resource="TurismoQR/ArchivosMapeo/Rubro.hbm.xml"/>
     <mapping resource="TurismoQR/ArchivosMapeo/Categoria.hbm.xml"/>
+    <mapping resource="TurismoQR/ArchivosMapeo/Ciclo.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>

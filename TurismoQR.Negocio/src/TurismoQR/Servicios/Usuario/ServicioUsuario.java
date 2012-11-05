@@ -11,6 +11,8 @@ import TurismoQR.ObjetosTransmisionDatos.IDTO;
 import TurismoQR.Traductores.ITraductor;
 import TurismoQR.Manejadores.ManejadorUsuarios.ManejadorUsuarios;
 import TurismoQR.Manejadores.ManejadorLogin.ManejadorLogin;
+import java.util.Collection;
+import java.util.HashSet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -53,6 +55,20 @@ public class ServicioUsuario implements IServicioUsuario {
         Usuario usuario = traductor.traducir(dtoUsuario);
 
         return manejadorGuardado.guardarUsuario(usuario);
+    }
+
+    public Collection<DTOUsuario> consultarUsuarios()
+    {
+        Collection<Usuario> usuarios = manejadorGuardado.obtenerUsuarios();
+
+        Collection<DTOUsuario> dtosUsuario = new HashSet<DTOUsuario>();
+
+        for (Usuario usuario : usuarios)
+        {
+            dtosUsuario.add((DTOUsuario) traductor.traducir(usuario));
+        }
+
+        return dtosUsuario;
     }
 
 

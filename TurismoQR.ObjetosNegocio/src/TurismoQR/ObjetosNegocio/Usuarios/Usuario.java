@@ -1,5 +1,6 @@
 package TurismoQR.ObjetosNegocio.Usuarios;
 
+import TurismoQR.ObjetosNegocio.Estados.Estado;
 import TurismoQR.ObjetosNegocio.IObjetoNegocio;
 import TurismoQR.ObjetosNegocio.Informacion.Idioma;
 import TurismoQR.ObjetosNegocio.Usuarios.Permisos.PermisoUsuario;
@@ -7,12 +8,22 @@ import java.util.Collection;
 
 public class Usuario implements IObjetoNegocio
 {
-
+    private Estado estado;
     private String contraseña;
     private String nombreUsuario;
     private Collection<PermisoUsuario> permisosUsuario;
     private String idObjeto;
     private Idioma idioma;
+
+    public Estado getEstado()
+    {
+        return estado;
+    }
+
+    public void setEstado(Estado estado)
+    {
+        this.estado = estado;
+    }
 
     public Idioma getIdioma()
     {

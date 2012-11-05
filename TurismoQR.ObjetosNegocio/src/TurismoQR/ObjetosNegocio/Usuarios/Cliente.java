@@ -1,5 +1,6 @@
 package TurismoQR.ObjetosNegocio.Usuarios;
 
+import TurismoQR.ObjetosNegocio.Estados.Estado;
 import TurismoQR.ObjetosNegocio.Punto.PuntoComercial;
 import java.util.Collection;
 
@@ -7,8 +8,19 @@ public abstract class Cliente extends Contacto
 {
     
     private Usuario usuario;
+    private Collection<Estado> estados;
     private Collection<PuntoComercial> puntosDeCliente;
     private int cantidadDePuntosPermitidos;
+
+    public Collection<Estado> getEstados()
+    {
+        return estados;
+    }
+
+    public void setEstados(Collection<Estado> estados)
+    {
+        this.estados = estados;
+    }
 
     public int getCantidadDePuntosPermitidos() {
         return cantidadDePuntosPermitidos;

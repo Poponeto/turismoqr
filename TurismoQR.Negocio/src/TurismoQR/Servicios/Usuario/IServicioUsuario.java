@@ -8,6 +8,7 @@ package TurismoQR.Servicios.Usuario;
 import TurismoQR.ObjetosNegocio.Usuarios.Usuario;
 import TurismoQR.ObjetosTransmisionDatos.DTOUsuario;
 import TurismoQR.ObjetosTransmisionDatos.IDTO;
+import java.util.Collection;
 import org.springframework.dao.DataAccessException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
@@ -19,5 +20,5 @@ public interface IServicioUsuario  {
 
     public DTOUsuario cargarUsuario(String nombreUsuario) throws UsernameNotFoundException, DataAccessException;
     public boolean crearUsuario(IDTO<Usuario> dtoUsuario);
-    
+    public Collection<DTOUsuario> consultarUsuarios();
 }

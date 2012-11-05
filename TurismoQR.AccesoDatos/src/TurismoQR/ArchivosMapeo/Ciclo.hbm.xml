@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="TurismoQR.ObjetosNegocio.Estados.Ciclo" table="ciclo" >
+        <id column="idCiclo" name="idObjeto">
+            <generator class="guid"/>
+        </id>
+
+        <set name="estados" cascade="all-delete-orphan" outer-join="true">
+            <key column="Ciclo" foreign-key="idCiclo"/>
+            <one-to-many class="TurismoQR.ObjetosNegocio.Estados.Estado" />
+        </set>
+    </class>
+</hibernate-mapping>

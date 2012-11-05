@@ -32,7 +32,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.fileupload.FileItem;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMethod;import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 /**
@@ -47,12 +48,26 @@ public class CrearPuntoController {
     private IServicioIdioma servicioIdioma;
     ManejadorIdiomas manejadorIdioma;
 
+    private static final String actualizarPuntoInteres = "actualizarPuntoInteres.htm";
+    private static final String eliminarPuntoInteres = "eliminarPuntoInteres.htm";
+
+
     @Autowired
     public void LoginController(IServicioPunto servicioPunto, IServicioIdioma servicioIdioma, ManejadorIdiomas manejadorIdioma)
     {
         this.servicioPunto = servicioPunto;
         this.servicioIdioma = servicioIdioma;
         this.manejadorIdioma = manejadorIdioma;
+    }
+
+    public static String generarURLActualizarPunto(String idPunto)
+    {
+        return "administracion/crearPunto/" + idPunto + "/" + actualizarPuntoInteres;
+    }
+
+    public static String generarURLEliminarPunto(String idPunto)
+    {
+        return "administracion/crearPunto/" + idPunto + "/" + eliminarPuntoInteres;
     }
 
     @RequestMapping("/crearPuntoDeInteres.htm")
@@ -102,6 +117,25 @@ public class CrearPuntoController {
         return "Administracion/Punto/AgregarImagen";
     }
 
+@RequestMapping(value = "/{idPunto}/" + actualizarPuntoInteres,
+                    method = RequestMethod.POST)
+    public String actualizarPuntoInteres(
+            @PathVariable String idPunto)
+    {
+        String idioma = "espanol";
+        //TODO Obtener el idioma por default del usuario
+        return "redirect:/informacionPunto/" + idioma + "/" + idPunto +"/obtenerInformacionPunto.htm";
+    }
+
+    @RequestMapping(value = "/{idPunto}/" + eliminarPuntoInteres,
+                    method = RequestMethod.POST)
+    public String eliminarPuntoInteres(
+            @PathVariable String idPunto)
+    {
+        String idioma = "espanol";
+        //TODO Obtener el idioma por default del usuario
+        return "redirect:/informacionPunto/" + idioma + "/" + idPunto +"/obtenerInformacionPunto.htm";
+    }
     @RequestMapping("/subirArchivo.htm")
     public @ResponseBody List<UploadedFile> handleRequest(@RequestParam("files") CommonsMultipartFile files,
             @RequestParam(value="comentarioImagen", required=false) String comentarioImagen,

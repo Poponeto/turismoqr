@@ -20,9 +20,7 @@
             <one-to-many class="TurismoQR.ObjetosNegocio.Informacion.Link" />
         </set>
         
-        <set name="estados" cascade="all-delete-orphan" outer-join="true">
-            <key column="Punto" foreign-key="idPuntoEstados"/>
-            <one-to-many class="TurismoQR.ObjetosNegocio.Estados.Estado" />
-        </set>
+       <many-to-one name="ciclo" unique="true" class="TurismoQR.ObjetosNegocio.Estados.Ciclo" column="ciclo" cascade="all"/>
+
     </class>
 </hibernate-mapping>

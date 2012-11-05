@@ -1,6 +1,7 @@
 package TurismoQR.ObjetosNegocio.Punto;
 
 import TurismoQR.ObjetosNegocio.Categorias.Categoria;
+import TurismoQR.ObjetosNegocio.Estados.Ciclo;
 import TurismoQR.ObjetosNegocio.Informacion.Imagen;
 import TurismoQR.ObjetosNegocio.Informacion.Link;
 import TurismoQR.ObjetosNegocio.Informacion.Informacion;
@@ -17,7 +18,18 @@ public class Punto implements IObjetoNegocio
     private Informacion informacion;
     private Collection<Imagen> imagenes;
     private Collection<Link> links;
-    private Collection<Estado> estados;
+    private Ciclo ciclo;
+
+    public Ciclo getCiclo()
+    {
+        return ciclo;
+    }
+
+    public void setCiclo(Ciclo ciclo)
+    {
+        this.ciclo = ciclo;
+    }
+
     private Categoria categoria;
 
     public Categoria getCategoria() {
@@ -27,16 +39,7 @@ public class Punto implements IObjetoNegocio
     public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
     }
-
-    public Collection<Estado> getEstados()
-    {
-        return estados;
-    }
-
-    private void setEstados(Collection<Estado> estados)
-    {
-        this.estados = estados;
-    }
+    
     private String idObjeto;
 
     public String getIdObjeto()
@@ -71,20 +74,12 @@ public class Punto implements IObjetoNegocio
 
     public Estado getEstado()
     {
-        for(Estado estado : estados)
-        {
-            if (estado.esActual())
-            {
-                return estado;
-            }
-        }
-        return null;
+        return ciclo.getEstadoActual();
     }
 
     public void setEstado(Estado estado)
     {
-        this.estados = new HashSet();
-        estados.add(estado);
+        ciclo.setEstadoActual(estado);
     }
 
     public Informacion getInformacion()

@@ -25,9 +25,7 @@
                 });
             });
             $(window).load(function() {
-                //$('#slider').nivoSlider();
-
-                
+                $('#slider').nivoSlider();
             });
         </script>
     </head>

@@ -30,15 +30,18 @@
                 $('#longitudValue').text(posicionInicialMarcador.lng());
                 $('#latitudPunto').attr('value', posicionInicialMarcador.lat());
                 $('#longitudPunto').attr('value', posicionInicialMarcador.lng());
-
-                google.maps.event.addListener(tqrmapas.marcador, 'position_changed', function(){
-                    var posicionActualMarcador = tqrmapas.obtenerLocalizacionMarcador(this);
-                    $('#latitudValue').text(posicionActualMarcador.lat());
-                    $('#longitudValue').text(posicionActualMarcador.lng());
-                    $('#latitudPunto').attr('value', posicionActualMarcador.lat());
-                    $('#longitudPunto').attr('value', posicionActualMarcador.lng());
-                });
+                tqrmapas.agregarEventoCambioPosicion();
             });
+        });
+    },
+
+    agregarEventoCambioPosicion : function() {
+        google.maps.event.addListener(tqrmapas.marcador, 'position_changed', function(){
+            var posicionActualMarcador = tqrmapas.obtenerLocalizacionMarcador(this);
+            $('#latitudValue').text(posicionActualMarcador.lat());
+            $('#longitudValue').text(posicionActualMarcador.lng());
+            $('#latitudPunto').attr('value', posicionActualMarcador.lat());
+            $('#longitudPunto').attr('value', posicionActualMarcador.lng());
         });
     },
 
@@ -49,13 +52,17 @@
             + ',' + $('#codigoPostalPunto').attr('value')
             + ', Mendoza';
         
-        tqrmapas.geocoder.geocode( { 'address': address}, function(results, status) {
+        tqrmapas.geocoder.geocode( {'address': address}, function(results, status) {
           if (status == google.maps.GeocoderStatus.OK) {
             tqrmapas.mapa.setCenter(results[0].geometry.location);
-            var marker = new google.maps.Marker({
-                map: tqrmapas.mapa,
-                position: results[0].geometry.location
-            });
+            tqrmapas.marcador.setPosition(results[0].geometry.location);
+//            tqrmapas.marcador = null;
+//            tqrmapas.marcador = new google.maps.Marker({
+//                map: tqrmapas.mapa,
+//                position: results[0].geometry.location,
+//                draggable: true
+//            });
+//            tqrmapas.agregarEventoCambioPosicion();
           } else {
             alert("Geocode was not successful for the following reason: " + status);
           }
@@ -162,7 +169,7 @@
         }
         var latLong = new google.maps.LatLng(latitud, longitud);
 
-        var marcador = new google.maps.Marker({
+        tqrmapas.marcador = new google.maps.Marker({
 		    position: latLong,
 		    draggable: true,
 		    map: tqrmapas.mapa,
@@ -171,7 +178,8 @@
 
         var infoWindow = new google.maps.InfoWindow({content : titulo});
 
-        google.maps.event.addListener(marcador, 'click', funcion);
+//        google.maps.event.addListener(tqrmapas.marcador, 'click', funcion);
+        funcion();
 
     },
 

@@ -6,7 +6,6 @@ package TurismoQR.Servicios.Punto;
 
 import TurismoQR.AccesoDatos.IAccesoDatos;
 import TurismoQR.ObjetosNegocio.Estados.Estado;
-import TurismoQR.ObjetosNegocio.Informacion.Idioma;
 import TurismoQR.ObjetosNegocio.Informacion.Imagen;
 import TurismoQR.ObjetosNegocio.Informacion.Informacion;
 import TurismoQR.ObjetosNegocio.Informacion.InformacionEnIdioma;
@@ -15,7 +14,6 @@ import TurismoQR.ObjetosNegocio.Punto.Punto;
 import TurismoQR.ObjetosTransmisionDatos.DTOImagen;
 import TurismoQR.ObjetosTransmisionDatos.DTOPunto;
 import TurismoQR.ObjetosTransmisionDatos.DTOCodigoQR;
-import TurismoQR.ObjetosTransmisionDatos.DTOIdioma;
 import TurismoQR.Servicios.Punto.ConsultasPunto.ConsultarPuntoId;
 import TurismoQR.Servicios.Punto.ConsultasPunto.ConsultarPuntoZona;
 import TurismoQR.Servicios.Punto.ConsultasPunto.ConsultarTodosPuntos;
@@ -23,6 +21,7 @@ import TurismoQR.Servicios.Punto.ConsultasPunto.IConsultaPunto;
 import TurismoQR.Manejadores.GeneradorCodigo.GeneradorCodigoQR;
 import TurismoQR.Manejadores.ManejadorEstados.ManejadorEstados;
 import TurismoQR.Manejadores.ManejadorIdiomas.ManejadorIdiomas;
+import TurismoQR.ObjetosNegocio.Estados.Ciclo;
 import TurismoQR.Traductores.ITraductor;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -78,6 +77,8 @@ public class ServicioPunto extends ServicioPuntoBase implements IServicioPunto
         Punto nuevoPuntoDeInteres = new Punto();
 
         nuevoPuntoDeInteres.setNombre(datosPunto.getNombrePunto());
+
+        nuevoPuntoDeInteres.setCiclo(new Ciclo());
 
         //Setea el estado del punto a habilitado
         nuevoPuntoDeInteres.setEstado(new Estado("Habilitado"));

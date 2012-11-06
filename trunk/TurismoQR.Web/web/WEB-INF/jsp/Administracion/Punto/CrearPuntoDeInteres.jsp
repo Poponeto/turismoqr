@@ -100,7 +100,7 @@
                     <tr>
                         <td>
                             <div id="contenedorFormulario">
-                                <form name="nuevoPuntoDeInteres" action="<core:url value='../crearPunto/guardarPuntoDeInteres.htm'/>" method="POST">
+                                <form id="nuevoPuntoDeInteres" name="nuevoPuntoDeInteres" action="<core:url value='../crearPunto/guardarPuntoDeInteres.htm'/>" method="POST">
                                     <%@ include  file="/WEB-INF/jsp/Administracion/Punto/FormularioUbicacionPunto.jsp" %>
                                     <%@ include  file="/WEB-INF/jsp/Administracion/Punto/FormularioInformacionPunto.jsp" %>
                                     <%@ include  file="/WEB-INF/jsp/Administracion/Punto/FormularioImagenesPunto.jsp" %>
@@ -114,8 +114,6 @@
                 </table>
             </div>
             <div class="navBar">
-<!--                <input type="button" id="previous" value="Anterior" style="float: left; display: inline-block; width: 25%;" onclick="javascript:tqrformnav.anterior($('fieldset:visible'))"/>-->
-<!--                <input type="button" id="next" value="Siguiente" style="float: right; display: inline-block; width: 25%;" onclick="javascript:tqrformnav.siguiente($('fieldset:visible'))"/>-->
                 <a id="previous" class="btn btn-success disabled" href="javascript:tqrformnav.anterior($('fieldset:visible'))">Anterior</a>
                 <a id="next" class="btn btn-success" style="float: right;" href="javascript:tqrformnav.siguiente($('fieldset:visible'))">Siguiente</a>
             </div>
@@ -161,26 +159,25 @@
             <tr class="template-download fade">
                 {% if (file.error) { %}
                     <td></td>
-                    <td class="name"><span>{%=file.name%}</span></td>
-                    <td class="size"><span>{%=o.formatFileSize(file.size)%}</span></td>
-                    <td class="error" colspan="2"><span class="label">Completo</span></td>
+                    <td class="name" rowspan="2"><span>{%=file.name%}</span></td>
+                    <td class="size" rowspan="2"><span>{%=o.formatFileSize(file.size)%}</span></td>
+                    <td class="error" rowspan="2" colspan="2"><span class="label">Completo</span></td>
                 {% } else { %}
-                    <td class="preview">{% if (file.thumbnail_url) { %}
+                    <td class="preview" rowspan="2">{% if (file.thumbnail_url) { %}
                         <a href="{%=file.url%}" title="{%=file.name%}" rel="gallery" download="{%=file.name%}"><img src="{%=file.thumbnail_url%}"></a>
                     {% } %}</td>
-                    <td class="name">
+                    <td class="name" rowspan="2">
                         <a href="{%=file.url%}" title="{%=file.name%}" rel="{%=file.thumbnail_url&&'gallery'%}" download="{%=file.name%}">{%=file.name%}</a>
                     </td>
-                    <td class="size"><span>{%=o.formatFileSize(file.size)%}</span></td>
+                    <td class="size" rowspan="2"><span>{%=o.formatFileSize(file.size)%}</span></td>
                     <td colspan="2"></td>
                 {% } %}
-                <td class="delete">
+<!--                <td class="delete" rowspan="2">
                     <button class="btn btn-danger" data-type="{%=file.delete_type%}" data-url="{%=file.delete_url%}">
                         <i class="icon-trash icon-white"></i>
                         <span>Delete</span>
                     </button>
-<!--                    <input type="checkbox" name="delete" value="1">-->
-                </td>
+                </td>-->
             </tr>
         {% } %}
         </script>

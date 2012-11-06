@@ -55,7 +55,7 @@ INSERT INTO `turismoqr`.`permiso` (`idPermiso`, `nombre`, `descripcion`) VALUES 
 INSERT INTO `turismoqr`.`permisousuario` (`idPermisoUsuario`, `permiso`, `Usuario`) VALUES ('1', '1', '1');
 
 INSERT INTO `turismoqr`.`localizacion` (`idLocalizacion`, `latitud`, `longitud`) VALUES ('1', '0', '0');
-INSERT INTO `turismoqr`.`idioma` (`idIdioma`, `nombreIdioma`) VALUES ('1', 'español');
+INSERT INTO `turismoqr`.`idioma` (`idIdioma`, `nombreIdioma`) VALUES ('1', 'espanol');
 INSERT INTO `turismoqr`.`idioma` (`idIdioma`, `nombreIdioma`) VALUES ('2', 'ingles');
 INSERT INTO `turismoqr`.`informacion` (`idInformacion`) VALUES ('1');
 INSERT INTO `turismoqr`.`informacion` (`idInformacion`) VALUES ('2');

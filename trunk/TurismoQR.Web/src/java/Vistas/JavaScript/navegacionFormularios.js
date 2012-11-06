@@ -16,9 +16,11 @@ var tqrformnav = {
         var index = $.inArray(formId, tqrformnav.forms);
         var previousIndex = index - 1;
         if(previousIndex >= 0) {
+            $('#next').text('Siguiente');
+            $('#next').attr('href','javascript:tqrformnav.siguiente();');
             $('#'+formId).fadeOut(1000, function(){
                 $('#'+tqrformnav.forms[previousIndex]).fadeIn('slow', function() {
-                   if($('#'+tqrformnav.forms[nextIndex]).find('#galeriaImagenes').length != 0) {
+                   if($('#'+tqrformnav.forms[previousIndex]).find('#galeriaImagenes').length != 0) {
                        initGaleria();
                    }
                });
@@ -37,6 +39,7 @@ var tqrformnav = {
         var index = $.inArray(formId, tqrformnav.forms);
         var nextIndex = index + 1;
         if(nextIndex <= formsLength - 1) {
+            
             $('#'+formId).fadeOut(1000, function(){
                $('#'+tqrformnav.forms[nextIndex]).fadeIn('slow', function() {
                    if($('#'+tqrformnav.forms[nextIndex]).find('#galeriaImagenes').length != 0) {
@@ -47,7 +50,8 @@ var tqrformnav = {
             $('#next').removeClass('disabled');
             $('#previous').removeClass('disabled');
             if (nextIndex == formsLength - 1) {
-                $('#next').addClass('disabled');
+                $('#next').text('Guardar punto');
+                $('#next').attr('href','javascript:$(\'#nuevoPuntoDeInteres\').submit();');
             }
         }
     }

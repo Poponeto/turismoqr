@@ -5,7 +5,9 @@
 
 package TurismoQR.Servicios.Usuario;
 
+import TurismoQR.ObjetosTransmisionDatos.DTOCliente;
 import TurismoQR.ObjetosTransmisionDatos.IDTO;
+import java.util.Collection;
 
 /**
  *
@@ -16,5 +18,5 @@ import TurismoQR.ObjetosTransmisionDatos.IDTO;
 public interface IServicioCliente {
 
     public Boolean registrarCliente(IDTO dtoEmpresa);
-
+    public Collection<DTOCliente> consultarClientes();
 }

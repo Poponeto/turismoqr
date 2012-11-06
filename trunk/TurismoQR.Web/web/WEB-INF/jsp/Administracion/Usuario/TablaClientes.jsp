@@ -1,6 +1,6 @@
 <%-- 
-    Document   : TablaUsuarios
-    Created on : 02-nov-2012, 1:01:08
+    Document   : TablaClientes
+    Created on : 06-nov-2012, 1:37:55
     Author     : Federico
 --%>
 
@@ -17,7 +17,7 @@
 
     </head>
     <body>
-        <table id="tablaUsuarios"></table>
+        <table id="tablaClientes"></table>
         <div id="paginador"></div>
 
     </body>

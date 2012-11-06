@@ -7,10 +7,13 @@ package TurismoQR.Servicios.Usuario;
 import TurismoQR.AccesoDatos.IAccesoDatos;
 import TurismoQR.ObjetosNegocio.Usuarios.Cliente;
 import TurismoQR.ObjetosNegocio.Usuarios.Contacto;
+import TurismoQR.ObjetosTransmisionDatos.DTOCliente;
 import TurismoQR.ObjetosTransmisionDatos.DTOEmpresa;
 import TurismoQR.ObjetosTransmisionDatos.DTOPersona;
 import TurismoQR.ObjetosTransmisionDatos.IDTO;
 import TurismoQR.Traductores.ITraductor;
+import java.util.Collection;
+import java.util.HashSet;
 
 /**
  *
@@ -45,6 +48,20 @@ public abstract class ServicioCliente extends ServicioContacto implements IServi
         getAccesoDatos().Guardar(contacto);
 
         return contacto;
+    }
+
+    public Collection<DTOCliente> consultarClientes()
+    {
+        Collection<Cliente> clientes = getAccesoDatos().BuscarConjuntoObjetos(Cliente.class);
+
+        Collection<DTOCliente> dtosCliente = new HashSet<DTOCliente>();
+
+        for (Cliente cliente : clientes)
+        {
+            dtosCliente.add((DTOCliente) getTraductor().traducir(cliente));
+        }
+
+        return dtosCliente;
     }
 
     protected abstract void completarCliente(Cliente cliente, IDTO dtoCliente);

@@ -12,7 +12,19 @@ package TurismoQR.ObjetosTransmisionDatos;
 public abstract class DTOCliente extends DTOContacto {
 
     private int cantidadDePuntosPermitidos;
+    private int cantidadDePuntosQuePosee;
 
+    public int getCantidadDePuntosQuePosee()
+    {
+        return cantidadDePuntosQuePosee;
+    }
+
+    public void setCantidadDePuntosQuePosee(int cantidadDePuntosQuePosee)
+    {
+        this.cantidadDePuntosQuePosee = cantidadDePuntosQuePosee;
+    }
+
+    
     public int getCantidadDePuntosPermitidos() {
         return cantidadDePuntosPermitidos;
     }
@@ -20,4 +32,7 @@ public abstract class DTOCliente extends DTOContacto {
     public void setCantidadDePuntosPermitidos(int cantidadDePuntosPermitidos) {
         this.cantidadDePuntosPermitidos = cantidadDePuntosPermitidos;
     }
+
+    public abstract String getNombreCliente();
+    public abstract String getTipoCliente();
 }

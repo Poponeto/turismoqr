@@ -5,6 +5,7 @@
 --%>
 <%@ taglib uri='http://java.sun.com/jsp/jstl/core' prefix='core'%>
 <%@ taglib uri='http://java.sun.com/jsp/jstl/functions' prefix='fn' %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
@@ -37,6 +38,12 @@
 
         <%@ include  file="/WEB-INF/jsp/Utils/Cabecera.jsp" %>
         
+        <sec:authorize ifNotGranted="PERMISO_TURISTA">
+            <div id="contenedorMenu" class="ui-widget-header">
+                <%@ include  file="/WEB-INF/jsp/Utils/MenuCabecera.jsp" %>
+            </div>
+        </sec:authorize>
+
         <div style="position: relative; padding: 0px 30px;" class="ui-widget-header">
             <div style="display: inline-block;">
                 <h3>Informacion punto de interes</h3>

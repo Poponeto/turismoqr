@@ -37,6 +37,7 @@
         <security:filter-chain-map path-type="ant">
             <security:filter-chain pattern="/**" filters="
             filtroDePersistenciaDeContexto,
+            filtroDeLogout,
             filtroDeAutenticacion,
             filtroDeAutenticacionAnonima,
             filtroDeManejoDeExcepciones,
@@ -83,6 +84,17 @@
                 </bean>
             </list>
         </property>
+    </bean>
+
+    <bean id="filtroDeLogout" class=
+"org.springframework.security.web.authentication.logout.LogoutFilter">
+        <constructor-arg value="/home.htm" />
+        <constructor-arg>
+            <list>
+                <bean class="org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler"/>
+            </list>
+        </constructor-arg>
+        <property name="filterProcessesUrl" value="/j_myApplication_logout"/>
     </bean>
 
     <bean id="filtroDeAutenticacion" class=

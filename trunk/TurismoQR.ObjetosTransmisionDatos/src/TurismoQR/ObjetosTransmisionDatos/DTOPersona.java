@@ -69,4 +69,16 @@ public class DTOPersona extends DTOCliente implements IDTO<Persona>
     {
         this.sexo = sexo;
     }
+
+    @Override
+    public String getNombreCliente()
+    {
+        return getApellido() + " " + getNombre();
+    }
+
+    @Override
+    public String getTipoCliente()
+    {
+        return "Persona";
+    }
 }

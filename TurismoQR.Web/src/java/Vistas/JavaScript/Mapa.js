@@ -179,7 +179,6 @@
         var infoWindow = new google.maps.InfoWindow({content : titulo});
 
 //        google.maps.event.addListener(tqrmapas.marcador, 'click', funcion);
-        funcion();
 
     },
 

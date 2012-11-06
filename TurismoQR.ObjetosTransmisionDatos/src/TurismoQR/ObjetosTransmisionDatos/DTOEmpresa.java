@@ -55,5 +55,17 @@ public class DTOEmpresa extends DTOCliente implements IDTO<Empresa> {
     public void setRazonSocial(String razonSocial) {
         this.razonSocial = razonSocial;
     }
+
+    @Override
+    public String getNombreCliente()
+    {
+        return getRazonSocial();
+    }
+
+    @Override
+    public String getTipoCliente()
+    {
+        return "Empresa";
+    }
     
 }

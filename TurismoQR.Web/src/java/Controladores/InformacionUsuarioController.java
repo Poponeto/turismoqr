@@ -29,7 +29,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 
 @Controller
-@RequestMapping("/usuario")
+@RequestMapping("/administracion/usuario")
 public class InformacionUsuarioController {
 
     IServicioUsuario servicioUsuario;
@@ -38,6 +38,12 @@ public class InformacionUsuarioController {
     public void InformacionUsuarioController(IServicioUsuario servicioUsuario)
     {
         this.servicioUsuario = servicioUsuario;
+    }
+
+    @RequestMapping(value = "/paginaAdministracionUsuarios.htm", method = RequestMethod.GET)
+    public String redirigir()
+    {
+        return "Administracion/Usuario/AdministracionUsuarios";
     }
 
     @RequestMapping(value = "/obtenerInformacionTabla.htm", method = RequestMethod.GET)

@@ -6,6 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib uri='http://java.sun.com/jsp/jstl/core' prefix='c'%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
     "http://www.w3.org/TR/html4/loose.dtd">
 
@@ -65,14 +66,14 @@
                                     <a href="${pageContext.request.contextPath}/crearPunto/crearPuntoDeInteres.htm">Información Personal</a>
                                 </li>
                             </sec:authorize>
-                            <sec:authorize url="/crearPunto/crearPuntoDeInteres.htm">
+                            <sec:authorize url="/administracion/usuario/paginaAdministracionUsuarios.htm">
                                 <li style="width:170px">
-                                    <a href="${pageContext.request.contextPath}/crearPunto/crearPuntoDeInteres.htm">Usuarios del Sistema</a>
+                                    <a href="${pageContext.request.contextPath}/administracion/usuario/paginaAdministracionUsuarios.htm">Usuarios del Sistema</a>
                                 </li>
                             </sec:authorize>
-                            <sec:authorize url="/buscarPunto/paginaBuscarPunto.htm">
+                            <sec:authorize url="/administracion/cliente/paginaAdministracionClientes.htm">
                                 <li style="width:170px">
-                                    <a href="${pageContext.request.contextPath}/crearPunto/crearPuntoDeInteres.htm">Clientes del Sistema</a>
+                                    <a href="${pageContext.request.contextPath}/administracion/cliente/paginaAdministracionClientes.htm">Clientes del Sistema</a>
                                 </li>
                             </sec:authorize>
                             <sec:authorize url="/buscarPunto/paginaBuscarPunto.htm">
@@ -106,7 +107,8 @@
             </div>
             <sec:authorize ifNotGranted="PERMISO_TURISTA">
                 <div id="contenedorDeLogoutTurismoQR">
-                    <a>Logout</a>
+
+                    <a href="${pageContext.request.contextPath}/j_myApplication_logout" >Logout</a>
                 </div>
             </sec:authorize>
         </div>

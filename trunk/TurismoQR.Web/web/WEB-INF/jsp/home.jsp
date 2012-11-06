@@ -9,13 +9,25 @@
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/Vistas/HojasDeEstilo/Home.css">
         <%@ include file="/WEB-INF/jsp/Utils/ArchivosJQuery.html" %>
         <%@ include file="/WEB-INF/jsp/Utils/ArchivosSlider.html" %>
-        
+
         <script type="text/javascript">
             $(document).ready(function(){
                 inicializarComponentes();
+
+                $('#botonRegistrarCliente').click(function(){
+                    $('#Contenedor').css('opacity','0.5');
+                    $('#popUpEmpresaPersona').dialog('open');
+                    return false;
+                });
+                
+                $.get('${pageContext.request.contextPath}/cliente/opcionesRegistroCliente.htm', function(data) {
+                    $('#ContenedorDelPopUp').html(data);
+                });
             });
             $(window).load(function() {
-                $('#slider').nivoSlider();
+                //$('#slider').nivoSlider();
+
+                
             });
         </script>
     </head>
@@ -23,7 +35,7 @@
     <body style="margin: 0px;">
         <div id="Contenedor">
             <%@ include  file="/WEB-INF/jsp/Utils/Cabecera.jsp" %>
-        
+
             <div>
                 <table id="contenidoPrincipal" style="width: 100%;">
                     <tr>
@@ -34,7 +46,7 @@
                                         <img src="${pageContext.request.contextPath}/Vistas/Imagenes/Slider1.jpg" data-thumb="${pageContext.request.contextPath}/Vistas/Imagenes/Slider1.jpg" alt="" />
                                         <img src="${pageContext.request.contextPath}/Vistas/Imagenes/Slider2.jpg" data-thumb="${pageContext.request.contextPath}/Vistas/Imagenes/Slider2.jpg" alt="" />
                                         <img src="${pageContext.request.contextPath}/Vistas/Imagenes/Slider3.jpg" data-thumb="${pageContext.request.contextPath}/Vistas/Imagenes/Slider3.jpg" alt="" />
-                                        
+
                                     </div>
                                 </div>
                             </div>
@@ -50,11 +62,11 @@
                                             <input id="botonIngresarComoTurista" type="submit" value="Ingresar como turista!"/>
                                         </div>
                                     </form>
-                                    <form name="registrarCliente" action="<core:url value='registro/accederRegistrarCliente.htm'/>" method="GET">
-                                        <div>
-                                            <input id="botonRegistrarCliente" type="submit" value="Registrarse como Cliente" />
-                                        </div>
-                                    </form>
+
+                                    <div>
+                                        <button id="botonRegistrarCliente"> Registrarse como Cliente </button>
+                                    </div>
+
                                 </div>
                             </div>
                         </td>
@@ -62,5 +74,9 @@
                 </table>
             </div>
         </div>
+
+        <div id="ContenedorDelPopUp">
+        </div>
+
     </body>
 </html>

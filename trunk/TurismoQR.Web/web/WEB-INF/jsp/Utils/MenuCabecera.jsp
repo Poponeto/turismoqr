@@ -32,12 +32,12 @@
                             <img id="imagenMenu0" alt="" src="${pageContext.request.contextPath}/Vistas/HojasDeEstilo/images/profile.gif"/>&nbsp;Punto&nbsp;&nbsp;&nbsp<img id="imagenMenu1" alt="" src="${pageContext.request.contextPath}/Vistas/HojasDeEstilo/images/down.png"/>
                         </a>
                         <ul>
-                            <sec:authorize url="/crearPunto/crearPuntoDeInteres.htm">
+                            <sec:authorize url="/administracion/crearPunto/crearPuntoDeInteres.htm">
                                 <li style="width:220px">
-                                    <a href="${pageContext.request.contextPath}/crearPunto/crearPuntoDeInteres.htm">Crear Punto de Interés</a>
+                                    <a href="${pageContext.request.contextPath}/administracion/crearPunto/crearPuntoDeInteres.htm">Crear Punto de Interés</a>
                                 </li>
                             </sec:authorize>
-                            <sec:authorize url="/crearPunto/crearPuntoDeInteres.htm">
+                            <sec:authorize url="/administracion/crearPunto/crearPuntoDeInteres.htm">
                                 <li style="width:220px">
                                     <a href="#">Crear Punto Comercial</a>
                                 </li>

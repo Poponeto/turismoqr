@@ -26,6 +26,8 @@ public class RegistroClienteController
     private IServicioCliente servicioEmpresa;
     private IServicioCliente servicioPersona;
 
+    private static final String paginaRegistrarCliente = "paginaRegistrarCliente.htm";
+
     private static final String paginaRegistrarEmpresa = "paginaRegistrarEmpresa.htm";
     private static final String paginaRegistrarPersona = "paginaRegistrarPersona.htm";
 
@@ -62,20 +64,34 @@ public class RegistroClienteController
         return "cliente/" + registrarPersona;
     }
 
-    @RequestMapping(value = "{tipoCliente}/paginaRegistrarCliente.htm", method = RequestMethod.GET)
+    public static String generarURLRegistrarCliente(String tipoCliente)
+    {
+        return "cliente/" + tipoCliente + "/" + paginaRegistrarCliente;
+    }
+
+    @RequestMapping(value = "/opcionesRegistroCliente.htm", method = RequestMethod.GET)
+    public String redirigir(ModelMap model)
+    {
+        model.put("registroEmpresa", generarURLRegistrarCliente("Empresa"));
+        model.put("registroPersona", generarURLRegistrarCliente("Persona"));
+
+        return "Registro/EmpresaPersonaPopUp";
+    }
+
+    @RequestMapping(value = "{tipoCliente}/" + paginaRegistrarCliente, method = RequestMethod.GET)
     public String redirigir(
             @PathVariable String tipoCliente,
             ModelMap model)
     {
         if (tipoCliente.equalsIgnoreCase("empresa"))
         {
-            model.addAttribute("formularioCliente", generarURLFormularioEmpresa());
-            model.addAttribute("registro", generarURLRegistrarEmpresa());
+            model.put("formularioCliente",  generarURLFormularioEmpresa());
+            model.put("registro", generarURLRegistrarEmpresa());
         }
         else
         {
-            model.addAttribute("formularioCliente", generarURLFormularioPersona());
-            model.addAttribute("registro", generarURLRegistrarPersona());
+            model.put("formularioCliente",  generarURLFormularioPersona());
+            model.put("registro",  generarURLRegistrarPersona());
         }
 
         return "Registro/RegistroCliente";

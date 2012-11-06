@@ -71,3 +71,5 @@ INSERT INTO `turismoqr`.`link` (`idLink`, `Punto`) VALUES ('2', '1');
 UPDATE `turismoqr`.`punto` SET `ciclo`='1' WHERE `idPunto`='1';
 INSERT INTO `turismoqr`.`ciclo` (`idCiclo`) VALUES ('1');
 INSERT INTO `turismoqr`.`estado` (`idEstado`, `nombreDeEstado`, `Ciclo`) VALUES ('1', 'habilitado', '1');
+UPDATE `turismoqr`.`informacionenidioma` SET `nombre`='Punto1' WHERE `idInformacionEnIdioma`='1';
+UPDATE `turismoqr`.`informacionenidioma` SET `nombre`='Imagen1' WHERE `idInformacionEnIdioma`='2';

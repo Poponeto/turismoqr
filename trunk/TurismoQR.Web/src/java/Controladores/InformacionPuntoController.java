@@ -46,8 +46,6 @@ public class InformacionPuntoController {
         return "informacionPunto/" + idPunto + "/" + obtenerInformacionPuntoIdiomaDefault;
     }
     
-    private static String a;
-
     @RequestMapping(value = "/{idioma}/{idPunto}/" + obtenerInformacionPunto,
                     method = RequestMethod.GET)
     public String obtenerInformacionPunto(
@@ -63,7 +61,7 @@ public class InformacionPuntoController {
     }
 
     @RequestMapping(value = "/{idPunto}/" + obtenerInformacionPuntoIdiomaDefault,
-                    method = RequestMethod.POST)
+                    method = RequestMethod.GET)
     public String obtenerInformacionPuntoIdiomaDefault(
             @PathVariable String idPunto)
     {

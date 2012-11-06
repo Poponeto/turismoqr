@@ -29,29 +29,30 @@
             <sec:authorize url="/informacionPunto/${punto.idPunto}/obtenerInformacionPuntoIdiomaDefault.htm">
                 <a href="${pageContext.request.contextPath}/informacionPunto/${punto.idPunto}/obtenerInformacionPuntoIdiomaDefault.htm">Ver Informaciòn de Punto de Interés.</a>
             </sec:authorize>
-
+            <br>
             <sec:authorize url="/administracion/crearPunto/${punto.idPunto}/actualizarPuntoInteres.htm">
                 <a href="${pageContext.request.contextPath}/administracion/crearPunto/${punto.idPunto}/actualizarPuntoInteres.htm">Actualizar Punto de Interés.</a>
             </sec:authorize>
-
+            <br>
             <sec:authorize url="/administracion/crearPunto/${punto.idPunto}/eliminarPuntoInteres.htm">
                 <a href="${pageContext.request.contextPath}/administracion/crearPunto/${punto.idPunto}/eliminarPuntoInteres.htm">Eliminar Punto de Interés.</a>
             </sec:authorize>
 
             <div style="margin-top: 15px">
                 <h1>
-                    <core:out value="${punto.informacion.nombre}" />
+                    ${punto.nombrePunto}
                 </h1>
                 
                 <a style="margin-top: 15px">
-                    Latitud: <core:out value="${punto.localizacion.latitud}" />
+                    Latitud: ${punto.localizacion.latitud}
                 </a>
+                <br>
                 <a>
-                    Longitud: <core:out value="${punto.localizacion.longitud}" />
+                    Longitud: ${punto.localizacion.longitud}
                 </a>
 
                 <a style="margin-top: 15px">
-                    <core:out value="${punto.informacion.texto}" />
+                    ${punto.informacion.texto}
                 </a>
             </div>
         </div>

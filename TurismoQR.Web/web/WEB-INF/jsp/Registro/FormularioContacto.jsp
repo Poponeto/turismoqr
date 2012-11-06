@@ -4,8 +4,6 @@
     Author     : Federico
 --%>
 
-<%@taglib prefix="core" uri="http://java.sun.com/jstl/core"%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
     "http://www.w3.org/TR/html4/loose.dtd">
@@ -18,19 +16,19 @@
     <body>
         <div id="contenedorFormularioContacto">
             <fieldset>
-                <label for="mail">
+                <label for="lineaDatosMail">
                     Direccion de Correo:<br>
-                    <input id="mail" name="mail" type="text" placeholder="Ingrese direccion de Correo Electronico" required="true"/>
+                    <input id="lineaDatosMail" name="mail" type="text" required="true"/>
                 </label>
 
-                <label for="celular">
+                <label for="lineaDatosCelular">
                     Telefono Movil:<br>
-                    <input id="celular" name="celular" type="text" placeholder="Ingrese numero de Telefono Movil" required="false"/>
+                    <input id="lineaDatosCelular" name="celular" type="text" required="false"/>
                 </label>
 
-                <label for="telefonoFijo">
+                <label for="lineaDatosTelefonoFijo">
                     Telefono Fijo:<br>
-                    <input id="telefonoFijo" name="telefonoFijo" type="text" placeholder="Ingrese numero de Telefono Fijo" required="false"/>
+                    <input id="lineaDatosTelefonoFijo" name="telefonoFijo" type="text" required="false"/>
                 </label>
             </fieldset>
         </div>

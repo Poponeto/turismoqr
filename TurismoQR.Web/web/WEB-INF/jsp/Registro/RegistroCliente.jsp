@@ -4,8 +4,8 @@
     Author     : ftacchini
 --%>
 
-<%@ taglib uri='http://java.sun.com/jsp/jstl/core' prefix='core'%>
-<%@ taglib uri='http://java.sun.com/jsp/jstl/functions' prefix='fn' %>
+<%@taglib uri='http://java.sun.com/jsp/jstl/core' prefix='core'%>
+<%@taglib uri='http://java.sun.com/jsp/jstl/functions' prefix='fn' %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
     "http://www.w3.org/TR/html4/loose.dtd">
@@ -21,30 +21,39 @@
 
             $(document).ready(function(){
                 inicializarComponentes();
+
+                $.get('${pageContext.request.contextPath}/${formularioCliente}', function(data) {
+                    $('#contenedorFormularioCliente').html(data);
+                });
             });
         </script>
-        
+
     </head>
     <body>
-        <div>
+        <%@ include  file="/WEB-INF/jsp/Utils/Cabecera.jsp" %>
 
-            <core:import url="${pageContext.request.contextPath}/${formularioCliente}"/>
+        <div id="Contenedor">
 
-            <fieldset>
-                <label for="cantidadDePuntosDeseados">
-                    Cantidad de Puntos:<br>
-                    <input id="cantidadDePuntosDeseados" name="cantidadDePuntosDeseados" type="text" placeholder="Ingrese cantidad de Puntos Comerciales que desea manejar" required="false"/>
-                </label>
+            <form action=""  id="Contenido">
+                
+                <div id="contenedorFormularioCliente">
+                </div>
 
-            </fieldset>
+                <fieldset>
+                    <label for="cantidadDePuntosDeseados">
+                        Cantidad de Puntos:<br>
+                        <input id="lineaDatoscantidadDePuntosDeseados" name="cantidadDePuntosDeseados" type="text" required="false"/>
+                    </label>
 
-            <%@ include file = "/WEB-INF/jsp/FormularioContacto.jsp" %>
+                </fieldset>
 
-            <div>
-                <button name="Registrarse!"/>
-            </div>
+                <%@ include file = "/WEB-INF/jsp/Registro/FormularioContacto.jsp" %>
 
+                <div>
+                    <button id="botonRegistrarse">Registrarse</button>
+                </div>
 
+            </form>
         </div>
     </body>
 </html>

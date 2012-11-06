@@ -19,24 +19,24 @@
             
             <fieldset>
 
-                <label for="nombre">
+                <label for="lineaDatosNombre">
                     Nombre<br>
-                    <input id="nombre" name="nombre" type="text" placeholder="Ingrese Nombre Persona" required="true"/>
+                    <input id="lineaDatosNombre" name="nombre" type="text" required="true"/>
                 </label>
 
-                <label for="apellido">
+                <label for="lineaDatosApellido">
                     Apellido:<br>
-                    <input id="apellido" name="apellido" type="text" placeholder="Ingrese Apellido Persona" required="true"/>
+                    <input id="lineaDatosApellido" name="apellido" type="text" required="true"/>
                 </label>
 
-                <label for="dni">
+                <label for="lineaDatosdni">
                     DNI:<br>
-                    <input id="dni" name="dni" type="text" placeholder="Ingrese DNI Persona" required="true"/>
+                    <input id="lineaDatosdni" name="dni" type="text" required="true"/>
                 </label>
 
-                <label for="fechaNacimiento">
+                <label for="lineaDatosFechaNacimiento">
                     Fecha De Nacimiento:<br>
-                    <input id="fechaNacimiento" name="fechaNacimiento" type="text" placeholder="Ingrese Fecha de Nacimiento Persona" required="true"/>
+                    <input id="lineaDatosFechaNacimiento" name="fechaNacimiento" type="text" required="true"/>
                 </label>
 
                 <label for="selectGenero">Genero:<br>

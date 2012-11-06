@@ -18,14 +18,14 @@
         <div id="contenedorFormularioEmpresa">
             <fieldset>
 
-                <label for="cuit">
+                <label for="lineaDatoscuit">
                     CUIT:<br>
-                    <input id="cuit" name="cuit" type="text" placeholder="Ingrese CUIT de la Empresa" required="true"/>
+                    <input id="lineaDatoscuit" name="cuit" type="text" required="true"/>
                 </label>
 
-                <label for="razonSocial">
+                <label for="lineaDatosRazonSocial">
                     Razon Social:<br>
-                    <input id="razonSocial" name="razonSocial" type="text" placeholder="Ingrese Razon Social de la Empresa" required="tru"/>
+                    <input id="lineaDatosRazonSocial" name="razonSocial" required="tru"/>
                 </label>
 
                 <label for="selectRubro">Rubro:<br>

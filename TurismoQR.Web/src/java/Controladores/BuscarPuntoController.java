@@ -17,8 +17,6 @@ import Utils.Tabla;
 import java.util.Collection;
 import java.util.HashSet;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.access.WebInvocationPrivilegeEvaluator;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -34,17 +32,14 @@ public class BuscarPuntoController
 
     private IServicioPunto servicioPunto;
     private IServicioIdioma servicioIdioma;
-    private WebInvocationPrivilegeEvaluator evaluadorDePrivilegios;
 
     @Autowired
     public void InformacionPuntoController(
             IServicioPunto servicioPunto,
-            IServicioIdioma servicioIdioma,
-            WebInvocationPrivilegeEvaluator evaluadorDePrivilegios)
+            IServicioIdioma servicioIdioma)
     {
         this.servicioPunto = servicioPunto;
         this.servicioIdioma = servicioIdioma;
-        this.evaluadorDePrivilegios = evaluadorDePrivilegios;
     }
 
     @RequestMapping(value = "/paginaBuscarPunto.htm", method = RequestMethod.GET)

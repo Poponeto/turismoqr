@@ -22,12 +22,12 @@
                     CUIT:<br>
                     <input id="lineaDatoscuit" name="cuit" type="text" required="true"/>
                 </label>
-
+                <br>
                 <label for="lineaDatosRazonSocial">
                     Razon Social:<br>
-                    <input id="lineaDatosRazonSocial" name="razonSocial" required="tru"/>
+                    <input id="lineaDatosRazonSocial" type="text" name="razonSocial" required="tru"/>
                 </label>
-
+                <br>
                 <label for="selectRubro">Rubro:<br>
                     <select id="selectRubro" size="1" >
                         <core:forEach var="rubro" items="${rubros}">

@@ -8,7 +8,6 @@ import TurismoQR.ObjetosNegocio.Informacion.Informacion;
 import TurismoQR.ObjetosNegocio.Estados.Estado;
 import TurismoQR.ObjetosNegocio.IObjetoNegocio;
 import java.util.Collection;
-import java.util.HashSet;
 
 public class Punto implements IObjetoNegocio
 {

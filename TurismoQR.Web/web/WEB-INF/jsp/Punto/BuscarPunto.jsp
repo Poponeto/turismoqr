@@ -37,6 +37,12 @@
             });
 
         </script>
+        <style TYPE="text/css">
+            .ui-jqgrid {
+                margin-left: auto;
+                margin-right: auto;
+            }
+        </style>
     </head>
     <body style="margin: 0px;">
         <%@ include  file="/WEB-INF/jsp/Utils/Cabecera.jsp" %>
@@ -47,9 +53,9 @@
             </div>
         </sec:authorize>
 
-        <div id="contenedorMapa" style="position: absolute; width: 90%; margin-left: auto; margin-right: auto; margin-top: 15px; height: 400px;" ></div>
+        <div id="contenedorMapa" style="width: 100%; margin-left: auto; margin-right: auto; height: 400px;" ></div>
 
-        <div id="contenedorTabla" style="position: absolute; margin-top: 15px; width: 90%; margin-left: auto; margin-right: auto;">
+        <div id="contenedorTabla" style="width: 100%; background: #DEEDF7;">
             <%@ include  file="/WEB-INF/jsp/Punto/TablaPuntos.jsp" %>
         </div>
 

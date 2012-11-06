@@ -29,6 +29,9 @@
             <img alt="" src="../../Vistas/Imagenes/TurismoQRLogo.jpg" style="display: inline-block; margin-right: 15px;  height: 70px;"/>
             <img alt="" src="../../Vistas/Imagenes/TurismoQRTitulo.png" style="display: inline-block;  height: 60px;"/>
         </div>
+        <div id="contenedorMenu" class="ui-widget-header">
+            <%@ include  file="/WEB-INF/jsp/Utils/MenuCabecera.jsp" %>
+        </div>
         <div id="Contenido" style="padding: 15px 30px;" class="ui-widget-content">
             <h1>Punto guardado satisfactoriamente!</h1>
             El punto de interes <b>${nombrePunto}</b> ha sido creado correctamente.

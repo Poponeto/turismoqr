@@ -20,12 +20,12 @@
                     Direccion de Correo:<br>
                     <input id="lineaDatosMail" name="mail" type="text" required="true"/>
                 </label>
-
+                <br>
                 <label for="lineaDatosCelular">
                     Telefono Movil:<br>
                     <input id="lineaDatosCelular" name="celular" type="text" required="false"/>
                 </label>
-
+                <br>
                 <label for="lineaDatosTelefonoFijo">
                     Telefono Fijo:<br>
                     <input id="lineaDatosTelefonoFijo" name="telefonoFijo" type="text" required="false"/>

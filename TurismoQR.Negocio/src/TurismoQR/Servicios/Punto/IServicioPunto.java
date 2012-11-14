@@ -28,5 +28,5 @@ public interface IServicioPunto {
     public DTOCodigoQR GenerarCodigoQR(String idPuntoInteres, int tamaño, String rutaImagen, String formatoImagen);
     public Collection<DTOImagen> getImagenesPunto();
     public void setImagenesPunto(Collection<DTOImagen> imagenesPunto);
-    
+    public boolean eliminarPuntoInteres(String idPunto);
 }

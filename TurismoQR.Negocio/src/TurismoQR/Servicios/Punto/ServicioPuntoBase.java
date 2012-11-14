@@ -39,12 +39,16 @@ public abstract class ServicioPuntoBase
         this.manejadorEstado = manejadorEstado;
     }
 
-    public ManejadorIdiomas getManejadorIdioma()
+    protected ManejadorEstados getManejadorEstado() {
+        return manejadorEstado;
+    }
+
+    protected ManejadorIdiomas getManejadorIdioma()
     {
         return manejadorIdioma;
     }
 
-    public ITraductor getTraductor()
+    protected ITraductor getTraductor()
     {
         return traductor;
     }

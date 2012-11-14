@@ -167,5 +167,17 @@ public class ServicioPunto extends ServicioPuntoBase implements IServicioPunto
         IConsultaPunto consultaPunto = new ConsultarPuntoId(idPuntoInteres, accesoDatos);
         return (DTOPunto) ConsultarPuntoInteresBase(consultaPunto, nombreIdioma).toArray()[0];
     }
+
+    public boolean eliminarPuntoInteres(String idPunto) 
+    {
+
+       Punto punto = accesoDatos.BuscarObjeto(Punto.class, idPunto);
+       getManejadorEstado().deshabilitarEstado(punto.getEstado());
+       punto.setEstado(getManejadorEstado().crearNuevoEstado(ManejadorEstados.BORRADO));
+
+       accesoDatos.Guardar(punto);
+
+       return true;
+    }
     
 }

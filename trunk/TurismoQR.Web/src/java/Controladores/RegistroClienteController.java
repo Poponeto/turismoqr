@@ -84,6 +84,8 @@ public class RegistroClienteController
             @PathVariable String tipoCliente,
             ModelMap model)
     {
+        model.put("tipoCliente", tipoCliente);
+
         if (tipoCliente.equalsIgnoreCase("empresa"))
         {
             model.put("formularioCliente",  generarURLFormularioEmpresa());

@@ -14,6 +14,7 @@ function inicializarComponentesRegistrarCliente(tipoCliente, urlBase)
     $("#botonRegistrarse").click(function(){
         registrarCliente(tipoCliente, urlBase);
     });
+
 }
 
 function obtenerDatosContacto()
@@ -64,30 +65,27 @@ function registrarCliente(tipoCliente, urlBase)
 {
     debugger
 
+    var datosCliente;
+
     if (tipoCliente === "Empresa")
     {
-        var datosEmpresa = obtenerDatosEmpresa();
+        datosCliente = obtenerDatosEmpresa();
     }
     if (tipoCliente === "Persona")
     {
-        var datosPersona = obtenerDatosPersona();
-
-        $.ajax({
-
-            url: urlBase + "/cliente/registrarPersona.htm",
-            data: JSON.stringify(datosPersona),
-            type: "POST",
-            contentType: "application/json",
-            success: function(){
-                alert("success");
-            },
-            error: function(XMLHttpRequest, textStatus, errorThrown){
-                alert(XMLHttpRequest);
-                alert(textStatus);
-                alert(errorThrown);
-            }
-        });
+        datosCliente = obtenerDatosPersona();
     }
+
+    $.ajax({
+
+        url: urlBase + "/cliente/registrar"+tipoCliente+".htm",
+        data: JSON.stringify(datosCliente),
+        type: "POST",
+        contentType: "application/json",
+        success: function(){
+            alert("success");
+        }
+    });
     
 
 }

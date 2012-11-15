@@ -30,7 +30,7 @@
 
                 $.get('${pageContext.request.contextPath}/${formularioCliente}', function(data) {
                     $('#contenedorFormularioCliente').html(data);
-                    setTimeout('inicializarComponentesRegistrarCliente("Persona", "${pageContext.request.contextPath}")', 1000);
+                    setTimeout('inicializarComponentesRegistrarCliente("${tipoCliente}", "${pageContext.request.contextPath}")', 1000);
                 });
 
                 

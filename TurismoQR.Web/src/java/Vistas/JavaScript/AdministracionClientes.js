@@ -10,6 +10,8 @@ function inicilizarTablaClientes(urlbase)
         url: urlbase + "/administracion/cliente/obtenerInformacionTabla.htm",
         datatype: "json",
         mtype: "GET",
+        autowidth: true,
+        shrinkToFit: true,
         colNames:['Nombre de Cliente','Tipo de Cliente', 'Direccion de Correo', 'Movil', 'Telefono Fijo', 'Puntos permitidos', 'Puntos Creados'],
         colModel:[
         {

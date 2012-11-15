@@ -12,7 +12,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <%@ include file="/WEB-INF/jsp/Utils/ArchivosJQGrid.html" %>
     </head>
     <body>
         <div id="contenedorFormularioEmpresa">
@@ -37,6 +37,7 @@
                         </core:forEach>
                     </select>
                 </label>
+
 
             </fieldset>
 

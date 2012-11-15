@@ -56,15 +56,8 @@
           if (status == google.maps.GeocoderStatus.OK) {
             tqrmapas.mapa.setCenter(results[0].geometry.location);
             tqrmapas.marcador.setPosition(results[0].geometry.location);
-//            tqrmapas.marcador = null;
-//            tqrmapas.marcador = new google.maps.Marker({
-//                map: tqrmapas.mapa,
-//                position: results[0].geometry.location,
-//                draggable: true
-//            });
-//            tqrmapas.agregarEventoCambioPosicion();
           } else {
-            alert("Geocode was not successful for the following reason: " + status);
+            alert("No se pudo realizar la geocodificacion por las siquientes razones: " + status);
           }
         });
       },
@@ -178,8 +171,9 @@
 
         var infoWindow = new google.maps.InfoWindow({content : titulo});
 
-//        google.maps.event.addListener(tqrmapas.marcador, 'click', funcion);
-
+        if(funcion) {
+            funcion();
+        }
     },
 
     /**
@@ -198,6 +192,15 @@
     navegarAPosicion : function(latitud, longitud) {
         var position = new google.maps.LatLng( latitud, longitud );
         tqrmapas.mapa.panTo(position);
+    },
+
+    inicializarLocalizacion : function(latitud, longitud) {
+        tqrmapas.lat = latitud;
+        tqrmapas.lng = longitud;
+    },
+
+    inicializarContenedor : function(idContenedor) {
+        tqrmapas.contenedorMapas = idContenedor;
     }
 };
 

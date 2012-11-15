@@ -61,13 +61,11 @@ class AccesoDatos extends HibernateDaoSupport implements IAccesoDatos
 
     public void Guardar(IObjetoNegocio objetoNegocio)
     {
-        getSession().setFlushMode(FlushMode.AUTO);
         getHibernateTemplate().saveOrUpdate(objetoNegocio);
     }
 
     public void Guardar(Collection<IObjetoNegocio> objetosNegocio)
     {
-        getSession().setFlushMode(FlushMode.AUTO);
         for (IObjetoNegocio objetoNegocio : objetosNegocio)
         {
             getHibernateTemplate().saveOrUpdate(objetoNegocio);

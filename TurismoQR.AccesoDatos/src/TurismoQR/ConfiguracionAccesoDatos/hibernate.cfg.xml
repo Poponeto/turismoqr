@@ -15,7 +15,6 @@
     <mapping resource="TurismoQR/ArchivosMapeo/Informacion.hbm.xml"/>
     <mapping resource="TurismoQR/ArchivosMapeo/Recurso.hbm.xml"/>
     <mapping resource="TurismoQR/ArchivosMapeo/Imagen.hbm.xml"/>
-    <mapping resource="TurismoQR/ArchivosMapeo/Link.hbm.xml"/>
     <mapping resource="TurismoQR/ArchivosMapeo/Idioma.hbm.xml"/>
     <mapping resource="TurismoQR/ArchivosMapeo/InformacionEnIdioma.hbm.xml"/>
     <mapping resource="TurismoQR/ArchivosMapeo/Usuario.hbm.xml"/>

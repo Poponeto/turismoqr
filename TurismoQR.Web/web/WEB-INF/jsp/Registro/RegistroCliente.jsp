@@ -30,9 +30,10 @@
 
                 $.get('${pageContext.request.contextPath}/${formularioCliente}', function(data) {
                     $('#contenedorFormularioCliente').html(data);
+                    setTimeout('inicializarComponentesRegistrarCliente("Persona", "${pageContext.request.contextPath}")', 1000);
                 });
 
-                inicializarComponentesRegistrarCliente("Persona", "${pageContext.request.contextPath}");
+                
             });
         </script>
 
@@ -54,9 +55,9 @@
                 </div>
 
                 <fieldset>
-                    <label for="cantidadDePuntosDeseados">
+                    <label for="lineaDatoscantidadDePuntosDeseados">
                         Cantidad de Puntos:<br>
-                        <input id="lineaDatoscantidadDePuntosDeseados" name="cantidadDePuntosDeseados" type="text" required="false"/>
+                        <input id="lineaDatoscantidadDePuntosDeseados" name="cantidadDePuntosPermitidos" type="text" required="false"/>
                     </label>
                     <br>
                 </fieldset>

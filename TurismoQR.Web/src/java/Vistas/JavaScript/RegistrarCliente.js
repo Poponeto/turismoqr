@@ -7,7 +7,8 @@ function inicializarComponentesRegistrarCliente(tipoCliente, urlBase)
 {
     $("#lineaDatosFechaNacimiento").datepicker({
         showOtherMonths: true,
-        selectOtherMonths: true
+        selectOtherMonths: true,
+        dateFormat: "yy-mm-dd"
     });
 
     $("#botonRegistrarse").click(function(){
@@ -70,17 +71,22 @@ function registrarCliente(tipoCliente, urlBase)
     if (tipoCliente === "Persona")
     {
         var datosPersona = obtenerDatosPersona();
-debugger
+
         $.ajax({
 
-        url: urlBase + "/cliente/registrarPersona.htm",
-        data: datosPersona,
-        type: "POST",
-        contentType: "application/json",
-        success: function(){
-            alert("success");
-        }
-    });
+            url: urlBase + "/cliente/registrarPersona.htm",
+            data: JSON.stringify(datosPersona),
+            type: "POST",
+            contentType: "application/json",
+            success: function(){
+                alert("success");
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown){
+                alert(XMLHttpRequest);
+                alert(textStatus);
+                alert(errorThrown);
+            }
+        });
     }
     
 

@@ -81,7 +81,7 @@ public class ServicioPunto extends ServicioPuntoBase implements IServicioPunto
         nuevoPuntoDeInteres.setCiclo(new Ciclo());
 
         //Setea el estado del punto a habilitado
-        nuevoPuntoDeInteres.setEstado(new Estado("Habilitado"));
+        nuevoPuntoDeInteres.setEstado(getManejadorEstado().crearNuevoEstado(ManejadorEstados.HABILITADO));
 
         //Setea las imagenes correspondientes al punto, si las hubiera.
         Collection<DTOImagen> dtoImagenes = datosPunto.getImagenes();

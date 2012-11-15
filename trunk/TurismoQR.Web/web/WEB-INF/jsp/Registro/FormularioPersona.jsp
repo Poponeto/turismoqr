@@ -36,7 +36,7 @@
 
                 <label for="lineaDatosFechaNacimiento">
                     Fecha De Nacimiento:<br>
-                    <input id="lineaDatosFechaNacimiento" name="fechaNacimiento" type="text" required="true"/>
+                    <input id="lineaDatosFechaNacimiento" name="fechaDeNacimiento" type="text" required="true"/>
                 </label>
 
 

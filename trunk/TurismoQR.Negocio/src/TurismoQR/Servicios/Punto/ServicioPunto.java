@@ -70,6 +70,7 @@ public class ServicioPunto extends ServicioPuntoBase implements IServicioPunto
      * Servicio que permite guardar un punto en base a los datos especificados por el usuario
      * @param datosPunto Un DTO que contiene todos los datos necesarios para crear el punto
      */
+    @Transactional(readOnly = false)
     public void CrearPuntoInteres(DTOPunto datosPunto, String nombreIdioma)
     {
         //Crea un nuevo punto de interes

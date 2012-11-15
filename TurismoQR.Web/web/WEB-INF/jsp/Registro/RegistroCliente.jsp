@@ -17,6 +17,7 @@
 
         <%@ include file="/WEB-INF/jsp/Utils/ArchivosJQuery.html" %>
 
+        <script type="text/javascript" src="${pageContext.request.contextPath}/Vistas/JavaScript/RegistrarCliente.js"></script>
         <link rel="stylesheet" href="http://blueimp.github.com/cdn/css/bootstrap.min.css">
         <link rel="stylesheet" href="http://blueimp.github.com/cdn/css/bootstrap-responsive.min.css">
         <!--[if lt IE 7]><link rel="stylesheet" href="http://blueimp.github.com/cdn/css/bootstrap-ie6.min.css"><![endif]-->
@@ -30,6 +31,8 @@
                 $.get('${pageContext.request.contextPath}/${formularioCliente}', function(data) {
                     $('#contenedorFormularioCliente').html(data);
                 });
+
+                inicializarComponentesRegistrarCliente("Persona", "${pageContext.request.contextPath}");
             });
         </script>
 

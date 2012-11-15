@@ -13,7 +13,7 @@ function inicilizarTablaPuntos(urlbase)
         url: urlbase + "/buscarPunto/obtenerInformacionTabla.htm",
         datatype: "json",
         mtype: "GET",
-        colNames:['Identificador','Nombre Identificador', 'Latitud', 'Longitud','Links','Imagenes'],
+        colNames:['Identificador','Nombre Identificador', 'Latitud', 'Longitud','Imagenes'],
         colModel:[
         {
             name:'identificador',
@@ -36,13 +36,6 @@ function inicilizarTablaPuntos(urlbase)
         {
             name:'longitud',
             index:'longitud',
-            width:100,
-            align:"right"
-        },
-
-        {
-            name:'tieneLinks',
-            index:'tieneLinks',
             width:100,
             align:"right"
         },

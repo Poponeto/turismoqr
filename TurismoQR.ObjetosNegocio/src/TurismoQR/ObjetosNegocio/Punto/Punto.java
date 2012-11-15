@@ -3,7 +3,6 @@ package TurismoQR.ObjetosNegocio.Punto;
 import TurismoQR.ObjetosNegocio.Categorias.Categoria;
 import TurismoQR.ObjetosNegocio.Estados.Ciclo;
 import TurismoQR.ObjetosNegocio.Informacion.Imagen;
-import TurismoQR.ObjetosNegocio.Informacion.Link;
 import TurismoQR.ObjetosNegocio.Informacion.Informacion;
 import TurismoQR.ObjetosNegocio.Estados.Estado;
 import TurismoQR.ObjetosNegocio.IObjetoNegocio;
@@ -16,7 +15,6 @@ public class Punto implements IObjetoNegocio
     private Localizacion localizacion;
     private Informacion informacion;
     private Collection<Imagen> imagenes;
-    private Collection<Link> links;
     private Ciclo ciclo;
 
     public Ciclo getCiclo()
@@ -61,15 +59,6 @@ public class Punto implements IObjetoNegocio
         this.imagenes = imagenes;
     }
 
-    public Collection<Link> getLinks()
-    {
-        return links;
-    }
-
-    public void setLinks(Collection<Link> links)
-    {
-        this.links = links;
-    }
 
     public Estado getEstado()
     {

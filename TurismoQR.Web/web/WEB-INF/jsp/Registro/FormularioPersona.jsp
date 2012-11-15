@@ -16,7 +16,7 @@
     <body>
 
         <div id="contenedorFormularioPersona">
-            
+
             <fieldset>
 
                 <label for="lineaDatosNombre">
@@ -39,14 +39,15 @@
                     <input id="lineaDatosFechaNacimiento" name="fechaNacimiento" type="text" required="true"/>
                 </label>
 
+
                 <label for="selectGenero">Genero:<br>
-                    <select id="selectGenero" size="1" >
-                            <option value="Masculino" >
-                                Masculino
-                            </option>
-                            <option value="Femenino" >
-                                Femenino
-                            </option>
+                    <select id="selectGenero" name="sexo" size="1" >
+                        <option value="Masculino" >
+                            Masculino
+                        </option>
+                        <option value="Femenino" >
+                            Femenino
+                        </option>
                     </select>
                 </label>
 

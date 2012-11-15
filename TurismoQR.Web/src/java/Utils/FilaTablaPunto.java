@@ -15,7 +15,6 @@ public class FilaTablaPunto implements IFila{
     private String nombreIdentificador;
     private String latitud;
     private String longitud;
-    private int tieneLinks;
     private int tieneImagenes;
 
     public int getTieneImagenes()
@@ -28,17 +27,6 @@ public class FilaTablaPunto implements IFila{
         this.tieneImagenes = tieneImagenes;
     }
 
-    public int getTieneLinks()
-    {
-        return tieneLinks;
-    }
-
-    public void setTieneLinks(int tieneLinks)
-    {
-        this.tieneLinks = tieneLinks;
-    }
-
-    
     public String getIdentificador()
     {
         return identificador;

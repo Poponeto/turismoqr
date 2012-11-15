@@ -76,8 +76,7 @@ public class BuscarPuntoController
             fila.setLatitud(punto.getLocalizacion().getLatitud());
             fila.setLongitud(punto.getLocalizacion().getLongitud());
             fila.setTieneImagenes(punto.getImagenes() != null ? punto.getImagenes().size() : 0);
-            fila.setTieneLinks(punto.getLinks() != null ? punto.getLinks().size() : 0);
-
+           
             filas.add(fila);
         }
 

@@ -14,12 +14,6 @@
             <key column="Punto" foreign-key="idPuntoImagenes"/>
             <one-to-many class="TurismoQR.ObjetosNegocio.Informacion.Imagen"/>
         </set>
-
-        <set name="links" cascade="all-delete-orphan" outer-join="true">
-            <key column="Punto" foreign-key="idPuntoLinks"/>
-            <one-to-many class="TurismoQR.ObjetosNegocio.Informacion.Link" />
-        </set>
-        
        <many-to-one name="ciclo" unique="true" class="TurismoQR.ObjetosNegocio.Estados.Ciclo" column="ciclo" cascade="all"/>
 
     </class>

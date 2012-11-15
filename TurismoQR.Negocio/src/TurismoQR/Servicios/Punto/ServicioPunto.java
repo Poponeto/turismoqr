@@ -9,7 +9,6 @@ import TurismoQR.ObjetosNegocio.Estados.Estado;
 import TurismoQR.ObjetosNegocio.Informacion.Imagen;
 import TurismoQR.ObjetosNegocio.Informacion.Informacion;
 import TurismoQR.ObjetosNegocio.Informacion.InformacionEnIdioma;
-import TurismoQR.ObjetosNegocio.Informacion.Link;
 import TurismoQR.ObjetosNegocio.Punto.Punto;
 import TurismoQR.ObjetosTransmisionDatos.DTOImagen;
 import TurismoQR.ObjetosTransmisionDatos.DTOPunto;
@@ -117,10 +116,6 @@ public class ServicioPunto extends ServicioPuntoBase implements IServicioPunto
 
         //Setea los datos de localizacion del punto
         nuevoPuntoDeInteres.setLocalizacion(getTraductor().traducir(datosPunto.getLocalizacion()));
-
-        //Setea los links relacionados con el punto, si los hubiera
-        Collection<Link> links = new HashSet<Link>();
-        nuevoPuntoDeInteres.setLinks(links);
 
         //Persiste el punto creado previamente
         accesoDatos.Guardar(nuevoPuntoDeInteres);

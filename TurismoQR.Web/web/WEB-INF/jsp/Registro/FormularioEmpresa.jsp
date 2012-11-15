@@ -20,7 +20,7 @@
 
                 <label for="lineaDatoscuit">
                     CUIT:<br>
-                    <input id="lineaDatoscuit" name="cuit" type="text" required="true"/>
+                    <input id="lineaDatosCuit" name="cuit" type="text" required="true"/>
                 </label>
                 <br>
                 <label for="lineaDatosRazonSocial">
@@ -29,7 +29,7 @@
                 </label>
                 <br>
                 <label for="selectRubro">Rubro:<br>
-                    <select id="selectRubro" size="1" >
+                    <select id="selectRubro" name="rubro" size="1" >
                         <core:forEach var="rubro" items="${rubros}">
                             <option value="<core:out value="${rubro.nombreRubro}" />">
                                 <core:out value="${rubro.nombreRubro}" />

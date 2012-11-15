@@ -15,8 +15,6 @@
         <init-param>
             <param-name>flushMode</param-name>
             <param-value>AUTO</param-value>
-            <param-name>sessionFactoryBeanName</param-name>
-            <param-value>sessionFactory</param-value>
         </init-param>
     </filter>
 

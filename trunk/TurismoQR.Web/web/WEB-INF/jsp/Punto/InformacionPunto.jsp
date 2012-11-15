@@ -66,15 +66,7 @@
                     <core:out value="${punto.informacion.texto}" />
                 </textarea>
             </div>
-            <div id="tabLinks">
-                <ul>
-                    <core:forEach var="link" items="${punto.links}">
-                        <li>
-                        <core:out value="${link.url}" />
-                        </li>
-                    </core:forEach>
-                </ul>
-            </div>
+            
         </div>
 
 

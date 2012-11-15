@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -110,13 +111,13 @@ public class RegistroClienteController
     }
 
     @RequestMapping(value = "/" + registrarEmpresa, method = RequestMethod.POST)
-    public void registrarEmpresa( DTOEmpresa dtoEmpresa)
+    public void registrarEmpresa(@RequestBody DTOEmpresa dtoEmpresa)
     {
         servicioEmpresa.registrarCliente(dtoEmpresa);
     }
 
     @RequestMapping(value = "/" + registrarPersona, method = RequestMethod.POST)
-    public void registrarPersona(DTOPersona dtoPersona)
+    public void registrarPersona(@RequestBody DTOPersona dtoPersona)
     {
         servicioPersona.registrarCliente(dtoPersona);
     }

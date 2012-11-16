@@ -16,9 +16,9 @@ import java.util.HashSet;
  */
 public class Ciclo implements IObjetoNegocio
 {
-    public static final String BORRADO = "borrado";
-    public static final String HABILITADO = "habilitado";
-    public static final String AUTORIZACION_PENDIENTE = "autorizacionPerndiente";
+    public static final String BORRADO = "Borrado";
+    public static final String HABILITADO = "Habilitado";
+    public static final String AUTORIZACION_PENDIENTE = "Autorizacion Perndiente";
 
     private Collection<Estado> estados;
     private String idObjeto;

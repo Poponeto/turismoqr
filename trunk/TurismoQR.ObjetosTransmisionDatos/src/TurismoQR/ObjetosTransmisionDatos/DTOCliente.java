@@ -13,6 +13,17 @@ public abstract class DTOCliente extends DTOContacto {
 
     private int cantidadDePuntosPermitidos;
     private int cantidadDePuntosQuePosee;
+    private String estadoCliente;
+
+    public String getEstadoCliente()
+    {
+        return estadoCliente;
+    }
+
+    public void setEstadoCliente(String estadoCliente)
+    {
+        this.estadoCliente = estadoCliente;
+    }
 
     public int getCantidadDePuntosQuePosee()
     {

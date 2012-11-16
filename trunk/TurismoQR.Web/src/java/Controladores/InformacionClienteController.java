@@ -67,7 +67,8 @@ public class InformacionClienteController
             fila.setTipoCliente(dtoCliente.getTipoCliente());//
             fila.setNombreCliente(dtoCliente.getNombreCliente());//
             fila.setPuntosQuePosee(dtoCliente.getCantidadDePuntosQuePosee());
-
+            fila.setIdCliente(dtoCliente.getIdContacto());
+            fila.setEstadoCliente(dtoCliente.getEstadoCliente());
             filas.add(fila);
         }
 

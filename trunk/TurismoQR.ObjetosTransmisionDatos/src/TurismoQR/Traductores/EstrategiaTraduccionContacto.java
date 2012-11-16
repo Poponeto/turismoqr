@@ -23,7 +23,8 @@ public abstract class EstrategiaTraduccionContacto {
         dtoContacto.setCelular(objetoNegocio.getCelular());
         dtoContacto.setMail(objetoNegocio.getMail());
         dtoContacto.setTelefonoFijo(objetoNegocio.getTelefonoFijo());
-
+        dtoContacto.setIdContacto(objetoNegocio.getIdObjeto());
+        
         return dtoContacto;
     }
 

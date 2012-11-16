@@ -19,6 +19,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 public interface IServicioUsuario  {
 
     public DTOUsuario cargarUsuario(String nombreUsuario) throws UsernameNotFoundException, DataAccessException;
-    public boolean crearUsuario(IDTO<Usuario> dtoUsuario);
+    public Boolean crearUsuario(IDTO<Usuario> dtoUsuario);
+    public Boolean eliminarUsuaro(IDTO<Usuario> dtoUsuario);
+    public Boolean modificarUsuario(IDTO<Usuario> dtoUsuario);
     public Collection<DTOUsuario> consultarUsuarios();
 }

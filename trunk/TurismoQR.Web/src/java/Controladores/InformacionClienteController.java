@@ -13,6 +13,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -75,5 +76,17 @@ public class InformacionClienteController
         tabla.setRows(filas);
         return tabla;
 
+    }
+
+    @RequestMapping(value = "/autorizarCliente.htm", method = RequestMethod.POST)
+    public void autorizarCliente(String idCliente)
+    {
+        servicioCliente.autorizarCliente(idCliente);
+    }
+
+    @RequestMapping(value = "/modificarCliente.htm", method = RequestMethod.POST)
+    public void modificarCliente(@RequestBody FilaTablaCliente fila)
+    {
+        servicioCliente.actualizarDatosCliente(null);
     }
 }

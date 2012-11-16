@@ -5,11 +5,10 @@
 package TurismoQR.Servicios.Usuario;
 
 import TurismoQR.AccesoDatos.IAccesoDatos;
+import TurismoQR.ObjetosNegocio.Estados.Ciclo;
 import TurismoQR.ObjetosNegocio.Usuarios.Cliente;
 import TurismoQR.ObjetosNegocio.Usuarios.Contacto;
 import TurismoQR.ObjetosTransmisionDatos.DTOCliente;
-import TurismoQR.ObjetosTransmisionDatos.DTOEmpresa;
-import TurismoQR.ObjetosTransmisionDatos.DTOPersona;
 import TurismoQR.ObjetosTransmisionDatos.IDTO;
 import TurismoQR.Traductores.ITraductor;
 import java.util.Collection;
@@ -39,15 +38,16 @@ public abstract class ServicioCliente extends ServicioContacto implements IServi
     @Override
     protected Contacto registrarContacto(IDTO dtoContacto)
     {
-        Contacto contacto = super.registrarContacto(dtoContacto);
+        Cliente cliente = (Cliente) super.registrarContacto(dtoContacto);
 
-        //Tareas necesarias para completar los datos de un cliente
-        //Aca podria setearse el estado del cliente y el numero de
-        completarCliente((Cliente) contacto, dtoContacto);
+        cliente.setCantidadDePuntosPermitidos(((DTOCliente)dtoContacto).getCantidadDePuntosPermitidos());
+        cliente.setEstado(Ciclo.crearEstado(Ciclo.AUTORIZACION_PENDIENTE));
+
+        completarCliente(cliente, dtoContacto);
         
-        getAccesoDatos().Guardar(contacto);
+        getAccesoDatos().Guardar(cliente);
 
-        return contacto;
+        return cliente;
     }
 
     public Collection<DTOCliente> consultarClientes()

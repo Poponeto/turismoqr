@@ -67,6 +67,10 @@ public class Punto implements IObjetoNegocio
 
     public void setEstado(Estado estado)
     {
+        if(ciclo == null)
+        {
+            ciclo = new Ciclo();
+        }
         ciclo.setEstadoActual(estado);
     }
 

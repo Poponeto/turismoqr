@@ -81,7 +81,7 @@ public class ServicioPunto extends ServicioPuntoBase implements IServicioPunto
         nuevoPuntoDeInteres.setCiclo(new Ciclo());
 
         //Setea el estado del punto a habilitado
-        nuevoPuntoDeInteres.setEstado(getManejadorEstado().crearNuevoEstado(ManejadorEstados.HABILITADO));
+        nuevoPuntoDeInteres.setEstado(Ciclo.crearEstado(Ciclo.HABILITADO));
 
         //Setea las imagenes correspondientes al punto, si las hubiera.
         Collection<DTOImagen> dtoImagenes = datosPunto.getImagenes();
@@ -168,8 +168,7 @@ public class ServicioPunto extends ServicioPuntoBase implements IServicioPunto
     {
 
        Punto punto = accesoDatos.BuscarObjeto(Punto.class, idPunto);
-       getManejadorEstado().deshabilitarEstado(punto.getEstado());
-       punto.setEstado(getManejadorEstado().crearNuevoEstado(ManejadorEstados.BORRADO));
+       punto.setEstado(Ciclo.crearEstado(Ciclo.BORRADO));
 
        accesoDatos.Guardar(punto);
 

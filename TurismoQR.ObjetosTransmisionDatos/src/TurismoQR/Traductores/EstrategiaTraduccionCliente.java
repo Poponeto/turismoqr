@@ -20,7 +20,8 @@ public abstract class EstrategiaTraduccionCliente extends EstrategiaTraduccionCo
 
         dtoCliente.setCantidadDePuntosPermitidos(objetoNegocio.getCantidadDePuntosPermitidos());
         dtoCliente.setCantidadDePuntosQuePosee(objetoNegocio.getPuntosDeCliente().size());
-        
+        dtoCliente.setEstadoCliente(objetoNegocio.getEstado().getNombreDeEstado());
+
         return dtoCliente;
     }
 

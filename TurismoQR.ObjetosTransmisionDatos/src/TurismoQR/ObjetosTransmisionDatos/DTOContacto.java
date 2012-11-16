@@ -14,6 +14,17 @@ public abstract class DTOContacto{
     private String mail;
     private String celular;
     private String telefonoFijo;
+    private String idContacto;
+
+    public String getIdContacto()
+    {
+        return idContacto;
+    }
+
+    public void setIdContacto(String idContacto)
+    {
+        this.idContacto = idContacto;
+    }
 
     public String getCelular()
     {

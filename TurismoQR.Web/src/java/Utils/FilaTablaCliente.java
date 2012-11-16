@@ -11,13 +11,37 @@ package Utils;
  */
 public class FilaTablaCliente implements IFila {
 
+    private String idCliente;
     private String tipoCliente;
     private String nombreCliente;
     private String mail;
     private String celular;
     private String telefonoFijo;
+    private String estadoCliente;
     private int puntosPermitidos;
     private int puntosQuePosee;
+
+    public String getEstadoCliente()
+    {
+        return estadoCliente;
+    }
+
+    public void setEstadoCliente(String estadoCliente)
+    {
+        this.estadoCliente = estadoCliente;
+    }
+    
+    public String getIdCliente()
+    {
+        return idCliente;
+    }
+
+    public void setIdCliente(String idCliente)
+    {
+        this.idCliente = idCliente;
+    }
+
+
 
     public String getNombreCliente()
     {

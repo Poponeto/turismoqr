@@ -9,6 +9,7 @@ import TurismoQR.ObjetosTransmisionDatos.DTOPersona;
 import TurismoQR.Servicios.Usuario.IServicioCliente;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -119,9 +120,10 @@ public class RegistroClienteController
     }
 
     @RequestMapping(value = "/" + registrarPersona, method = RequestMethod.POST)
-    public void registrarPersona(@RequestBody DTOPersona dtoPersona)
+    public void registrarPersona(@RequestBody DTOPersona dtoPersona, Model modelo)
     {
-        servicioPersona.registrarCliente(dtoPersona);
+        boolean resultado = servicioPersona.registrarCliente(dtoPersona);
+
     }
 
 

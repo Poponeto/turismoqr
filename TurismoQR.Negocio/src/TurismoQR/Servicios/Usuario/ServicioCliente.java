@@ -13,11 +13,14 @@ import TurismoQR.ObjetosTransmisionDatos.IDTO;
 import TurismoQR.Traductores.ITraductor;
 import java.util.Collection;
 import java.util.HashSet;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
  * @author ftacchini
  */
+
+@Transactional
 public abstract class ServicioCliente extends ServicioContacto implements IServicioCliente
 {
 

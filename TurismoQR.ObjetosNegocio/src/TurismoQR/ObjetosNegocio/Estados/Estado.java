@@ -13,7 +13,7 @@ import TurismoQR.ObjetosNegocio.Periodo.PeriodoVencimiento;
  */
 public class Estado extends PeriodoVencimiento implements IEstado {
 
-    public String nombreDeEstado;
+    private String nombreDeEstado;
 
     public Estado(){
         

@@ -76,16 +76,23 @@ function registrarCliente(tipoCliente, urlBase)
         datosCliente = obtenerDatosPersona();
     }
 
-    $.ajax({
+    var jsonCliente = JSON.stringify(datosCliente);
+    var urlAccion = urlBase + "/cliente/registrar"+tipoCliente+".htm";
 
-        url: urlBase + "/cliente/registrar"+tipoCliente+".htm",
-        data: JSON.stringify(datosCliente),
+    timeout($.ajax({
+
+        url: urlAccion,
+        data: jsonCliente,
         type: "POST",
         contentType: "application/json",
         success: function(){
             alert("success");
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.log(textStatus, errorThrown);
         }
-    });
+
+    }), 1000);
     
 
 }

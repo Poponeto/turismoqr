@@ -40,5 +40,64 @@
         <div id="contenedorMenu" class="ui-widget-header">
             <%@ include  file="/WEB-INF/jsp/Utils/MenuCabecera.jsp" %>
         </div>
-        <%@ include  file="/WEB-INF/jsp/Administracion/Usuario/TablaClientes.jsp" %>
+        <div id="Contenido">
+            <%@ include  file="/WEB-INF/jsp/Administracion/Usuario/TablaClientes.jsp" %>
+            <div id="informacionCliente">
+
+                <div id="informacionPrincipal">
+                    <p>
+                        Identificador:&nbsp;
+                        <label id="identificador"></label>
+                    </p>
+
+                    <p>
+                        Nombre de Cliente:&nbsp;
+                        <label id="nombreCliente"/>
+                    </p>
+
+                    <p>
+                        Tipo de Cliente:&nbsp;
+                        <label id="tipoCliente"/>
+                    </p>
+                </div>
+
+                <div id="informacionContacto">
+                    <p>
+                        Direccion de Correo:&nbsp;
+                        <label id="mail"></label>
+                    </p>
+
+                    <p>
+                        Telefono Movil:&nbsp;
+                        <label id="celular"/>
+                    </p>
+
+                    <p>
+                        Telefono Fijo:&nbsp;
+                        <label id="telefonoFijo"/>
+                    </p>
+                </div>
+
+                <div id="informacionAdministrativa">
+                    <p>
+                        Puntos permitidos:&nbsp;
+                        <label id="puntosPermitidos"></label>
+                    </p>
+
+                    <p>
+                        Puntos Creados:&nbsp;
+                        <label id="puntosCreados"/>
+                    </p>
+
+                    <p>
+                        Estado:&nbsp;
+                        <label id="estado"/>
+                    </p>
+
+                    
+                </div>
+
+                <button id="botonAutorizarCliente">Autorizar Cliente</button>
+            </div>
+        </div>
 </html>

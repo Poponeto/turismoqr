@@ -17,6 +17,6 @@ import java.util.Collection;
 
 public interface IServicioCliente {
 
-    public Boolean registrarCliente(IDTO dtoEmpresa);
+    public Boolean registrarCliente(IDTO dtoCliente);
     public Collection<DTOCliente> consultarClientes();
 }

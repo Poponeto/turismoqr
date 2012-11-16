@@ -1,6 +1,7 @@
 package TurismoQR.ObjetosNegocio.Usuarios;
 
 import TurismoQR.ObjetosNegocio.Estados.Ciclo;
+import TurismoQR.ObjetosNegocio.Estados.Estado;
 import TurismoQR.ObjetosNegocio.Punto.PuntoComercial;
 import java.util.Collection;
 
@@ -45,6 +46,20 @@ public abstract class Cliente extends Contacto
 
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
+    }
+
+    public void setEstado(Estado estadoActual)
+    {
+        if(ciclo == null)
+        {
+            ciclo = new Ciclo();
+        }
+        getCiclo().setEstadoActual(estadoActual);
+    }
+
+    public Estado getEstado()
+    {
+        return getCiclo().getEstadoActual();
     }
 
 }

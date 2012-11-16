@@ -14,6 +14,7 @@ function inicilizarTablaPuntos(urlbase)
         datatype: "json",
         mtype: "GET",
         autowidth: true,
+        loadonce:true,
         shrinkToFit: true,
         colNames:['Identificador','Nombre Identificador', 'Latitud', 'Longitud','Imagenes'],
         colModel:[

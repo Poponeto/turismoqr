@@ -15,13 +15,15 @@ function inicilizarTablaUsuarios(urlbase)
         {
             name:'nombreUsuario',
             index:'nombreUsuario',
-            width:210
+            width:210,
+            editable: true
         },
 
         {
             name:'contraseña',
             index:'contraseña',
-            width:210
+            width:210,
+            editable: true
         },
 
         ],
@@ -29,6 +31,7 @@ function inicilizarTablaUsuarios(urlbase)
         rowList:[10,20,30],
         pager: '#paginador',
         sortname: 'nombreUsuario',
+        loadonce:true,
         viewrecords: true,
         sortorder: "desc",
         jsonReader: {
@@ -36,19 +39,13 @@ function inicilizarTablaUsuarios(urlbase)
             id: "nombreUsuario"
         },
         caption: "Usuarios",
-        height: '100%',
-        loadComplete: function() {
-            debugger
-            //funcionExito($('#tablaUsuarios').jqGrid('getRowData'), urlbase);
-        },
-        onSelectRow: function(id){
-            //funcionClickFila(jQuery('#tablaUsuarios').jqGrid('getRowData',id));
-        }
+        height: '100%'
     });
     jQuery("#tablaUsuarios").jqGrid('navGrid','#paginador',{
-        edit:false,
-        add:false,
-        del:false
+        edit:true,
+        add:true,
+        del:true,
+        reload: true
     });
 }
 

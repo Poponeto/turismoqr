@@ -8,9 +8,11 @@ function inicilizarTablaClientes(urlbase)
 {
     jQuery("#tablaClientes").jqGrid({
         url: urlbase + "/administracion/cliente/obtenerInformacionTabla.htm",
+        editurl: urlbase + "/administracion/cliente/modificarCliente.htm",
         datatype: "json",
         mtype: "GET",
         autowidth: true,
+        loadonce:true,
         shrinkToFit: true,
         colNames:['Identificador','Nombre de Cliente','Tipo de Cliente', 'Direccion de Correo', 'Movil', 'Telefono Fijo', 'Puntos permitidos', 'Puntos Creados','Estado'],
         colModel:[
@@ -38,28 +40,32 @@ function inicilizarTablaClientes(urlbase)
             name:'mail',
             index:'mail',
             width: 130,
-            align: 'center'
+            align: 'center',
+            editable: true
         },
 
         {
             name:'celular',
             index:'celular',
             width: 100,
-            align: 'center'
+            align: 'center',
+            editable: true
         },
 
         {
             name:'telefonoFijo',
             index:'telefonoFijo',
             width: 100,
-            align: 'center'
+            align: 'center',
+            editable: true
         },
 
         {
             name:'puntosPermitidos',
             index:'puntosPermitidos',
             width: 100,
-            align: 'center'
+            align: 'center',
+            editable: true
         },
 
         {
@@ -76,6 +82,14 @@ function inicilizarTablaClientes(urlbase)
         },
 
         ],
+        ajaxRowOptions : {
+            type :"POST",
+            contentType :"application/json",
+            dataType :"json"
+        },
+        serializeRowData: function(postdata){
+            return JSON.stringify(postdata);
+        },
         rowNum:10,
         rowList:[10,20,30],
         pager: '#paginador',
@@ -93,10 +107,46 @@ function inicilizarTablaClientes(urlbase)
         }
     });
     jQuery("#tablaClientes").jqGrid('navGrid','#paginador',{
-        edit:false,
+        edit:true,
         add:false,
-        del:false
-    });
+        del:false,
+        reload: true
+    },
+    {//EDIT parameters
+        ajaxEditOptions:{
+            type :"POST",
+            contentType :"application/json",
+            dataType :"json"
+        },
+        serializeEditData: function (postdata) {
+            return JSON.stringify(postdata);
+        },
+        closeAfterAdd: true
+    },
+    {
+        //add parameters
+        ajaxEditOptions:{
+            type :"POST",
+            contentType :"application/json",
+            dataType :"json"
+        },
+        serializeEditData: function (postdata) {
+            return JSON.stringify(postdata);
+        },
+        closeAfterAdd: true
+    },
+    {
+        //delete parameters
+        ajaxDelOptions:{
+            type :"POST",
+            contentType :"application/json",
+            dataType :"json"
+        },
+        serializeDelData: function (postdata) {
+            return JSON.stringify(postdata);
+        }
+    }
+    );
 }
 
 function inicializarPaginaAdministracionClientes(urlbase)

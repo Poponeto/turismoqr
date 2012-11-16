@@ -67,5 +67,32 @@ public abstract class ServicioCliente extends ServicioContacto implements IServi
         return dtosCliente;
     }
 
+    public Boolean autorizarCliente(String idCliente)
+    {
+        Cliente cliente = getAccesoDatos().BuscarObjeto(Cliente.class, idCliente);
+        cliente.setEstado(Ciclo.crearEstado(Ciclo.HABILITADO));
+
+        getAccesoDatos().Guardar(cliente);
+        
+        return cliente.getEstado().getNombreDeEstado().equals(Ciclo.HABILITADO);
+    }
+
+    public Boolean actualizarDatosCliente(IDTO dto)
+    {
+        DTOCliente dtoCliente = (DTOCliente)dto;
+
+        Cliente cliente = getAccesoDatos().BuscarObjeto(Cliente.class, dtoCliente.getIdContacto());
+
+        cliente.setMail(dtoCliente.getMail());
+        cliente.setTelefonoFijo(dtoCliente.getTelefonoFijo());
+        cliente.setCelular(dtoCliente.getCelular());
+        cliente.setCantidadDePuntosPermitidos(dtoCliente.getCantidadDePuntosPermitidos());
+
+        getAccesoDatos().Guardar(cliente);
+
+        return cliente.getIdObjeto() != null;
+
+    }
+
     protected abstract void completarCliente(Cliente cliente, IDTO dtoCliente);
 }

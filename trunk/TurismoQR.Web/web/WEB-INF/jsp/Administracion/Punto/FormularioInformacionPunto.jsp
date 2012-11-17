@@ -15,6 +15,11 @@
             <input id="nombrePunto" name="nombrePunto" type="text" placeholder="Ingrese el nombre del punto" required="true"/>
         </label>
         <br>
+        <label for="categoriaPunto">
+            Categoria:<br>
+            <%@ include  file="/WEB-INF/jsp/Utils/ComboCategoria.jsp" %>
+        </label>
+        <br>
         <label for="informacionPunto">
             Informacion relacionada:<br>
             <textarea id="informacionPunto" name="informacionPunto" placeholder="Ingrese la informacion correspondiente al punto" rows="18"></textarea>

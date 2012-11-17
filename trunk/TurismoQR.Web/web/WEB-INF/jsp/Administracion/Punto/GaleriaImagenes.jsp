@@ -9,25 +9,10 @@
    "http://www.w3.org/TR/html4/loose.dtd">
 
 <div id="contenedorPreviewImagenes">
-    
+    <div id="contenedorMensaje">Agrega imagenes para visualizarlas aqui</div>
 </div>
 <div id="contenedorGaleriaImagenes">
     <ul id="galeriaImagenes">
-        <li>
-<!--            <span class="title">The first image</span>-->
-            <img src="<%=request.getContextPath()%>/imagenes/mostrarImagen?img=C:/Users/Chelo/Downloads/FotosMendoza/Mendoza (1).jpg">
-        </li>
-        <li>
-<!--            <span class="title">A second image</span>-->
-            <img src="<%=request.getContextPath()%>/imagenes/mostrarImagen?img=C:/Users/Chelo/Downloads/FotosMendoza/Mendoza (2).jpg">
-        </li>
-        <li>
-<!--            <span class="title">This is the description</span>-->
-            <img src="<%=request.getContextPath()%>/imagenes/mostrarImagen?img=C:/Users/Chelo/Downloads/FotosMendoza/Mendoza (3).jpg">
-        </li>
-        <li>
-<!--            <span class="title">Another description</span>-->
-            <img src="<%=request.getContextPath()%>/imagenes/mostrarImagen?img=C:/Users/Chelo/Downloads/FotosMendoza/Mendoza (4).jpg">
-        </li>
+        <li><img alt=""  src="${pageContext.request.contextPath}/Vistas/Imagenes/ImagenDefault.jpg"/></li>
     </ul>
 </div>

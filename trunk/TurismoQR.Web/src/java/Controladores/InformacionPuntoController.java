@@ -5,17 +5,21 @@
 
 package Controladores;
 
+import TurismoQR.ObjetosTransmisionDatos.DTOCategoria;
 import TurismoQR.Servicios.Idioma.IServicioIdioma;
 import TurismoQR.ObjetosTransmisionDatos.DTOIdioma;
 import TurismoQR.ObjetosTransmisionDatos.DTOPunto;
 import TurismoQR.Servicios.Punto.IServicioPunto;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  *
@@ -31,6 +35,7 @@ public class InformacionPuntoController {
 
     private static final String obtenerInformacionPuntoIdiomaDefault = "obtenerInformacionPuntoIdiomaDefault.htm";
     private static final String obtenerInformacionPunto = "obtenerInformacionPunto.htm";
+    private static final String obtenerInformacionPuntoMobile = "infoPuntoMobile.htm";
 
     @Autowired
     public void InformacionPuntoController(
@@ -68,5 +73,32 @@ public class InformacionPuntoController {
         String idioma = "espanol";
         //TODO Obtener el idioma por default del usuario
         return "redirect:/informacionPunto/" + idioma + "/" + idPunto +"/obtenerInformacionPunto.htm";
+    }
+
+    @RequestMapping(value = "/categorias/",
+                    method = RequestMethod.GET)
+    public @ResponseBody List<DTOCategoria> obtenerCategoriasPunto (
+            ModelMap model)
+    {
+        List<DTOCategoria> categorias = new ArrayList<DTOCategoria>();
+
+        categorias = servicioPunto.obtenerCategoriasPunto();
+        
+        return categorias;
+    }
+
+    @RequestMapping(value = "/{idPunto}/" + obtenerInformacionPuntoMobile,
+                    method = RequestMethod.GET)
+    public String obtenerInformacionPuntoMobile (
+            @PathVariable String idPunto,
+            ModelMap model)
+    {
+        String idioma = "espanol";
+        DTOPunto dtoPunto = servicioPunto.ConsultarPuntoInteres(idPunto, idioma);
+        Collection<DTOIdioma> dtoIdiomas = servicioIdioma.consultarPosiblesIdiomas(idPunto);
+        model.put("punto", dtoPunto);
+        model.put("idiomas", dtoIdiomas);
+
+        return "Mobile/index";
     }
 }

@@ -73,7 +73,11 @@ public abstract class ServicioPuntoBase
 
     public DTOImagen crearDTOImagen(Imagen imagen, final Idioma idioma)
     {
-        InformacionEnIdioma informacionImagen = manejadorIdioma.seleccionarInformacionDeImagenEnIdioma(imagen, idioma);
+        InformacionEnIdioma informacionImagen = null;
+
+        if(imagen.getInformacion() != null) {
+            informacionImagen = manejadorIdioma.seleccionarInformacionDeImagenEnIdioma(imagen, idioma);
+        }
 
         DTOImagen dtoImagen = (DTOImagen) traductor.traducir(imagen);
 
@@ -100,8 +104,10 @@ public abstract class ServicioPuntoBase
             dtoInformacion.setIdioma(dtoIdioma);
         }
 
-        dtoPunto.setImagenes(crearDTOImagenes(punto.getImagenes(), idioma));
-
+        if(punto.getImagenes() != null && !punto.getImagenes().isEmpty()) {
+            dtoPunto.setImagenes(crearDTOImagenes(punto.getImagenes(), idioma));
+        }
+        
         DTOLocalizacion dtoLocalizacion = (DTOLocalizacion) traductor.traducir(punto.getLocalizacion());
         dtoPunto.setLocalizacion(dtoLocalizacion);
 

@@ -18,6 +18,15 @@ public class DTOPunto implements IDTO<Punto>{
     private DTOInformacionEnIdioma informacion;
     private Collection<DTOImagen> imagenes;
     private DTOLocalizacion localizacion;
+    private DTOCategoria categoria;
+
+    public DTOCategoria getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(DTOCategoria categoria) {
+        this.categoria = categoria;
+    }
     private String idPunto;
 
     public String getNombrePunto() {

@@ -19,8 +19,10 @@ import TurismoQR.ObjetosNegocio.Informacion.Idioma;
 import TurismoQR.ObjetosNegocio.Informacion.Imagen;
 import TurismoQR.ObjetosNegocio.Informacion.Informacion;
 import TurismoQR.ObjetosNegocio.Informacion.InformacionEnIdioma;
+import TurismoQR.ObjetosTransmisionDatos.DTOCategoria;
 import TurismoQR.ObjetosTransmisionDatos.DTOImagen;
 import TurismoQR.Servicios.Idioma.IServicioIdioma;
+import TurismoQR.Traductores.ITraductor;
 import Utils.UploadedFile;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -48,17 +50,29 @@ public class CrearPuntoController {
     IServicioPunto servicioPunto;
     private IServicioIdioma servicioIdioma;
     ManejadorIdiomas manejadorIdioma;
+    ITraductor traductor;
+    private Collection<DTOImagen> imagenesPunto;
+
+    public Collection<DTOImagen> getImagenesPunto() {
+        return imagenesPunto;
+    }
+
+    public void setImagenesPunto(Collection<DTOImagen> imagenesPunto) {
+        this.imagenesPunto = imagenesPunto;
+    }
 
     private static final String actualizarPuntoInteres = "actualizarPuntoInteres.htm";
     private static final String eliminarPuntoInteres = "eliminarPuntoInteres.htm";
 
 
     @Autowired
-    public void LoginController(IServicioPunto servicioPunto, IServicioIdioma servicioIdioma, ManejadorIdiomas manejadorIdioma)
+    public void LoginController(IServicioPunto servicioPunto, IServicioIdioma servicioIdioma, ManejadorIdiomas manejadorIdioma, ITraductor traductor)
     {
         this.servicioPunto = servicioPunto;
         this.servicioIdioma = servicioIdioma;
         this.manejadorIdioma = manejadorIdioma;
+        this.traductor = traductor;
+        this.imagenesPunto = new ArrayList<DTOImagen>();
     }
 
     public static String generarURLActualizarPunto(String idPunto)
@@ -75,7 +89,9 @@ public class CrearPuntoController {
     public String redirigir(ModelMap model)
     {
         Collection<DTOIdioma> dtoIdiomas = servicioIdioma.consultarPosiblesIdiomas();
+        Collection<DTOCategoria> dtoCategorias = servicioPunto.obtenerCategoriasPunto();
         model.put("idiomas", dtoIdiomas);
+        model.put("categorias", dtoCategorias);
         return "Administracion/Punto/CrearPuntoDeInteres";
     }
 
@@ -86,6 +102,7 @@ public class CrearPuntoController {
             @RequestParam("latitudPunto") String latitudPunto,
             @RequestParam("longitudPunto") String longitudPunto,
             @RequestParam("idioma") String idioma,
+            @RequestParam("categoria") String categoria,
             ModelMap modelo
         )
     {
@@ -93,17 +110,25 @@ public class CrearPuntoController {
         idiomaPunto.setNombreIdioma(idioma);
 
         DTOPunto dtoPunto = new DTOPunto();
+        
         dtoPunto.setNombrePunto(nombrePunto);
+
         DTOInformacionEnIdioma infoIdioma = new DTOInformacionEnIdioma();
         infoIdioma.setIdioma(idiomaPunto);
         infoIdioma.setNombre(nombrePunto);
         infoIdioma.setTexto(informacionPunto);
         dtoPunto.setInformacion(infoIdioma);
+
+        DTOCategoria dtoCategoria = new DTOCategoria();
+        dtoCategoria.setNombreCategoria(categoria);
+        dtoPunto.setCategoria(dtoCategoria);
+
         DTOLocalizacion localizacionPunto = new DTOLocalizacion();
         localizacionPunto.setLatitud(latitudPunto);
         localizacionPunto.setLongitud(longitudPunto);
+
         dtoPunto.setLocalizacion(localizacionPunto);
-        dtoPunto.setImagenes(servicioPunto.getImagenesPunto());
+        dtoPunto.setImagenes(getImagenesPunto());
 
         servicioPunto.CrearPuntoInteres(dtoPunto, idioma);
 
@@ -137,6 +162,7 @@ public class CrearPuntoController {
         //TODO Obtener el idioma por default del usuario
         return "redirect:/informacionPunto/" + idioma + "/" + idPunto +"/obtenerInformacionPunto.htm";
     }
+    
     @RequestMapping("/subirArchivo.htm")
     public @ResponseBody List<UploadedFile> handleRequest(@RequestParam("files") CommonsMultipartFile files,
             @RequestParam(value="comentarioImagen", required=false) String comentarioImagen,
@@ -157,7 +183,6 @@ public class CrearPuntoController {
 
         file.write(archivoADisco);
 
-//        System.out.println(System.getProperty("user.home") + "/" + archivoADisco.getName());
         UploadedFile archivoSubido = new UploadedFile(file.getName(),
                 Long.valueOf(file.getSize()).intValue(),
                 archivoADisco.getPath(), request.getContextPath()+"/imagenes/mostrarImagen?img="+archivoADisco.getPath(),
@@ -178,9 +203,9 @@ public class CrearPuntoController {
             infoImagen.setInformacionEnIdiomas(listaInfo);
             imagenParaDTO.setInformacion(infoImagen);
         }
-        Collection<DTOImagen> DTOImagenes = servicioPunto.getImagenesPunto();
-        //DTOImagenes.add(servicioPunto.crearDTOImagen(imagenParaDTO, idiomaSeleccionado));
-        servicioPunto.setImagenesPunto(DTOImagenes);
+        Collection<DTOImagen> DTOImagenes = getImagenesPunto();
+        DTOImagenes.add((DTOImagen) traductor.traducir(imagenParaDTO));
+        setImagenesPunto(DTOImagenes);
 
         modelo.put("detallesImagen", uploadedFiles);
 
@@ -189,7 +214,7 @@ public class CrearPuntoController {
 
     @RequestMapping("/borrarArchivo.htm")
     public String handleRequestDelete(@RequestParam("archivo") String archivo) {
-        File file = new File("String con la ruta");
+        File file = new File(archivo);
         if (file.delete())
            System.out.println("El fichero ha sido borrado satisfactoriamente");
         else

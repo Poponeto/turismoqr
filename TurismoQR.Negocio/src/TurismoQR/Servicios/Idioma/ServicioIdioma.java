@@ -94,13 +94,15 @@ public class ServicioIdioma implements IServicioIdioma
         //Agrega todos los idiomas posibles de las imagenes si estos no fueron ya agregados
         for (Imagen imagen : punto.getImagenes())
         {
-            for (InformacionEnIdioma informacionEnIdioma : imagen.getInformacion().getInformacionEnIdiomas())
-            {
-                DTOIdioma dtoIdioma = (DTOIdioma) getTraductor().traducir(informacionEnIdioma.getIdioma());
-
-                if (!dtoIdiomas.contains(dtoIdioma))
+            if(imagen.getInformacion() != null) {
+                for (InformacionEnIdioma informacionEnIdioma : imagen.getInformacion().getInformacionEnIdiomas())
                 {
-                    dtoIdiomas.add(dtoIdioma);
+                    DTOIdioma dtoIdioma = (DTOIdioma) getTraductor().traducir(informacionEnIdioma.getIdioma());
+
+                    if (!dtoIdiomas.contains(dtoIdioma))
+                    {
+                        dtoIdiomas.add(dtoIdioma);
+                    }
                 }
             }
         }

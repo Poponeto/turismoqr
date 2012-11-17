@@ -5,7 +5,6 @@
 package TurismoQR.Servicios.Punto;
 
 import TurismoQR.AccesoDatos.IAccesoDatos;
-import TurismoQR.ObjetosNegocio.Estados.Estado;
 import TurismoQR.ObjetosNegocio.Informacion.Imagen;
 import TurismoQR.ObjetosNegocio.Informacion.Informacion;
 import TurismoQR.ObjetosNegocio.Informacion.InformacionEnIdioma;
@@ -20,11 +19,14 @@ import TurismoQR.Servicios.Punto.ConsultasPunto.IConsultaPunto;
 import TurismoQR.Manejadores.GeneradorCodigo.GeneradorCodigoQR;
 import TurismoQR.Manejadores.ManejadorEstados.ManejadorEstados;
 import TurismoQR.Manejadores.ManejadorIdiomas.ManejadorIdiomas;
+import TurismoQR.ObjetosNegocio.Categorias.Categoria;
 import TurismoQR.ObjetosNegocio.Estados.Ciclo;
+import TurismoQR.ObjetosTransmisionDatos.DTOCategoria;
 import TurismoQR.Traductores.ITraductor;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -40,17 +42,17 @@ public class ServicioPunto extends ServicioPuntoBase implements IServicioPunto
 
     private IAccesoDatos accesoDatos;
     private GeneradorCodigoQR generadorCodigo;
-    private Collection<DTOImagen> imagenesPunto;
+//    private Collection<DTOImagen> imagenesPunto;
 
-    public Collection<DTOImagen> getImagenesPunto()
-    {
-        return imagenesPunto;
-    }
-
-    public void setImagenesPunto(Collection<DTOImagen> imagenesPunto)
-    {
-        this.imagenesPunto = imagenesPunto;
-    }
+//    public Collection<DTOImagen> getImagenesPunto()
+//    {
+//        return imagenesPunto;
+//    }
+//
+//    public void setImagenesPunto(Collection<DTOImagen> imagenesPunto)
+//    {
+//        this.imagenesPunto = imagenesPunto;
+//    }
 
     @Autowired
     public ServicioPunto(ManejadorIdiomas manejadorIdioma,
@@ -63,7 +65,7 @@ public class ServicioPunto extends ServicioPuntoBase implements IServicioPunto
 
         this.accesoDatos = accesoDatos;
         this.generadorCodigo = generadorCodigo;
-        this.imagenesPunto = new ArrayList<DTOImagen>();
+//        this.imagenesPunto = new ArrayList<DTOImagen>();
     }
 
     /**
@@ -93,14 +95,16 @@ public class ServicioPunto extends ServicioPuntoBase implements IServicioPunto
                 imagenesPuntoGuardar.add(getTraductor().traducir(dtoImagen));
             }
         }
-        else if (imagenesPunto != null && !imagenesPunto.isEmpty())
-        {
-            for (DTOImagen dtoImagenPunto : this.imagenesPunto)
-            {
-                imagenesPuntoGuardar.add(getTraductor().traducir(dtoImagenPunto));
-            }
-        }
+//        else if (imagenesPunto != null && !imagenesPunto.isEmpty())
+//        {
+//            for (DTOImagen dtoImagenPunto : this.imagenesPunto)
+//            {
+//                imagenesPuntoGuardar.add(getTraductor().traducir(dtoImagenPunto));
+//            }
+//        }
         nuevoPuntoDeInteres.setImagenes(imagenesPuntoGuardar);
+
+        nuevoPuntoDeInteres.setCategoria(getTraductor().traducir(datosPunto.getCategoria()));
 
 
         //Setea la informacion del punto
@@ -173,6 +177,20 @@ public class ServicioPunto extends ServicioPuntoBase implements IServicioPunto
        accesoDatos.Guardar(punto);
 
        return true;
+    }
+
+    public List<DTOCategoria> obtenerCategoriasPunto()
+    {
+
+       List<Categoria> categorias = (List<Categoria>)accesoDatos.BuscarConjuntoObjetos(Categoria.class);
+       List<DTOCategoria> dtoCategorias = new ArrayList<DTOCategoria>();
+
+       for(Categoria categoria : categorias) {
+           DTOCategoria dtoCategoria = (DTOCategoria) getTraductor().traducir(categoria);
+           dtoCategorias.add(dtoCategoria);
+       }
+
+       return dtoCategorias;
     }
     
 }

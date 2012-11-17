@@ -14,7 +14,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Nuevo Punto de Interes</title>
 
-        <script type="text/javascript" src="../../Vistas/JavaScript/JQuery/jquery-1.8.1.min.js"></script>
+        <script type="text/javascript" src="${pageContext.request.contextPath}/Vistas/JavaScript/JQuery/jquery-1.8.1.min.js"></script>
         
         <script type="text/javascript" src="http://blueimp.github.com/JavaScript-Templates/tmpl.min.js"></script>
         <script type="text/javascript" src="http://blueimp.github.com/JavaScript-Load-Image/load-image.min.js"></script>
@@ -22,20 +22,20 @@
         <script type="text/javascript" src="http://blueimp.github.com/cdn/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="http://blueimp.github.com/Bootstrap-Image-Gallery/js/bootstrap-image-gallery.min.js"></script>
         <link rel="stylesheet" href="http://blueimp.github.com/cdn/css/bootstrap.min.css">
-        <link rel="stylesheet" href="../../Vistas/HojasDeEstilo/style.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/Vistas/HojasDeEstilo/style.css">
         <link rel="stylesheet" href="http://blueimp.github.com/cdn/css/bootstrap-responsive.min.css">
         <!--[if lt IE 7]><link rel="stylesheet" href="http://blueimp.github.com/cdn/css/bootstrap-ie6.min.css"><![endif]-->
         <link rel="stylesheet" href="http://blueimp.github.com/Bootstrap-Image-Gallery/css/bootstrap-image-gallery.min.css">
-        <link rel="stylesheet" href="../../Vistas/HojasDeEstilo/subirArchivoPopUp.css">
-        <script type="text/javascript" src="../../Vistas/JavaScript/InicializadorComponentes.js"></script>
-        <script type="text/javascript" src="../../Vistas/JavaScript/IniciarPaginaCrearPunto.js"></script>
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/Vistas/HojasDeEstilo/subirArchivoPopUp.css">
+        <script type="text/javascript" src="${pageContext.request.contextPath}/Vistas/JavaScript/InicializadorComponentes.js"></script>
+        <script type="text/javascript" src="${pageContext.request.contextPath}/Vistas/JavaScript/IniciarPaginaCrearPunto.js"></script>
 
         <%@ include  file="/WEB-INF/jsp/Utils/ArchivosJQuery.html" %>
 <!--        Temporal-->
-        <link rel="stylesheet" type="text/css" href="../../Vistas/HojasDeEstilo/jquery-ui-1.8.24.custom.css">
-        <link rel="stylesheet" type="text/css" href="../../Vistas/HojasDeEstilo/Administracion.css">
-        <script type="text/javascript" src="../../Vistas/JavaScript/navegacionFormularios.js"></script>
-        <script type="text/javascript" src="../../Vistas/JavaScript/JQuery/GaleriaImagenes/jquery.jcoverflip.js"></script>
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/Vistas/HojasDeEstilo/jquery-ui-1.8.24.custom.css">
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/Vistas/HojasDeEstilo/Administracion.css">
+        <script type="text/javascript" src="${pageContext.request.contextPath}/Vistas/JavaScript/navegacionFormularios.js"></script>
+        <script type="text/javascript" src="${pageContext.request.contextPath}/Vistas/JavaScript/JQuery/GaleriaImagenes/jquery.jcoverflip.js"></script>
 <!--        Temporal-->
         <%@ include  file="/WEB-INF/jsp/Utils/ArchivosTextEditor.html" %>
         <%@ include  file="/WEB-INF/jsp/Utils/ArchivosPotatoMenu.html" %>
@@ -53,15 +53,22 @@
             });
 
             function initGaleria() {
-                var itemsGaleria = $('ul.ui-jcoverflip img');
-                $(itemsGaleria[1]).click();
-                $(itemsGaleria[0]).click();
-                $('#contenedorPreviewImagenes').find('img').remove();
-                $('#contenedorPreviewImagenes').append('<img id ="img0" src="' + $(itemsGaleria[0]).attr('src') + '">');
+
+                var itemsGaleriaInicial = $('ul.ui-jcoverflip img');
+
                 $('#galeriaImagenes').on('click', function() {
+                    var itemsGaleria = $('ul.ui-jcoverflip img');
+
+                    $(itemsGaleria[0]).click(function(event){
+                        event.preventDefault();
+                        event.stopPropagation();
+                        return false;
+                    });
+
                     var elementoEnContenedor = $('#contenedorPreviewImagenes').find('img');
                     var idElementoEnContenedor = elementoEnContenedor.attr('id');
-                    if($.ui.jcoverflip.defaults.current != idElementoEnContenedor.substring(3, idElementoEnContenedor.length)) {
+                    if(idElementoEnContenedor != undefined &&
+                        $.ui.jcoverflip.defaults.current != idElementoEnContenedor.substring(3, idElementoEnContenedor.length)) {
                         elementoEnContenedor.fadeOut(1000, function() {
                             $(this).remove();
                             $('#contenedorPreviewImagenes')
@@ -72,8 +79,19 @@
                                 + '">');
                             $('#img' + $.ui.jcoverflip.defaults.current).fadeIn(1000);
                         })
+                    } else {
+                        $('#contenedorMensaje').remove();
+                        $('#contenedorPreviewImagenes')
+                            .append('<img id ="img'
+                                + $.ui.jcoverflip.defaults.current
+                                + '" style="display: none;" src="'
+                                + $(itemsGaleria[$.ui.jcoverflip.defaults.current]).attr('src')
+                                + '">');
+                            $('#img' + $.ui.jcoverflip.defaults.current).fadeIn(1000);
                     }
                 });
+                
+                $(itemsGaleriaInicial[1]).click();
             }
         </script>
     </head>

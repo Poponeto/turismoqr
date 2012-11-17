@@ -63,7 +63,7 @@ public class BuscarPuntoController
     @ResponseBody
     Tabla obtenerInformacionTabla()
     {
-        Collection<DTOPunto> puntos = servicioPunto.ConsultarPuntosDeInteres(null);
+        Collection<DTOPunto> puntos = servicioPunto.ConsultarPuntosDeInteres("espanol");
 
         Tabla tabla = new Tabla();
         Collection<IFila> filas = new HashSet<IFila>();

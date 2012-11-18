@@ -17,12 +17,11 @@ import TurismoQR.Servicios.Punto.IServicioPunto;
 import TurismoQR.Manejadores.ManejadorIdiomas.ManejadorIdiomas;
 import TurismoQR.ObjetosNegocio.Informacion.Idioma;
 import TurismoQR.ObjetosNegocio.Informacion.Imagen;
-import TurismoQR.ObjetosNegocio.Informacion.Informacion;
-import TurismoQR.ObjetosNegocio.Informacion.InformacionEnIdioma;
 import TurismoQR.ObjetosTransmisionDatos.DTOCategoria;
 import TurismoQR.ObjetosTransmisionDatos.DTOImagen;
 import TurismoQR.Servicios.Idioma.IServicioIdioma;
 import TurismoQR.Traductores.ITraductor;
+import Utils.DetallesImagenResponse;
 import Utils.UploadedFile;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -32,6 +31,7 @@ import java.util.Collection;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.fileupload.FileItem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -165,7 +165,6 @@ public class CrearPuntoController {
     
     @RequestMapping("/subirArchivo.htm")
     public @ResponseBody List<UploadedFile> handleRequest(@RequestParam("files") CommonsMultipartFile files,
-            @RequestParam(value="comentarioImagen", required=false) String comentarioImagen,
             @RequestParam(value="idioma") String idioma, HttpServletRequest request,
             ModelMap modelo)
             throws ServletException, IOException, Exception {
@@ -176,7 +175,7 @@ public class CrearPuntoController {
         FileItem file = files.getFileItem();
 
         FileOutputStream os = null;
-        String nombre = file.getName();
+        String nombre = file.getName().replace(" ", "_");
         File archivoADisco = new File(nombre);
         String urlImagen = System.getProperty("user.home") + "/" + archivoADisco.getName();
         archivoADisco = new File(System.getProperty("user.home") + "/" + archivoADisco.getName());
@@ -186,23 +185,13 @@ public class CrearPuntoController {
         UploadedFile archivoSubido = new UploadedFile(file.getName(),
                 Long.valueOf(file.getSize()).intValue(),
                 archivoADisco.getPath(), request.getContextPath()+"/imagenes/mostrarImagen?img="+archivoADisco.getPath(),
-                "/borrarArchivo", "DELETE");
+                request.getContextPath()+"/administracion/crearPunto/"+nombre+"/borrarArchivo.htm", "DELETE");
         uploadedFiles.add(archivoSubido);
-
-        System.out.println(comentarioImagen);
 
         Imagen imagenParaDTO = new Imagen();
         imagenParaDTO.setUrl(urlImagen);
         imagenParaDTO.setExtension(file.getName().substring(file.getName().indexOf(".")));
-
-        if(comentarioImagen != null && !comentarioImagen.isEmpty()) {
-            List<InformacionEnIdioma> listaInfo = new ArrayList<InformacionEnIdioma>();
-            InformacionEnIdioma contenidoInfo = new InformacionEnIdioma(comentarioImagen, null, idiomaSeleccionado);
-            listaInfo.add(contenidoInfo);
-            Informacion infoImagen = new Informacion();
-            infoImagen.setInformacionEnIdiomas(listaInfo);
-            imagenParaDTO.setInformacion(infoImagen);
-        }
+        
         Collection<DTOImagen> DTOImagenes = getImagenesPunto();
         DTOImagenes.add((DTOImagen) traductor.traducir(imagenParaDTO));
         setImagenesPunto(DTOImagenes);
@@ -212,13 +201,72 @@ public class CrearPuntoController {
         return uploadedFiles;
     }
 
-    @RequestMapping("/borrarArchivo.htm")
-    public String handleRequestDelete(@RequestParam("archivo") String archivo) {
-        File file = new File(archivo);
-        if (file.delete())
-           System.out.println("El fichero ha sido borrado satisfactoriamente");
-        else
-           System.out.println("El fichero no puede ser borrado");
-        return "done";
+    @RequestMapping("/{archivo}/borrarArchivo.htm")
+    public @ResponseBody DetallesImagenResponse handleRequestDelete(
+            @PathVariable("archivo") String archivo,
+            HttpServletResponse response) {
+
+        Collection<DTOImagen> imagenes = getImagenesPunto();
+        String pathArchivo = "";
+        for(DTOImagen imagen : imagenes){
+            if(imagen.getUrl().contains(archivo)) {
+                pathArchivo = imagen.getUrl();
+            }
+        }
+
+        response.setContentType("application/json");
+
+        DetallesImagenResponse detallesOperacion = new DetallesImagenResponse();
+        File file = new File(pathArchivo);
+        if (file.delete()) {
+            detallesOperacion.setEstadoOperacion("SUCCESS");
+            response.setStatus(200);
+            System.out.println("El fichero ha sido borrado satisfactoriamente");
+        } else {
+            detallesOperacion.setEstadoOperacion("ERROR");
+            response.setStatus(500);
+            System.out.println("El fichero no puede ser borrado");
+        }
+
+        return detallesOperacion;
+    }
+
+    @RequestMapping("/{comentario}/{archivo}/agregarComentario.htm")
+    public @ResponseBody DetallesImagenResponse handleRequestComentario(
+            @PathVariable("archivo") String archivo,
+            @PathVariable("comentario") String comentario,
+            HttpServletResponse response) {
+
+        Collection<DTOImagen> imagenes = getImagenesPunto();
+
+        DTOImagen imagenComentario = null;
+
+        for(DTOImagen imagen : imagenes){
+            if(imagen.getUrl().contains(archivo)) {
+                imagenComentario = imagen;
+            }
+        }
+
+        String decodedComment = comentario.replaceAll("_", " ");
+
+        DetallesImagenResponse detallesOperacion = new DetallesImagenResponse();
+
+        response.setContentType("application/json");
+
+        if(imagenComentario != null) {
+            DTOInformacionEnIdioma dtoInformacion = new DTOInformacionEnIdioma();
+            DTOIdioma idioma = new DTOIdioma();
+            idioma.setNombreIdioma("espanol");
+            dtoInformacion.setIdioma(idioma);
+            dtoInformacion.setTexto(decodedComment);
+            imagenComentario.setInformacion(dtoInformacion);
+            detallesOperacion.setEstadoOperacion("SUCCESS");
+            detallesOperacion.setMensaje(decodedComment);
+            response.setStatus(200);
+        } else {
+            response.setStatus(500);
+        }
+
+        return detallesOperacion;
     }
 }

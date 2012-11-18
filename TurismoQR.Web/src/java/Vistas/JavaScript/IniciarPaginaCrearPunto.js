@@ -9,9 +9,8 @@ function iniciarCrearPunto() {
         width: '60%',
         buttons: {
                 "Ok": function() {
-                        $('#contenedorPrincipal').css('opacity','1');
-                        $('div.navBar').css('opacity','1');
-                        agregarImagenesASlide();
+                        tqrgaleria.agregarImagenesASlide();
+                        cancelarTodo();
                         $(this).dialog("close");
                 },
                 "Cancel": function() {
@@ -32,8 +31,7 @@ function iniciarCrearPunto() {
     });
 
     $('#dialog_link').click(function(){
-        $('#contenedorPrincipal').css('opacity','0.5');
-        $('div.navBar').css('opacity','0.5');
+        deshabilitarFormulario();
         $('#dialog').dialog('open');
         $('.ui-dialog-titlebar-close').click(function(){
             cancelarTodo();
@@ -50,56 +48,27 @@ function iniciarCrearPunto() {
     $('#selectIdiomas').change();
 }
 
-function agregarImagenesASlide() {
-    //Guardamos la galeria actual;
-    var galeria = $('#galeriaImagenes');
-    var padreGaleria = galeria.parent();
-    var codigoGaleria = padreGaleria.html();
-
-    //Borramos la galeria
-    galeria.fadeOut(1000, function(){
-        galeria.remove();
-    });
-
-    var imagenesActuales = $(codigoGaleria).find('img');
-
-    //Creamos una nueva galeria que contendra las nuevas imagenes
-    var nuevaGaleria = $('<ul id="galeriaImagenes" style="display: none;">');
-
-    //Agregamos las imagenes que existian
-    imagenesActuales.each(function(){
-        var src = $(this).attr('src');
-        nuevaGaleria.append('<li><img src="' + src + '"/></li>');
-    });
-
-    //Agregamos las nuevas imagenes
-    var imagenesSubidas = $('table[role="presentation"] img');
-    imagenesSubidas.each(function(){
-        var src = $(this).attr('src');
-        nuevaGaleria.append('<li><img src="' + src + '"/></li>');
-    });
-
-    //Agregamos la nueva galeria a la pagina
-    padreGaleria.append(nuevaGaleria);
-
-    //Inicializamos la galeria
-    nuevaGaleria.jcoverflip();
-
-    //Mostramos la galeria
-    nuevaGaleria.fadeIn(1000, function() {
-        initGaleria();
-    });
-
-}
-
 function cancelarTodo() {
     $('table[role="presentation"] tr').remove();
-    $('#contenedorPrincipal').css('opacity','1');
-    $('div.navBar').css('opacity','1');
+    habilitarFormulario();
 }
 
 function subirArchivos() {
     $('table[role="presentation"] td.start button').click();
+}
+
+function deshabilitarFormulario() {
+    $('#contenedorPrincipal').css('opacity','0.5');
+    $('#contenedorPrincipal').css('pointer-events', 'none');
+    $('div.navBar').css('opacity','0.5');
+    $('div.navBar').css('pointer-events', 'none');
+}
+
+function habilitarFormulario() {
+    $('#contenedorPrincipal').css('opacity','1');
+    $('#contenedorPrincipal').css('pointer-events', 'initial');
+    $('div.navBar').css('opacity','1');
+    $('div.navBar').css('pointer-events', 'initial');
 }
 
 function ocultarCampoComentario() {

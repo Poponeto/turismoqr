@@ -42,17 +42,6 @@ public class ServicioPunto extends ServicioPuntoBase implements IServicioPunto
 
     private IAccesoDatos accesoDatos;
     private GeneradorCodigoQR generadorCodigo;
-//    private Collection<DTOImagen> imagenesPunto;
-
-//    public Collection<DTOImagen> getImagenesPunto()
-//    {
-//        return imagenesPunto;
-//    }
-//
-//    public void setImagenesPunto(Collection<DTOImagen> imagenesPunto)
-//    {
-//        this.imagenesPunto = imagenesPunto;
-//    }
 
     @Autowired
     public ServicioPunto(ManejadorIdiomas manejadorIdioma,
@@ -65,7 +54,6 @@ public class ServicioPunto extends ServicioPuntoBase implements IServicioPunto
 
         this.accesoDatos = accesoDatos;
         this.generadorCodigo = generadorCodigo;
-//        this.imagenesPunto = new ArrayList<DTOImagen>();
     }
 
     /**
@@ -95,13 +83,7 @@ public class ServicioPunto extends ServicioPuntoBase implements IServicioPunto
                 imagenesPuntoGuardar.add(getTraductor().traducir(dtoImagen));
             }
         }
-//        else if (imagenesPunto != null && !imagenesPunto.isEmpty())
-//        {
-//            for (DTOImagen dtoImagenPunto : this.imagenesPunto)
-//            {
-//                imagenesPuntoGuardar.add(getTraductor().traducir(dtoImagenPunto));
-//            }
-//        }
+
         nuevoPuntoDeInteres.setImagenes(imagenesPuntoGuardar);
 
         nuevoPuntoDeInteres.setCategoria(getTraductor().traducir(datosPunto.getCategoria()));

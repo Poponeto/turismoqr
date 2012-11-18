@@ -69,7 +69,7 @@
                 <div id="contenedorMapa" style="height: 500px;"></div>
                 <div id="categoriaPunto"  class="ui-corner-all" style="border: 1px solid black; padding: 10px; margin-top: 10px; background: white;">
                     <label for="textoInformacion">
-                        <h3 style="margin: 0px;" style="display: inline;">Categoria: </h3>
+                        <h3 style="margin: 0px; display: inline;">Categoria: </h3>
                         <div id="textoInformacion" style="display: inline;">
                             ${punto.categoria.nombreCategoria}
                         </div>

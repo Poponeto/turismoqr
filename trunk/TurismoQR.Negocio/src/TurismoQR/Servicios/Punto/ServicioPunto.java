@@ -17,6 +17,7 @@ import TurismoQR.Servicios.Punto.ConsultasPunto.ConsultarPuntoZona;
 import TurismoQR.Servicios.Punto.ConsultasPunto.ConsultarTodosPuntos;
 import TurismoQR.Servicios.Punto.ConsultasPunto.IConsultaPunto;
 import TurismoQR.Manejadores.GeneradorCodigo.GeneradorCodigoQR;
+import TurismoQR.Manejadores.ManejadorCategoria.ManejadorCategoria;
 import TurismoQR.Manejadores.ManejadorEstados.ManejadorEstados;
 import TurismoQR.Manejadores.ManejadorIdiomas.ManejadorIdiomas;
 import TurismoQR.ObjetosNegocio.Categorias.Categoria;
@@ -42,10 +43,12 @@ public class ServicioPunto extends ServicioPuntoBase implements IServicioPunto
 
     private IAccesoDatos accesoDatos;
     private GeneradorCodigoQR generadorCodigo;
+    private ManejadorCategoria manejadorCategoria;
 
     @Autowired
     public ServicioPunto(ManejadorIdiomas manejadorIdioma,
             ManejadorEstados manejadorEstado,
+            ManejadorCategoria manejadorCategoria,
             IAccesoDatos accesoDatos,
             ITraductor traductor,
             GeneradorCodigoQR generadorCodigo)
@@ -54,6 +57,7 @@ public class ServicioPunto extends ServicioPuntoBase implements IServicioPunto
 
         this.accesoDatos = accesoDatos;
         this.generadorCodigo = generadorCodigo;
+        this.manejadorCategoria = manejadorCategoria;
     }
 
     /**
@@ -86,7 +90,7 @@ public class ServicioPunto extends ServicioPuntoBase implements IServicioPunto
 
         nuevoPuntoDeInteres.setImagenes(imagenesPuntoGuardar);
 
-        nuevoPuntoDeInteres.setCategoria(getTraductor().traducir(datosPunto.getCategoria()));
+        nuevoPuntoDeInteres.setCategoria((Categoria)manejadorCategoria.obtenerCategoria(datosPunto.getCategoria().getNombreCategoria()));
 
 
         //Setea la informacion del punto
@@ -164,7 +168,7 @@ public class ServicioPunto extends ServicioPuntoBase implements IServicioPunto
     public List<DTOCategoria> obtenerCategoriasPunto()
     {
 
-       List<Categoria> categorias = (List<Categoria>)accesoDatos.BuscarConjuntoObjetos(Categoria.class);
+       List<Categoria> categorias = (List<Categoria>)manejadorCategoria.obtenerPosiblesCategorias();
        List<DTOCategoria> dtoCategorias = new ArrayList<DTOCategoria>();
 
        for(Categoria categoria : categorias) {
@@ -173,6 +177,16 @@ public class ServicioPunto extends ServicioPuntoBase implements IServicioPunto
        }
 
        return dtoCategorias;
+    }
+
+    public DTOCategoria obtenerDTOCategoria(String nombreCategoria)
+    {
+
+       Categoria categoria = (Categoria)manejadorCategoria.obtenerCategoria(nombreCategoria);
+
+       DTOCategoria dtoCategoria = (DTOCategoria) getTraductor().traducir(categoria);
+
+       return dtoCategoria;
     }
     
 }

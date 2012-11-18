@@ -11,6 +11,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/Vistas/HojasDeEstilo/jquery.mobile-1.2.0.min.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/Vistas/HojasDeEstilo/jquery.lightbox-0.5.css">
         <script src="${pageContext.request.contextPath}/Vistas/JavaScript/JQuery/jquery-1.8.1.min.js"></script>
@@ -66,6 +67,14 @@
                 <div id="latitudPunto" style="display: none;">${punto.localizacion.latitud}</div>
                 <div id="longitudPunto" style="display: none;">${punto.localizacion.longitud}</div>
                 <div id="contenedorMapa" style="height: 500px;"></div>
+                <div id="categoriaPunto"  class="ui-corner-all" style="border: 1px solid black; padding: 10px; margin-top: 10px; background: white;">
+                    <label for="textoInformacion">
+                        <h3 style="margin: 0px;" style="display: inline;">Categoria: </h3>
+                        <div id="textoInformacion" style="display: inline;">
+                            ${punto.categoria.nombreCategoria}
+                        </div>
+                    </label>
+                </div>
                 <div id="informacionPunto"  class="ui-corner-all" style="border: 1px solid black; padding: 10px; margin-top: 10px; background: white;">
                     <label for="textoInformacion">
                         <h3 style="margin: 0px;">Informacion:</h3>
@@ -79,7 +88,7 @@
                         <ul class="ui-corner-all" style="margin: 0px;">
                             <core:forEach var="imagen" items="${punto.imagenes}">
                                 <li>
-                                    <a href="<%=request.getContextPath()%>/imagenes/mostrarImagen?img=<core:out value="${imagen.url}"/>">
+                                    <a href="<%=request.getContextPath()%>/imagenes/mostrarImagen?img=<core:out value="${imagen.url}"/>" title="<core:out value="${imagen.informacion.informacionEnIdiomas.texto}"/>">
                                         <img src="<%=request.getContextPath()%>/imagenes/mostrarImagen?img=<core:out value="${imagen.url}"/>" width="72" height="72" alt=""/>
                                     </a>
                                 </li>

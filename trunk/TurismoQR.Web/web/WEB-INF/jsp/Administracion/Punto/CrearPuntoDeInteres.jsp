@@ -36,6 +36,7 @@
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/Vistas/HojasDeEstilo/Administracion.css">
         <script type="text/javascript" src="${pageContext.request.contextPath}/Vistas/JavaScript/navegacionFormularios.js"></script>
         <script type="text/javascript" src="${pageContext.request.contextPath}/Vistas/JavaScript/JQuery/GaleriaImagenes/jquery.jcoverflip.js"></script>
+        <script type="text/javascript" src="${pageContext.request.contextPath}/Vistas/JavaScript/galeriaImagenes.js"></script>
 <!--        Temporal-->
         <%@ include  file="/WEB-INF/jsp/Utils/ArchivosTextEditor.html" %>
         <%@ include  file="/WEB-INF/jsp/Utils/ArchivosPotatoMenu.html" %>
@@ -50,49 +51,42 @@
                 $($('fieldset')[0]).show();
                 $('#informacionPunto').wysiwyg();
                 $('#galeriaImagenes').jcoverflip({current: 0});
-            });
+                tqrgaleria.initGaleria();
 
-            function initGaleria() {
-
-                var itemsGaleriaInicial = $('ul.ui-jcoverflip img');
-
-                $('#galeriaImagenes').on('click', function() {
-                    var itemsGaleria = $('ul.ui-jcoverflip img');
-
-                    $(itemsGaleria[0]).click(function(event){
-                        event.preventDefault();
-                        event.stopPropagation();
-                        return false;
-                    });
-
-                    var elementoEnContenedor = $('#contenedorPreviewImagenes').find('img');
-                    var idElementoEnContenedor = elementoEnContenedor.attr('id');
-                    if(idElementoEnContenedor != undefined &&
-                        $.ui.jcoverflip.defaults.current != idElementoEnContenedor.substring(3, idElementoEnContenedor.length)) {
-                        elementoEnContenedor.fadeOut(1000, function() {
-                            $(this).remove();
-                            $('#contenedorPreviewImagenes')
-                            .append('<img id ="img'
-                                + $.ui.jcoverflip.defaults.current
-                                + '" style="display: none;" src="'
-                                + $(itemsGaleria[$.ui.jcoverflip.defaults.current]).attr('src')
-                                + '">');
-                            $('#img' + $.ui.jcoverflip.defaults.current).fadeIn(1000);
-                        })
-                    } else {
-                        $('#contenedorMensaje').remove();
-                        $('#contenedorPreviewImagenes')
-                            .append('<img id ="img'
-                                + $.ui.jcoverflip.defaults.current
-                                + '" style="display: none;" src="'
-                                + $(itemsGaleria[$.ui.jcoverflip.defaults.current]).attr('src')
-                                + '">');
-                            $('#img' + $.ui.jcoverflip.defaults.current).fadeIn(1000);
+                $('#dialogComentario').dialog({
+                    autoOpen: false,
+                    width: '60%',
+                    buttons: {
+                            "Ok": function() {
+                                if($('#comentario').val() != ''){
+                                    tqrgaleria.subirComentario($('#formularioComentario').attr('action'));
+                                    $('#comentario').val('');
+                                    $('#comentario').keyup();
+                                    habilitarFormulario();
+                                    $(this).dialog("close");
+                                } else {
+                                    alert('Por favor, escriba un comentario antes de continuar');
+                                }
+                            },
+                            "Cancel": function() {
+                                    $('#comentario').val('');
+                                    $('#comentario').keyup();
+                                    habilitarFormulario();
+                                    $(this).dialog("close");
+                            }
                     }
                 });
                 
-                $(itemsGaleriaInicial[1]).click();
-            }
+                $('#comentario').on('keyup', function(){
+                    var textoArea = $('#comentario').val();
+                    var limite = $('#comentario').attr('maxlength');
+
+                    var caracteresRestantes = limite - textoArea.length;
+                    $('#caracteresRestantes').text(caracteresRestantes);
+                });
+
+                $('#caracteresRestantes').text($('#comentario').attr('maxlength'));
+            });
         </script>
     </head>
     <body style="padding: 0px;">
@@ -136,23 +130,24 @@
                 <a id="next" class="btn btn-success" style="float: right;" href="javascript:tqrformnav.siguiente($('fieldset:visible'))">Siguiente</a>
             </div>
         </div>
-                    
+
+        <!-- The template to display files available for upload -->
         <script id="template-upload" type="text/x-tmpl">
         {% for (var i=0, file; file=o.files[i]; i++) { %}
             <tr class="template-upload fade">
-                <td class="preview" rowspan="2"><span class="fade"></span></td>
-                <td class="name" rowspan="2"><span>{%=file.name%}</span></td>
-                <td class="size" rowspan="2"><span>{%=o.formatFileSize(file.size)%}</span></td>
+                <td class="preview"><span class="fade"></span></td>
+                <td class="name"><span>{%=file.name%}</span></td>
+                <td class="size"><span>{%=o.formatFileSize(file.size)%}</span></td>
                 {% if (file.error) { %}
-                    <td class="error" colspan="2" rowspan="2"><span class="label">Complete</span></td>
+                    <td class="error" colspan="2"><span class="label label-important">Error</span> {%=file.error%}</td>
                 {% } else if (o.files.valid && !i) { %}
-                    <td rowspan="2">
+                    <td>
                         <div class="progress progress-success progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="bar" style="width:0%;"></div></div>
                     </td>
                     <td class="start">{% if (!o.options.autoUpload) { %}
-                        <button class="btn btn-primary" onclick="ocultarCampoComentario();">
+                        <button class="btn btn-primary">
                             <i class="icon-upload icon-white"></i>
-                            <span>Subir</span>
+                            <span>Start</span>
                         </button>
                     {% } %}</td>
                 {% } else { %}
@@ -161,41 +156,38 @@
                 <td class="cancel">{% if (!i) { %}
                     <button class="btn btn-warning">
                         <i class="icon-ban-circle icon-white"></i>
-                        <span>Cancelar</span>
+                        <span>Cancel</span>
                     </button>
                 {% } %}</td>
             </tr>
-            <tr class="template-upload fade">
-                <td colspan="2" align="center">
-                    <input type="button" class="btn btn-success" value="Agregar Comentario..." onclick="agregarInputComentario()"/>
-                </td>
-            </tr>
         {% } %}
         </script>
+        <!-- The template to display files available for download -->
         <script id="template-download" type="text/x-tmpl">
         {% for (var i=0, file; file=o.files[i]; i++) { %}
             <tr class="template-download fade">
                 {% if (file.error) { %}
                     <td></td>
-                    <td class="name" rowspan="2"><span>{%=file.name%}</span></td>
-                    <td class="size" rowspan="2"><span>{%=o.formatFileSize(file.size)%}</span></td>
-                    <td class="error" rowspan="2" colspan="2"><span class="label">Completo</span></td>
+                    <td class="name"><span>{%=file.name%}</span></td>
+                    <td class="size"><span>{%=o.formatFileSize(file.size)%}</span></td>
+                    <td class="error" colspan="2"><span class="label label-important">Error</span> {%=file.error%}</td>
                 {% } else { %}
-                    <td class="preview" rowspan="2">{% if (file.thumbnail_url) { %}
+                    <td class="preview">{% if (file.thumbnail_url) { %}
                         <a href="{%=file.url%}" title="{%=file.name%}" rel="gallery" download="{%=file.name%}"><img src="{%=file.thumbnail_url%}"></a>
                     {% } %}</td>
-                    <td class="name" rowspan="2">
+                    <td class="name">
                         <a href="{%=file.url%}" title="{%=file.name%}" rel="{%=file.thumbnail_url&&'gallery'%}" download="{%=file.name%}">{%=file.name%}</a>
                     </td>
-                    <td class="size" rowspan="2"><span>{%=o.formatFileSize(file.size)%}</span></td>
+                    <td class="size"><span>{%=o.formatFileSize(file.size)%}</span></td>
                     <td colspan="2"></td>
                 {% } %}
-<!--                <td class="delete" rowspan="2">
-                    <button class="btn btn-danger" data-type="{%=file.delete_type%}" data-url="{%=file.delete_url%}">
+                <td class="delete">
+                    <button class="btn btn-danger" style="width: 90%;" data-type="{%=file.delete_type%}" data-url="{%=file.delete_url%}"{% if (file.delete_with_credentials) { %} data-xhr-fields='{"withCredentials":true}'{% } %}>
                         <i class="icon-trash icon-white"></i>
                         <span>Delete</span>
                     </button>
-                </td>-->
+                    <input type="checkbox" name="delete" value="1">
+                </td>
             </tr>
         {% } %}
         </script>
@@ -215,6 +207,18 @@
                     </div>
                 </form>
             </div>
+        </div>
+        <div id="dialogComentario">
+            <form id="formularioComentario" action="" method="POST" enctype="multipart/form-data">
+                <label for="comentario">
+                    Comentario:<br>
+                    <textarea id="comentario" name="comentario" placeholder="Ingrese aqui el comentario para la imagen" rows="5" style="width: 99%;" maxlength="256"></textarea>
+                </label>
+                <label for="caracteresRestantes" style="text-align: right;">
+                    Caracteres restantes:<br>
+                    <div id="caracteresRestantes">256</div>
+                </label>
+            </form>
         </div>
         <div>
             <core:forEach var="detallesImagen" items="${detallesImagen}">

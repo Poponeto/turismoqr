@@ -22,7 +22,7 @@ var tqrformnav = {
                 $('#'+formId).fadeOut(1000, function(){
                     $('#'+tqrformnav.forms[previousIndex]).fadeIn('slow', function() {
                        if($('#'+tqrformnav.forms[previousIndex]).find('#galeriaImagenes').length != 0) {
-                           initGaleria();
+                           tqrgaleria.initGaleria();
                        }
                    });
                 });
@@ -46,7 +46,7 @@ var tqrformnav = {
                 $('#'+formId).fadeOut(1000, function(){
                    $('#'+tqrformnav.forms[nextIndex]).fadeIn('slow', function() {
                        if($('#'+tqrformnav.forms[nextIndex]).find('#galeriaImagenes').length != 0) {
-                           initGaleria();
+                           tqrgaleria.initGaleria();
                        }
                    });
                 });

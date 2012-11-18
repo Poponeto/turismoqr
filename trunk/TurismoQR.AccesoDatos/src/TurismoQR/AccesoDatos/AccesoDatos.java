@@ -2,8 +2,6 @@ package TurismoQR.AccesoDatos;
 
 import TurismoQR.ObjetosNegocio.IObjetoNegocio;
 import java.util.Collection;
-import org.hibernate.FlushMode;
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.DetachedCriteria;
 import org.springframework.beans.factory.annotation.Autowired;

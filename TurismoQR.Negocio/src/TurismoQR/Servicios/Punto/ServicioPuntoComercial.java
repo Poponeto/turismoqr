@@ -7,6 +7,7 @@ package TurismoQR.Servicios.Punto;
 
 import TurismoQR.AccesoDatos.IAccesoDatos;
 import TurismoQR.Manejadores.GeneradorCodigo.GeneradorCodigoQR;
+import TurismoQR.Manejadores.ManejadorCategoria.ManejadorCategoria;
 import TurismoQR.Manejadores.ManejadorEstados.ManejadorEstados;
 import TurismoQR.Manejadores.ManejadorIdiomas.ManejadorIdiomas;
 import TurismoQR.Traductores.ITraductor;
@@ -25,10 +26,11 @@ public class ServicioPuntoComercial extends ServicioPunto implements IServicioPu
     @Autowired
     public ServicioPuntoComercial(ManejadorIdiomas manejadorIdioma,
             ManejadorEstados manejadorEstado,
+            ManejadorCategoria manejadorCategoria,
             IAccesoDatos accesoDatos,
             ITraductor traductor,
             GeneradorCodigoQR generadorCodigo) {
         
-       super(manejadorIdioma, manejadorEstado, accesoDatos, traductor, generadorCodigo);
+       super(manejadorIdioma, manejadorEstado, manejadorCategoria, accesoDatos, traductor, generadorCodigo);
     }
 }

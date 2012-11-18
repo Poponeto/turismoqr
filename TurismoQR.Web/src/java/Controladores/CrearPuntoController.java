@@ -5,6 +5,7 @@
 
 package Controladores;
 
+import TurismoQR.Manejadores.ManejadorCategoria.ManejadorCategoria;
 import TurismoQR.ObjetosTransmisionDatos.DTOIdioma;
 import TurismoQR.ObjetosTransmisionDatos.DTOInformacionEnIdioma;
 import TurismoQR.ObjetosTransmisionDatos.DTOLocalizacion;
@@ -50,6 +51,7 @@ public class CrearPuntoController {
     IServicioPunto servicioPunto;
     private IServicioIdioma servicioIdioma;
     ManejadorIdiomas manejadorIdioma;
+    ManejadorCategoria manejadorCategoria;
     ITraductor traductor;
     private Collection<DTOImagen> imagenesPunto;
 
@@ -66,11 +68,12 @@ public class CrearPuntoController {
 
 
     @Autowired
-    public void LoginController(IServicioPunto servicioPunto, IServicioIdioma servicioIdioma, ManejadorIdiomas manejadorIdioma, ITraductor traductor)
+    public void LoginController(IServicioPunto servicioPunto, IServicioIdioma servicioIdioma, ManejadorIdiomas manejadorIdioma, ManejadorCategoria manejadorCategoria, ITraductor traductor)
     {
         this.servicioPunto = servicioPunto;
         this.servicioIdioma = servicioIdioma;
         this.manejadorIdioma = manejadorIdioma;
+        this.manejadorCategoria = manejadorCategoria;
         this.traductor = traductor;
         this.imagenesPunto = new ArrayList<DTOImagen>();
     }
@@ -90,6 +93,8 @@ public class CrearPuntoController {
     {
         Collection<DTOIdioma> dtoIdiomas = servicioIdioma.consultarPosiblesIdiomas();
         Collection<DTOCategoria> dtoCategorias = servicioPunto.obtenerCategoriasPunto();
+        Collection<DTOImagen> imagenesPuntoReset = new ArrayList<DTOImagen>();
+        setImagenesPunto(imagenesPuntoReset);
         model.put("idiomas", dtoIdiomas);
         model.put("categorias", dtoCategorias);
         return "Administracion/Punto/CrearPuntoDeInteres";
@@ -168,8 +173,6 @@ public class CrearPuntoController {
             @RequestParam(value="idioma") String idioma, HttpServletRequest request,
             ModelMap modelo)
             throws ServletException, IOException, Exception {
-
-        Idioma idiomaSeleccionado = manejadorIdioma.obtenerIdioma(idioma);
 
         List<UploadedFile> uploadedFiles = new ArrayList<UploadedFile>();
         FileItem file = files.getFileItem();

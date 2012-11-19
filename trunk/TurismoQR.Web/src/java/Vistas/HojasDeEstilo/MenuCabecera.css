@@ -28,9 +28,22 @@ top:3px;
     float: right;
 }
 
+.menuderecho div[id*="contenedorDe"] a {
+    font-weight: bold;
+    color: #2779AA;
+    text-decoration: none !important;
+    font-family: Lucida Grande, Lucida Sans, Arial, sans-serif;
+    font-size: 1.0em;
+}
+
 .menuderecho div {
     display: inline-block;
     padding: .4em 1em;
-    border: 1px solid #AED0EA;
+/*    border: 1px solid #AED0EA;*/
     margin-top: -1px;
+}
+
+#contenedorDeMenusInicio li[id*="menuDeOpciones"] a.menuPrincipal {
+    border: none;
+    background: transparent;
 }

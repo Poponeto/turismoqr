@@ -61,8 +61,8 @@
                                         </div>
                                     </form>
 
-                                    <div>
-                                        <button id="botonRegistrarCliente"> Registrarse como Cliente </button>
+                                    <div style="display: inline-block; float: right;">
+                                        <input type="button" id="botonRegistrarCliente" value="Registrarse como Cliente"/>
                                     </div>
 
                                 </div>

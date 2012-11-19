@@ -120,7 +120,7 @@ public class RegistroClienteController
     }
 
     @RequestMapping(value = "/" + registrarPersona, method = RequestMethod.POST)
-    public void registrarPersona(@RequestBody DTOPersona dtoPersona, Model modelo)
+    public void registrarPersona(@RequestBody DTOPersona dtoPersona)
     {
         servicioPersona.registrarCliente(dtoPersona);
     }

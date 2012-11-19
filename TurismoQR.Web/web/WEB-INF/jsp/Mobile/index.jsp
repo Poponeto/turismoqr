@@ -88,7 +88,7 @@
                         <ul class="ui-corner-all" style="margin: 0px;">
                             <core:forEach var="imagen" items="${punto.imagenes}">
                                 <li>
-                                    <a href="<%=request.getContextPath()%>/imagenes/mostrarImagen?img=<core:out value="${imagen.url}"/>" title="<core:out value="${imagen.informacion.informacionEnIdiomas.texto}"/>">
+                                    <a href="<%=request.getContextPath()%>/imagenes/mostrarImagen?img=<core:out value="${imagen.url}"/>" title="<core:out value="${imagen.informacion.texto}"/>">
                                         <img src="<%=request.getContextPath()%>/imagenes/mostrarImagen?img=<core:out value="${imagen.url}"/>" width="72" height="72" alt=""/>
                                     </a>
                                 </li>

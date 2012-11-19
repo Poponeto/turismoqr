@@ -22,6 +22,17 @@
             $(document).ready(function(){
                 inicializarComponentes();
             });
+
+            function obtenerCodigoQR() {
+                $.ajax({
+                    url: $('#requestContext').text() + '/administracion/crearPunto/' + $('#idPunto').text() + $('#requestContext').text() + '/obtenerCodigo.htm',
+                    success : function(data) {
+                        // TurismoQR.Web/imagenes/mostrarImagen?img=C:\Users\Chelo\Mendoza (2).jpg
+                        $('#codigoQR').append('<img id="imagenCodigo" src="' + $('#requestContext').text() + '/imagenes/mostrarImagen?img=' + data.mensaje + '"/>');
+                        $('#codigoQR').fadeIn(1000);
+                    }
+                });
+            }
         </script>
     </head>
     <body>
@@ -34,7 +45,11 @@
         </div>
         <div id="Contenido" style="padding: 15px 30px;" class="ui-widget-content">
             <h1>Punto guardado satisfactoriamente!</h1>
-            El punto de interes <b>${nombrePunto}</b> ha sido creado correctamente.
+            El punto de interes <b>${nombrePunto}</b> ha sido creado correctamente.<br>
+            Si desea generar el codigo QR para este punto haga click <a href="javascript:obtenerCodigoQR();">aqui</a><br>
+            <div id="codigoQR" style="display: none; margin-top: 10px; text-align: center;"></div>
         </div>
+        <div id="idPunto" style="display: none;">${idPuntoGuardado}</div>
+        <div id="requestContext" style="display: none;">${pageContext.request.contextPath}</div>
     </body>
 </html>

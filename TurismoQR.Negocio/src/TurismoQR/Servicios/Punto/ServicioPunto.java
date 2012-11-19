@@ -65,7 +65,7 @@ public class ServicioPunto extends ServicioPuntoBase implements IServicioPunto
      * @param datosPunto Un DTO que contiene todos los datos necesarios para crear el punto
      */
     @Transactional(readOnly = false)
-    public void CrearPuntoInteres(DTOPunto datosPunto, String nombreIdioma)
+    public String CrearPuntoInteres(DTOPunto datosPunto, String nombreIdioma)
     {
         //Crea un nuevo punto de interes
         Punto nuevoPuntoDeInteres = new Punto();
@@ -84,7 +84,18 @@ public class ServicioPunto extends ServicioPuntoBase implements IServicioPunto
         {
             for (DTOImagen dtoImagen : datosPunto.getImagenes())
             {
-                imagenesPuntoGuardar.add(getTraductor().traducir(dtoImagen));
+                Imagen imagenPunto = getTraductor().traducir(dtoImagen);
+                Informacion infoImagen = new Informacion();
+
+                if(dtoImagen.getInformacion() != null) {
+                    Collection<InformacionEnIdioma> infoEnIdiomaImagen = new HashSet<InformacionEnIdioma>();
+                    InformacionEnIdioma infoImagenIdioma = getTraductor().traducir(dtoImagen.getInformacion());
+                    infoImagenIdioma.setIdioma(getManejadorIdioma().obtenerIdioma("espanol"));
+                    infoEnIdiomaImagen.add(infoImagenIdioma);
+                    infoImagen.setInformacionEnIdiomas(infoEnIdiomaImagen);
+                }
+                imagenPunto.setInformacion(infoImagen);
+                imagenesPuntoGuardar.add(imagenPunto);
             }
         }
 
@@ -110,6 +121,8 @@ public class ServicioPunto extends ServicioPuntoBase implements IServicioPunto
 
         //Persiste el punto creado previamente
         accesoDatos.Guardar(nuevoPuntoDeInteres);
+
+        return nuevoPuntoDeInteres.getIdObjeto();
     }
 
     /**
@@ -117,9 +130,9 @@ public class ServicioPunto extends ServicioPuntoBase implements IServicioPunto
      * @param idPuntoInteres Id del punto de interes para el cual se creara el codigo QR.
      * @return DTOCodigoQR DTO con datos correspondientes al codigo QR generado.
      */
-    public DTOCodigoQR GenerarCodigoQR(String idPuntoInteres, int tamaño, String rutaImagen, String formatoImagen)
+    public DTOCodigoQR GenerarCodigoQR(String idPuntoInteres, int tamaño, String requestContext, String formatoImagen)
     {
-        String rutaCodigoQR = generadorCodigo.generarCodigoQR(idPuntoInteres, tamaño, rutaImagen, formatoImagen);
+        String rutaCodigoQR = generadorCodigo.generarCodigoQR(idPuntoInteres, tamaño, requestContext, formatoImagen);
 
         DTOCodigoQR dtoCodigoQR = new DTOCodigoQR();
         dtoCodigoQR.setRutaImagenCodigo(rutaCodigoQR);

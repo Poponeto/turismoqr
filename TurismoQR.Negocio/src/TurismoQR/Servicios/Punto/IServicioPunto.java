@@ -25,8 +25,8 @@ public interface IServicioPunto {
             String nombreIdioma);
     public Collection<DTOPunto> ConsultarPuntosDeInteres(String nombreIdioma);
     public DTOPunto ConsultarPuntoInteres(String idPuntoInteres, String nombreIdioma);
-    public void CrearPuntoInteres(DTOPunto dtoPunto, String nombreIdioma);
-    public DTOCodigoQR GenerarCodigoQR(String idPuntoInteres, int tamaño, String rutaImagen, String formatoImagen);
+    public String CrearPuntoInteres(DTOPunto dtoPunto, String nombreIdioma);
+    public DTOCodigoQR GenerarCodigoQR(String idPuntoInteres, int tamaño, String requestContext, String formatoImagen);
     public boolean eliminarPuntoInteres(String idPunto);
     public List<DTOCategoria> obtenerCategoriasPunto();
     public DTOCategoria obtenerDTOCategoria(String nombreCategoria);

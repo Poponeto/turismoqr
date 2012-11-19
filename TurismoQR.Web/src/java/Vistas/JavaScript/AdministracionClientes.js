@@ -165,7 +165,6 @@ function inicializarPaginaAdministracionClientes(urlbase)
             type: "POST",
             //contentType: "application/json",
             success: function(){
-                debugger
                 location.reload(true);
             }
 

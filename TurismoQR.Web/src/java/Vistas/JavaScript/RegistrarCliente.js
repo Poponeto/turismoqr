@@ -81,13 +81,17 @@ function registrarCliente(tipoCliente, urlBase)
     var urlAccion = urlBase + "/cliente/registrar"+tipoCliente+".htm";
     debugger
 
-    $.postJSON(
-        urlAccion,
-        jsonCliente,
-        function(){
+    $.ajax({
+        url: urlAccion,
+        dataType: "json",
+        contentType: "application/json",
+        data: jsonCliente,
+        type: "POST",
+        sucess: function(){
             debugger
             alert("success");
-        });
+        }
+    });
    
 }
 

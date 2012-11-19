@@ -9,6 +9,7 @@ import TurismoQR.Manejadores.ManejadorUsuarios.ManejadorUsuarios;
 import TurismoQR.ObjetosNegocio.Usuarios.Cliente;
 import TurismoQR.ObjetosNegocio.Usuarios.Persona;
 import TurismoQR.ObjetosTransmisionDatos.IDTO;
+import TurismoQR.Servicios.Mail.IServicioEnvioMail;
 import TurismoQR.Traductores.ITraductor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,9 +27,10 @@ public class ServicioPersona extends ServicioCliente{
     public ServicioPersona(
             IAccesoDatos accesoDatos,
             ITraductor traductor,
-            ManejadorUsuarios manejadorGuardado)
+            ManejadorUsuarios manejadorGuardado,
+            IServicioEnvioMail servicioEnvioMail)
     {
-        super(accesoDatos, traductor, manejadorGuardado);
+        super(accesoDatos, traductor, manejadorGuardado, servicioEnvioMail);
 
     }
 
@@ -44,5 +46,20 @@ public class ServicioPersona extends ServicioCliente{
         return ((Persona)cliente).getApellido() + ((Persona)cliente).getNombre();
     }
 
+    @Override
+    protected String getMensajeRegistracion(Cliente cliente)
+    {
+        String cabecera = "Gracias por registrarse en TurismoQR, "
+                + "su solicitud está siendo atendida y "
+                + "se responderá a la brevedad.";
+        String cuerpo = "Sus datos son: " +
+                "\nApellido: " + ((Persona)cliente).getApellido() +
+                "\nNombre: " + ((Persona)cliente).getNombre() +
+                "\nFecha de Nacimiento: " + ((Persona)cliente).getFechaDeNacimiento() +
+                "\nTelefono Fijo: " + ((Persona)cliente).getTelefonoFijo() +
+                "\nTelefono Movil: " + ((Persona)cliente).getCelular();
+
+        return cabecera + "\n\n" + cuerpo;
+    }
 
 }

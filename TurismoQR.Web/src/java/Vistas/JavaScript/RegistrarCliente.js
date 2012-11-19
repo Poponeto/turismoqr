@@ -13,6 +13,7 @@ function inicializarComponentesRegistrarCliente(tipoCliente, urlBase)
 
     $("#botonRegistrarse").click(function(){
         registrarCliente(tipoCliente, urlBase);
+        return false;
     });
 
 }
@@ -80,23 +81,26 @@ function registrarCliente(tipoCliente, urlBase)
     var urlAccion = urlBase + "/cliente/registrar"+tipoCliente+".htm";
     debugger
 
-    $.ajax({
-
-        url: urlAccion,
-        data: jsonCliente,
-        dataType: "json",
-        type: "POST",
-        contentType: "application/json",
-        success: function(){
+    $.postJSON(
+        urlAccion,
+        jsonCliente,
+        function(){
             debugger
             alert("success");
-        },
-        error: function(jqXHR, textStatus, errorThrown) {
-            debugger
-            console.log(textStatus, errorThrown);
-        }
-
-    });
-    
-
+        });
+   
 }
+
+$.postJSON = function(url, data, callback) {
+    return jQuery.ajax({
+    headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+    },
+    'type': 'POST',
+    'url': url,
+    'data': data,
+    'dataType': 'json',
+    'success': callback
+    });
+};

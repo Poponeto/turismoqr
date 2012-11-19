@@ -49,7 +49,7 @@
 
         <div id="Contenedor">
 
-            <form action=""  id="Contenido" style="padding: 30px;">
+            <div id="Contenido" style="padding: 30px;">
                 
                 <div id="contenedorFormularioCliente">
                 </div>
@@ -68,7 +68,7 @@
                     <button id="botonRegistrarse">Registrarse</button>
                 </div>
 
-            </form>
+            </div>
         </div>
     </body>
 </html>

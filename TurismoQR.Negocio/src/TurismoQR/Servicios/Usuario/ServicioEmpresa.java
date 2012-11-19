@@ -14,6 +14,7 @@ import TurismoQR.ObjetosNegocio.Usuarios.Empresa;
 import TurismoQR.ObjetosTransmisionDatos.DTOContactoEmpresa;
 import TurismoQR.ObjetosTransmisionDatos.DTOEmpresa;
 import TurismoQR.ObjetosTransmisionDatos.IDTO;
+import TurismoQR.Servicios.Mail.IServicioEnvioMail;
 import TurismoQR.Traductores.ITraductor;
 import java.util.Collection;
 import java.util.HashSet;
@@ -37,9 +38,10 @@ public class ServicioEmpresa extends ServicioCliente
             IAccesoDatos accesoDatosEmpresa,
             ITraductor traductor,
             ServicioContacto servicioContactoEmpresa,
-            ManejadorUsuarios manejadorGuardado)
+            ManejadorUsuarios manejadorGuardado,
+            IServicioEnvioMail servicioEnvioMail)
     {
-        super(accesoDatosEmpresa, traductor, manejadorGuardado);
+        super(accesoDatosEmpresa, traductor, manejadorGuardado, servicioEnvioMail);
         this.servicioContactoEmpresa = servicioContactoEmpresa;
     }
 
@@ -65,5 +67,20 @@ public class ServicioEmpresa extends ServicioCliente
     protected String getNombreCliente(Cliente cliente)
     {
         return ((Empresa)cliente).getCuit();
+    }
+
+    @Override
+    protected String getMensajeRegistracion(Cliente cliente)
+    {
+        String cabecera = "Gracias por registrarse en TurismoQR, "
+                + "su solicitud está siendo atendida y "
+                + "se responderá a la brevedad.";
+        String cuerpo = "Sus datos son: " +
+                "\nRazon Social: " + ((Empresa)cliente).getRazonSocial() +
+                "\nCUIT: " + ((Empresa)cliente).getCuit() +
+                "\nTelefono Fijo: " + ((Empresa)cliente).getTelefonoFijo() +
+                "\nTelefono Movil: " + ((Empresa)cliente).getCelular();
+
+        return cabecera + "\n\n" + cuerpo;
     }
 }

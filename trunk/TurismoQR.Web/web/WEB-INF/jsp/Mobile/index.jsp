@@ -36,6 +36,10 @@
                     imageBlank:'${pageContext.request.contextPath}/Vistas/Imagenes/lightbox-blank.gif'			// (string) Path and the name of a blank image (one pixel)
                 });
             });
+            var dir = window.document.URL;
+            var dir2 = encodeURIComponent(dir);
+            var tit = window.document.title;
+            var tit2 = encodeURIComponent(tit);
         </script>
         <style type="text/css">
             /* jQuery lightBox plugin - Gallery style */
@@ -55,6 +59,10 @@
                     color: #fff;
             }
             #galeria ul a:hover { color: #fff; }
+            .share-link {
+                display: inline-block;
+                margin: 10px;
+            }
 	</style>
         <title>${punto.nombrePunto}</title>
     </head>
@@ -68,9 +76,9 @@
                 <div id="longitudPunto" style="display: none;">${punto.localizacion.longitud}</div>
                 <div id="contenedorMapa" style="height: 500px;"></div>
                 <div id="categoriaPunto"  class="ui-corner-all" style="border: 1px solid black; padding: 10px; margin-top: 10px; background: white;">
-                    <label for="textoInformacion">
+                    <label for="textoCategoria">
                         <h3 style="margin: 0px; display: inline;">Categoria: </h3>
-                        <div id="textoInformacion" style="display: inline;">
+                        <div id="textCategoria" style="display: inline;">
                             ${punto.categoria.nombreCategoria}
                         </div>
                     </label>
@@ -102,6 +110,22 @@
                             </div>
                         </ul>
                     </core:if>
+                </div>
+                <div id="compartirPunto"  class="ui-corner-all" style="border: 1px solid black; padding: 10px; margin-top: 10px; background: white;">
+                    <label for="botonesCompartir">
+                        <h3 style="margin: 0px;">Compartir punto: </h3>
+                        <div id="botonesCompartir">
+                            <a href="javascript:var dir=window.document.URL;var tit=window.document.title;var tit2=encodeURIComponent(tit);var dir2= encodeURIComponent(dir);window.location.href=('http://www.facebook.com/share.php?u='+dir2+'&amp;t='+tit2+'');" class="share-link">
+                                <img src="${pageContext.request.contextPath}/Vistas/Imagenes/facebook.png" border="0" width="30" height="30" alt="Facebook" />
+                            </a>
+                            <a href="javascript:var dir=window.document.URL;var tit=window.document.title;var tit2=encodeURIComponent(tit);window.location.href=('http://twitter.com/?status='+tit2+'%20'+dir+'');" class="share-link">
+                                <img src="${pageContext.request.contextPath}/Vistas/Imagenes/twitter.png" border="0" width="30" height="30" alt="Twitter" />
+                            </a>
+                            <a href="javascript:window.location.href='https://plus.google.com/share?url='+encodeURIComponent(location);void0;"  class="share-link">
+                                <img src="${pageContext.request.contextPath}/Vistas/Imagenes/googleplus.jpg" border="0" width="30" height="30" alt="Google+" />
+                            </a>
+                        </div>
+                    </label>
                 </div>
             </div>
             <div id="footer" data-role="footer" data-position="fixed" data-tap-toggle="false" style="padding: 10px;"  align="center">

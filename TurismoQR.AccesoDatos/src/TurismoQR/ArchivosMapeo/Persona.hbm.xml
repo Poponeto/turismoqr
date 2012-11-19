@@ -7,7 +7,7 @@
         <property name="apellido"/>
         <property name="nombre"/>
         <property name="sexo"/>
-        <property name="dni"/>
+        <property name="dni" unique="true"/>
         <property name="fechaDeNacimiento" type="date"/>
     
     </joined-subclass>

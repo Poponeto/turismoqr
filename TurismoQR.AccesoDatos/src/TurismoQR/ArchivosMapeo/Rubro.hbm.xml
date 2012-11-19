@@ -9,7 +9,7 @@
             </generator>
         </id>
 
-<many-to-one name="categoriaPorDefault" unique="true" class="TurismoQR.ObjetosNegocio.Categorias.Categoria" column="categoriaRubro" cascade="all"/>
+        <many-to-one name="categoriaPorDefault" unique="true" class="TurismoQR.ObjetosNegocio.Categorias.Categoria" column="categoriaRubro" cascade="all"/>
         <property name="nombreRubro"/>
 
     </class>

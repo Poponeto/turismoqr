@@ -9,7 +9,7 @@
             </generator>
         </id>
         
-        <property name="nombreCategoria"/>
+        <property name="nombreCategoria" unique="true"/>
 
     </class>
 </hibernate-mapping>

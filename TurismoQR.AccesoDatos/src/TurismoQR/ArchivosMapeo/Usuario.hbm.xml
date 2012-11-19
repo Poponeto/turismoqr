@@ -5,7 +5,7 @@
         <id column="idUsuario" name="idObjeto">
             <generator class="guid"/>
         </id>
-        <property name="nombreUsuario"/>
+        <property name="nombreUsuario" unique="true"/>
         <property name="contraseña" column="contrasenia"/>
          <set name="permisosUsuario" cascade="all-delete-orphan" outer-join="true">
             <key column="Usuario" foreign-key="idPermisoUsuario"/> 

@@ -5,7 +5,7 @@
         <id column="idPunto" name="idObjeto">
             <generator class="guid"/>
         </id>
-        <property name="nombre"/>
+        <property name="nombre" unique="true"/>
         <many-to-one name="localizacion" unique="true" class="TurismoQR.ObjetosNegocio.Punto.Localizacion" column="Localizacion" not-null="true" cascade="all"/>
         <many-to-one name="informacion" unique="true" class="TurismoQR.ObjetosNegocio.Informacion.Informacion" column="Informacion" cascade="all"/>
         <many-to-one name="categoria" unique="true" class="TurismoQR.ObjetosNegocio.Categorias.Categoria" column="categoriaPunto" cascade="all"/>

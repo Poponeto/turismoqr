@@ -30,8 +30,8 @@
     <bean id="servicioEnvioMailJava" class="org.springframework.mail.javamail.JavaMailSenderImpl">
         <property name="host" value="smtp.gmail.com" />
         <property name="port" value="587" />
-        <property name="username" value="username" />
-        <property name="password" value="password" />
+        <property name="username" value="turismoqrmza" />
+        <property name="password" value="afgdptafgdpt" />
 
         <property name="javaMailProperties">
             <props>
@@ -41,8 +41,8 @@
         </property>
     </bean>
     <bean id="mensajeMail" class="org.springframework.mail.SimpleMailMessage">
-        <property name="from" value="zim@gmail.com"/>
-        <property name="subject" value="Dos Ideas: Un mail de prueba"/>
+        <property name="from" value="turismoqrmza@gmail.com"/>
+        <property name="subject" value="Mail TurismoQR"/>
     </bean>
     
     <context:annotation-config/>

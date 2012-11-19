@@ -63,7 +63,19 @@ INSERT INTO `turismoqr`.`informacion` (`idInformacion`) VALUES ('2');
 INSERT INTO `turismoqr`.`informacionenidioma` (`idInformacionEnIdioma`, `texto`, `Idioma`, `Informacion`) VALUES ('1', 'Informacion en idioma para el punto', '1', '1');
 INSERT INTO `turismoqr`.`informacionenidioma` (`idInformacionEnIdioma`, `texto`, `Idioma`, `Informacion`) VALUES ('2', 'Informacion en idioma para la imagen', '1', '2');
 
-INSERT INTO `turismoqr`.`punto` (`idPunto`, `nombre`, `Localizacion`, `Informacion`) VALUES ('1', 'Punto de Interes', '1', '1');
+INSERT INTO `turismoqr`.`categoria` (`idCategoria`, `nombreCategoria`) VALUES ('1', 'Hotel');
+INSERT INTO `turismoqr`.`categoria` (`idCategoria`, `nombreCategoria`) VALUES ('2', 'Farmacia');
+INSERT INTO `turismoqr`.`categoria` (`idCategoria`, `nombreCategoria`) VALUES ('3', 'Restaurant');
+INSERT INTO `turismoqr`.`categoria` (`idCategoria`, `nombreCategoria`) VALUES ('4', 'Monumento');
+INSERT INTO `turismoqr`.`categoria` (`idCategoria`, `nombreCategoria`) VALUES ('5', 'Plaza');
+INSERT INTO `turismoqr`.`categoria` (`idCategoria`, `nombreCategoria`) VALUES ('6', 'Hostel');
+INSERT INTO `turismoqr`.`categoria` (`idCategoria`, `nombreCategoria`) VALUES ('7', 'Polideportivo');
+INSERT INTO `turismoqr`.`categoria` (`idCategoria`, `nombreCategoria`) VALUES ('8', 'Almacen');
+INSERT INTO `turismoqr`.`categoria` (`idCategoria`, `nombreCategoria`) VALUES ('9', 'Ferreteria');
+INSERT INTO `turismoqr`.`categoria` (`idCategoria`, `nombreCategoria`) VALUES ('10', 'Universidad');
+INSERT INTO `turismoqr`.`categoria` (`idCategoria`, `nombreCategoria`) VALUES ('11', 'Software Factory');
+
+INSERT INTO `turismoqr`.`punto` (`idPunto`, `nombre`, `Localizacion`, `Informacion`) VALUES ('1', 'Punto de Interes', '1', '1','1','1');
 INSERT INTO `turismoqr`.`recurso` (`idRecurso`, `url`) VALUES ('1', 'imagen');
 INSERT INTO `turismoqr`.`imagen` (`idImagen`, `extension`, `Informacion`, `Punto`) VALUES ('1', 'jpg', '2', '1');
 INSERT INTO `turismoqr`.`recurso` (`idRecurso`, `url`) VALUES ('2', 'link');
@@ -81,3 +93,5 @@ INSERT INTO `turismoqr`.`contacto` (`idContacto`, `mail`, `celular`, `telefonoFi
 INSERT INTO `turismoqr`.`cliente` (`idCliente`, `cantidadDePuntosPermitidos`, `ciclo`) VALUES ('1', 5, '2');
 INSERT INTO `turismoqr`.`persona` (`idPersona`, `apellido`, `nombre`, `sexo`, `dni`, `fechaDeNacimiento`) VALUES ('1', 'Juan', 'Perez', 'Masculino', '34123456', NOW());
 INSERT INTO `turismoqr`.`puntocomercial` (`idpuntoComercial`, `cliente`) VALUES ('1', '1');
+
+

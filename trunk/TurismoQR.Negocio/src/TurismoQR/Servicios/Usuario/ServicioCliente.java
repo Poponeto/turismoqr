@@ -11,6 +11,7 @@ import TurismoQR.ObjetosNegocio.Usuarios.Cliente;
 import TurismoQR.ObjetosNegocio.Usuarios.Contacto;
 import TurismoQR.ObjetosTransmisionDatos.DTOCliente;
 import TurismoQR.ObjetosTransmisionDatos.IDTO;
+import TurismoQR.Servicios.Mail.IServicioEnvioMail;
 import TurismoQR.Traductores.ITraductor;
 import java.util.Collection;
 import java.util.HashSet;
@@ -26,14 +27,20 @@ public abstract class ServicioCliente extends ServicioContacto implements IServi
 {
 
     private ManejadorUsuarios manejadorGuardado;
+    private IServicioEnvioMail servicioEnvioMail;
+
+    private final String subjectRegistracion = "Gracias por registrarse en TurismoQR!";
+    private final String subjectAutorizacion = "Su cuenta en TurismoQR fue autorizada!";
 
     public ServicioCliente(
             IAccesoDatos accesoDatos,
             ITraductor traductor,
-            ManejadorUsuarios manejadorGuardado)
+            ManejadorUsuarios manejadorGuardado,
+            IServicioEnvioMail servicioEnvioMail)
     {
         super(accesoDatos, traductor);
         this.manejadorGuardado = manejadorGuardado;
+        this.servicioEnvioMail = servicioEnvioMail;
     }
 
     public Boolean registrarCliente(IDTO dtoCliente)
@@ -53,6 +60,11 @@ public abstract class ServicioCliente extends ServicioContacto implements IServi
         completarCliente(cliente, dtoContacto);
         
         getAccesoDatos().Guardar(cliente);
+
+        servicioEnvioMail.enviarEmail(
+                getMensajeRegistracion(cliente),
+                subjectRegistracion,
+                cliente.getMail());
 
         return cliente;
     }
@@ -80,6 +92,12 @@ public abstract class ServicioCliente extends ServicioContacto implements IServi
 
         getAccesoDatos().Guardar(cliente);
         
+        servicioEnvioMail.enviarEmail(
+                getMensajeAutorizacion(cliente),
+                subjectAutorizacion,
+                cliente.getMail());
+
+
         return cliente.getEstado().getNombreDeEstado().equals(Ciclo.HABILITADO);
     }
 
@@ -100,7 +118,18 @@ public abstract class ServicioCliente extends ServicioContacto implements IServi
 
     }
 
+    private String getMensajeAutorizacion(Cliente cliente)
+    {
+        String cabecera = "Se ha aprobado su solicitud en TurismoQR, "
+                + "se le ha asignado una cuenta de usuario.";
+        String cuerpo = "Los datos de su cuenta son:"
+                + "\nNombre de Usuario: " + cliente.getUsuario().getNombreUsuario()
+                + "\nContraseña: " + cliente.getUsuario().getContraseña();
 
+        return cabecera + "\n\n" + cuerpo;
+
+    }
+    protected abstract String getMensajeRegistracion(Cliente cliente);
     protected abstract void completarCliente(Cliente cliente, IDTO dtoCliente);
     protected abstract String getNombreCliente(Cliente cliente);
 }

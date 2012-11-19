@@ -27,10 +27,21 @@
           http://www.springframework.org/schema/security/spring-security-3.0.xsd">
 
     <!--import resource="classpath:"/-->
+    <bean id="servicioEnvioMailJava" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+        <property name="host" value="smtp.dosideas.com"/>
+    </bean>
+
+    <bean id="mensajeMail" class="org.springframework.mail.SimpleMailMessage">
+        <property name="from" value="zim@gmail.com"/>
+        <property name="subject" value="Dos Ideas: Un mail de prueba"/>
+    </bean>
+    
     <context:annotation-config/>
     <context:component-scan base-package="Controladores"/>
     <context:component-scan base-package="TurismoQR"/>
 
+
+    
     <!--bean id="propertyConfigurer"
           class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"
           p:location="/WEB-INF/jdbc.properties" />

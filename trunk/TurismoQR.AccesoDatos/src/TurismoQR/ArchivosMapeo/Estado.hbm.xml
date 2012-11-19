@@ -7,7 +7,7 @@
             </generator>
         </id>
         <property name="nombreDeEstado"/>
-        <property name="fechaInicioPeriodo" type="timestamp"/>
+        <property name="fechaInicioPeriodo" type="timestamp" />
         <property name="fechaFinPeriodo" type="timestamp"/>
     </class>
 </hibernate-mapping>

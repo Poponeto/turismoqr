@@ -4,7 +4,7 @@
     <joined-subclass name="TurismoQR.ObjetosNegocio.Usuarios.Empresa" table="empresa" extends="TurismoQR.ObjetosNegocio.Usuarios.Cliente">
         <key column="idEmpresa"/>
 
-        <property name="cuit"/>
+        <property name="cuit" unique="true"/>
         <property name="razonSocial"/>
 
         <set name="contactos" cascade="all-delete-orphan" outer-join="true">

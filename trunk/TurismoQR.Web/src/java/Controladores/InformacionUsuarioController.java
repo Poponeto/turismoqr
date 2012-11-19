@@ -63,7 +63,7 @@ public class InformacionUsuarioController {
 
             fila.setContraseña(dtoUsuario.getContraseña());
             fila.setNombreUsuario(dtoUsuario.getNombreUsuario());
-
+            fila.setIdUsuario(dtoUsuario.getIdUsuario());
             filas.add(fila);
         }
 

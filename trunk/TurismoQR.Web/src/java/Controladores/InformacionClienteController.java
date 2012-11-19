@@ -84,8 +84,9 @@ public class InformacionClienteController
         servicioCliente.autorizarCliente(idCliente);
     }
 
+
     @RequestMapping(value = "/modificarCliente.htm", method = RequestMethod.POST)
-    public void modificarCliente(@RequestBody FilaTablaCliente fila)
+    public void modificarCliente(@RequestBody  FilaTablaCliente fila)
     {
         servicioCliente.actualizarDatosCliente(null);
     }

@@ -5,10 +5,14 @@
 
 package Utils;
 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
 /**
  *
  * @author Federico
  */
+
+@JsonIgnoreProperties(ignoreUnknown=true)
 public class FilaTablaCliente implements IFila {
 
     private String idCliente;

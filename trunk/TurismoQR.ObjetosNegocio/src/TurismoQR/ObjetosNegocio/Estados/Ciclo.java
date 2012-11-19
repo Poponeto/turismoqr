@@ -18,7 +18,7 @@ public class Ciclo implements IObjetoNegocio
 {
     public static final String BORRADO = "Borrado";
     public static final String HABILITADO = "Habilitado";
-    public static final String AUTORIZACION_PENDIENTE = "Autorizacion Perndiente";
+    public static final String AUTORIZACION_PENDIENTE = "Autorizacion Pendiente";
 
     private Collection<Estado> estados;
     private String idObjeto;
@@ -58,7 +58,7 @@ public class Ciclo implements IObjetoNegocio
     public void setEstadoActual(Estado estado)
     {
         Date fechaInicioNuevoEstado = Calendar.getInstance().getTime();
-        estado.setFechaFinPeriodo(fechaInicioNuevoEstado);
+        estado.setFechaInicioPeriodo(fechaInicioNuevoEstado);
 
         if (this.estados == null)
         {

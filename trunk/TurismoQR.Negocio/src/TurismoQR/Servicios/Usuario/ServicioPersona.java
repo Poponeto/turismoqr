@@ -5,7 +5,9 @@
 
 package TurismoQR.Servicios.Usuario;
 import TurismoQR.AccesoDatos.IAccesoDatos;
+import TurismoQR.Manejadores.ManejadorUsuarios.ManejadorUsuarios;
 import TurismoQR.ObjetosNegocio.Usuarios.Cliente;
+import TurismoQR.ObjetosNegocio.Usuarios.Persona;
 import TurismoQR.ObjetosTransmisionDatos.IDTO;
 import TurismoQR.Traductores.ITraductor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,9 +25,10 @@ public class ServicioPersona extends ServicioCliente{
     @Autowired
     public ServicioPersona(
             IAccesoDatos accesoDatos,
-            ITraductor traductor)
+            ITraductor traductor,
+            ManejadorUsuarios manejadorGuardado)
     {
-        super(accesoDatos, traductor);
+        super(accesoDatos, traductor, manejadorGuardado);
 
     }
 
@@ -33,6 +36,12 @@ public class ServicioPersona extends ServicioCliente{
     protected void completarCliente(Cliente cliente, IDTO dtoCliente)
     {
         //No hace falta hacer nada
+    }
+
+    @Override
+    protected String getNombreCliente(Cliente cliente)
+    {
+        return ((Persona)cliente).getApellido() + ((Persona)cliente).getNombre();
     }
 
 

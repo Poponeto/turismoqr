@@ -16,9 +16,20 @@ import org.springframework.security.core.userdetails.UserDetails;
  */
 public class DTOUsuario implements UserDetails, IDTO{
 
+    private String idUsuario;
     private String contraseña;
     private String nombreUsuario;
     private Collection<GrantedAuthority> autoridades = new HashSet<GrantedAuthority>();
+
+    public String getIdUsuario()
+    {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(String idUsuario)
+    {
+        this.idUsuario = idUsuario;
+    }
 
     public void agregarPermiso(String permiso)
     {

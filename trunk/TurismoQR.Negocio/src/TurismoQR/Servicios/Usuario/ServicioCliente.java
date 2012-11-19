@@ -5,6 +5,7 @@
 package TurismoQR.Servicios.Usuario;
 
 import TurismoQR.AccesoDatos.IAccesoDatos;
+import TurismoQR.Manejadores.ManejadorUsuarios.ManejadorUsuarios;
 import TurismoQR.ObjetosNegocio.Estados.Ciclo;
 import TurismoQR.ObjetosNegocio.Usuarios.Cliente;
 import TurismoQR.ObjetosNegocio.Usuarios.Contacto;
@@ -24,12 +25,15 @@ import org.springframework.transaction.annotation.Transactional;
 public abstract class ServicioCliente extends ServicioContacto implements IServicioCliente
 {
 
+    private ManejadorUsuarios manejadorGuardado;
+
     public ServicioCliente(
             IAccesoDatos accesoDatos,
-            ITraductor traductor)
+            ITraductor traductor,
+            ManejadorUsuarios manejadorGuardado)
     {
         super(accesoDatos, traductor);
-
+        this.manejadorGuardado = manejadorGuardado;
     }
 
     public Boolean registrarCliente(IDTO dtoCliente)
@@ -72,6 +76,8 @@ public abstract class ServicioCliente extends ServicioContacto implements IServi
         Cliente cliente = getAccesoDatos().BuscarObjeto(Cliente.class, idCliente);
         cliente.setEstado(Ciclo.crearEstado(Ciclo.HABILITADO));
 
+        cliente.setUsuario(manejadorGuardado.crearUsuario(getNombreCliente(cliente)));
+
         getAccesoDatos().Guardar(cliente);
         
         return cliente.getEstado().getNombreDeEstado().equals(Ciclo.HABILITADO);
@@ -94,5 +100,7 @@ public abstract class ServicioCliente extends ServicioContacto implements IServi
 
     }
 
+
     protected abstract void completarCliente(Cliente cliente, IDTO dtoCliente);
+    protected abstract String getNombreCliente(Cliente cliente);
 }

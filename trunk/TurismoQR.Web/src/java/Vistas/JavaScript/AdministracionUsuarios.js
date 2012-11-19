@@ -8,17 +8,25 @@ function inicilizarTablaUsuarios(urlbase)
 {
     jQuery("#tablaUsuarios").jqGrid({
         url: urlbase + "/administracion/usuario/obtenerInformacionTabla.htm",
+        editurl: urlbase + "/administracion/usuario/editarUsuario.htm",
         datatype: "json",
         mtype: "GET",
-        colNames:['Nombre de Usuario','Contraseña'],
+        autowidth: true,
+        loadonce:true,
+        shrinkToFit: true,
+        colNames:['Identificador','Nombre de Usuario','Contraseña'],
         colModel:[
+        {
+            name:'idUsuario',
+            index:'idUsuario',
+            width:210
+        },
         {
             name:'nombreUsuario',
             index:'nombreUsuario',
             width:210,
             editable: true
         },
-
         {
             name:'contraseña',
             index:'contraseña',
@@ -31,7 +39,6 @@ function inicilizarTablaUsuarios(urlbase)
         rowList:[10,20,30],
         pager: '#paginador',
         sortname: 'nombreUsuario',
-        loadonce:true,
         viewrecords: true,
         sortorder: "desc",
         jsonReader: {
@@ -46,6 +53,42 @@ function inicilizarTablaUsuarios(urlbase)
         add:true,
         del:true,
         reload: true
+    },
+
+    {//EDIT parameters
+        ajaxEditOptions:{
+            type :"POST",
+            contentType :"application/json",
+            dataType :"json"
+        },
+        serializeEditData: function (postdata) {
+            return JSON.stringify(postdata);
+        },
+        closeAfterAdd: true
+    },
+    {
+        //add parameters
+        ajaxEditOptions:{
+            type :"POST",
+            contentType :"application/json",
+            dataType :"json"
+        },
+        serializeEditData: function (postdata) {
+            return JSON.stringify(postdata);
+        },
+        closeAfterAdd: true
+    },
+    {
+        //delete parameters
+        ajaxDelOptions:{
+            type :"POST",
+            contentType :"application/json",
+            dataType :"json"
+        },
+        serializeDelData: function (postdata) {
+            return JSON.stringify(postdata);
+        }
+    
     });
 }
 

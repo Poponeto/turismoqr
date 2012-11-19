@@ -155,6 +155,23 @@ function inicializarPaginaAdministracionClientes(urlbase)
     $("#informacionCliente").hide();
     $("#botonAutorizarCliente").hide();
 
+    $("#botonAutorizarCliente").click(function(){
+        var urlConsulta = urlbase + "/administracion/cliente/autorizarCliente.htm";
+
+        $.ajax({
+
+            url: urlConsulta,
+            data: {idCliente: $("#identificador").text()},
+            type: "POST",
+            //contentType: "application/json",
+            success: function(){
+                debugger
+                location.reload(true);
+            }
+
+        });
+    });
+
 }
 
 function cargarInformacionCliente(fila)
@@ -163,7 +180,7 @@ function cargarInformacionCliente(fila)
     $("#nombreCliente").text(fila.nombreCliente);
     $("#tipoCliente").text(fila.tipoCliente);
 
-    $("#identifmailicador").text(fila.mail);
+    $("#mail").text(fila.mail);
     $("#celular").text(fila.celular);
     $("#telefonoFijo").text(fila.telefonoFijo);
 
@@ -171,7 +188,7 @@ function cargarInformacionCliente(fila)
     $("#puntosCreados").text(fila.puntosQuePosee);
     $("#estado").text(fila.estadoCliente);
 
-    if($("#estado").text() === "Autorizacion Perndiente")
+    if($("#estado").text() === "Autorizacion Pendiente")
     {
         $("#botonAutorizarCliente").show(1000);
     }

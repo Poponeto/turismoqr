@@ -78,21 +78,25 @@ function registrarCliente(tipoCliente, urlBase)
 
     var jsonCliente = JSON.stringify(datosCliente);
     var urlAccion = urlBase + "/cliente/registrar"+tipoCliente+".htm";
+    debugger
 
-    timeout($.ajax({
+    $.ajax({
 
         url: urlAccion,
         data: jsonCliente,
+        dataType: "json",
         type: "POST",
         contentType: "application/json",
         success: function(){
+            debugger
             alert("success");
         },
         error: function(jqXHR, textStatus, errorThrown) {
+            debugger
             console.log(textStatus, errorThrown);
         }
 
-    }), 1000);
+    });
     
 
 }

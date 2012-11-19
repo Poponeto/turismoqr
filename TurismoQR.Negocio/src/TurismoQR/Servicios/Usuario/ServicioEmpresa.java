@@ -6,6 +6,7 @@ package TurismoQR.Servicios.Usuario;
 
 import TurismoQR.AccesoDatos.AccesoDatosEmpresa;
 import TurismoQR.AccesoDatos.IAccesoDatos;
+import TurismoQR.Manejadores.ManejadorUsuarios.ManejadorUsuarios;
 import TurismoQR.ObjetosNegocio.Categorias.Rubro;
 import TurismoQR.ObjetosNegocio.Usuarios.Cliente;
 import TurismoQR.ObjetosNegocio.Usuarios.ContactoEmpresa;
@@ -35,9 +36,10 @@ public class ServicioEmpresa extends ServicioCliente
     public ServicioEmpresa(
             IAccesoDatos accesoDatosEmpresa,
             ITraductor traductor,
-            ServicioContacto servicioContactoEmpresa)
+            ServicioContacto servicioContactoEmpresa,
+            ManejadorUsuarios manejadorGuardado)
     {
-        super(accesoDatosEmpresa, traductor);
+        super(accesoDatosEmpresa, traductor, manejadorGuardado);
         this.servicioContactoEmpresa = servicioContactoEmpresa;
     }
 
@@ -57,5 +59,11 @@ public class ServicioEmpresa extends ServicioCliente
         }
 
         ((Empresa) cliente).setRubro(rubro);
+    }
+
+    @Override
+    protected String getNombreCliente(Cliente cliente)
+    {
+        return ((Empresa)cliente).getCuit();
     }
 }

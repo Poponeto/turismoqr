@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
  */
 
 @Controller
-@RequestMapping("/usuario")
+@RequestMapping("/administracion/usuario")
 public class CrearUsuarioController {
 
     @RequestMapping(value = "/editarUsuario.htm", method = RequestMethod.POST)

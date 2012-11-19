@@ -5,6 +5,7 @@
 
 package TurismoQR.ObjetosNegocio.Periodo;
 
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -15,6 +16,7 @@ public abstract class PeriodoVencimiento extends Periodo{
 
     public Boolean esActual()
     {
-          return this.getFechaFinPeriodo() == null || this.getFechaFinPeriodo().before(new Date());
+          return this.getFechaFinPeriodo() == null || !(this.getFechaFinPeriodo().before(
+                  Calendar.getInstance().getTime()));
     }
 }

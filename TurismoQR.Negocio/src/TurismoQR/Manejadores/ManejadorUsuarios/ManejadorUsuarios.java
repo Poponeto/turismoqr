@@ -2,12 +2,13 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package TurismoQR.Manejadores.ManejadorUsuarios;
 
 import TurismoQR.AccesoDatos.AccesoDatosUsuario;
+import TurismoQR.ObjetosNegocio.Usuarios.Cliente;
 import TurismoQR.ObjetosNegocio.Usuarios.Usuario;
 import java.util.Collection;
+import java.util.Random;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +17,8 @@ import org.springframework.stereotype.Service;
  * @author ftacchini
  */
 @Service("manejadorGuardado")
-public class ManejadorUsuarios {
+public class ManejadorUsuarios
+{
 
     private AccesoDatosUsuario accesoDatosUsuario;
 
@@ -33,10 +35,37 @@ public class ManejadorUsuarios {
             accesoDatosUsuario.Guardar(usuario);
             return true;
         }
-        catch(Exception e)
+        catch (Exception e)
         {
             return false;
         }
+    }
+
+    public Usuario crearUsuario(String nombreUsuario)
+    {
+        Usuario usuario = new Usuario();
+        usuario.setNombreUsuario(nombreUsuario);
+        usuario.setContraseña(getCadenaAlfanumAleatoria(12));
+
+        return usuario;
+    }
+
+    private String getCadenaAlfanumAleatoria(int longitud)
+    {
+        String cadenaAleatoria = "";
+        long milis = new java.util.GregorianCalendar().getTimeInMillis();
+        Random r = new Random(milis);
+        int i = 0;
+        while (i < longitud)
+        {
+            char c = (char) r.nextInt(255);
+            if ((c >= '0' && c <= '9') || (c >= 'A' && c <= 'Z'))
+            {
+                cadenaAleatoria += c;
+                i++;
+            }
+        }
+        return cadenaAleatoria;
     }
 
     public Collection<Usuario> obtenerUsuarios()

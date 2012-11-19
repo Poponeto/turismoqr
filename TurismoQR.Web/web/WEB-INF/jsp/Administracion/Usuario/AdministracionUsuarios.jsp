@@ -40,6 +40,9 @@
         <div id="contenedorMenu" class="ui-widget-header">
             <%@ include  file="/WEB-INF/jsp/Utils/MenuCabecera.jsp" %>
         </div>
-        <%@ include  file="/WEB-INF/jsp/Administracion/Usuario/TablaUsuarios.jsp" %>
+
+        <div style="width: 50%; margin-left: 1%; margin-top: 15px" align="left">
+            <%@ include  file="/WEB-INF/jsp/Administracion/Usuario/TablaUsuarios.jsp" %>
+        </div>
     </body>
 </html>

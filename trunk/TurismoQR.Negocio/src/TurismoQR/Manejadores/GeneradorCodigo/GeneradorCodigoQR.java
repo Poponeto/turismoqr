@@ -14,23 +14,23 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.util.Random;
 import javax.imageio.ImageIO;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
  * Clase que genera el codigo QR requerido para cada punto de interes.
  * @author Chelo
  */
-@Service
+@Service("generadorCodigoQR")
 public class GeneradorCodigoQR {
     private static final String FORMATO_IMAGEN = "gif";
     private static final String RUTA_HOME = System.getProperty("user.home"); 
-    private static final String DIRECCION_CONSULTA = "www.google.com"; 
+    private static final String DIRECCION_CONSULTA = "/informacionPunto/";
+    private static final String VISTA_MOVIL = "/infoPuntoMobile.htm";
     private static final int ancho = 500; 
     private static final int alto = 500;
 
 
-    public String generarCodigoQR(String idPuntoInteres, int tamaño, String rutaImagen, String formatoImagen){
+    public String generarCodigoQR(String idPuntoInteres, int tamaño, String requestContext, String formatoImagen){
         BitMatrix qrCode;
         Writer qrCodeWriter = new QRCodeWriter();
                 
@@ -38,15 +38,13 @@ public class GeneradorCodigoQR {
             tamaño = ancho;
         }
         
-        if (rutaImagen == null) {
-            rutaImagen = RUTA_HOME + "/CodigoQR" + (new Random()).nextDouble() + "." + formatoImagen;
-        }
+        String rutaImagen = RUTA_HOME + "/CodigoQR" + idPuntoInteres + "." + formatoImagen;
         
         if (formatoImagen == null) {
             formatoImagen = FORMATO_IMAGEN;
         }
                
-        String datos = DIRECCION_CONSULTA + idPuntoInteres;
+        String datos = requestContext + DIRECCION_CONSULTA + idPuntoInteres + VISTA_MOVIL;
         
         try{
             qrCode = qrCodeWriter.encode(datos, BarcodeFormat.QR_CODE, tamaño, tamaño);
@@ -56,14 +54,12 @@ public class GeneradorCodigoQR {
             FileOutputStream qrCodeFile = new FileOutputStream(rutaImagen); 
             ImageIO.write(qrCodeImage, FORMATO_IMAGEN, qrCodeFile); 
 
-            qrCodeFile.close(); 
-
-            Desktop d = Desktop.getDesktop(); 
-            d.open(new File(rutaImagen));
+            qrCodeFile.close();
+            
         } catch (Exception e) {
             System.out.println("Ha ocurrido un error");
         }
-        
+
        return rutaImagen;
     }
     

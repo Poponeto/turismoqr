@@ -105,8 +105,10 @@ public abstract class ServicioPuntoBase
             dtoInformacion.setIdioma(dtoIdioma);
         }
 
-        dtoPunto.setCategoria((DTOCategoria)traductor.traducir(punto.getCategoria()));
-
+        if(punto.getCategoria() != null) {
+            dtoPunto.setCategoria((DTOCategoria)traductor.traducir(punto.getCategoria()));
+        }
+        
         if(punto.getImagenes() != null && !punto.getImagenes().isEmpty()) {
             dtoPunto.setImagenes(crearDTOImagenes(punto.getImagenes(), idioma));
         }

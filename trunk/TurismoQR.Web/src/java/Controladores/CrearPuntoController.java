@@ -19,6 +19,7 @@ import TurismoQR.Manejadores.ManejadorIdiomas.ManejadorIdiomas;
 import TurismoQR.ObjetosNegocio.Informacion.Idioma;
 import TurismoQR.ObjetosNegocio.Informacion.Imagen;
 import TurismoQR.ObjetosTransmisionDatos.DTOCategoria;
+import TurismoQR.ObjetosTransmisionDatos.DTOCodigoQR;
 import TurismoQR.ObjetosTransmisionDatos.DTOImagen;
 import TurismoQR.Servicios.Idioma.IServicioIdioma;
 import TurismoQR.Traductores.ITraductor;
@@ -135,9 +136,10 @@ public class CrearPuntoController {
         dtoPunto.setLocalizacion(localizacionPunto);
         dtoPunto.setImagenes(getImagenesPunto());
 
-        servicioPunto.CrearPuntoInteres(dtoPunto, idioma);
+        String idPuntoGuardado = servicioPunto.CrearPuntoInteres(dtoPunto, idioma);
 
         modelo.put("nombrePunto", nombrePunto);
+        modelo.put("idPuntoGuardado", idPuntoGuardado);
         
         return "Administracion/Punto/ConfirmacionGuardarPunto";
     }
@@ -262,6 +264,7 @@ public class CrearPuntoController {
             idioma.setNombreIdioma("espanol");
             dtoInformacion.setIdioma(idioma);
             dtoInformacion.setTexto(decodedComment);
+            dtoInformacion.setNombre(comentario);
             imagenComentario.setInformacion(dtoInformacion);
             detallesOperacion.setEstadoOperacion("SUCCESS");
             detallesOperacion.setMensaje(decodedComment);
@@ -269,6 +272,26 @@ public class CrearPuntoController {
         } else {
             response.setStatus(500);
         }
+
+        return detallesOperacion;
+    }
+
+    @RequestMapping("/{idPunto}/{requestContext}/obtenerCodigo.htm")
+    public @ResponseBody DetallesImagenResponse handleRequestCodigo(
+            @PathVariable("idPunto") String idPunto,
+            @PathVariable("requestContext") String requestContext,
+            HttpServletResponse response) {
+
+        DetallesImagenResponse detallesOperacion = new DetallesImagenResponse();
+
+        DTOCodigoQR codigoQR = servicioPunto.GenerarCodigoQR(idPunto, 500, requestContext, "jpg");
+
+        detallesOperacion.setEstadoOperacion("SUCCESS");
+
+        detallesOperacion.setMensaje(codigoQR.getrutaImagenCodigo());
+
+        response.setContentType("application/json");
+        response.setStatus(200);
 
         return detallesOperacion;
     }

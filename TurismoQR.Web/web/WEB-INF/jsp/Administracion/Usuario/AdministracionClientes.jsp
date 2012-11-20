@@ -63,7 +63,7 @@
             <%@ include  file="/WEB-INF/jsp/Utils/MenuCabecera.jsp" %>
         </div>
         <div id="Contenido">
-            <div id="tablaClientes" style="margin-top: 10px;">
+            <div id="contenedorTablaClientes" style="margin-top: 10px;">
                 <%@ include  file="/WEB-INF/jsp/Administracion/Usuario/TablaClientes.jsp" %>
             </div>
             <div id="informacionCliente" style="padding: 10px;">

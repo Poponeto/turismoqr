@@ -2,6 +2,7 @@ package TurismoQR.AccesoDatos;
 
 import TurismoQR.ObjetosNegocio.IObjetoNegocio;
 import java.util.Collection;
+import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.DetachedCriteria;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +38,10 @@ class AccesoDatos extends HibernateDaoSupport implements IAccesoDatos
 
     public <E extends IObjetoNegocio> Collection<E> BuscarConjuntoObjetos(Class<E> clase)
     {
-        return getHibernateTemplate().loadAll(clase);
+        
+           
+            return getHibernateTemplate().loadAll(clase);
+                    
     }
 
     public <E extends IObjetoNegocio> E BuscarObjeto(Class<E> clase)
@@ -47,7 +51,7 @@ class AccesoDatos extends HibernateDaoSupport implements IAccesoDatos
 
     public <E extends IObjetoNegocio> E BuscarObjeto(DetachedCriteria criteria)
     {
-        E objeto = (E) getHibernateTemplate().findByCriteria(criteria, 0, 1).get(0);
+        E objeto = (E) getHibernateTemplate().findByCriteria(criteria).get(0);
         getHibernateTemplate().initialize(objeto);
         return objeto;
     }

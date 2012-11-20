@@ -18,7 +18,7 @@
         <div id="contenedorFormularioPersona">
 
             <fieldset>
-
+                <legend> Datos personales </legend>
                 <label for="lineaDatosNombre">
                     Nombre<br>
                     <input id="lineaDatosNombre" name="nombre" type="text" required="true"/>

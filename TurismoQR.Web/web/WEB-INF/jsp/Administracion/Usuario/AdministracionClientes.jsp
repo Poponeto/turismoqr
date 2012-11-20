@@ -33,6 +33,28 @@
                 margin-left: auto;
                 margin-right: auto;
             }
+            fieldset[id*="informacion"] {
+                border-radius: 10px;
+                margin-bottom: 10px;
+                font-family: Calibri,Calibri,Calibri;
+                font-size: 1.1em;
+            }
+            fieldset[id*="informacion"] legend {
+                font-weight: bold;
+                font-style: italic;
+            }
+            fieldset[id*="informacion"] p {
+                font-weight: bold;
+            }
+            fieldset[id*="informacion"] p label {
+                font-weight: normal;
+            }
+            #botonAutorizarCliente {
+                display: block;
+                width: 25%;
+                margin-left: auto;
+                margin-right: auto;
+            }
         </style>
     </head>
     <body>
@@ -41,10 +63,13 @@
             <%@ include  file="/WEB-INF/jsp/Utils/MenuCabecera.jsp" %>
         </div>
         <div id="Contenido">
-            <%@ include  file="/WEB-INF/jsp/Administracion/Usuario/TablaClientes.jsp" %>
-            <div id="informacionCliente">
+            <div id="tablaClientes" style="margin-top: 10px;">
+                <%@ include  file="/WEB-INF/jsp/Administracion/Usuario/TablaClientes.jsp" %>
+            </div>
+            <div id="informacionCliente" style="padding: 10px;">
 
-                <div id="informacionPrincipal">
+                <fieldset id="informacionPrincipal">
+                    <legend> Informacion cliente </legend>
                     <p>
                         Identificador:&nbsp;
                         <label id="identificador"></label>
@@ -59,9 +84,10 @@
                         Tipo de Cliente:&nbsp;
                         <label id="tipoCliente"/>
                     </p>
-                </div>
+                </fieldset>
 
-                <div id="informacionContacto">
+                <fieldset id="informacionContacto" >
+                    <legend> Informacion contacto </legend>
                     <p>
                         Direccion de Correo:&nbsp;
                         <label id="mail"></label>
@@ -76,9 +102,10 @@
                         Telefono Fijo:&nbsp;
                         <label id="telefonoFijo"/>
                     </p>
-                </div>
+                </fieldset>
 
-                <div id="informacionAdministrativa">
+                <fieldset id="informacionAdministrativa">
+                    <legend> Informacion administrativa </legend>
                     <p>
                         Puntos permitidos:&nbsp;
                         <label id="puntosPermitidos"></label>
@@ -95,7 +122,7 @@
                     </p>
 
                     
-                </div>
+                </fieldset>
 
                 <button id="botonAutorizarCliente">Autorizar Cliente</button>
             </div>

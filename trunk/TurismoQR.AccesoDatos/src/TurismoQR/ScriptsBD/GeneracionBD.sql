@@ -1,5 +1,5 @@
+DROP SCHEMA `turismoqr` ;
 CREATE SCHEMA `turismoqr` ;
-
 create table InformacionEnIdioma (idInformacionEnIdioma varchar(255) not null, texto varchar(255), nombre varchar(255), Idioma varchar(255) not null, Informacion varchar(255), primary key (idInformacionEnIdioma));
 create table categoria (idCategoria varchar(255) not null, nombreCategoria varchar(255), primary key (idCategoria));
 create table ciclo (idCiclo varchar(255) not null, primary key (idCiclo));
@@ -52,6 +52,7 @@ alter table rubro add index FK67D24FC6B66D9EC (categoriaRubro), add constraint F
 
 INSERT INTO `turismoqr`.`usuario` (`idUsuario`, `nombreUsuario`, `contrasenia`) VALUES ('1', 'admin', 'admin');
 INSERT INTO `turismoqr`.`permiso` (`idPermiso`, `nombre`, `descripcion`) VALUES ('1', 'PERMISO_ADMINISTRADOR', 'Permiso de administrador');
+INSERT INTO `turismoqr`.`permiso` (`idPermiso`, `nombre`, `descripcion`) VALUES ('2', 'PERMISO_CLIENTE', 'Permiso de cliente');
 INSERT INTO `turismoqr`.`permisousuario` (`idPermisoUsuario`, `permiso`, `Usuario`) VALUES ('1', '1', '1');
 
 INSERT INTO `turismoqr`.`localizacion` (`idLocalizacion`, `latitud`, `longitud`) VALUES ('1', '0', '0');
@@ -75,7 +76,7 @@ INSERT INTO `turismoqr`.`categoria` (`idCategoria`, `nombreCategoria`) VALUES ('
 INSERT INTO `turismoqr`.`categoria` (`idCategoria`, `nombreCategoria`) VALUES ('10', 'Universidad');
 INSERT INTO `turismoqr`.`categoria` (`idCategoria`, `nombreCategoria`) VALUES ('11', 'Software Factory');
 
-INSERT INTO `turismoqr`.`punto` (`idPunto`, `nombre`, `Localizacion`, `Informacion`) VALUES ('1', 'Punto de Interes', '1', '1','1','1');
+INSERT INTO `turismoqr`.`punto` (`idPunto`, `nombre`, `Localizacion`, `Informacion`,`categoriaPunto`) VALUES ('1', 'Punto de Interes', '1', '1','1');
 INSERT INTO `turismoqr`.`recurso` (`idRecurso`, `url`) VALUES ('1', 'imagen');
 INSERT INTO `turismoqr`.`imagen` (`idImagen`, `extension`, `Informacion`, `Punto`) VALUES ('1', 'jpg', '2', '1');
 INSERT INTO `turismoqr`.`recurso` (`idRecurso`, `url`) VALUES ('2', 'link');

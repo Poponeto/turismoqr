@@ -12,7 +12,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Administracion TurismoQR</title>
-        
+
         <%@ include file="/WEB-INF/jsp/Utils/ArchivosMapa.html" %>
         <%@ include file="/WEB-INF/jsp/Utils/ArchivosJQuery.html" %>
 
@@ -29,9 +29,6 @@
                 });
             });
             
-            $(window).load(function() {
-                $('#slider').nivoSlider();
-            });
         </script>
     </head>
     <body style="margin: 0px;">
@@ -41,28 +38,11 @@
             <%@ include  file="/WEB-INF/jsp/Utils/MenuCabecera.jsp" %>
         </div>
 
-        <div id="Contenedor">
-            <table id="contenidoPrincipal" style="width: 100%;">
-                <tr>
-                    <td style="width: 50%;">
-                        <div id="contenedorMapa"></div>
-                    </td>
-                    <td>
-                        <div id="Contenido">
-                            <div class="slider-wrapper theme-default" style="background-color: black;">
-                                <div id="slider" class="nivoSlider" style="height: 500px;">
-                                    <img src="${pageContext.request.contextPath}/Vistas/Imagenes/Slider5.jpg" data-thumb="../Vistas/Imagenes/Slider5.jpg" alt="" />
-                                    <img src="${pageContext.request.contextPath}/Vistas/Imagenes/Slider6.jpg" data-thumb="../Vistas/Imagenes/Slider6.jpg" alt="" />
-                                    <img src="${pageContext.request.contextPath}/Vistas/Imagenes/Slider4.jpg" data-thumb="../Vistas/Imagenes/Slider4.jpg" alt="" />
-                                </div>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-            </table>
+        <div id="Contenedor" style="width: 100%; height: 450px; margin-top: 30px;">
+            <div id="contenedorMapa"></div>
         </div>
 
         <%@ include file="/WEB-INF/jsp/Utils/ArchivosSlider.html" %>
 
-</body>
+    </body>
 </html>

@@ -76,11 +76,6 @@
                                     <a href="${pageContext.request.contextPath}/administracion/cliente/paginaAdministracionClientes.htm">Clientes del Sistema</a>
                                 </li>
                             </sec:authorize>
-                            <sec:authorize url="/buscarPunto/paginaBuscarPunto.htm">
-                                <li style="width:170px">
-                                    <a href="${pageContext.request.contextPath}/crearPunto/crearPuntoDeInteres.htm">Crear Usuario</a>
-                                </li>
-                            </sec:authorize>
                         </ul>
                     </li>
 

@@ -64,8 +64,6 @@ function obtenerDatosPersona()
 
 function registrarCliente(tipoCliente, urlBase)
 {
-    debugger
-
     var datosCliente;
 
     if (tipoCliente === "Empresa")
@@ -79,7 +77,6 @@ function registrarCliente(tipoCliente, urlBase)
 
     var jsonCliente = JSON.stringify(datosCliente);
     var urlAccion = urlBase + "/cliente/registrar"+tipoCliente+".htm";
-    debugger
 
     $.ajax({
         url: urlAccion,
@@ -87,24 +84,14 @@ function registrarCliente(tipoCliente, urlBase)
         contentType: "application/json",
         data: jsonCliente,
         type: "POST",
-        sucess: function(){
-            debugger
-            alert("success");
+        success: function(data){
+            var urlRedirect = urlBase + "/" +data[1];
+            var queryString = $.param({mail: data[0]});
+            
+            urlRedirect = urlRedirect + "?" + queryString;
+
+            window.location.replace(urlRedirect);
         }
     });
    
 }
-
-$.postJSON = function(url, data, callback) {
-    return jQuery.ajax({
-    headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-    },
-    'type': 'POST',
-    'url': url,
-    'data': data,
-    'dataType': 'json',
-    'success': callback
-    });
-};

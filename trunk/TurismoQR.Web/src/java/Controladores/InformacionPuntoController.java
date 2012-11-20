@@ -89,11 +89,22 @@ public class InformacionPuntoController {
 
     @RequestMapping(value = "/{idPunto}/" + obtenerInformacionPuntoMobile,
                     method = RequestMethod.GET)
-    public String obtenerInformacionPuntoMobile (
+    public String obtenerInformacionPuntoMobileDefault (
             @PathVariable String idPunto,
             ModelMap model)
     {
         String idioma = "espanol";
+
+        return "redirect:/informacionPunto/"+idioma+"/"+idPunto+"/"+obtenerInformacionPuntoMobile;
+    }
+
+    @RequestMapping(value = "/{idioma}/{idPunto}/" + obtenerInformacionPuntoMobile,
+                    method = RequestMethod.GET)
+    public String obtenerInformacionPuntoMobile (
+            @PathVariable String idioma,
+            @PathVariable String idPunto,
+            ModelMap model)
+    {
         DTOPunto dtoPunto = servicioPunto.ConsultarPuntoInteres(idPunto, idioma);
         Collection<DTOIdioma> dtoIdiomas = servicioIdioma.consultarPosiblesIdiomas(idPunto);
         model.put("punto", dtoPunto);

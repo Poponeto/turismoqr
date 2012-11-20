@@ -153,18 +153,24 @@
      * @param latitud Latitud de la ubicacion del nuevo marcador
      * @param longitud Longitud de la ubicacion del nuevo marcador
      * @param titulo Titulo del nuevo marcador
+     * @param draggable Define si el marcador es arrastrable
      */
-    crearNuevoMarcador : function(titulo, funcion, latitud, longitud) {
+    crearNuevoMarcador : function(titulo, funcion, latitud, longitud, draggable) {
 
         if(latitud == null && longitud == null) {
             latitud = tqrmapas.lat;
             longitud = tqrmapas.lng;
         }
+
+        if(draggable == null) {
+            draggable = true;
+        }
+
         var latLong = new google.maps.LatLng(latitud, longitud);
 
         tqrmapas.marcador = new google.maps.Marker({
 		    position: latLong,
-		    draggable: true,
+		    draggable: draggable,
 		    map: tqrmapas.mapa,
 		    title: titulo
 		});

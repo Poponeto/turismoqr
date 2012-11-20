@@ -26,6 +26,6 @@ function inicializarCambioIdiomaInformacionPunto()
     function seleccionarElemento(valor)
     {
         $("#selectIdiomas option[value="+valor+"]").attr("selected",true);
-
+        $(".ui-select span.ui-btn-text span").text(valor);
     }
 }

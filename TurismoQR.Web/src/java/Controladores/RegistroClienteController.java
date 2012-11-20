@@ -7,6 +7,9 @@ package Controladores;
 import TurismoQR.ObjetosTransmisionDatos.DTOEmpresa;
 import TurismoQR.ObjetosTransmisionDatos.DTOPersona;
 import TurismoQR.Servicios.Usuario.IServicioCliente;
+import java.util.ArrayList;
+import java.util.List;
+import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +18,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  *
@@ -27,20 +31,17 @@ public class RegistroClienteController
 
     private IServicioCliente servicioEmpresa;
     private IServicioCliente servicioPersona;
-
     private static final String paginaRegistrarCliente = "paginaRegistrarCliente.htm";
-
     private static final String paginaRegistrarEmpresa = "paginaRegistrarEmpresa.htm";
     private static final String paginaRegistrarPersona = "paginaRegistrarPersona.htm";
-
     private static final String registrarEmpresa = "registrarEmpresa.htm";
     private static final String registrarPersona = "registrarPersona.htm";
+    private static final String confirmacionRegistroCliente = "confirmacionRegistroCliente.htm";
 
     @Autowired
-    public RegistroClienteController (
+    public RegistroClienteController(
             IServicioCliente servicioEmpresa,
-            IServicioCliente servicioPersona
-            )
+            IServicioCliente servicioPersona)
     {
         this.servicioEmpresa = servicioEmpresa;
         this.servicioPersona = servicioPersona;
@@ -71,6 +72,11 @@ public class RegistroClienteController
         return "cliente/" + tipoCliente + "/" + paginaRegistrarCliente;
     }
 
+    public static String generarURLConfirmacionRegistroCliente()
+    {
+        return "cliente/" + confirmacionRegistroCliente;
+    }
+
     @RequestMapping(value = "/opcionesRegistroCliente.htm", method = RequestMethod.GET)
     public String redirigir(ModelMap model)
     {
@@ -89,19 +95,19 @@ public class RegistroClienteController
 
         if (tipoCliente.equalsIgnoreCase("empresa"))
         {
-            model.put("formularioCliente",  generarURLFormularioEmpresa());
+            model.put("formularioCliente", generarURLFormularioEmpresa());
             model.put("registro", generarURLRegistrarEmpresa());
         }
         else
         {
-            model.put("formularioCliente",  generarURLFormularioPersona());
-            model.put("registro",  generarURLRegistrarPersona());
+            model.put("formularioCliente", generarURLFormularioPersona());
+            model.put("registro", generarURLRegistrarPersona());
         }
 
         return "Registro/RegistroCliente";
     }
 
-    @RequestMapping(value = "/" +paginaRegistrarEmpresa, method = RequestMethod.GET)
+    @RequestMapping(value = "/" + paginaRegistrarEmpresa, method = RequestMethod.GET)
     public String formularioEmpresa()
     {
         return "Registro/FormularioEmpresa";
@@ -120,10 +126,32 @@ public class RegistroClienteController
     }
 
     @RequestMapping(value = "/" + registrarPersona, method = RequestMethod.POST)
-    public void registrarPersona(@RequestBody DTOPersona dtoPersona)
+    public @ResponseBody List<String> registrarPersona(@RequestBody DTOPersona dtoPersona, HttpServletResponse response)
     {
-        servicioPersona.registrarCliente(dtoPersona);
+        boolean exito = servicioPersona.registrarCliente(dtoPersona);
+
+        if (exito)
+        {
+            response.setStatus(HttpServletResponse.SC_OK);
+        }
+        else
+        {
+            response.setStatus(HttpServletResponse.SC_CONFLICT);
+        }
+
+        response.setContentType("application/json");
+
+        List<String> datos = new ArrayList<String>();
+        datos.add(dtoPersona.getMail());
+        datos.add(generarURLConfirmacionRegistroCliente());
+
+        return datos;
     }
 
-
+    @RequestMapping(value = "/" + confirmacionRegistroCliente, method=RequestMethod.GET)
+    public String confirmarRegistroCliente(String mail, Model modelo)
+    {
+        modelo.addAttribute("mail", mail);
+        return "Registro/ConfirmacionRegistroCliente";
+    }
 }

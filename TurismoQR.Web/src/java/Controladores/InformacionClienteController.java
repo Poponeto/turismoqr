@@ -11,6 +11,7 @@ import Utils.IFila;
 import Utils.Tabla;
 import java.util.Collection;
 import java.util.HashSet;
+import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -79,9 +80,18 @@ public class InformacionClienteController
     }
 
     @RequestMapping(value = "/autorizarCliente.htm", method = RequestMethod.POST)
-    public void autorizarCliente(String idCliente)
+    public void autorizarCliente(String idCliente, HttpServletResponse response)
     {
-        servicioCliente.autorizarCliente(idCliente);
+        boolean exito = servicioCliente.autorizarCliente(idCliente);
+
+        if (exito)
+        {
+            response.setStatus(HttpServletResponse.SC_OK);
+        }
+        else
+        {
+            response.setStatus(HttpServletResponse.SC_CONFLICT);
+        }
     }
 
 

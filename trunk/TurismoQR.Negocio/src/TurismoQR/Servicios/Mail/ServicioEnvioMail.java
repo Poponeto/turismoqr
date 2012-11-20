@@ -33,9 +33,9 @@ public class ServicioEnvioMail implements IServicioEnvioMail
     public boolean enviarEmail(String mensaje, String subject, String destinatario)
     {
         SimpleMailMessage mail = new SimpleMailMessage(this.mensajeMail);
-        mensajeMail.setSubject(subject);
-        mensajeMail.setText(mensaje);
-        mensajeMail.setTo(destinatario);
+        mail.setSubject(subject);
+        mail.setText(mensaje);
+        mail.setTo(destinatario);
 
         try{
             servicioEnvioMailJava.send(mail);

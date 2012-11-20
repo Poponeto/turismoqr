@@ -39,7 +39,31 @@
 
         <style TYPE="text/css">
             input {
-                width: 100%;
+                width: 99%;
+            }
+            #botonRegistrarse {
+                width: 25%;
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            fieldset {
+                display: block;
+                -webkit-margin-start: 2px;
+                -webkit-margin-end: 2px;
+                -webkit-padding-before: 0.35em;
+                -webkit-padding-start: 0.75em;
+                -webkit-padding-end: 0.75em;
+                -webkit-padding-after: 0.625em;
+                border: 2px groove threedface;
+                border-image: initial;
+                border-radius: 10px;
+                margin-bottom: 10px;
+            }
+            legend {
+                width: initial;
+                margin-bottom: initial;
+                border-bottom: initial;
             }
         </style>
 
@@ -50,24 +74,21 @@
         <div id="Contenedor">
 
             <div id="Contenido" style="padding: 30px;">
-                
                 <div id="contenedorFormularioCliente">
                 </div>
 
                 <fieldset>
+                    <legend> Informacion administrativa </legend>
                     <label for="lineaDatoscantidadDePuntosDeseados">
                         Cantidad de Puntos:<br>
                         <input id="lineaDatoscantidadDePuntosDeseados" name="cantidadDePuntosPermitidos" type="text" required="false"/>
                     </label>
-                    <br>
                 </fieldset>
 
                 <%@ include file = "/WEB-INF/jsp/Registro/FormularioContacto.jsp" %>
-
                 <div>
                     <button id="botonRegistrarse">Registrarse</button>
                 </div>
-
             </div>
         </div>
     </body>

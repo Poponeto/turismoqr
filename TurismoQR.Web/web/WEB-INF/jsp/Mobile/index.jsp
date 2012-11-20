@@ -21,10 +21,15 @@
         <script src="${pageContext.request.contextPath}/Vistas/JavaScript/Mapa.js"></script>
         <script>
             $(document).ready(function(){
+                $(window).resize(function(){
+                    $('#contenedorMapa').css('height', $(window).height()/3 + 'px');
+                });
+                $(window).resize();
+                inicializarCambioIdiomaInformacionPunto();
                 tqrmapas.inicializarLocalizacion($('#latitudPunto').text(), $('#longitudPunto').text());
                 tqrmapas.inicializarContenedor('contenedorMapa');
                 tqrmapas.crearMapa();
-                tqrmapas.crearNuevoMarcador('', null);
+                tqrmapas.crearNuevoMarcador('', null, null, null, false);
             });
             $(function(){
                 $('#galeria a').lightBox({
@@ -63,18 +68,32 @@
                 display: inline-block;
                 margin: 10px;
             }
+            #contenedorIdioma label {
+                font-weight: bold;
+            }
+            .ui-select {
+                display: inline-block;
+            }
+            #jquery-lightbox {
+                z-index: 1000 !important;
+            }
+            #lightbox-image {
+                width: 100% !important;
+                max-width: initial;
+            }
 	</style>
         <title>${punto.nombrePunto}</title>
     </head>
     <body>
         <div id="index" data-role="page" style="background: lightgray;">
-            <div id="header" data-role="header" data-position="fixed" data-tap-toggle="false" style="padding: 10px; height: 20px;" align="center">
+            <div id="header" data-role="header" data-position="fixed" data-tap-toggle="false" style="padding: 10px; min-height: 20px;" align="center">
                 ${punto.nombrePunto}
             </div>
             <div id="content" data-role="content">
                 <div id="latitudPunto" style="display: none;">${punto.localizacion.latitud}</div>
                 <div id="longitudPunto" style="display: none;">${punto.localizacion.longitud}</div>
-                <div id="contenedorMapa" style="height: 500px;"></div>
+                <div id="contenedorIdioma"><%@ include  file="/WEB-INF/jsp/Utils/ComboIdiomas.jsp" %></div>
+                <div id="contenedorMapa"></div>
                 <div id="categoriaPunto"  class="ui-corner-all" style="border: 1px solid black; padding: 10px; margin-top: 10px; background: white;">
                     <label for="textoCategoria">
                         <h3 style="margin: 0px; display: inline;">Categoria: </h3>
@@ -111,9 +130,9 @@
                         </ul>
                     </core:if>
                 </div>
-                <div id="compartirPunto"  class="ui-corner-all" style="border: 1px solid black; padding: 10px; margin-top: 10px; background: white;">
+                <div id="compartirPunto"  class="ui-corner-all" style="border: 1px solid black; padding: 10px; margin-top: 10px; background: white; text-align: center;">
                     <label for="botonesCompartir">
-                        <h3 style="margin: 0px;">Compartir punto: </h3>
+                        <h3 style="margin: 0px;">Compartir punto</h3>
                         <div id="botonesCompartir">
                             <a href="javascript:var dir=window.document.URL;var tit=window.document.title;var tit2=encodeURIComponent(tit);var dir2= encodeURIComponent(dir);window.location.href=('http://www.facebook.com/share.php?u='+dir2+'&amp;t='+tit2+'');" class="share-link">
                                 <img src="${pageContext.request.contextPath}/Vistas/Imagenes/facebook.png" border="0" width="30" height="30" alt="Facebook" />

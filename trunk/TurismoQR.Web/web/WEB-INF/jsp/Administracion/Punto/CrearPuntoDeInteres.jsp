@@ -13,9 +13,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Nuevo Punto de Interes</title>
-
-        <script type="text/javascript" src="${pageContext.request.contextPath}/Vistas/JavaScript/JQuery/jquery-1.8.1.min.js"></script>
-        
+        <%@ include file="/WEB-INF/jsp/Utils/ArchivosJQuery.html" %>
         <script type="text/javascript" src="http://blueimp.github.com/JavaScript-Templates/tmpl.min.js"></script>
         <script type="text/javascript" src="http://blueimp.github.com/JavaScript-Load-Image/load-image.min.js"></script>
         <script type="text/javascript" src="http://blueimp.github.com/JavaScript-Canvas-to-Blob/canvas-to-blob.min.js"></script>
@@ -32,7 +30,6 @@
 
         <%@ include  file="/WEB-INF/jsp/Utils/ArchivosJQuery.html" %>
 <!--        Temporal-->
-        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/Vistas/HojasDeEstilo/jquery-ui-1.8.24.custom.css">
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/Vistas/HojasDeEstilo/Administracion.css">
         <script type="text/javascript" src="${pageContext.request.contextPath}/Vistas/JavaScript/navegacionFormularios.js"></script>
         <script type="text/javascript" src="${pageContext.request.contextPath}/Vistas/JavaScript/JQuery/GaleriaImagenes/jquery.jcoverflip.js"></script>

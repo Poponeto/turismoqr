@@ -13,7 +13,8 @@
         <script type="text/javascript">
             $(document).ready(function(){
                 inicializarComponentes();
-
+                setTimeout($('#slider').nivoSlider(),1000);
+                
                 $('#botonRegistrarCliente').click(function(){
                     $('#Contenedor').css('opacity','0.5');
                     $('#popUpEmpresaPersona').dialog('open');
@@ -25,7 +26,7 @@
                 });
             });
             $(window).load(function() {
-                $('#slider').nivoSlider();
+                
             });
         </script>
     </head>

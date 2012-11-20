@@ -37,11 +37,6 @@
                                     <a href="${pageContext.request.contextPath}/administracion/crearPunto/crearPuntoDeInteres.htm">Crear Punto de Interés</a>
                                 </li>
                             </sec:authorize>
-                            <sec:authorize url="/administracion/crearPunto/crearPuntoDeInteres.htm">
-                                <li style="width:220px">
-                                    <a href="#">Crear Punto Comercial</a>
-                                </li>
-                            </sec:authorize>
                             <sec:authorize url="/buscarPunto/paginaBuscarPunto.htm">
                                 <li style="width:220px">
                                     <a href="${pageContext.request.contextPath}/buscarPunto/paginaBuscarPunto.htm">Buscar Punto</a>

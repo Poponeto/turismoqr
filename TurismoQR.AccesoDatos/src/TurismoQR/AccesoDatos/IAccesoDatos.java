@@ -21,6 +21,8 @@ public interface IAccesoDatos
 
     public <E extends IObjetoNegocio> Collection<E> BuscarConjuntoObjetos(Class<E> clase);
 
+    public <E extends IObjetoNegocio> Collection<E> BuscarObjetosPorCaracteristica(Class<E> clase, String nombreCaracteristica, String valorCaracteristica);
+
     public void Guardar(Collection<IObjetoNegocio> objetosNegocio);
 
     public void Guardar(IObjetoNegocio objetosNegocio);

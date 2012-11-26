@@ -7,8 +7,12 @@ package Controladores;
 import TurismoQR.ObjetosTransmisionDatos.DTOEmpresa;
 import TurismoQR.ObjetosTransmisionDatos.DTOPersona;
 import TurismoQR.Servicios.Usuario.IServicioCliente;
+import TurismoQR.Servicios.Validacion.Errores;
+import TurismoQR.Servicios.Validacion.IServicioValidacionDatos;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -31,6 +35,7 @@ public class RegistroClienteController
 
     private IServicioCliente servicioEmpresa;
     private IServicioCliente servicioPersona;
+    private IServicioValidacionDatos servicioValidacionDatos;
     private static final String paginaRegistrarCliente = "paginaRegistrarCliente.htm";
     private static final String paginaRegistrarEmpresa = "paginaRegistrarEmpresa.htm";
     private static final String paginaRegistrarPersona = "paginaRegistrarPersona.htm";
@@ -41,10 +46,12 @@ public class RegistroClienteController
     @Autowired
     public RegistroClienteController(
             IServicioCliente servicioEmpresa,
-            IServicioCliente servicioPersona)
+            IServicioCliente servicioPersona,
+            IServicioValidacionDatos servicioValidacionDatos)
     {
         this.servicioEmpresa = servicioEmpresa;
         this.servicioPersona = servicioPersona;
+        this.servicioValidacionDatos = servicioValidacionDatos;
     }
 
     public static String generarURLFormularioEmpresa()
@@ -126,29 +133,43 @@ public class RegistroClienteController
     }
 
     @RequestMapping(value = "/" + registrarPersona, method = RequestMethod.POST)
-    public @ResponseBody List<String> registrarPersona(@RequestBody DTOPersona dtoPersona, HttpServletResponse response)
+    public
+    @ResponseBody
+    Map<String, String> registrarPersona(@RequestBody DTOPersona dtoPersona, HttpServletResponse response)
     {
-        boolean exito = servicioPersona.registrarCliente(dtoPersona);
 
-        if (exito)
+        Errores errores = servicioValidacionDatos.validarDatos(dtoPersona);
+
+        response.setContentType("application/json");
+        
+        if (errores.hayErrores())
         {
-            response.setStatus(HttpServletResponse.SC_OK);
+            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+            return errores;
         }
         else
         {
-            response.setStatus(HttpServletResponse.SC_CONFLICT);
+            boolean exito = servicioPersona.registrarCliente(dtoPersona);
+
+            Map<String, String> datos = new HashMap<String, String>();
+
+            if (exito)
+            {
+                response.setStatus(HttpServletResponse.SC_OK);
+                datos.put("mail", dtoPersona.getMail());
+                datos.put("urlConfirmacion", generarURLConfirmacionRegistroCliente());
+            }
+            else
+            {
+                response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            }
+            
+            return datos;
+
         }
-
-        response.setContentType("application/json");
-
-        List<String> datos = new ArrayList<String>();
-        datos.add(dtoPersona.getMail());
-        datos.add(generarURLConfirmacionRegistroCliente());
-
-        return datos;
     }
 
-    @RequestMapping(value = "/" + confirmacionRegistroCliente, method=RequestMethod.GET)
+    @RequestMapping(value = "/" + confirmacionRegistroCliente, method = RequestMethod.GET)
     public String confirmarRegistroCliente(String mail, Model modelo)
     {
         modelo.addAttribute("mail", mail);

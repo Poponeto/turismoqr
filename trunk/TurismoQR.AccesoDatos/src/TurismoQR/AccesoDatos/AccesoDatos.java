@@ -5,6 +5,7 @@ import java.util.Collection;
 import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 import org.springframework.stereotype.Repository;
@@ -72,6 +73,17 @@ class AccesoDatos extends HibernateDaoSupport implements IAccesoDatos
         {
             getHibernateTemplate().saveOrUpdate(objetoNegocio);
         }
+    }
+
+    public <E extends IObjetoNegocio> Collection<E> BuscarObjetosPorCaracteristica(
+            Class<E> clase,
+            String nombreCaracteristica,
+            String valorCaracteristica)
+    {
+        DetachedCriteria criterioDeBusqueda = DetachedCriteria.forClass(clase);
+        criterioDeBusqueda.add(Restrictions.eq(nombreCaracteristica, valorCaracteristica));
+
+        return this.BuscarConjuntoObjetos(criterioDeBusqueda);
     }
 
 }

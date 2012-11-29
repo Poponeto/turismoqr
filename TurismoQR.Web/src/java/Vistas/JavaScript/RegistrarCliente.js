@@ -19,7 +19,7 @@ function inicializarComponentesRegistrarCliente(tipoCliente, urlBase)
     });
 
     $("#botonAgregarContacto").click(function(){
-        debugger
+        
         var boton = $('.contactoEmpresa:hidden:first #botonEliminarContactoEmpresa');
         var contenedor = $('.contactoEmpresa:hidden:first');
         contenedor.show(1000);
@@ -29,7 +29,7 @@ function inicializarComponentesRegistrarCliente(tipoCliente, urlBase)
     });
 
     $('[id*="botonEliminarContactoEmpresa"]').click(function(){
-        debugger
+        
         var contactNumber = this.attributes["contactnumber"].value;
         $("#contenedorFormularioContactoEmpresa" + contactNumber).hide(500);
         $("#contenedorFormularioContactoEmpresa" + contactNumber + " :input").val("");
@@ -63,7 +63,7 @@ function obtenerDatosEmpresa()
 {
     var empresaJSON = obtenerDatosCliente();
     var contactosEmpresaJSON = obtenerDatosContactoEmpresa();
-
+debugger
     empresaJSON[$('#lineaDatosCuit').attr("name")] = $('#lineaDatosCuit').val();
     empresaJSON[$('#lineaDatosRazonSocial').attr("name")] = $('#lineaDatosRazonSocial').val();
     empresaJSON[$('#selectRubro').attr("name")] = ($('#selectRubro').val())[0];
@@ -77,16 +77,16 @@ function obtenerDatosContactoEmpresa()
     var contactosEmpresaJSON = [];
 
     $('.contactoEmpresa:visible').each(function(id){
-        debugger
+        
         var contactoEmpresaJSON = {};
 
-        contactoEmpresaJSON[$('#' + this.id + ' #lineaDatosNombre').attr("name")] = $('#' + this.id + ' #lineaDatosNombre').val();
-        contactoEmpresaJSON[$('#' + this.id + '#lineaDatosApellido').attr("name")] = $('#' + this.id + ' #lineaDatosApellido').val();
-        contactoEmpresaJSON[$('#lineaDatosFechaNacimiento').attr("name")] = $('#' + this.id + ' #lineaDatosFechaNacimiento').val();
+        contactoEmpresaJSON[$('#' + this.id + ' #lineaDatosNombreContactoEmpresa').attr("name")] = $('#' + this.id + ' #lineaDatosNombreContactoEmpresa').val();
+        contactoEmpresaJSON[$('#' + this.id + ' #lineaDatosApellidoContactoEmpresa').attr("name")] = $('#' + this.id + ' #lineaDatosApellidoContactoEmpresa').val();
+        contactoEmpresaJSON[$('#' + this.id + ' #selectGeneroContactoEmpresa').attr("name")] = ($('#' + this.id + ' #selectGeneroContactoEmpresa').val())[0];
 
-        contactoEmpresaJSON[$('#' + this.id + '#lineaDatosMailContactoEmpresa').attr("name")] = $('#' + this.id + ' #lineaDatosMailContactoEmpresa').val();
-        contactoEmpresaJSON[$('#' + this.id + '#lineaDatosCelularContactoEmpresa').attr("name")] = $('#' + this.id + ' #lineaDatosCelularContactoEmpresa').val();
-        contactoEmpresaJSON[$('#' + this.id + '#lineaDatosTelefonoFijoContactoEmpresa').attr("name")] = $('#' + this.id + ' #lineaDatosTelefonoFijoContactoEmpresa').val();
+        contactoEmpresaJSON[$('#' + this.id + ' #lineaDatosMailContactoEmpresa').attr("name")] = $('#' + this.id + ' #lineaDatosMailContactoEmpresa').val();
+        contactoEmpresaJSON[$('#' + this.id + ' #lineaDatosCelularContactoEmpresa').attr("name")] = $('#' + this.id + ' #lineaDatosCelularContactoEmpresa').val();
+        contactoEmpresaJSON[$('#' + this.id + ' #lineaDatosTelefonoFijoContactoEmpresa').attr("name")] = $('#' + this.id + ' #lineaDatosTelefonoFijoContactoEmpresa').val();
 
         contactosEmpresaJSON[id] = contactoEmpresaJSON;
     });

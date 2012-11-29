@@ -31,7 +31,7 @@ function inicializarComponentesRegistrarCliente(tipoCliente, urlBase)
     $('[id*="botonEliminarContactoEmpresa"]').click(function(){
         debugger
         var contactNumber = this.attributes["contactnumber"].value;
-        $("#contenedorFormularioContactoEmpresa" + contactNumber).hide();
+        $("#contenedorFormularioContactoEmpresa" + contactNumber).hide(500);
         $("#contenedorFormularioContactoEmpresa" + contactNumber + " :input").val("");
 
         return false;
@@ -76,7 +76,7 @@ function obtenerDatosContactoEmpresa()
 {
     var contactosEmpresaJSON = [];
 
-    $('[id*="contenedorFormularioContactoEmpresa"]:visible').each(function(id){
+    $('.contactoEmpresa:visible').each(function(id){
         debugger
         var contactoEmpresaJSON = {};
 

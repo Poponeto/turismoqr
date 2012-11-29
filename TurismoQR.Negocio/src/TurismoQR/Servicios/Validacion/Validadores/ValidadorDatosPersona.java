@@ -53,7 +53,7 @@ public class ValidadorDatosPersona implements Validador{
         {
             errores.agregarError("sexo", "Debe especificar genero.");
         }
-        else if (!dtoPersona.getSexo().equalsIgnoreCase("M") || !dtoPersona.getSexo().equalsIgnoreCase("F"))
+        else if (!(dtoPersona.getSexo().equalsIgnoreCase("M") || dtoPersona.getSexo().equalsIgnoreCase("F")))
         {
             errores.agregarError("sexo", "El genero debe ser masculino o femenino.");
         }

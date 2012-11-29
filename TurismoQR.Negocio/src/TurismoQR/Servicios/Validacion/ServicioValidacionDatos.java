@@ -24,14 +24,9 @@ import org.springframework.transaction.annotation.Transactional;
 public class ServicioValidacionDatos implements IServicioValidacionDatos
 {
 
-    IAccesoDatos accesoDatos;
+    private IAccesoDatos accesoDatos;
 
-    private Validador[] validadores =
-    {
-        new ValidadorDatosContacto(),
-        new ValidadorDatosCliente(),
-        new ValidadorDatosPersona(accesoDatos)
-    };
+    private Validador[] validadores;
 
     public Validador[] getValidadores()
     {
@@ -51,6 +46,14 @@ public class ServicioValidacionDatos implements IServicioValidacionDatos
 
     public Errores validarDatos(IDTO dto)
     {
+        Validador[] validadoresCreados = {
+            new ValidadorDatosContacto(),
+            new ValidadorDatosCliente(),
+            new ValidadorDatosPersona(accesoDatos)
+        };
+
+        this.setValidadores(validadoresCreados);
+
         Errores errores = new Errores();
 
         for(Validador validador : validadores)

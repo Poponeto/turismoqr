@@ -117,6 +117,8 @@ public class RegistroClienteController
     @RequestMapping(value = "/" + paginaRegistrarEmpresa, method = RequestMethod.GET)
     public String formularioEmpresa()
     {
+
+
         return "Registro/FormularioEmpresa";
     }
 

@@ -26,13 +26,6 @@ public class ValidadorDatosContacto implements Validador {
         } else if (!dtoContacto.getMail().matches("[.]+@[.]+")) {
             errores.agregarError("mail", "La direccion de Email no tiene un formato valido.");
         }
-        
-        if(dtoContacto.getCelular()==null){
-            errores.agregarError("celular", "La numero de celular no puede ser nulo.");
-        }
-        else if (!dtoContacto.getCelular().matches("[0-9]")) {
-            errores.agregarError("celular", "El numero de celular no tiene un formato válido.");
-        }
 
     }
 }

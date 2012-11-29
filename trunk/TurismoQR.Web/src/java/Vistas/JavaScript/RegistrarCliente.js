@@ -5,6 +5,8 @@
 
 function inicializarComponentesRegistrarCliente(tipoCliente, urlBase)
 {
+    $(".contactoEmpresa").hide();
+
     $("#lineaDatosFechaNacimiento").datepicker({
         showOtherMonths: true,
         selectOtherMonths: true,
@@ -18,17 +20,17 @@ function inicializarComponentesRegistrarCliente(tipoCliente, urlBase)
 
     $("#botonAgregarContacto").click(function(){
         debugger
-        var boton = $(':hidden:first #botonEliminarContactoEmpresa');
-        var contenedor = $(':hidden:first');
+        var boton = $('.contactoEmpresa:hidden:first #botonEliminarContactoEmpresa');
+        var contenedor = $('.contactoEmpresa:hidden:first');
         contenedor.show(1000);
-        boton.attr("contactNumber",contenedor.attr("contactNumber"));
+        boton.attr("contactnumber",contenedor.attr("contactNumber"));
 
         return false;
     });
 
     $('[id*="botonEliminarContactoEmpresa"]').click(function(){
         debugger
-        var contactNumber = this.attr("contactNumber");
+        var contactNumber = this.attributes["contactnumber"].value;
         $("#contenedorFormularioContactoEmpresa" + contactNumber).hide();
         $("#contenedorFormularioContactoEmpresa" + contactNumber + " :input").val("");
 

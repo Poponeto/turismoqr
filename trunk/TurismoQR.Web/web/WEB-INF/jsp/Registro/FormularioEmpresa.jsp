@@ -17,7 +17,7 @@
     <body>
         <div id="contenedorFormularioEmpresa">
             <fieldset>
-
+                <legend> Datos de la Empresa </legend>
                 <label for="lineaDatoscuit">
                     CUIT:<br>
                     <input id="lineaDatosCuit" name="cuit" type="text" required="true"/>
@@ -38,8 +38,34 @@
                     </select>
                 </label>
 
+                <button id="botonAgregarContacto">Agregar Contacto</button>
+
+                <div id="contenedorFormularioContactoEmpresa1" class="contactoEmpresa" contactNumber="1">
+                    <%@ include  file="/WEB-INF/jsp/Registro/FormularioContactoEmpresa.jsp" %>
+                </div>
+
+                <div id="contenedorFormularioContactoEmpresa2" class="contactoEmpresa" contactNumber="2">
+                    <%@ include  file="/WEB-INF/jsp/Registro/FormularioContactoEmpresa.jsp" %>
+
+                </div>
+
+                <div id="contenedorFormularioContactoEmpresa3" class="contactoEmpresa" contactNumber="3">
+                    <%@ include  file="/WEB-INF/jsp/Registro/FormularioContactoEmpresa.jsp" %>
+
+                </div>
+
+                <div id="contenedorFormularioContactoEmpresa4" class="contactoEmpresa" contactNumber="4">
+                    <%@ include  file="/WEB-INF/jsp/Registro/FormularioContactoEmpresa.jsp" %>
+
+                </div>
+
+                <div id="contenedorFormularioContactoEmpresa5" class="contactoEmpresa" contactNumber="5">
+                    <%@ include  file="/WEB-INF/jsp/Registro/FormularioContactoEmpresa.jsp" %>
+                </div>
 
             </fieldset>
+
+
 
         </div>
 

@@ -6,7 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-   "http://www.w3.org/TR/html4/loose.dtd">
+    "http://www.w3.org/TR/html4/loose.dtd">
 
 <html>
     <head>
@@ -14,23 +14,22 @@
         <title>Formulario de Contacto Empresa</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
 
-        <div id="contenedorFormularioContactoEmpresa">
+        <fieldset>
+            <legend> Informacion de Contacto de Empresa </legend>
 
-            <fieldset>
-
-                <label for="lineaDatosNombre">
+            <div style="display: inline-block; width: 45%">
+                <label for="lineaDatosNombreContactoEmpresa">
                     Nombre<br>
                     <input id="lineaDatosNombreContactoEmpresa" name="nombre" type="text" required="true"/>
                 </label>
 
-                <label for="lineaDatosApellido">
+                <label for="lineaDatosApellidoContactoEmpresa">
                     Apellido:<br>
                     <input id="lineaDatosApellidoContactoEmpresa" name="apellido" type="text" required="true"/>
                 </label>
-                
-                <label for="selectGenero">Genero:<br>
+
+                <label for="selectGeneroContactoEmpresa">Genero:<br>
                     <select id="selectGeneroContactoEmpresa" name="sexo" size="1" >
                         <option value="Masculino" >
                             Masculino
@@ -41,10 +40,31 @@
                     </select>
                 </label>
 
-            </fieldset>
+            </div>
+            <div style="display: inline-block; margin-left: 5px; padding: 3px; width: 45%">
+                <label for="lineaDatosMail">
+                    Direccion de Correo:<br>
+                    <input id="lineaDatosMailContactoEmpresa" name="mail" type="text" required="true"/>
+                </label>
 
-        </div>
+                <label for="lineaDatosCelular">
+                    Telefono Movil:<br>
+                    <input id="lineaDatosCelularContactoEmpresa" name="celular" type="text" required="false"/>
+                </label>
 
-        <%@ include file = "/WEB-INF/jsp/Registro/FormularioContacto.jsp" %>
+                <label for="lineaDatosTelefonoFijo">
+                    Telefono Fijo:<br>
+                    <input id="lineaDatosTelefonoFijoContactoEmpresa" name="telefonoFijo" type="text" required="false"/>
+                </label>
+
+            </div>
+
+            <button id="botonEliminarContactoEmpresa" style="display: table">Eliminar</button>
+
+        </fieldset>
+
+
+
+
     </body>
 </html>

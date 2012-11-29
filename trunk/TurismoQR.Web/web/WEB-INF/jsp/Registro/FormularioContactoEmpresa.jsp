@@ -19,17 +19,17 @@
             <legend> Informacion de Contacto de Empresa </legend>
 
             <div style="display: inline-block; width: 45%">
-                <label for="lineaDatosNombreContactoEmpresa">
+                <label>
                     Nombre<br>
                     <input id="lineaDatosNombreContactoEmpresa" name="nombre" type="text" required="true"/>
                 </label>
 
-                <label for="lineaDatosApellidoContactoEmpresa">
+                <label>
                     Apellido:<br>
                     <input id="lineaDatosApellidoContactoEmpresa" name="apellido" type="text" required="true"/>
                 </label>
 
-                <label for="selectGeneroContactoEmpresa">Genero:<br>
+                <label>Genero:<br>
                     <select id="selectGeneroContactoEmpresa" name="sexo" size="1" >
                         <option value="Masculino" >
                             Masculino
@@ -42,17 +42,17 @@
 
             </div>
             <div style="display: inline-block; margin-left: 5px; padding: 3px; width: 45%">
-                <label for="lineaDatosMail">
+                <label>
                     Direccion de Correo:<br>
                     <input id="lineaDatosMailContactoEmpresa" name="mail" type="text" required="true"/>
                 </label>
 
-                <label for="lineaDatosCelular">
+                <label>
                     Telefono Movil:<br>
                     <input id="lineaDatosCelularContactoEmpresa" name="celular" type="text" required="false"/>
                 </label>
 
-                <label for="lineaDatosTelefonoFijo">
+                <label>
                     Telefono Fijo:<br>
                     <input id="lineaDatosTelefonoFijoContactoEmpresa" name="telefonoFijo" type="text" required="false"/>
                 </label>

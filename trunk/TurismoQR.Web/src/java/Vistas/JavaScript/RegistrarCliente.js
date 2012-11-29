@@ -63,7 +63,7 @@ function obtenerDatosEmpresa()
 {
     var empresaJSON = obtenerDatosCliente();
     var contactosEmpresaJSON = obtenerDatosContactoEmpresa();
-debugger
+
     empresaJSON[$('#lineaDatosCuit').attr("name")] = $('#lineaDatosCuit').val();
     empresaJSON[$('#lineaDatosRazonSocial').attr("name")] = $('#lineaDatosRazonSocial').val();
     empresaJSON[$('#selectRubro').attr("name")] = ($('#selectRubro').val())[0];
@@ -119,7 +119,7 @@ function registrarCliente(tipoCliente, urlBase)
     {
         datosCliente = obtenerDatosPersona();
     }
-
+    debugger
     var jsonCliente = JSON.stringify(datosCliente);
     var urlAccion = urlBase + "/cliente/registrar"+tipoCliente+".htm";
 
@@ -139,7 +139,7 @@ function registrarCliente(tipoCliente, urlBase)
 
             window.location.replace(urlRedirect);
         },
-        error: function(jqXHR, one, another){
+        error: function(jqXHR){
             debugger
             var errores = jqXHR["responseText"];
             procesarErrores(jQuery.parseJSON(errores));

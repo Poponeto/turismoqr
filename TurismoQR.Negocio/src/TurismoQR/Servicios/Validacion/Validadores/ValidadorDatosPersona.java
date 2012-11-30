@@ -32,7 +32,6 @@ public class ValidadorDatosPersona implements Validador {
         DTOPersona dtoPersona = (DTOPersona) objeto;
 
         Date fechaActual = Calendar.getInstance().getTime();
-        System.out.println(dtoPersona.getFechaDeNacimiento());
         if (dtoPersona.getFechaDeNacimiento().after(fechaActual)) {
             errores.agregarError("fechaDeNacimiento", "La fecha de nacimiento no puede ser posterior a la fecha actual.");
         } else if (dtoPersona.getFechaDeNacimiento().after(new Date(fechaActual.getYear() - 18 + 1900))) {

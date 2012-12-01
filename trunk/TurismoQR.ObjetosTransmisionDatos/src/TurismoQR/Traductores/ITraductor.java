@@ -6,6 +6,7 @@ package TurismoQR.Traductores;
 
 import TurismoQR.ObjetosNegocio.IObjetoNegocio;
 import TurismoQR.ObjetosTransmisionDatos.IDTO;
+import java.util.Collection;
 
 /**
  *
@@ -15,6 +16,7 @@ public interface ITraductor
 {
 
     public <E extends IObjetoNegocio> IDTO<E> traducir(E objetoNegocio);
-
     public <E extends IObjetoNegocio> E traducir(IDTO<E> objetoNegocio);
+
+    public Collection<IDTO> traducir(Collection<IObjetoNegocio> objetosNegocio);
 }

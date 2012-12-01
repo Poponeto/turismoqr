@@ -5,7 +5,9 @@
 
 package TurismoQR.Servicios.Usuario;
 
+import TurismoQR.ObjetosNegocio.Categorias.Rubro;
 import TurismoQR.ObjetosTransmisionDatos.DTOCliente;
+import TurismoQR.ObjetosTransmisionDatos.DTORubro;
 import TurismoQR.ObjetosTransmisionDatos.IDTO;
 import java.util.Collection;
 
@@ -21,4 +23,5 @@ public interface IServicioCliente {
     public Boolean autorizarCliente(String idCliente);
     public Boolean actualizarDatosCliente(IDTO dtoCliente);
     public Collection<DTOCliente> consultarClientes();
+    public Collection<DTORubro> obtenerRubrosPosibles();
 }

@@ -5,14 +5,25 @@
 
 package TurismoQR.Servicios.Validacion.Validadores;
 
+import TurismoQR.AccesoDatos.IAccesoDatos;
+import TurismoQR.ObjetosNegocio.Categorias.Rubro;
+import TurismoQR.ObjetosNegocio.Usuarios.Empresa;
 import TurismoQR.ObjetosTransmisionDatos.DTOEmpresa;
 import TurismoQR.Servicios.Validacion.Errores;
+import java.util.Collection;
 
 /**
  *
  * @author Federico
  */
 public class ValidadorDatosEmpresa implements Validador{
+
+    private IAccesoDatos accesoDatos;
+
+    public ValidadorDatosEmpresa(IAccesoDatos accesoDatos)
+    {
+        this.accesoDatos = accesoDatos;
+    }
 
     public boolean soportaObjeto(Object objeto)
     {
@@ -21,7 +32,44 @@ public class ValidadorDatosEmpresa implements Validador{
 
     public void validar(Object objeto, Errores errores)
     {
-        throw new UnsupportedOperationException("Not supported yet.");
+        DTOEmpresa dtoEmpresa = (DTOEmpresa)objeto;
+
+        String regexCuitEmpresa = "\\d{2}\\-\\d{8}\\-\\d";
+
+        if(dtoEmpresa.getCuit() == null || dtoEmpresa.getCuit().isEmpty())
+        {
+            errores.agregarError("cuit", "Debe especificar un numero de CUIT.");
+        }
+        else if(!dtoEmpresa.getCuit().matches(regexCuitEmpresa))
+        {
+            errores.agregarError("cuit", "El CUIT no tiene un formato valido. El formato es nn-nnnnnnnn-n");
+        }
+        else {
+            Collection<Empresa> empresas = accesoDatos.BuscarObjetosPorCaracteristica(Empresa.class, "cuit", dtoEmpresa.getCuit());
+
+            if (!empresas.isEmpty())
+            {
+                errores.agregarError("cuit", "Ya existe una empresa con ese numeor de CUIT cargada en el sistema.");
+            }
+        }
+
+        if(dtoEmpresa.getRubro() == null || dtoEmpresa.getRubro().getNombreRubro() == null ||dtoEmpresa.getRubro().getNombreRubro().isEmpty())
+        {
+            errores.agregarError("rubro", "Debe especificar un rubro para la empresa.");
+        }
+        else
+        {
+            Collection<Rubro> rubros = accesoDatos.BuscarObjetosPorCaracteristica(Rubro.class, "nombreRubro" , dtoEmpresa.getRubro().getNombreRubro());
+        
+            if (rubros.isEmpty())
+            {
+                errores.agregarError("rubro", "El rubro especificado no existe.");
+            }
+        }
+
+
+
+        
     }
 
 }

@@ -6,13 +6,16 @@ package TurismoQR.Servicios.Usuario;
 
 import TurismoQR.AccesoDatos.IAccesoDatos;
 import TurismoQR.Manejadores.ManejadorUsuarios.ManejadorUsuarios;
+import TurismoQR.ObjetosNegocio.Categorias.Rubro;
 import TurismoQR.ObjetosNegocio.Estados.Ciclo;
 import TurismoQR.ObjetosNegocio.Usuarios.Cliente;
 import TurismoQR.ObjetosNegocio.Usuarios.Contacto;
 import TurismoQR.ObjetosTransmisionDatos.DTOCliente;
+import TurismoQR.ObjetosTransmisionDatos.DTORubro;
 import TurismoQR.ObjetosTransmisionDatos.IDTO;
 import TurismoQR.Servicios.Mail.IServicioEnvioMail;
 import TurismoQR.Traductores.ITraductor;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import org.springframework.transaction.annotation.Transactional;
@@ -46,6 +49,19 @@ public abstract class ServicioCliente extends ServicioContacto implements IServi
     public Boolean registrarCliente(IDTO dtoCliente)
     {
         return registrarContacto(dtoCliente).getIdObjeto() != null;
+    }
+
+    public Collection<DTORubro> obtenerRubrosPosibles()
+    {
+        Collection<Rubro> rubros = getAccesoDatos().BuscarConjuntoObjetos(Rubro.class);
+        Collection<DTORubro> dtosRubro = new ArrayList<DTORubro>();
+        
+        for(Rubro rubro : rubros)
+        {
+            dtosRubro.add((DTORubro) getTraductor().traducir(rubro));
+        }
+
+        return dtosRubro;
     }
 
 

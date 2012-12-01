@@ -16,7 +16,8 @@ import java.util.Date;
  *
  * @author Federico
  */
-public class ValidadorDatosPersona implements Validador {
+public class ValidadorDatosPersona implements Validador
+{
 
     IAccesoDatos accesoDatos;
 
@@ -32,7 +33,13 @@ public class ValidadorDatosPersona implements Validador {
         DTOPersona dtoPersona = (DTOPersona) objeto;
 
         Date fechaActual = Calendar.getInstance().getTime();
-        if (dtoPersona.getFechaDeNacimiento().after(fechaActual)) {
+
+        if (dtoPersona.getFechaDeNacimiento() == null)
+        {
+            errores.agregarError("fechaDeNacimiento", "Debe especificar una fecha de nacimiento.");
+        }
+        else if (dtoPersona.getFechaDeNacimiento().after(fechaActual))
+        {
             errores.agregarError("fechaDeNacimiento", "La fecha de nacimiento no puede ser posterior a la fecha actual.");
         } else if (dtoPersona.getFechaDeNacimiento().after(new Date(fechaActual.getYear() - 18 + 1900))) {
             errores.agregarError("fechaDeNacimiento", "Debes ser mayor de 18 años.");
@@ -63,14 +70,21 @@ public class ValidadorDatosPersona implements Validador {
             errores.agregarError("nombre", "El nombre solo puede estar compuesto de letras.");
         }
 
-        Collection<Persona> personas =
-                accesoDatos.BuscarObjetosPorCaracteristica(
-                Persona.class,
-                "dni",
-                dtoPersona.getDni());
+        if (dtoPersona.getDni() == null || dtoPersona.getDni().isEmpty())
+        {
+            errores.agregarError("dni", "Debe especificar un numero de DNI");
+        }
+        else
+        {
+            Collection<Persona> personas =
+                    accesoDatos.BuscarObjetosPorCaracteristica(
+                    Persona.class,
+                    "dni",
+                    dtoPersona.getDni());
 
         if (!personas.isEmpty()) {
-            errores.agregarError("dni", "Ya existe un cliente con ese DNI creado.");
+                errores.agregarError("dni", "Ya existe un cliente con ese DNI creado.");
+            }
         }
     }
 }

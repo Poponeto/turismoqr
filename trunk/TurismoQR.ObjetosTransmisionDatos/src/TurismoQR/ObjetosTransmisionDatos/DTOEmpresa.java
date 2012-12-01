@@ -16,7 +16,7 @@ public class DTOEmpresa extends DTOCliente implements IDTO<Empresa> {
 
     private String cuit;
     private String razonSocial;
-    private String rubro;
+    private DTORubro rubro;
 
     private Collection<DTOContactoEmpresa> contactos;
 
@@ -30,12 +30,12 @@ public class DTOEmpresa extends DTOCliente implements IDTO<Empresa> {
         this.contactos = contactos;
     }
 
-    public String getRubro()
+    public DTORubro getRubro()
     {
         return rubro;
     }
 
-    public void setRubro(String rubro)
+    public void setRubro(DTORubro rubro)
     {
         this.rubro = rubro;
     }

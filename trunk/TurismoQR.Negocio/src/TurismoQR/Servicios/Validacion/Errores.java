@@ -24,4 +24,16 @@ public class Errores extends HashMap<String,String>{
     {
         return this.size() > 0;
     }
+
+    public String parsearErrores()
+    {
+        String resultado = "";
+
+        for (String valor : this.values())
+        {
+            resultado += valor + "\n";
+        }
+
+        return resultado;
+    }
 }

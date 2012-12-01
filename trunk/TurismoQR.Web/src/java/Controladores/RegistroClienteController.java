@@ -9,9 +9,7 @@ import TurismoQR.ObjetosTransmisionDatos.DTOPersona;
 import TurismoQR.Servicios.Usuario.IServicioCliente;
 import TurismoQR.Servicios.Validacion.Errores;
 import TurismoQR.Servicios.Validacion.IServicioValidacionDatos;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -129,9 +127,40 @@ public class RegistroClienteController
     }
 
     @RequestMapping(value = "/" + registrarEmpresa, method = RequestMethod.POST)
-    public void registrarEmpresa(@RequestBody DTOEmpresa dtoEmpresa)
+    public
+    @ResponseBody
+    Map<String, String> registrarEmpresa(@RequestBody DTOEmpresa dtoEmpresa, HttpServletResponse response)
     {
-        servicioEmpresa.registrarCliente(dtoEmpresa);
+        Errores errores = servicioValidacionDatos.validarDatos(dtoEmpresa);
+
+        response.setContentType("application/json");
+
+        if (errores.hayErrores())
+        {
+            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+            return errores;
+        }
+        else
+        {
+            boolean exito = servicioEmpresa.registrarCliente(dtoEmpresa);
+
+            Map<String, String> datos = new HashMap<String, String>();
+
+            if (exito)
+            {
+                response.setStatus(HttpServletResponse.SC_OK);
+                datos.put("mail", dtoEmpresa.getMail());
+                datos.put("urlConfirmacion", generarURLConfirmacionRegistroCliente());
+            }
+            else
+            {
+                response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            }
+
+            return datos;
+
+        }
+
     }
 
     @RequestMapping(value = "/" + registrarPersona, method = RequestMethod.POST)
@@ -143,7 +172,7 @@ public class RegistroClienteController
         Errores errores = servicioValidacionDatos.validarDatos(dtoPersona);
 
         response.setContentType("application/json");
-        
+
         if (errores.hayErrores())
         {
             response.setStatus(HttpServletResponse.SC_FORBIDDEN);
@@ -165,7 +194,7 @@ public class RegistroClienteController
             {
                 response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             }
-            
+
             return datos;
 
         }

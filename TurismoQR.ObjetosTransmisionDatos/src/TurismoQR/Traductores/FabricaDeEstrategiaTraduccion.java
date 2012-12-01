@@ -30,7 +30,8 @@ public class FabricaDeEstrategiaTraduccion
         EstrategiaTraduccionPersona.class,
         EstrategiaTraduccionEmpresa.class,
         EstrategiaTraduccionContactoEmpresa.class,
-        EstrategiaTraduccionCategoria.class
+        EstrategiaTraduccionCategoria.class,
+        EstrategiaTraduccionRubro.class
     };
 
     public IEstrategiaTraduccion crearEstrategiaTraduccion(IObjetoNegocio objetoNegocio)

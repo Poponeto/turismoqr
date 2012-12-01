@@ -7,6 +7,8 @@ package TurismoQR.Traductores;
 
 import TurismoQR.ObjetosNegocio.IObjetoNegocio;
 import TurismoQR.ObjetosTransmisionDatos.IDTO;
+import java.util.ArrayList;
+import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,6 +40,18 @@ public class Traductor implements ITraductor {
         IEstrategiaTraduccion estrategiaTraduccion = fabricaDeEstrategiaTraduccion.crearEstrategiaTraduccion(dto);
         return (E) estrategiaTraduccion.traducir(dto);
 
+    }
+
+    public Collection<IDTO> traducir(Collection<IObjetoNegocio> objetosNegocio)
+    { 
+        Collection<IDTO> objetosNegocioTraducidos = new ArrayList<IDTO>();
+
+        for(IObjetoNegocio objetoNegocio : objetosNegocio)
+        {
+            objetosNegocioTraducidos.add(traducir(objetoNegocio));
+        }
+        
+        return objetosNegocioTraducidos;
     }
 
 }

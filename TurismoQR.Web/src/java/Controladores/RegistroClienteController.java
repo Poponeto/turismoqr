@@ -115,9 +115,9 @@ public class RegistroClienteController
     }
 
     @RequestMapping(value = "/" + paginaRegistrarEmpresa, method = RequestMethod.GET)
-    public String formularioEmpresa()
+    public String formularioEmpresa(ModelMap modelo)
     {
-
+        modelo.put("rubros", servicioEmpresa.obtenerRubrosPosibles());
 
         return "Registro/FormularioEmpresa";
     }

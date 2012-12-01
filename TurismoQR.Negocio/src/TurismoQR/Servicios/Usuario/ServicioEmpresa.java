@@ -50,7 +50,7 @@ public class ServicioEmpresa extends ServicioCliente
     {
         //Necesitamos agregarle el Rubro y contactos
         AccesoDatosEmpresa accesoDatos = (AccesoDatosEmpresa) getAccesoDatos();
-        Rubro rubro = accesoDatos.buscarRubroPorNombre(((DTOEmpresa) dtoCliente).getRubro());
+        Rubro rubro = accesoDatos.buscarRubroPorNombre(((DTOEmpresa) dtoCliente).getRubro().getNombreRubro());
 
         Collection<ContactoEmpresa> contactosEmpresa = new HashSet<ContactoEmpresa>();
         ((Empresa) cliente).setContactos(contactosEmpresa);

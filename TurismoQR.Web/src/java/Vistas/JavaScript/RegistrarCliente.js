@@ -64,9 +64,12 @@ function obtenerDatosEmpresa()
     var empresaJSON = obtenerDatosCliente();
     var contactosEmpresaJSON = obtenerDatosContactoEmpresa();
 
+    var rubro = {};
+    rubro.nombreRubro = ($('#selectRubro').val())[0];
+
     empresaJSON[$('#lineaDatosCuit').attr("name")] = $('#lineaDatosCuit').val();
     empresaJSON[$('#lineaDatosRazonSocial').attr("name")] = $('#lineaDatosRazonSocial').val();
-    empresaJSON[$('#selectRubro').attr("name")] = ($('#selectRubro').val())[0];
+    empresaJSON[$('#selectRubro').attr("name")] = rubro;
     empresaJSON["contactos"] = contactosEmpresaJSON;
 
     return empresaJSON;

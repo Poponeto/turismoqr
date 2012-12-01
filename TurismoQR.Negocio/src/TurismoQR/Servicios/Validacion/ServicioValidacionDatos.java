@@ -9,6 +9,8 @@ import TurismoQR.ObjetosTransmisionDatos.IDTO;
 import TurismoQR.Servicios.Validacion.Validadores.Validador;
 import TurismoQR.Servicios.Validacion.Validadores.ValidadorDatosCliente;
 import TurismoQR.Servicios.Validacion.Validadores.ValidadorDatosContacto;
+import TurismoQR.Servicios.Validacion.Validadores.ValidadorDatosContactoEmpresa;
+import TurismoQR.Servicios.Validacion.Validadores.ValidadorDatosEmpresa;
 import TurismoQR.Servicios.Validacion.Validadores.ValidadorDatosPersona;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -49,7 +51,9 @@ public class ServicioValidacionDatos implements IServicioValidacionDatos
         Validador[] validadoresCreados = {
             new ValidadorDatosContacto(),
             new ValidadorDatosCliente(),
-            new ValidadorDatosPersona(accesoDatos)
+            new ValidadorDatosPersona(accesoDatos),
+            new ValidadorDatosEmpresa(accesoDatos, this),
+            new ValidadorDatosContactoEmpresa()
         };
 
         this.setValidadores(validadoresCreados);

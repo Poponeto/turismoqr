@@ -1,4 +1,4 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page contentType="text/html" pageEncoding="UTF-8" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
     "http://www.w3.org/TR/html4/loose.dtd">
 
@@ -7,10 +7,19 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Bienvenido a TurismoQR</title>
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/Vistas/HojasDeEstilo/Home.css">
+
         <%@ include file="/WEB-INF/jsp/Utils/ArchivosJQuery.html" %>
         <%@ include file="/WEB-INF/jsp/Utils/ArchivosSlider.html" %>
+        <%@ include file="/WEB-INF/jsp/Utils/ArchivosError.html" %>
 
         <script type="text/javascript">
+
+            function getParameterByName(name) {
+                var match = RegExp('[?&]' + name + '=([^&]*)')
+                .exec(window.location.search);
+                return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+            }
+
             $(document).ready(function(){
                 inicializarComponentes();
                 setTimeout($('#slider').nivoSlider(),1000);
@@ -24,10 +33,14 @@
                 $.get('${pageContext.request.contextPath}/cliente/opcionesRegistroCliente.htm', function(data) {
                     $('#ContenedorDelPopUp').html(data);
                 });
-            });
-            $(window).load(function() {
-                
-            });
+        });
+        $(window).load(function() {
+
+            if(getParameterByName("failure"))
+            {
+                $("[name=formularioDeLogin]").prepend('<p class="mensajeErrorEntrada">Datos de usuario incorrectos. Verifique los datos e intente nuevamente.</p>');
+            }
+        });
         </script>
     </head>
 

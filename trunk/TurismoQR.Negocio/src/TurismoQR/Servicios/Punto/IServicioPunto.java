@@ -30,4 +30,5 @@ public interface IServicioPunto {
     public boolean eliminarPuntoInteres(String idPunto);
     public List<DTOCategoria> obtenerCategoriasPunto();
     public DTOCategoria obtenerDTOCategoria(String nombreCategoria);
+    public Collection<DTOPunto> ConsultarPuntosDeInteresCategoria(String idCategoria, String nombreIdioma);
 }

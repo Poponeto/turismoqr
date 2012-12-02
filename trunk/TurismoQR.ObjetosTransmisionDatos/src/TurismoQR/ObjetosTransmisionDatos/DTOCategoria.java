@@ -12,7 +12,16 @@ import TurismoQR.ObjetosNegocio.Categorias.Categoria;
  * @author Chelo
  */
 public class DTOCategoria implements IDTO<Categoria> {
-    
+
+    private String idCategoria;
+
+    public String getIdCategoria() {
+        return idCategoria;
+    }
+
+    public void setIdCategoria(String idCategoria) {
+        this.idCategoria = idCategoria;
+    }
     private String nombreCategoria;
 
     public String getNombreCategoria() {

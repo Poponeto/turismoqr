@@ -4,6 +4,7 @@
  */
 package TurismoQR.Servicios.Punto;
 
+import TurismoQR.AccesoDatos.AccesoDatosPunto;
 import TurismoQR.AccesoDatos.IAccesoDatos;
 import TurismoQR.ObjetosNegocio.Informacion.Imagen;
 import TurismoQR.ObjetosNegocio.Informacion.Informacion;
@@ -23,6 +24,7 @@ import TurismoQR.Manejadores.ManejadorIdiomas.ManejadorIdiomas;
 import TurismoQR.ObjetosNegocio.Categorias.Categoria;
 import TurismoQR.ObjetosNegocio.Estados.Ciclo;
 import TurismoQR.ObjetosTransmisionDatos.DTOCategoria;
+import TurismoQR.Servicios.Punto.ConsultasPunto.ConsultarPuntosCategoria;
 import TurismoQR.Traductores.ITraductor;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -41,7 +43,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class ServicioPunto extends ServicioPuntoBase implements IServicioPunto
 {
 
-    private IAccesoDatos accesoDatos;
+    private AccesoDatosPunto accesoDatos;
     private GeneradorCodigoQR generadorCodigo;
     private ManejadorCategoria manejadorCategoria;
 
@@ -49,7 +51,7 @@ public class ServicioPunto extends ServicioPuntoBase implements IServicioPunto
     public ServicioPunto(ManejadorIdiomas manejadorIdioma,
             ManejadorEstados manejadorEstado,
             ManejadorCategoria manejadorCategoria,
-            IAccesoDatos accesoDatos,
+            AccesoDatosPunto accesoDatos,
             ITraductor traductor,
             GeneradorCodigoQR generadorCodigo)
     {
@@ -158,6 +160,13 @@ public class ServicioPunto extends ServicioPuntoBase implements IServicioPunto
     public Collection<DTOPunto> ConsultarPuntosDeInteres(String nombreIdioma)
     {
         IConsultaPunto consultaPunto = new ConsultarTodosPuntos(accesoDatos);
+        return ConsultarPuntoInteresBase(consultaPunto, nombreIdioma);
+    }
+
+    public Collection<DTOPunto> ConsultarPuntosDeInteresCategoria(String categoria, String nombreIdioma)
+    {
+        Categoria categoriaObject = getTraductor().traducir(this.obtenerDTOCategoria(categoria));
+        IConsultaPunto consultaPunto = new ConsultarPuntosCategoria(categoriaObject, accesoDatos);
         return ConsultarPuntoInteresBase(consultaPunto, nombreIdioma);
     }
 

@@ -47,7 +47,7 @@ public class ValidadorDatosContactoEmpresa implements Validador
         {
             errores.agregarError("sexo", "Debe especificar genero del contacto.");
         }
-        else if (!(dtoContactoEmpresa.getSexo().equalsIgnoreCase("M") || dtoContactoEmpresa.getSexo().equalsIgnoreCase("F")))
+        else if (!(dtoContactoEmpresa.getSexo().equalsIgnoreCase("Masculino") || dtoContactoEmpresa.getSexo().equalsIgnoreCase("Femenino")))
         {
             errores.agregarError("sexo", "El genero debe ser masculino o femenino.");
         }

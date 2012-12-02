@@ -81,7 +81,7 @@
 
                 <fieldset>
                     <legend> Informacion administrativa </legend>
-                    <label for="lineaDatoscantidadDePuntosDeseados">
+                    <label for="lineaDatoscantidadDePuntosDeseados" name="labelcantidadDePuntosPermitidos">
                         Cantidad de Puntos:<br>
                         <input id="lineaDatoscantidadDePuntosDeseados" name="cantidadDePuntosPermitidos" type="text" required="false"/>
                     </label>

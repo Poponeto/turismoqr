@@ -19,28 +19,28 @@
 
             <fieldset>
                 <legend> Datos personales </legend>
-                <label for="lineaDatosNombre">
+                <label for="lineaDatosNombre" name="labelnombre">
                     Nombre<br>
                     <input id="lineaDatosNombre" name="nombre" type="text" required="true"/>
                 </label>
 
-                <label for="lineaDatosApellido">
+                <label for="lineaDatosApellido" name="labelapellido">
                     Apellido:<br>
                     <input id="lineaDatosApellido" name="apellido" type="text" required="true"/>
                 </label>
 
-                <label for="lineaDatosdni">
+                <label for="lineaDatosdni" name="labeldni">
                     DNI:<br>
                     <input id="lineaDatosdni" name="dni" type="text" required="true"/>
                 </label>
 
-                <label for="lineaDatosFechaNacimiento">
+                <label for="lineaDatosFechaNacimiento" name="labelfechaDeNacimiento">
                     Fecha De Nacimiento:<br>
                     <input id="lineaDatosFechaNacimiento" name="fechaDeNacimiento" type="text" required="true"/>
                 </label>
 
 
-                <label for="selectGenero">Genero:<br>
+                <label for="selectGenero" name="labelsexo">Genero:<br>
                     <select id="selectGenero" name="sexo" size="1" >
                         <option value="Masculino" >
                             Masculino

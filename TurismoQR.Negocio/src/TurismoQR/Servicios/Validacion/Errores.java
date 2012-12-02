@@ -31,7 +31,7 @@ public class Errores extends HashMap<String,String>{
 
         for (String valor : this.values())
         {
-            resultado += valor + "\n";
+            resultado += valor + "<br/>";
         }
 
         return resultado;

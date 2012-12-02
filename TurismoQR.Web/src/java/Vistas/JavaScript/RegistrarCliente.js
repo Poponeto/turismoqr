@@ -7,6 +7,14 @@ function inicializarComponentesRegistrarCliente(tipoCliente, urlBase)
 {
     $(".contactoEmpresa").hide();
 
+    $(":input").change(function(){
+        removerErrorDeEntrada(this);
+    });
+
+    $('.contactoEmpresa :input').change(function(){
+        $("#erroresDeContactosDeEmpresa").empty();
+    });
+
     $("#lineaDatosFechaNacimiento").datepicker({
         showOtherMonths: true,
         selectOtherMonths: true,
@@ -65,7 +73,7 @@ function obtenerDatosEmpresa()
     var contactosEmpresaJSON = obtenerDatosContactoEmpresa();
 
     var rubro = {};
-    rubro.nombreRubro = ($('#selectRubro').val())[0];
+    rubro.nombreRubro = $('#selectRubro').val();
 
     empresaJSON[$('#lineaDatosCuit').attr("name")] = $('#lineaDatosCuit').val();
     empresaJSON[$('#lineaDatosRazonSocial').attr("name")] = $('#lineaDatosRazonSocial').val();
@@ -85,9 +93,9 @@ function obtenerDatosContactoEmpresa()
 
         contactoEmpresaJSON[$('#' + this.id + ' #lineaDatosNombreContactoEmpresa').attr("name")] = $('#' + this.id + ' #lineaDatosNombreContactoEmpresa').val();
         contactoEmpresaJSON[$('#' + this.id + ' #lineaDatosApellidoContactoEmpresa').attr("name")] = $('#' + this.id + ' #lineaDatosApellidoContactoEmpresa').val();
-        contactoEmpresaJSON[$('#' + this.id + ' #selectGeneroContactoEmpresa').attr("name")] = ($('#' + this.id + ' #selectGeneroContactoEmpresa').val())[0];
+        contactoEmpresaJSON[$('#' + this.id + ' #selectGeneroContactoEmpresa').attr("name")] = $('#' + this.id + ' #selectGeneroContactoEmpresa').val();
 
-        contactoEmpresaJSON[$('#' + this.id + ' #lineaDatosMailContactoEmpresa').attr("name")] = $('#' + this.id + ' #lineaDatosMailContactoEmpresa').val();
+        contactoEmpresaJSON["mail"] = $('#' + this.id + ' #lineaDatosMailContactoEmpresa').val();
         contactoEmpresaJSON[$('#' + this.id + ' #lineaDatosCelularContactoEmpresa').attr("name")] = $('#' + this.id + ' #lineaDatosCelularContactoEmpresa').val();
         contactoEmpresaJSON[$('#' + this.id + ' #lineaDatosTelefonoFijoContactoEmpresa').attr("name")] = $('#' + this.id + ' #lineaDatosTelefonoFijoContactoEmpresa').val();
 
@@ -105,48 +113,64 @@ function obtenerDatosPersona()
     personaJSON[$('#lineaDatosApellido').attr("name")] = $('#lineaDatosApellido').val();
     personaJSON[$('#lineaDatosFechaNacimiento').attr("name")] = $('#lineaDatosFechaNacimiento').val();
     personaJSON[$('#lineaDatosdni').attr("name")] = $('#lineaDatosdni').val();
-    personaJSON[$('#selectGenero').attr("name")] = ($('#selectGenero').val())[0];
+    personaJSON[$('#selectGenero').attr("name")] = $('#selectGenero').val();
 
     return personaJSON;
 }
 
 function registrarCliente(tipoCliente, urlBase)
 {
-    var datosCliente;
-
-    if (tipoCliente === "Empresa")
+    if (hayErrores())
     {
-        datosCliente = obtenerDatosEmpresa();
+        alert("Hay errores, solucionelos antes de continuar.");
     }
-    if (tipoCliente === "Persona")
+    else
     {
-        datosCliente = obtenerDatosPersona();
-    }
-    debugger
-    var jsonCliente = JSON.stringify(datosCliente);
-    var urlAccion = urlBase + "/cliente/registrar"+tipoCliente+".htm";
+        var datosCliente;
 
-    $.ajax({
-        url: urlAccion,
-        dataType: "json",
-        contentType: "application/json",
-        data: jsonCliente,
-        type: "POST",
-        success: function(data){
-            var urlRedirect = urlBase + "/" +data["urlConfirmacion"];
-            var queryString = $.param({
-                mail: data["mail"]
-                });
-            
-            urlRedirect = urlRedirect + "?" + queryString;
-
-            window.location.replace(urlRedirect);
-        },
-        error: function(jqXHR){
-            debugger
-            var errores = jqXHR["responseText"];
-            procesarErrores(jQuery.parseJSON(errores));
+        if (tipoCliente === "Empresa")
+        {
+            datosCliente = obtenerDatosEmpresa();
         }
-    });
-   
+        if (tipoCliente === "Persona")
+        {
+            datosCliente = obtenerDatosPersona();
+        }
+        debugger
+        var jsonCliente = JSON.stringify(datosCliente);
+        var urlAccion = urlBase + "/cliente/registrar"+tipoCliente+".htm";
+
+        $.ajax({
+            url: urlAccion,
+            dataType: "json",
+            contentType: "application/json",
+            data: jsonCliente,
+            type: "POST",
+            success: function(data){
+                var urlRedirect = urlBase + "/" +data["urlConfirmacion"];
+                var queryString = $.param({
+                    mail: data["mail"]
+                });
+
+                urlRedirect = urlRedirect + "?" + queryString;
+
+                window.location.replace(urlRedirect);
+            },
+            error: function(jqXHR){
+                debugger
+                var errores = jqXHR["responseText"];
+                procesarErrores(jQuery.parseJSON(errores), manejarErroresContactos);
+            }
+        });
+
+    }
+    
+}
+
+function manejarErroresContactos(errores)
+{
+    if(errores["contactos"])
+    {
+        $("#erroresDeContactosDeEmpresa").append('<p class="mensajeErrorEntrada" name="mansajeErrorContactos">' + errores["contactos"] +'</p>');
+    }
 }

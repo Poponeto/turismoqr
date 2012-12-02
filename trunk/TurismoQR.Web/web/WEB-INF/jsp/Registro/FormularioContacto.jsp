@@ -17,15 +17,15 @@
         <div id="contenedorFormularioContacto">
             <fieldset>
                 <legend> Informacion contacto </legend>
-                <label for="lineaDatosMail">
+                <label for="lineaDatosMail" name="labelmail">
                     Direccion de Correo:<br>
                     <input id="lineaDatosMail" name="mail" type="text" required="true"/>
                 </label>
-                <label for="lineaDatosCelular">
+                <label for="lineaDatosCelular" name="labelcelular">
                     Telefono Movil:<br>
                     <input id="lineaDatosCelular" name="celular" type="text" required="false"/>
                 </label>
-                <label for="lineaDatosTelefonoFijo">
+                <label for="lineaDatosTelefonoFijo" name="labeltelefonoFijo">
                     Telefono Fijo:<br>
                     <input id="lineaDatosTelefonoFijo" name="telefonoFijo" type="text" required="false"/>
                 </label>

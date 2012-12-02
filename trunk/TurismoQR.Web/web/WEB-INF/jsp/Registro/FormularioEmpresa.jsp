@@ -18,17 +18,17 @@
         <div id="contenedorFormularioEmpresa">
             <fieldset>
                 <legend> Datos de la Empresa </legend>
-                <label for="lineaDatoscuit">
+                <label for="lineaDatoscuit" name="labelcuit">
                     CUIT:<br>
                     <input id="lineaDatosCuit" name="cuit" type="text" required="true"/>
                 </label>
                 <br>
-                <label for="lineaDatosRazonSocial">
+                <label for="lineaDatosRazonSocial" name="labelrazonSocial">
                     Razon Social:<br>
                     <input id="lineaDatosRazonSocial" type="text" name="razonSocial" required="tru"/>
                 </label>
                 <br>
-                <label for="selectRubro">Rubro:<br>
+                <label for="selectRubro" name="labelrubro">Rubro:<br>
                     <select id="selectRubro" name="rubro" size="1" >
                         <core:forEach var="rubro" items="${rubros}">
                             <option value="<core:out value="${rubro.nombreRubro}" />">
@@ -39,6 +39,8 @@
                 </label>
 
                 <button id="botonAgregarContacto">Agregar Contacto</button>
+
+                <div id="erroresDeContactosDeEmpresa"></div>
 
                 <div id="contenedorFormularioContactoEmpresa1" class="contactoEmpresa" contactNumber="1">
                     <%@ include  file="/WEB-INF/jsp/Registro/FormularioContactoEmpresa.jsp" %>

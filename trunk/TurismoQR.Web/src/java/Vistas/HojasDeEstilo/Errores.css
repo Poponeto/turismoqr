@@ -13,6 +13,11 @@
 
 .errorEntrada
 {
-    border-width: 2px;
-    border-color: #FF0000;
+    border-width: 2px !important;
+    border-color: #FF0000 !important;
+}
+
+.mensajeErrorEntrada
+{
+    color: #FF0000 !important;
 }

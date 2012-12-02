@@ -44,7 +44,7 @@
             <div style="display: inline-block; margin-left: 5px; padding: 3px; width: 45%">
                 <label>
                     Direccion de Correo:<br>
-                    <input id="lineaDatosMailContactoEmpresa" name="mail" type="text" required="true"/>
+                    <input id="lineaDatosMailContactoEmpresa" name="mailContactoEmpresa" type="text" required="true"/>
                 </label>
 
                 <label>

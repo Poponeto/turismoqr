@@ -38,6 +38,11 @@ public class ValidadorDatosEmpresa implements Validador
     {
         DTOEmpresa dtoEmpresa = (DTOEmpresa) objeto;
 
+        if(dtoEmpresa.getRazonSocial() == null || dtoEmpresa.getRazonSocial().isEmpty())
+        {
+            errores.agregarError("razonSocial", "Debe especificar Razon Social de la empresa.");
+        }
+
         String regexCuitEmpresa = "\\d{2}\\-\\d{8}\\-\\d";
 
         if (dtoEmpresa.getCuit() == null || dtoEmpresa.getCuit().isEmpty())

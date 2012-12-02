@@ -50,11 +50,11 @@
         </label>
         <br>
         <label for="latitudPunto">
-            Latitud: <div id="latitudValue"></div><input type="text" id="latitudPunto" name="latitudPunto" style="display:none" required="true"/>
+            Latitud: <div id="latitudValue">${punto.localizacion.latitud}</div><input type="text" id="latitudPunto" name="latitudPunto" style="display:none" required="true" value="${punto.localizacion.latitud}"/>
         </label>
         <br>
         <label for="informacionPunto">
-            Longitud: <div id="longitudValue"></div><input type="text" id="longitudPunto" name="longitudPunto" style="display:none" required="true"/>
+            Longitud: <div id="longitudValue">${punto.localizacion.longitud}</div><input type="text" id="longitudPunto" name="longitudPunto" style="display:none" required="true" value="${punto.localizacion.longitud}"/>
         </label>
         <br>
     </div>

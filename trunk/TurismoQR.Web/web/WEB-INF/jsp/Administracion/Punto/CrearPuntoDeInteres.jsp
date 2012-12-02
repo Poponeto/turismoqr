@@ -83,6 +83,12 @@
                 });
 
                 $('#caracteresRestantes').text($('#comentario').attr('maxlength'));
+
+                if($('#categoriaPunto').text() != '') {
+                    $('#categoria').attr('value',$('#categoriaPunto').text());
+                }
+
+                tqrgaleria.initComentarios();
             });
         </script>
     </head>
@@ -109,7 +115,7 @@
                     <tr>
                         <td>
                             <div id="contenedorFormulario">
-                                <form id="nuevoPuntoDeInteres" name="nuevoPuntoDeInteres" action="<core:url value='../crearPunto/guardarPuntoDeInteres.htm'/>" method="POST">
+                                <form id="nuevoPuntoDeInteres" name="nuevoPuntoDeInteres" action="${pageContext.request.contextPath}/administracion/crearPunto/guardarPuntoDeInteres.htm" method="POST">
                                     <%@ include  file="/WEB-INF/jsp/Administracion/Punto/FormularioUbicacionPunto.jsp" %>
                                     <%@ include  file="/WEB-INF/jsp/Administracion/Punto/FormularioInformacionPunto.jsp" %>
                                     <%@ include  file="/WEB-INF/jsp/Administracion/Punto/FormularioImagenesPunto.jsp" %>

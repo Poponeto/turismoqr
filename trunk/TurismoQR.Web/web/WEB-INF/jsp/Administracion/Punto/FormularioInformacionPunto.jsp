@@ -10,19 +10,21 @@
 <fieldset id="camposInformacionPunto" style="display : none;">
     <legend>Informacion del punto de interes</legend>
     <div>
+        <input id="idPunto" name="idPunto" value="${punto.idPunto}" style="display: none;"/>
         <label for="informacionPunto">
             Nombre:<br>
-            <input id="nombrePunto" name="nombrePunto" type="text" placeholder="Ingrese el nombre del punto" required="true"/>
+            <input id="nombrePunto" name="nombrePunto" type="text" placeholder="Ingrese el nombre del punto" required="true" value="${punto.nombrePunto}"/>
         </label>
         <br>
         <label for="categoriaPunto">
             Categoria:<br>
+            <div id="categoriaPunto" name="categoriaPunto" style="display: none;">${punto.categoria.nombreCategoria}</div>
             <%@ include  file="/WEB-INF/jsp/Utils/ComboCategoria.jsp" %>
         </label>
         <br>
         <label for="informacionPunto">
             Informacion relacionada:<br>
-            <textarea id="informacionPunto" name="informacionPunto" placeholder="Ingrese la informacion correspondiente al punto" rows="18"></textarea>
+            <textarea id="informacionPunto" name="informacionPunto" placeholder="Ingrese la informacion correspondiente al punto" rows="18">${punto.informacion.texto}</textarea>
         </label>
     </div>
 </fieldset>

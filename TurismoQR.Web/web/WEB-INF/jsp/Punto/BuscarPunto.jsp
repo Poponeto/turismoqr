@@ -30,6 +30,11 @@
                     tqrmapas.crearNuevoMarcador("Posicion actual");
                 });
 
+
+                $('#categoria').on('change', function(){
+                    var categoria = $(this).val();
+                    filtroCategoria(categoria, "${pageContext.request.contextPath}");
+                });
             });
 
             $(window).load(function() {
@@ -52,6 +57,11 @@
                 <%@ include  file="/WEB-INF/jsp/Utils/MenuCabecera.jsp" %>
             </div>
         </sec:authorize>
+
+        <div id="contenedorFiltro" style="width: 100%; margin-left: auto; margin-right: auto; height: auto;padding: 10px; font-family: Calibri,Calibri,Calibri; font-size: 1.2em;" >
+            Filtrar por: <br>
+            Categoria: <%@ include  file="/WEB-INF/jsp/Utils/ComboCategoria.jsp" %>
+        </div>
 
         <div id="contenedorMapa" style="width: 100%; margin-left: auto; margin-right: auto; height: 400px;" ></div>
 

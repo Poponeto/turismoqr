@@ -4,6 +4,7 @@
  */
 package Controladores;
 
+import TurismoQR.ObjetosTransmisionDatos.DTOCategoria;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +19,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.web.access.WebInvocationPrivilegeEvaluator;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -43,8 +45,11 @@ public class BuscarPuntoController
     }
 
     @RequestMapping(value = "/paginaBuscarPunto.htm", method = RequestMethod.GET)
-    public String redirigir()
+    public String redirigir(ModelMap model)
     {
+        Collection<DTOCategoria> dtoCategorias = servicioPunto.obtenerCategoriasPunto();
+        model.put("categorias", dtoCategorias);
+
         return "Punto/BuscarPunto";
     }
 
@@ -65,6 +70,24 @@ public class BuscarPuntoController
     {
         Collection<DTOPunto> puntos = servicioPunto.ConsultarPuntosDeInteres("espanol");
 
+        Tabla tablaResultados = crearTablaResultados(puntos);
+        
+        return tablaResultados;
+    }
+
+    @RequestMapping(value = "{categoria}/obtenerInformacionTablaCategoria.htm", method = RequestMethod.GET)
+    public
+    @ResponseBody
+    Tabla obtenerInformacionTablaCategoria(@PathVariable("categoria") String categoria)
+    {
+        Collection<DTOPunto> puntos = servicioPunto.ConsultarPuntosDeInteresCategoria(categoria, "espanol");
+
+        Tabla tablaResultados = crearTablaResultados(puntos);
+
+        return tablaResultados;
+    }
+
+    private Tabla crearTablaResultados(Collection<DTOPunto> puntos) {
         Tabla tabla = new Tabla();
         Collection<IFila> filas = new HashSet<IFila>();
 
@@ -76,7 +99,7 @@ public class BuscarPuntoController
             fila.setLatitud(punto.getLocalizacion().getLatitud());
             fila.setLongitud(punto.getLocalizacion().getLongitud());
             fila.setTieneImagenes(punto.getImagenes() != null ? punto.getImagenes().size() : 0);
-           
+
             filas.add(fila);
         }
 

@@ -6,11 +6,25 @@ var funcionExito;
 var mapaParaAgregarPuntos;
 var funcionClickFila;
 var funcionClickMarcador;
+var markers = new Array();
 
 function inicilizarTablaPuntos(urlbase)
 {
+    crearTabla(urlbase + "/buscarPunto/obtenerInformacionTabla.htm", urlbase);
+}
+
+function filtroCategoria (categoria, urlbase) {
+    $('#tablaPuntos').GridUnload();
+    crearTabla(urlbase + "/buscarPunto/"+categoria+"/obtenerInformacionTablaCategoria.htm", urlbase);
+}
+
+function crearTabla(url, urlbase) {
+    $.each(markers, function(){
+        this.setMap(null);
+    })
+
     jQuery("#tablaPuntos").jqGrid({
-        url: urlbase + "/buscarPunto/obtenerInformacionTabla.htm",
+        url: url,
         datatype: "json",
         mtype: "GET",
         autowidth: true,
@@ -104,11 +118,13 @@ function cargarPuntosEnMapa(filas, url)
             identificador: filas[fila].identificador
         });
 
+        markers.push(marker);
+
         google.maps.event.addListener(marker, 'click', function(){
             
             var marker = this;
 
-            $.get(url + '/buscarPunto/obtenerMenuPunto.htm' , { idPunto: this.identificador }, function(data) {
+            $.get(url + '/buscarPunto/obtenerMenuPunto.htm' , {idPunto: this.identificador}, function(data) {
                 
                 var infoWindow = new google.maps.InfoWindow({content : data});
                 infoWindow.open(tqrmapas.mapa, marker);

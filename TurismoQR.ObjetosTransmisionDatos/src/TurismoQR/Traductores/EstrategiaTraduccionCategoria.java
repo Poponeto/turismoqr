@@ -17,6 +17,7 @@ public class EstrategiaTraduccionCategoria implements IEstrategiaTraduccion<Cate
     public IDTO<Categoria> traducir(Categoria objetoNegocio)
     {
         DTOCategoria dtoCategoria = new DTOCategoria();
+        dtoCategoria.setIdCategoria(objetoNegocio.getIdObjeto());
         dtoCategoria.setNombreCategoria(objetoNegocio.getNombreCategoria());
 
         return dtoCategoria;
@@ -24,9 +25,10 @@ public class EstrategiaTraduccionCategoria implements IEstrategiaTraduccion<Cate
 
     public Categoria traducir(IDTO<Categoria> dto)
     {
-        Categoria idioma = new Categoria();
-        idioma.setNombreCategoria(((DTOCategoria)dto).getNombreCategoria());
+        Categoria categoria = new Categoria();
+        categoria.setIdObjeto(((DTOCategoria)dto).getIdCategoria());
+        categoria.setNombreCategoria(((DTOCategoria)dto).getNombreCategoria());
 
-        return idioma;
+        return categoria;
     }
 }

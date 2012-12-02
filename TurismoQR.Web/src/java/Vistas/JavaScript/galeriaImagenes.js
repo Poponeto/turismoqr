@@ -17,7 +17,7 @@ var tqrgaleria = {
             $('#textoComentario').text('');
 
             $.each(tqrgaleria.comentariosGaleria, function(){
-                if(this.imagenGaleria == imagen) {
+                if(this.imagenGaleria == imagen || this.imagenGaleria.indexOf(imagen) != -1) {
                     $('#textoComentario').text(this.comentarioImagen);
                 }
             });
@@ -59,6 +59,11 @@ var tqrgaleria = {
     },
 
     agregarComentario : function() {
+
+        if($('#textoComentario').text() != '') {
+            $('#comentario').text($('#textoComentario').text());
+        }
+
         $('#dialogComentario').dialog('open');
         deshabilitarFormulario();
         $('#ui-dialog-title-dialogComentario').text("Agregar comentario");
@@ -193,6 +198,7 @@ var tqrgaleria = {
                 $.ui.jcoverflip.defaults.current != idElementoEnContenedor.substring(3, idElementoEnContenedor.length)) {
                 elementoEnContenedor.fadeOut(1000, function() {
                     $(this).remove();
+                    $('#contenedorPreviewImagenes').find('img[id*="img"]').remove();
                     $('#contenedorPreviewImagenes')
                     .append('<img id ="img'
                         + $.ui.jcoverflip.defaults.current
@@ -203,6 +209,7 @@ var tqrgaleria = {
                 })
             } else {
                 $('#contenedorMensaje').remove();
+                $('#contenedorPreviewImagenes').find('img[id*="img"]').remove();
                 $('#contenedorPreviewImagenes')
                     .append('<img id ="img'
                         + $.ui.jcoverflip.defaults.current
@@ -223,7 +230,7 @@ var tqrgaleria = {
         imagenesGaleria = $('#galeriaImagenes').find('img');
         $.each(imagenesGaleria, function(){
             tqrgaleria.comentariosGaleria.push({
-                imagenGaleria : $(this).attr('src'),
+                imagenGaleria : $(this).attr('src').substring(),
                 comentarioImagen : $(this).attr('alt')
             });
         })

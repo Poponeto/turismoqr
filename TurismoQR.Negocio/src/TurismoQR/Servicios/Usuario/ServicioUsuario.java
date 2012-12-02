@@ -52,7 +52,6 @@ public class ServicioUsuario implements IServicioUsuario {
     public DTOUsuario cargarUsuario(String nombreUsuario) throws UsernameNotFoundException, DataAccessException
     {
         Usuario usuario = manejadorLogin.cargarUsuario(nombreUsuario);
-
         return (DTOUsuario)traductor.traducir(usuario);
     }
 

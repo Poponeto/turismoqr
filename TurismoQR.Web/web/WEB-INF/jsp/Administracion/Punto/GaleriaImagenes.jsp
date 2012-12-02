@@ -4,6 +4,7 @@
     Author     : Chelo
 --%>
 
+<%@ taglib uri='http://java.sun.com/jsp/jstl/core' prefix='core'%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
    "http://www.w3.org/TR/html4/loose.dtd">
@@ -51,6 +52,9 @@
 <div id="contenedorGaleriaImagenes">
     <ul id="galeriaImagenes">
         <li><img alt=""  src="${pageContext.request.contextPath}/Vistas/Imagenes/ImagenDefault.jpg"/></li>
+        <core:forEach var="imagen" items="${punto.imagenes}">
+            <li><img alt="${imagen.informacion.texto}" src="${pageContext.request.contextPath}/imagenes/mostrarImagen.htm?img=${imagen.url}"/></li>
+        </core:forEach>
     </ul>
 </div>
 <div id="requestContext" style="display: none;">${pageContext.request.contextPath}</div>

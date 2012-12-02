@@ -109,6 +109,7 @@ public class CrearPuntoController {
             @RequestParam("longitudPunto") String longitudPunto,
             @RequestParam("idioma") String idioma,
             @RequestParam("categoria") String categoria,
+            @RequestParam("idPunto") String idPunto,
             ModelMap modelo
         )
     {
@@ -116,6 +117,8 @@ public class CrearPuntoController {
         idiomaPunto.setNombreIdioma(idioma);
 
         DTOPunto dtoPunto = new DTOPunto();
+
+        dtoPunto.setIdPunto(idPunto);
         
         dtoPunto.setNombrePunto(nombrePunto);
 
@@ -150,14 +153,25 @@ public class CrearPuntoController {
         return "Administracion/Punto/AgregarImagen";
     }
 
-@RequestMapping(value = "/{idPunto}/" + actualizarPuntoInteres,
-                    method = RequestMethod.POST)
+@RequestMapping(value = "/{idPunto}/" + actualizarPuntoInteres)
     public String actualizarPuntoInteres(
-            @PathVariable String idPunto)
+            @PathVariable String idPunto,
+            ModelMap modelo)
     {
         String idioma = "espanol";
+
+        Collection<DTOIdioma> dtoIdiomas = servicioIdioma.consultarPosiblesIdiomas();
+        Collection<DTOCategoria> dtoCategorias = servicioPunto.obtenerCategoriasPunto();
+        DTOPunto dtoPunto = servicioPunto.ConsultarPuntoInteres(idPunto, idioma);
+
+        this.imagenesPunto = dtoPunto.getImagenes();
+
+        modelo.put("punto", dtoPunto);
+        modelo.put("idiomas", dtoIdiomas);
+        modelo.put("categorias", dtoCategorias);
+
         //TODO Obtener el idioma por default del usuario
-        return "redirect:/informacionPunto/" + idioma + "/" + idPunto +"/obtenerInformacionPunto.htm";
+        return "Administracion/Punto/CrearPuntoDeInteres";
     }
 
     @RequestMapping(value = "/{idPunto}/" + eliminarPuntoInteres,

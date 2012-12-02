@@ -217,5 +217,15 @@ var tqrgaleria = {
         $(itemsGaleriaInicial[1]).click();
 
         tqrgaleria.initVistaDetalles('contenedorPreviewImagenes');
+    },
+
+    initComentarios : function() {
+        imagenesGaleria = $('#galeriaImagenes').find('img');
+        $.each(imagenesGaleria, function(){
+            tqrgaleria.comentariosGaleria.push({
+                imagenGaleria : $(this).attr('src'),
+                comentarioImagen : $(this).attr('alt')
+            });
+        })
     }
 }

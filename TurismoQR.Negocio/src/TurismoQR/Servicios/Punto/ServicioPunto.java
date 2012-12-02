@@ -70,6 +70,10 @@ public class ServicioPunto extends ServicioPuntoBase implements IServicioPunto
         //Crea un nuevo punto de interes
         Punto nuevoPuntoDeInteres = new Punto();
 
+        if(datosPunto.getIdPunto() != null) {
+            nuevoPuntoDeInteres.setIdObjeto(datosPunto.getIdPunto());
+        }
+
         nuevoPuntoDeInteres.setNombre(datosPunto.getNombrePunto());
 
         nuevoPuntoDeInteres.setCiclo(new Ciclo());

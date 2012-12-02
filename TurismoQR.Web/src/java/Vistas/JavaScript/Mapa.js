@@ -22,17 +22,32 @@
     iniciarMapas : function() {
         tqrmapas.geocoder = new google.maps.Geocoder();
         tqrmapas.contenedorMapas = "contenedorMapa";
-        tqrmapas.obtenerUbicacionUsuario(function(){
+
+        if($('#latitudPunto').attr('value') != '' && $('#longitudPunto').attr('value') != '') {
+            tqrmapas.inicializarLocalizacion($('#latitudPunto').attr('value'), $('#longitudPunto').attr('value'), function(){
+                tqrmapas.crearMapa();
+                tqrmapas.crearNuevoMarcador("Posicion actual", function(){
+                        var posicionInicialMarcador = tqrmapas.obtenerLocalizacionMarcador(tqrmapas.marcador);
+                        $('#latitudValue').text(posicionInicialMarcador.lat());
+                        $('#longitudValue').text(posicionInicialMarcador.lng());
+                        $('#latitudPunto').attr('value', posicionInicialMarcador.lat());
+                        $('#longitudPunto').attr('value', posicionInicialMarcador.lng());
+                        tqrmapas.agregarEventoCambioPosicion();
+                    });
+            })
+        } else {
+            tqrmapas.obtenerUbicacionUsuario(function(){
             tqrmapas.crearMapa();
             tqrmapas.crearNuevoMarcador("Posicion actual", function(){
-                var posicionInicialMarcador = tqrmapas.obtenerLocalizacionMarcador(tqrmapas.marcador);
-                $('#latitudValue').text(posicionInicialMarcador.lat());
-                $('#longitudValue').text(posicionInicialMarcador.lng());
-                $('#latitudPunto').attr('value', posicionInicialMarcador.lat());
-                $('#longitudPunto').attr('value', posicionInicialMarcador.lng());
-                tqrmapas.agregarEventoCambioPosicion();
-            });
-        });
+                        var posicionInicialMarcador = tqrmapas.obtenerLocalizacionMarcador(tqrmapas.marcador);
+                        $('#latitudValue').text(posicionInicialMarcador.lat());
+                        $('#longitudValue').text(posicionInicialMarcador.lng());
+                        $('#latitudPunto').attr('value', posicionInicialMarcador.lat());
+                        $('#longitudPunto').attr('value', posicionInicialMarcador.lng());
+                        tqrmapas.agregarEventoCambioPosicion();
+                    });
+                });
+            }
     },
 
     agregarEventoCambioPosicion : function() {
@@ -200,9 +215,13 @@
         tqrmapas.mapa.panTo(position);
     },
 
-    inicializarLocalizacion : function(latitud, longitud) {
+    inicializarLocalizacion : function(latitud, longitud, funcion) {
         tqrmapas.lat = latitud;
         tqrmapas.lng = longitud;
+
+        if(funcion) {
+            funcion();
+        }
     },
 
     inicializarContenedor : function(idContenedor) {

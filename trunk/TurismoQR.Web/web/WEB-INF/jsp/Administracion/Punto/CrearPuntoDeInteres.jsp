@@ -12,7 +12,14 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Nuevo Punto de Interes</title>
+        
+        <core:if test="${punto.idPunto != null}">
+            <title>Modificar Punto de Interes</title>
+        </core:if>
+        <core:if test="${punto.idPunto == null}">
+            <title>Nuevo Punto de Interes</title>
+        </core:if>
+
         <%@ include file="/WEB-INF/jsp/Utils/ArchivosJQuery.html" %>
         <script type="text/javascript" src="http://blueimp.github.com/JavaScript-Templates/tmpl.min.js"></script>
         <script type="text/javascript" src="http://blueimp.github.com/JavaScript-Load-Image/load-image.min.js"></script>
@@ -102,7 +109,12 @@
 
         <div style="position: relative; padding: 0px 30px;" class="ui-widget-header">
             <div style="display: inline-block;">
-                <h3>Crear nuevo punto de interes</h3>
+                <core:if test="${punto.idPunto != null}">
+                    <h3>Modificar punto de interes</h3>
+                </core:if>
+                <core:if test="${punto.idPunto == null}">
+                    <h3>Crear nuevo punto de interes</h3>
+                </core:if>
             </div>
             <div style="display: inline-block; position: absolute; right: 30px; margin-top: -9px; top: 50%;" align="right">
                 <%@ include  file="/WEB-INF/jsp/Utils/ComboIdiomas.jsp" %>

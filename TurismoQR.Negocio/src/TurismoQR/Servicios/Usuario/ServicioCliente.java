@@ -27,14 +27,11 @@ import org.springframework.transaction.annotation.Transactional;
  *
  * @author ftacchini
  */
-
 @Transactional
-public abstract class ServicioCliente extends ServicioContacto implements IServicioCliente
-{
+public abstract class ServicioCliente extends ServicioContacto implements IServicioCliente {
 
     private ManejadorUsuarios manejadorGuardado;
     private IServicioEnvioMail servicioEnvioMail;
-
     private final String subjectRegistracion = "Gracias por registrarse en TurismoQR!";
     private final String subjectAutorizacion = "Su cuenta en TurismoQR fue autorizada!";
 
@@ -42,42 +39,36 @@ public abstract class ServicioCliente extends ServicioContacto implements IServi
             IAccesoDatos accesoDatos,
             ITraductor traductor,
             ManejadorUsuarios manejadorGuardado,
-            IServicioEnvioMail servicioEnvioMail)
-    {
+            IServicioEnvioMail servicioEnvioMail) {
         super(accesoDatos, traductor);
         this.manejadorGuardado = manejadorGuardado;
         this.servicioEnvioMail = servicioEnvioMail;
     }
 
-    public Boolean registrarCliente(IDTO dtoCliente)
-    {
+    public Boolean registrarCliente(IDTO dtoCliente) {
         return registrarContacto(dtoCliente).getIdObjeto() != null;
     }
 
-    public Collection<DTORubro> obtenerRubrosPosibles()
-    {
+    public Collection<DTORubro> obtenerRubrosPosibles() {
         Collection<Rubro> rubros = getAccesoDatos().BuscarConjuntoObjetos(Rubro.class);
         Collection<DTORubro> dtosRubro = new ArrayList<DTORubro>();
-        
-        for(Rubro rubro : rubros)
-        {
+
+        for (Rubro rubro : rubros) {
             dtosRubro.add((DTORubro) getTraductor().traducir(rubro));
         }
 
         return dtosRubro;
     }
 
-
     @Override
-    protected Contacto registrarContacto(IDTO dtoContacto)
-    {
+    protected Contacto registrarContacto(IDTO dtoContacto) {
         Cliente cliente = (Cliente) super.registrarContacto(dtoContacto);
 
-        cliente.setCantidadDePuntosPermitidos(((DTOCliente)dtoContacto).getCantidadDePuntosPermitidos());
+        cliente.setCantidadDePuntosPermitidos(((DTOCliente) dtoContacto).getCantidadDePuntosPermitidos());
         cliente.setEstado(Ciclo.crearEstado(Ciclo.AUTORIZACION_PENDIENTE));
 
         completarCliente(cliente, dtoContacto);
-        
+
         getAccesoDatos().Guardar(cliente);
 
         servicioEnvioMail.enviarEmail(
@@ -88,22 +79,19 @@ public abstract class ServicioCliente extends ServicioContacto implements IServi
         return cliente;
     }
 
-    public Collection<DTOCliente> consultarClientes()
-    {
+    public Collection<DTOCliente> consultarClientes() {
         Collection<Cliente> clientes = getAccesoDatos().BuscarConjuntoObjetos(Cliente.class);
 
         Collection<DTOCliente> dtosCliente = new HashSet<DTOCliente>();
 
-        for (Cliente cliente : clientes)
-        {
+        for (Cliente cliente : clientes) {
             dtosCliente.add((DTOCliente) getTraductor().traducir(cliente));
         }
 
         return dtosCliente;
     }
 
-    public Boolean autorizarCliente(String idCliente)
-    {
+    public Boolean autorizarCliente(String idCliente) {
         Cliente cliente = getAccesoDatos().BuscarObjeto(Cliente.class, idCliente);
         cliente.setEstado(Ciclo.crearEstado(Ciclo.HABILITADO));
 
@@ -111,7 +99,7 @@ public abstract class ServicioCliente extends ServicioContacto implements IServi
         agregarPermisosACliente(cliente);
 
         getAccesoDatos().Guardar(cliente);
-        
+
         servicioEnvioMail.enviarEmail(
                 getMensajeAutorizacion(cliente),
                 subjectAutorizacion,
@@ -121,9 +109,8 @@ public abstract class ServicioCliente extends ServicioContacto implements IServi
         return cliente.getEstado().getNombreDeEstado().equals(Ciclo.HABILITADO);
     }
 
-    public Boolean actualizarDatosCliente(IDTO dto)
-    {
-        DTOCliente dtoCliente = (DTOCliente)dto;
+    public Boolean actualizarDatosCliente(IDTO dto) {
+        DTOCliente dtoCliente = (DTOCliente) dto;
 
         Cliente cliente = getAccesoDatos().BuscarObjeto(Cliente.class, dtoCliente.getIdContacto());
 
@@ -138,26 +125,22 @@ public abstract class ServicioCliente extends ServicioContacto implements IServi
 
     }
 
-    private void agregarPermisosACliente(Cliente cliente)
-    {
-        Collection<Rol> roles = getAccesoDatos().BuscarObjetosPorCaracteristica(Rol.class, "nombreRol", "Cliente");
+    private void agregarPermisosACliente(Cliente cliente) {
+        
+        Rol rol = getAccesoDatos().BuscarObjeto(Rol.class, "Cliente");
         Collection<PermisoUsuario> permisosUsuario = new HashSet<PermisoUsuario>();
 
-        for (Rol rol : roles)
-        {
-            for (PermisoRol permisoRol : rol.getPermisosRol())
-            {
-                PermisoUsuario permisoUsuaro = new PermisoUsuario();
-                permisoUsuaro.setPermiso(permisoRol.getPermiso());
-                permisosUsuario.add(permisoUsuaro);
-            }
+        for (PermisoRol permisoRol : rol.getPermisosRol()) {
+            PermisoUsuario permisoUsuaro = new PermisoUsuario();
+            permisoUsuaro.setPermiso(permisoRol.getPermiso());
+            permisosUsuario.add(permisoUsuaro);
         }
+
 
         cliente.getUsuario().setPermisosUsuario(permisosUsuario);
     }
 
-    private String getMensajeAutorizacion(Cliente cliente)
-    {
+    private String getMensajeAutorizacion(Cliente cliente) {
         String cabecera = "Se ha aprobado su solicitud en TurismoQR, "
                 + "se le ha asignado una cuenta de usuario.";
         String cuerpo = "Los datos de su cuenta son:"
@@ -167,7 +150,10 @@ public abstract class ServicioCliente extends ServicioContacto implements IServi
         return cabecera + "\n\n" + cuerpo;
 
     }
+
     protected abstract String getMensajeRegistracion(Cliente cliente);
+
     protected abstract void completarCliente(Cliente cliente, IDTO dtoCliente);
+
     protected abstract String getNombreUsuarioParaCliente(Cliente cliente);
 }

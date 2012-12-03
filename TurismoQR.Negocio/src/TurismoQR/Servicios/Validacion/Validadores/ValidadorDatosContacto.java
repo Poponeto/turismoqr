@@ -23,7 +23,7 @@ public class ValidadorDatosContacto implements Validador {
         if (dtoContacto.getMail() == null) {
             errores.agregarError("mail", "La direccion de Email no puede ser nula.");
 
-        } else if (!dtoContacto.getMail().matches("[.]+@[.]+")) {
+        } else if (!dtoContacto.getMail().matches("[a-zA-Z0-9]+[.[a-zA-Z0-9_-]+]*@[a-z0-9][\\w\\.-]*[a-z0-9]\\.[a-z][a-z\\.]*[a-z]$")) {
             errores.agregarError("mail", "La direccion de Email no tiene un formato valido.");
         }
 

@@ -101,25 +101,6 @@ public class ValidadorDatosUsuarioTest {
         verify(errores2, times(1)).agregarError(eq("password"), eq("Debe especificar un password."));
         verify(errores3, times(1)).agregarError(eq("password"), eq("El password debe ser igual que la contraseña."));
 
-        /*
-        verify(errores1, times(1)).agregarError(eq("nombreUsuario"), eq("Debe especificar un nombre de usuario."));
-        verify(errores1, times(1)).agregarError(eq("contraseña"), eq("Debe especificar una contraseña."));
-        verify(errores1, times(1)).agregarError(eq("username"), eq("Debe especificar un username."));
-        verify(errores1, times(1)).agregarError(eq("password"), eq("Debe especificar un password."));
-        
-        verify(errores2, times(1)).agregarError(eq("nombreUsuario"), eq("Debe especificar un nombre de usuario."));
-        verify(errores2, times(1)).agregarError(eq("contraseña"), eq("Debe especificar una contraseña."));
-        verify(errores2, times(1)).agregarError(eq("username"), eq("Debe especificar un username."));
-        verify(errores2, times(1)).agregarError(eq("password"), eq("Debe especificar un password."));
-
-        verify(errores3, times(1)).agregarError(eq("nombreUsuario"), eq("El nombre de usuario es inválido. Debe contener sólo letras."));
-        verify(errores3, times(1)).agregarError(eq("contraseña"), eq("Debe contener al menos 6 caracteres."));
-        verify(errores3, times(1)).agregarError(eq("username"), eq("El username debe ser igual que el nombre de usuario."));
-        verify(errores3, times(1)).agregarError(eq("password"), eq("El password debe ser igual que la contraseña."));
-
-        verify(errores4, times(1)).agregarError(eq("nombreUsuario"), eq("El nombre de usuario es inválido. Debe contener sólo letras."));
-        verify(errores4, times(1)).agregarError(eq("contraseña"), eq("Debe contener no más de 20 caracteres."));
-        */
     }
     
 }

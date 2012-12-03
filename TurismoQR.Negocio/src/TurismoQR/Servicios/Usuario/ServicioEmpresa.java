@@ -64,7 +64,7 @@ public class ServicioEmpresa extends ServicioCliente
     }
 
     @Override
-    protected String getNombreCliente(Cliente cliente)
+    protected String getNombreUsuarioParaCliente(Cliente cliente)
     {
         return ((Empresa)cliente).getCuit();
     }

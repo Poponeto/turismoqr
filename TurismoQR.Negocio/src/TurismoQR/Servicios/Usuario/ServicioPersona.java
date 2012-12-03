@@ -41,9 +41,9 @@ public class ServicioPersona extends ServicioCliente{
     }
 
     @Override
-    protected String getNombreCliente(Cliente cliente)
+    protected String getNombreUsuarioParaCliente(Cliente cliente)
     {
-        return ((Persona)cliente).getApellido() + ((Persona)cliente).getNombre();
+        return ((Persona)cliente).getDni();
     }
 
     @Override

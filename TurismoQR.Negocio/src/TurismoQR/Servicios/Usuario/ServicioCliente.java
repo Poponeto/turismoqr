@@ -10,6 +10,9 @@ import TurismoQR.ObjetosNegocio.Categorias.Rubro;
 import TurismoQR.ObjetosNegocio.Estados.Ciclo;
 import TurismoQR.ObjetosNegocio.Usuarios.Cliente;
 import TurismoQR.ObjetosNegocio.Usuarios.Contacto;
+import TurismoQR.ObjetosNegocio.Usuarios.Permisos.PermisoRol;
+import TurismoQR.ObjetosNegocio.Usuarios.Permisos.PermisoUsuario;
+import TurismoQR.ObjetosNegocio.Usuarios.Rol;
 import TurismoQR.ObjetosTransmisionDatos.DTOCliente;
 import TurismoQR.ObjetosTransmisionDatos.DTORubro;
 import TurismoQR.ObjetosTransmisionDatos.IDTO;
@@ -104,7 +107,8 @@ public abstract class ServicioCliente extends ServicioContacto implements IServi
         Cliente cliente = getAccesoDatos().BuscarObjeto(Cliente.class, idCliente);
         cliente.setEstado(Ciclo.crearEstado(Ciclo.HABILITADO));
 
-        cliente.setUsuario(manejadorGuardado.crearUsuario(getNombreCliente(cliente)));
+        cliente.setUsuario(manejadorGuardado.crearUsuario(getNombreUsuarioParaCliente(cliente)));
+        agregarPermisosACliente(cliente);
 
         getAccesoDatos().Guardar(cliente);
         
@@ -134,6 +138,24 @@ public abstract class ServicioCliente extends ServicioContacto implements IServi
 
     }
 
+    private void agregarPermisosACliente(Cliente cliente)
+    {
+        Collection<Rol> roles = getAccesoDatos().BuscarObjetosPorCaracteristica(Rol.class, "nombreRol", "Cliente");
+        Collection<PermisoUsuario> permisosUsuario = new HashSet<PermisoUsuario>();
+
+        for (Rol rol : roles)
+        {
+            for (PermisoRol permisoRol : rol.getPermisosRol())
+            {
+                PermisoUsuario permisoUsuaro = new PermisoUsuario();
+                permisoUsuaro.setPermiso(permisoRol.getPermiso());
+                permisosUsuario.add(permisoUsuaro);
+            }
+        }
+
+        cliente.getUsuario().setPermisosUsuario(permisosUsuario);
+    }
+
     private String getMensajeAutorizacion(Cliente cliente)
     {
         String cabecera = "Se ha aprobado su solicitud en TurismoQR, "
@@ -147,5 +169,5 @@ public abstract class ServicioCliente extends ServicioContacto implements IServi
     }
     protected abstract String getMensajeRegistracion(Cliente cliente);
     protected abstract void completarCliente(Cliente cliente, IDTO dtoCliente);
-    protected abstract String getNombreCliente(Cliente cliente);
+    protected abstract String getNombreUsuarioParaCliente(Cliente cliente);
 }

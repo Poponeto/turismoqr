@@ -8,10 +8,7 @@ import TurismoQR.AccesoDatos.IAccesoDatos;
 import TurismoQR.ObjetosTransmisionDatos.*;
 import TurismoQR.Servicios.Validacion.Errores;
 import TurismoQR.Servicios.Validacion.IServicioValidacionDatos;
-import java.util.Date;
-import java.util.GregorianCalendar;
 import org.junit.*;
-import static org.junit.Assert.*;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 

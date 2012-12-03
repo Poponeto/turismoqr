@@ -118,6 +118,10 @@ public class CrearPuntoController {
 
         DTOPunto dtoPunto = new DTOPunto();
 
+        if(idPunto.equals("") || idPunto.isEmpty()) {
+            idPunto = null;
+        }
+        
         dtoPunto.setIdPunto(idPunto);
         
         dtoPunto.setNombrePunto(nombrePunto);

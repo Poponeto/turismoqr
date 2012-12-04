@@ -79,13 +79,7 @@
                 <div id="contenedorFormularioCliente">
                 </div>
 
-                <fieldset>
-                    <legend> Informacion administrativa </legend>
-                    <label for="lineaDatoscantidadDePuntosDeseados" name="labelcantidadDePuntosPermitidos">
-                        Cantidad de Puntos:<br>
-                        <input id="lineaDatoscantidadDePuntosDeseados" name="cantidadDePuntosPermitidos" type="text" required="false"/>
-                    </label>
-                </fieldset>
+                <%@ include file = "/WEB-INF/jsp/Registro/FormularioCliente.jsp" %>
 
                 <%@ include file = "/WEB-INF/jsp/Registro/FormularioContacto.jsp" %>
                 <div>

@@ -45,12 +45,12 @@ public class ManejadorUsuarios
     {
         Usuario usuario = new Usuario();
         usuario.setNombreUsuario(nombreUsuario);
-        usuario.setContraseña(getCadenaAlfanumAleatoria(12));
+        usuario.setContraseña(generarContraseniaAleatoria(12));
 
         return usuario;
     }
 
-    private String getCadenaAlfanumAleatoria(int longitud)
+    public String generarContraseniaAleatoria(int longitud)
     {
         String cadenaAleatoria = "";
         long milis = new java.util.GregorianCalendar().getTimeInMillis();

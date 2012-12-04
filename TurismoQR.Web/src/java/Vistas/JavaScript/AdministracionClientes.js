@@ -154,6 +154,7 @@ function inicializarPaginaAdministracionClientes(urlbase)
     inicilizarTablaClientes(urlbase);
     $("#informacionCliente").hide();
     $("#botonAutorizarCliente").hide();
+    $("#botonReiniciarContraseniaCliente").hide();
 
     $("#botonAutorizarCliente").click(function(){
         var urlConsulta = urlbase + "/administracion/cliente/autorizarCliente.htm";
@@ -166,10 +167,31 @@ function inicializarPaginaAdministracionClientes(urlbase)
             //contentType: "application/json",
             success: function(){
                 location.reload(true);
+            },
+            error: function(){
+                alert("A ocurrido un error al actualizar el cliente.");
             }
 
         });
     });
+
+    $("#botonReiniciarContraseniaCliente").click(function(){
+        var urlConsulta = urlbase + "/administracion/cliente/reiniciarContraseniaCliente.htm";
+
+        $.ajax({
+
+            url: urlConsulta,
+            data: {idCliente: $("#identificador").text()},
+            type: "POST",
+            success: function(){
+                location.reload(true);
+            },
+            error: function(){
+                alert("A ocurrido un error al actualizar el cliente.");
+            }
+
+        });
+    })
 
 }
 
@@ -189,10 +211,12 @@ function cargarInformacionCliente(fila)
 
     if($("#estado").text() === "Autorizacion Pendiente")
     {
+        $("#botonReiniciarContraseniaCliente").hide();
         $("#botonAutorizarCliente").show(1000);
     }
     else{
         $("#botonAutorizarCliente").hide();
+        $("#botonReiniciarContraseniaCliente").show(1000);
     }
 
     $("#informacionCliente").show(1000);

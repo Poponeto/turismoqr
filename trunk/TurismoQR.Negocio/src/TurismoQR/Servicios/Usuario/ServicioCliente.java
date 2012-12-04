@@ -52,7 +52,7 @@ public abstract class ServicioCliente extends ServicioContacto implements IServi
     public Collection<DTORubro> obtenerRubrosPosibles() {
         Collection<Rubro> rubros = getAccesoDatos().BuscarConjuntoObjetos(Rubro.class);
         Collection<DTORubro> dtosRubro = new ArrayList<DTORubro>();
-
+        
         for (Rubro rubro : rubros) {
             dtosRubro.add((DTORubro) getTraductor().traducir(rubro));
         }
@@ -64,11 +64,11 @@ public abstract class ServicioCliente extends ServicioContacto implements IServi
     protected Contacto registrarContacto(IDTO dtoContacto) {
         Cliente cliente = (Cliente) super.registrarContacto(dtoContacto);
 
-        cliente.setCantidadDePuntosPermitidos(((DTOCliente) dtoContacto).getCantidadDePuntosPermitidos());
+        cliente.setCantidadDePuntosPermitidos(((DTOCliente)dtoContacto).getCantidadDePuntosPermitidos());
         cliente.setEstado(Ciclo.crearEstado(Ciclo.AUTORIZACION_PENDIENTE));
 
         completarCliente(cliente, dtoContacto);
-
+        
         getAccesoDatos().Guardar(cliente);
 
         servicioEnvioMail.enviarEmail(
@@ -99,7 +99,7 @@ public abstract class ServicioCliente extends ServicioContacto implements IServi
         agregarPermisosACliente(cliente);
 
         getAccesoDatos().Guardar(cliente);
-
+        
         servicioEnvioMail.enviarEmail(
                 getMensajeAutorizacion(cliente),
                 subjectAutorizacion,
@@ -110,7 +110,7 @@ public abstract class ServicioCliente extends ServicioContacto implements IServi
     }
 
     public Boolean actualizarDatosCliente(IDTO dto) {
-        DTOCliente dtoCliente = (DTOCliente) dto;
+        DTOCliente dtoCliente = (DTOCliente)dto;
 
         Cliente cliente = getAccesoDatos().BuscarObjeto(Cliente.class, dtoCliente.getIdContacto());
 
@@ -125,7 +125,41 @@ public abstract class ServicioCliente extends ServicioContacto implements IServi
 
     }
 
-    private void agregarPermisosACliente(Cliente cliente) {
+    public Boolean reiniciarContraseñaCliente(String idCliente)
+    {
+        Cliente cliente = getAccesoDatos().BuscarObjeto(Cliente.class, idCliente);
+        cliente.getUsuario().setContraseña(manejadorGuardado.generarContraseniaAleatoria(12));
+        
+        getAccesoDatos().Guardar(cliente);
+        servicioEnvioMail.enviarEmail(getMensajeReinicioContrasenia(cliente), "Reinicio Contrasenia TurismoQR", cliente.getMail());
+
+        return true;
+    }
+    
+    private String getMensajeReinicioContrasenia(Cliente cliente)
+    {
+        String cabecera = "Se ha reiniciado su contraseña en TurismoQR, "
+                + "se le ha asignado una nueva contraseña.";
+        String cuerpo = "Los datos de su cuenta son:"
+                + "\nNombre de Usuario: " + cliente.getUsuario().getNombreUsuario()
+                + "\nContraseña: " + cliente.getUsuario().getContraseña();
+
+        return cabecera + "\n\n" + cuerpo;
+    }
+
+    private String getMensajeAutorizacion(Cliente cliente)
+    {
+        String cabecera = "Se ha aprobado su solicitud en TurismoQR, "
+                + "se le ha asignado una cuenta de usuario.";
+        String cuerpo = "Los datos de su cuenta son:"
+                + "\nNombre de Usuario: " + cliente.getUsuario().getNombreUsuario()
+                + "\nContraseña: " + cliente.getUsuario().getContraseña();
+
+        return cabecera + "\n\n" + cuerpo;
+
+    }
+
+private void agregarPermisosACliente(Cliente cliente) {
         
         Rol rol = getAccesoDatos().BuscarObjeto(Rol.class, "Cliente");
         Collection<PermisoUsuario> permisosUsuario = new HashSet<PermisoUsuario>();
@@ -138,17 +172,6 @@ public abstract class ServicioCliente extends ServicioContacto implements IServi
 
 
         cliente.getUsuario().setPermisosUsuario(permisosUsuario);
-    }
-
-    private String getMensajeAutorizacion(Cliente cliente) {
-        String cabecera = "Se ha aprobado su solicitud en TurismoQR, "
-                + "se le ha asignado una cuenta de usuario.";
-        String cuerpo = "Los datos de su cuenta son:"
-                + "\nNombre de Usuario: " + cliente.getUsuario().getNombreUsuario()
-                + "\nContraseña: " + cliente.getUsuario().getContraseña();
-
-        return cabecera + "\n\n" + cuerpo;
-
     }
 
     protected abstract String getMensajeRegistracion(Cliente cliente);

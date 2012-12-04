@@ -94,6 +94,21 @@ public class InformacionClienteController
         }
     }
 
+    @RequestMapping(value = "/reiniciarContraseniaCliente.htm", method = RequestMethod.POST)
+    public void reiniciarContraseñaCliente(String idCliente, HttpServletResponse response)
+    {
+        boolean exito = servicioCliente.reiniciarContraseñaCliente(idCliente);
+
+        if (exito)
+        {
+            response.setStatus(HttpServletResponse.SC_OK);
+        }
+        else
+        {
+            response.setStatus(HttpServletResponse.SC_CONFLICT);
+        }
+    }
+
 
     @RequestMapping(value = "/modificarCliente.htm", method = RequestMethod.POST)
     public void modificarCliente(@RequestBody  FilaTablaCliente fila)

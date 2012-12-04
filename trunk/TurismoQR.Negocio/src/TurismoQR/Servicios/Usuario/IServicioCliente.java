@@ -24,4 +24,5 @@ public interface IServicioCliente {
     public Boolean actualizarDatosCliente(IDTO dtoCliente);
     public Collection<DTOCliente> consultarClientes();
     public Collection<DTORubro> obtenerRubrosPosibles();
+    public Boolean reiniciarContraseñaCliente(String idCliente);
 }

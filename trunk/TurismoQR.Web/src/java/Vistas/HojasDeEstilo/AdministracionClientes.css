@@ -1,0 +1,47 @@
+/* 
+    Document   : AdministracionClientes
+    Created on : 03-dic-2012, 21:42:13
+    Author     : Federico
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/* 
+   TODO customize this sample style
+   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
+*/
+
+.ui-jqgrid {
+    margin-left: auto;
+    margin-right: auto;
+}
+fieldset[id*="informacion"] {
+    border-radius: 10px;
+    margin-bottom: 10px;
+    font-family: Calibri,Calibri,Calibri;
+    font-size: 1.1em;
+}
+fieldset[id*="informacion"] legend {
+    font-weight: bold;
+    font-style: italic;
+}
+fieldset[id*="informacion"] p {
+    font-weight: bold;
+}
+fieldset[id*="informacion"] p label {
+    font-weight: normal;
+}
+
+#accionesCliente {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width:25%
+}
+
+#accionesCliente button{
+    display: inline-block;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto
+}

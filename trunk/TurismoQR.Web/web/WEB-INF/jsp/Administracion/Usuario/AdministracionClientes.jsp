@@ -16,7 +16,7 @@
         <%@ include file="/WEB-INF/jsp/Utils/ArchivosJQuery.html" %>
 
         <script type="text/javascript" src="${pageContext.request.contextPath}/Vistas/JavaScript/AdministracionClientes.js"></script>
-
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/Vistas/HojasDeEstilo/AdministracionClientes.css">
 
 
         <script type="text/javascript" >
@@ -27,35 +27,6 @@
             });
 
         </script>
-
-        <style TYPE="text/css">
-            .ui-jqgrid {
-                margin-left: auto;
-                margin-right: auto;
-            }
-            fieldset[id*="informacion"] {
-                border-radius: 10px;
-                margin-bottom: 10px;
-                font-family: Calibri,Calibri,Calibri;
-                font-size: 1.1em;
-            }
-            fieldset[id*="informacion"] legend {
-                font-weight: bold;
-                font-style: italic;
-            }
-            fieldset[id*="informacion"] p {
-                font-weight: bold;
-            }
-            fieldset[id*="informacion"] p label {
-                font-weight: normal;
-            }
-            #botonAutorizarCliente {
-                display: block;
-                width: 25%;
-                margin-left: auto;
-                margin-right: auto;
-            }
-        </style>
     </head>
     <body>
         <%@ include  file="/WEB-INF/jsp/Utils/Cabecera.jsp" %>
@@ -124,7 +95,11 @@
                     
                 </fieldset>
 
-                <button id="botonAutorizarCliente">Autorizar Cliente</button>
+                <div id="accionesCliente">
+                    <button id="botonReiniciarContraseniaCliente">Reiniciar Contraseña</button>
+                    <button id="botonAutorizarCliente">Autorizar Cliente</button>
+                </div>
+                
             </div>
         </div>
 </html>

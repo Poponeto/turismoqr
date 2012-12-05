@@ -137,9 +137,24 @@ public abstract class ServicioCliente extends ServicioContacto implements IServi
     {
         Cliente cliente = getAccesoDatos().BuscarObjeto(Cliente.class, idCliente);
         cliente.getUsuario().setContraseña(manejadorGuardado.generarContraseniaAleatoria(12));
+        cliente.getUsuario().setExpirado(true);
+        cliente.getUsuario().setFechaExpiracion(Calendar.getInstance().getTime());
         
         getAccesoDatos().Guardar(cliente);
         servicioEnvioMail.enviarEmail(getMensajeReinicioContrasenia(cliente), "Reinicio Contrasenia TurismoQR", cliente.getMail());
+
+        return true;
+    }
+
+    public Boolean eliminarCliente(String idCliente)
+    {
+        Cliente cliente = getAccesoDatos().BuscarObjeto(Cliente.class, idCliente);
+        cliente.getUsuario().setBloqueado(true);
+        cliente.setEstado(Ciclo.crearEstado(Ciclo.BORRADO));
+
+        getAccesoDatos().Guardar(cliente);
+
+        //servicioEnvioMail.enviarEmail(getMensajeReinicioContrasenia(cliente), "Reinicio Contrasenia TurismoQR", cliente.getMail());
 
         return true;
     }

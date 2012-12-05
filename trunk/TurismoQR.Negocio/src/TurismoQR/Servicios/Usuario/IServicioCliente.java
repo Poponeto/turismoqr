@@ -21,6 +21,7 @@ public interface IServicioCliente {
     public Boolean registrarCliente(IDTO dtoCliente);
     public Boolean autorizarCliente(String idCliente);
     public Boolean actualizarDatosCliente(IDTO dtoCliente);
+    public Boolean eliminarCliente(String idCliente);
     public Collection<DTOCliente> consultarClientes();
     public Collection<DTORubro> obtenerRubrosPosibles();
     public Boolean reiniciarContraseñaCliente(String idCliente);

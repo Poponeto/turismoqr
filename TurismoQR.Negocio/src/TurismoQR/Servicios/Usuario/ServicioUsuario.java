@@ -12,6 +12,7 @@ import TurismoQR.ObjetosTransmisionDatos.IDTO;
 import TurismoQR.Traductores.ITraductor;
 import TurismoQR.Manejadores.ManejadorUsuarios.ManejadorUsuarios;
 import TurismoQR.Manejadores.ManejadorLogin.ManejadorLogin;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.HashSet;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,18 +73,26 @@ public class ServicioUsuario implements IServicioUsuario {
     public Boolean crearUsuario(IDTO<Usuario> dtoUsuario) {
 
         Usuario usuario = traductor.traducir(dtoUsuario);
+        usuario.setHabilitado(true);
+        usuario.setExpirado(false);
+        usuario.setBloqueado(false);
+        usuario.setFechaExpiracion(Calendar.getInstance().getTime());
+
         return manejadorGuardado.guardarUsuario(usuario);
     }
 
-    public Boolean eliminarUsuaro(IDTO<Usuario> dtoUsuario) {
-        Usuario usuario = traductor.traducir(dtoUsuario);
-        usuario = accesoDatos.BuscarObjeto(usuario);
-        //Bloquear al usuario
-        return null;
+    public Boolean eliminarUsuaro(String idUsuario) {
+        Usuario usuario = accesoDatos.BuscarObjeto(Usuario.class, idUsuario);
+        usuario.setBloqueado(true);
+        return manejadorGuardado.guardarUsuario(usuario);
     }
 
     public Boolean modificarUsuario(IDTO<Usuario> dtoUsuario) {
-        return null;
+        Usuario usuario = accesoDatos.BuscarObjeto(Usuario.class, ((DTOUsuario)dtoUsuario).getIdUsuario());
+        usuario.setContraseña(((DTOUsuario)dtoUsuario).getContraseña());
+        usuario.setNombreUsuario(((DTOUsuario)dtoUsuario).getNombreUsuario());
+        
+        return manejadorGuardado.guardarUsuario(usuario);
     }
 
 

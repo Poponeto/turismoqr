@@ -19,6 +19,7 @@ import TurismoQR.ObjetosTransmisionDatos.IDTO;
 import TurismoQR.Servicios.Mail.IServicioEnvioMail;
 import TurismoQR.Traductores.ITraductor;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.HashSet;
 import org.springframework.transaction.annotation.Transactional;
@@ -64,11 +65,20 @@ public abstract class ServicioCliente extends ServicioContacto implements IServi
     protected Contacto registrarContacto(IDTO dtoContacto) {
         Cliente cliente = (Cliente) super.registrarContacto(dtoContacto);
 
+        cliente.setUsuario(manejadorGuardado.crearUsuario(getNombreUsuarioParaCliente(cliente)));
+        cliente.getUsuario().setHabilitado(false);
+        cliente.getUsuario().setExpirado(true);
+        cliente.getUsuario().setBloqueado(false);
+        cliente.getUsuario().setFechaExpiracion(Calendar.getInstance().getTime());
+
+        agregarPermisosACliente(cliente);
+
         cliente.setCantidadDePuntosPermitidos(((DTOCliente)dtoContacto).getCantidadDePuntosPermitidos());
         cliente.setEstado(Ciclo.crearEstado(Ciclo.AUTORIZACION_PENDIENTE));
 
         completarCliente(cliente, dtoContacto);
         
+
         getAccesoDatos().Guardar(cliente);
 
         servicioEnvioMail.enviarEmail(
@@ -94,9 +104,7 @@ public abstract class ServicioCliente extends ServicioContacto implements IServi
     public Boolean autorizarCliente(String idCliente) {
         Cliente cliente = getAccesoDatos().BuscarObjeto(Cliente.class, idCliente);
         cliente.setEstado(Ciclo.crearEstado(Ciclo.HABILITADO));
-
-        cliente.setUsuario(manejadorGuardado.crearUsuario(getNombreUsuarioParaCliente(cliente)));
-        agregarPermisosACliente(cliente);
+        cliente.getUsuario().setHabilitado(true);
 
         getAccesoDatos().Guardar(cliente);
         
@@ -159,7 +167,7 @@ public abstract class ServicioCliente extends ServicioContacto implements IServi
 
     }
 
-private void agregarPermisosACliente(Cliente cliente) {
+    private void agregarPermisosACliente(Cliente cliente) {
         
         Rol rol = getAccesoDatos().BuscarObjeto(Rol.class, "Cliente");
         Collection<PermisoUsuario> permisosUsuario = new HashSet<PermisoUsuario>();

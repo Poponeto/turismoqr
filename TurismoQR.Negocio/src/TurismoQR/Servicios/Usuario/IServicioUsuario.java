@@ -20,7 +20,7 @@ public interface IServicioUsuario  {
 
     public DTOUsuario cargarUsuario(String nombreUsuario) throws UsernameNotFoundException, DataAccessException;
     public Boolean crearUsuario(IDTO<Usuario> dtoUsuario);
-    public Boolean eliminarUsuaro(IDTO<Usuario> dtoUsuario);
+    public Boolean eliminarUsuaro(String idUsuario);
     public Boolean modificarUsuario(IDTO<Usuario> dtoUsuario);
     public Collection<DTOUsuario> consultarUsuarios();
 }

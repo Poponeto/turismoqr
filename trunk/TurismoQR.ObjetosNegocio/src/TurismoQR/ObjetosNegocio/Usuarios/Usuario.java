@@ -5,34 +5,25 @@ import TurismoQR.ObjetosNegocio.IObjetoNegocio;
 import TurismoQR.ObjetosNegocio.Informacion.Idioma;
 import TurismoQR.ObjetosNegocio.Usuarios.Permisos.PermisoUsuario;
 import java.util.Collection;
+import java.util.Date;
 
 public class Usuario implements IObjetoNegocio
 {
-    private Estado estado;
     private String contraseña;
     private String nombreUsuario;
+    private Date fechaExpiracion;
     private Collection<PermisoUsuario> permisosUsuario;
     private String idObjeto;
-    private Idioma idioma;
+    private boolean expirado;
+    private boolean bloqueado;
+    private boolean habilitado;
 
-    public Estado getEstado()
-    {
-        return estado;
+    public Date getFechaExpiracion() {
+        return fechaExpiracion;
     }
 
-    public void setEstado(Estado estado)
-    {
-        this.estado = estado;
-    }
-
-    public Idioma getIdioma()
-    {
-        return idioma;
-    }
-
-    public void setIdioma(Idioma idioma)
-    {
-        this.idioma = idioma;
+    public void setFechaExpiracion(Date fechaExpiracion) {
+        this.fechaExpiracion = fechaExpiracion;
     }
 
     public String getIdObjeto()
@@ -73,4 +64,30 @@ public class Usuario implements IObjetoNegocio
     {
         this.nombreUsuario = nombreUsuario;
     }
+
+    public boolean isBloqueado() {
+        return bloqueado;
+    }
+
+    public void setBloqueado(boolean bloqueado) {
+        this.bloqueado = bloqueado;
+    }
+
+    public boolean isExpirado() {
+        return expirado;
+    }
+
+    public void setExpirado(boolean expirado) {
+        this.expirado = expirado;
+    }
+
+    public boolean isHabilitado() {
+        return habilitado;
+    }
+
+    public void setHabilitado(boolean habilitado) {
+        this.habilitado = habilitado;
+    }
+
+    
 }

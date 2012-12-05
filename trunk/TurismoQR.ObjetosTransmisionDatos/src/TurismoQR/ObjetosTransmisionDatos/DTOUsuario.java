@@ -20,6 +20,22 @@ public class DTOUsuario implements UserDetails, IDTO{
     private String contraseña;
     private String nombreUsuario;
     private Collection<GrantedAuthority> autoridades = new HashSet<GrantedAuthority>();
+    private boolean expirado;
+    private boolean bloqueado;
+    private boolean habilitado;
+
+    public void setBloqueado(boolean bloqueado) {
+        this.bloqueado = bloqueado;
+    }
+
+    public void setExpirado(boolean expirado) {
+        this.expirado = expirado;
+    }
+
+    public void setHabilitado(boolean habilitado) {
+        this.habilitado = habilitado;
+    }
+
 
     public String getIdUsuario()
     {
@@ -74,12 +90,12 @@ public class DTOUsuario implements UserDetails, IDTO{
 
     public boolean isAccountNonExpired()
     {
-        return true;
+        return !expirado;
     }
 
     public boolean isAccountNonLocked()
     {
-        return true;
+        return !bloqueado;
     }
 
     public boolean isCredentialsNonExpired()
@@ -89,7 +105,7 @@ public class DTOUsuario implements UserDetails, IDTO{
 
     public boolean isEnabled()
     {
-        return true;
+        return habilitado;
     }
 
     @Override

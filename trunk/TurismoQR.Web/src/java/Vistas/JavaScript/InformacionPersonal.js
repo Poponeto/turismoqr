@@ -3,16 +3,18 @@
  * and open the template in the editor.
  */
 
-function inicializarComponentesRegistrarCliente(tipoCliente, urlBase)
+
+function inicializarComponentesInformacionPersonal(tipoCliente, urlBase)
 {
-    
-    $("#botonRegistrarse").click(function(){
-        registrarCliente(tipoCliente, urlBase);
+
+    $("#botonActualizar").click(function(){
+        actualizarInformacionPersonal(tipoCliente, urlBase);
         return false;
     });
+
 }
 
-function registrarCliente(tipoCliente, urlBase)
+function actualizarInformacionPersonal(tipoCliente, urlBase)
 {
     if (hayErrores())
     {
@@ -32,7 +34,7 @@ function registrarCliente(tipoCliente, urlBase)
         }
         debugger
         var jsonCliente = JSON.stringify(datosCliente);
-        var urlAccion = urlBase + "/cliente/registrar"+tipoCliente+".htm";
+        var urlAccion = urlBase + "/cliente/modificarCliente"+tipoCliente+".htm";
 
         $.ajax({
             url: urlAccion,
@@ -40,24 +42,15 @@ function registrarCliente(tipoCliente, urlBase)
             contentType: "application/json",
             data: jsonCliente,
             type: "POST",
-            success: function(data){
-                var urlRedirect = urlBase + "/" +data["urlConfirmacion"];
-                var queryString = $.param({
-                    mail: data["mail"]
-                });
-
-                urlRedirect = urlRedirect + "?" + queryString;
-
-                window.location.replace(urlRedirect);
+            success: function(){
+                location.reload(true);
             },
             error: function(jqXHR){
-                debugger
                 var errores = jqXHR["responseText"];
                 procesarErrores(jQuery.parseJSON(errores), manejarErroresContactos);
             }
         });
 
     }
-    
-}
 
+}

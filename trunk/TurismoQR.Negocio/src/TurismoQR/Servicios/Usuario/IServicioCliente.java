@@ -5,7 +5,6 @@
 
 package TurismoQR.Servicios.Usuario;
 
-import TurismoQR.ObjetosNegocio.Categorias.Rubro;
 import TurismoQR.ObjetosTransmisionDatos.DTOCliente;
 import TurismoQR.ObjetosTransmisionDatos.DTORubro;
 import TurismoQR.ObjetosTransmisionDatos.IDTO;

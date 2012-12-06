@@ -45,9 +45,10 @@
     </head>
 
     <body style="margin: 0px;">
-        <div id="Contenedor">
-            <%@ include  file="/WEB-INF/jsp/Utils/Cabecera.jsp" %>
+        <%@ include  file="/WEB-INF/jsp/Utils/Cabecera.jsp" %>
 
+        <div id="Contenedor">
+            
             <div>
                 <table id="contenidoPrincipal" style="width: 100%;">
                     <tr>

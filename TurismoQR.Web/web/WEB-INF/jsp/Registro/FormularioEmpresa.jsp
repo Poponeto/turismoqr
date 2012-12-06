@@ -25,7 +25,7 @@
                 <br>
                 <label for="lineaDatosRazonSocial" name="labelrazonSocial">
                     Razon Social:<br>
-                    <input id="lineaDatosRazonSocial" type="text" name="razonSocial" required="tru"/>
+                    <input id="lineaDatosRazonSocial" type="text" name="razonSocial" required="true"/>
                 </label>
                 <br>
                 <label for="selectRubro" name="labelrubro">Rubro:<br>

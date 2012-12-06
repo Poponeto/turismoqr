@@ -66,6 +66,7 @@
         <property name="accessDecisionManager" ref="accesoPorConcensoUnanime"/>
         <property name="securityMetadataSource">
             <security:filter-security-metadata-source>
+                <security:intercept-url pattern="/administracion/usuario/cambiarContrasenia.htm" access="PERMISO_TURISTA"/>
                 <security:intercept-url pattern="/administracion/cliente/**" access="PERMISO_ADMINISTRADOR"/>
                 <security:intercept-url pattern="/administracion/usuario/**" access="PERMISO_ADMINISTRADOR"/>
                 <security:intercept-url pattern="/administracion/**" access="PERMISO_CLIENTE"/>
@@ -109,8 +110,13 @@
         <property name="authenticationFailureHandler" ref="manejadorDeFallosDeLogin"/>
     </bean>
 
-    <bean id="manejadorDeFallosDeLogin" class="org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler">
+    <bean id="manejadorDeFallosDeLogin" class="org.springframework.security.web.authentication.ExceptionMappingAuthenticationFailureHandler">
         <property name="defaultFailureUrl" value="/home.htm?failure=true"/>
+        <property name="exceptionMappings">
+            <props>
+                <prop key="org.springframework.security.authentication.AccountExpiredException">/login/cuentaExpirada.htm</prop>
+            </props>
+        </property>
     </bean>
 
     <bean id="filtroDeAutenticacionAnonima"

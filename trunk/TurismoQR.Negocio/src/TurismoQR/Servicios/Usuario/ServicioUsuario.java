@@ -9,6 +9,7 @@ import TurismoQR.AccesoDatos.IAccesoDatos;
 import TurismoQR.ObjetosNegocio.Usuarios.Usuario;
 import TurismoQR.ObjetosTransmisionDatos.DTOUsuario;
 import TurismoQR.ObjetosTransmisionDatos.IDTO;
+import TurismoQR.Servicios.Validacion.Errores;
 import TurismoQR.Traductores.ITraductor;
 import TurismoQR.Manejadores.ManejadorUsuarios.ManejadorUsuarios;
 import TurismoQR.Manejadores.ManejadorLogin.ManejadorLogin;
@@ -53,9 +54,23 @@ public class ServicioUsuario implements IServicioUsuario {
     public DTOUsuario cargarUsuario(String nombreUsuario) throws UsernameNotFoundException, DataAccessException
     {
         Usuario usuario = manejadorLogin.cargarUsuario(nombreUsuario);
+        analizarExpiracionCuenta(usuario);
         return (DTOUsuario)traductor.traducir(usuario);
     }
 
+    private void analizarExpiracionCuenta(Usuario usuario)
+    {
+        if (!usuario.isExpirado())
+        {
+            if (usuario.getFechaExpiracion()!= null && usuario.getFechaExpiracion().before(Calendar.getInstance().getTime()))
+            {
+                usuario.setExpirado(true);
+                accesoDatos.Guardar(usuario);
+            }
+        }
+
+    }
+    
     public Collection<DTOUsuario> consultarUsuarios()
     {
         Collection<Usuario> usuarios = manejadorGuardado.obtenerUsuarios();
@@ -93,6 +108,39 @@ public class ServicioUsuario implements IServicioUsuario {
         usuario.setNombreUsuario(((DTOUsuario)dtoUsuario).getNombreUsuario());
         
         return manejadorGuardado.guardarUsuario(usuario);
+    }
+
+    public Errores cambiarContrasenia(String nombreUsuario, String contraseniaActual, String nuevaContrasenia)
+    {
+        Errores errores = new Errores();
+        Usuario usuario = manejadorLogin.cargarUsuario(nombreUsuario);
+
+        if(nuevaContrasenia == null)
+        {
+            errores.agregarError("nuevaContrasenia", "Debe especificar una contraseña.");
+        }
+        else if(nuevaContrasenia.length() < 12)
+        {
+            errores.agregarError("nuevaContrasenia", "La contraseña debe tener una longitud de 12 o mas caracteres.");
+        }
+
+        if(!errores.hayErrores() && contraseniaActual != null && usuario.getContraseña().equals(contraseniaActual))
+        {
+            usuario.setContraseña(nuevaContrasenia);
+            usuario.setExpirado(false);
+            
+            Calendar fechaCalendario = Calendar.getInstance();
+            fechaCalendario.add(Calendar.DATE, 30);
+            usuario.setFechaExpiracion(fechaCalendario.getTime());
+            
+            accesoDatos.Guardar(usuario);
+        }
+        else
+        {
+            errores.agregarError("contraseniaActual", "La contraseña especificada no coincide con la contraseña actual.");
+        }
+
+        return errores;
     }
 
 

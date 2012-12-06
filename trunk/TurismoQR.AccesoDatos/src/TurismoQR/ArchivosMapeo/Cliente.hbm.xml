@@ -6,7 +6,7 @@
 
         <property name="cantidadDePuntosPermitidos"/>
         
-        <one-to-one name="usuario" class="TurismoQR.ObjetosNegocio.Usuarios.Usuario" cascade="all" foreign-key="Usuario" />
+        <many-to-one name="usuario" unique="true" class="TurismoQR.ObjetosNegocio.Usuarios.Usuario" column="usuario" cascade="all"/>
 
         <set name="puntosDeCliente" cascade="all-delete-orphan" outer-join="true">
             <key column="cliente" foreign-key="idCliente"/>

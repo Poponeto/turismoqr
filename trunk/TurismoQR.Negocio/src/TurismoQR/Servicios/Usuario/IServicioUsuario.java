@@ -8,7 +8,9 @@ package TurismoQR.Servicios.Usuario;
 import TurismoQR.ObjetosNegocio.Usuarios.Usuario;
 import TurismoQR.ObjetosTransmisionDatos.DTOUsuario;
 import TurismoQR.ObjetosTransmisionDatos.IDTO;
+import TurismoQR.Servicios.Validacion.Errores;
 import java.util.Collection;
+import java.util.Map;
 import org.springframework.dao.DataAccessException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
@@ -23,4 +25,5 @@ public interface IServicioUsuario  {
     public Boolean eliminarUsuaro(String idUsuario);
     public Boolean modificarUsuario(IDTO<Usuario> dtoUsuario);
     public Collection<DTOUsuario> consultarUsuarios();
+    public Errores cambiarContrasenia(String nombreUsuario, String contraseniaActual, String nuevaContrasenia);
 }

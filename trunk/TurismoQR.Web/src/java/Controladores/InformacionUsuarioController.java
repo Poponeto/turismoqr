@@ -104,7 +104,7 @@ public class InformacionUsuarioController {
             response.setStatus(HttpServletResponse.SC_OK);
             Map<String, String> datos = new HashMap<String, String>();
 
-            datos.put("urlRedirigir", "/home.htm");
+            datos.put("urlRedirigir", "home.htm");
 
             return datos;
         }

@@ -5,7 +5,7 @@
         <id column="idPermisoRol" name="idObjeto">
             <generator class="guid"/>
         </id>
-        <one-to-one name="permiso" class="TurismoQR.ObjetosNegocio.Usuarios.Permisos.Permiso" cascade="all" foreign-key="idPermiso" />
+        <many-to-one name="permiso" class="TurismoQR.ObjetosNegocio.Usuarios.Permisos.Permiso" foreign-key="permisoDeRol" />
 
     </class>
       

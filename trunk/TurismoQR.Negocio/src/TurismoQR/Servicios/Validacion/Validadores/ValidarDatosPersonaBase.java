@@ -40,6 +40,12 @@ public abstract class ValidarDatosPersonaBase implements Validador{
         DTOPersona dtoPersona = (DTOPersona) objeto;
 
         Date fechaActual = Calendar.getInstance().getTime();
+        Calendar calendario = (Calendar) Calendar.getInstance().clone();
+        calendario.add(Calendar.YEAR, -18);
+        Date fechaHace18Años = calendario.getTime();
+        
+        calendario.add(Calendar.YEAR, -92);
+        Date fechaHace110Años = calendario.getTime();
 
         if (dtoPersona.getFechaDeNacimiento() == null)
         {
@@ -49,11 +55,11 @@ public abstract class ValidarDatosPersonaBase implements Validador{
         {
             errores.agregarError("fechaDeNacimiento", "La fecha de nacimiento no puede ser posterior a la fecha actual.");
         }
-        else if (dtoPersona.getFechaDeNacimiento().after(new Date(fechaActual.getDate() - 18 + 1900)))
+        else if (dtoPersona.getFechaDeNacimiento().after(fechaHace18Años))
         {
             errores.agregarError("fechaDeNacimiento", "Debes ser mayor de 18 años.");
         }
-        else if (dtoPersona.getFechaDeNacimiento().before(new Date(fechaActual.getDate() - 110 + 1900)))
+        else if (dtoPersona.getFechaDeNacimiento().before(fechaHace110Años))
         {
             errores.agregarError("fechaDeNacimiento", "Edad incorrecta, no puedes ser mayor de 110 años.");
         }

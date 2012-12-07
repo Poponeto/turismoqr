@@ -98,6 +98,7 @@
                 <div id="accionesCliente">
                     <button id="botonReiniciarContraseniaCliente">Reiniciar Contraseña</button>
                     <button id="botonAutorizarCliente">Autorizar Cliente</button>
+                    <button id="botonEliminarCliente">Bloquear Cliente</button>
                 </div>
                 
             </div>

@@ -109,6 +109,21 @@ public class InformacionClienteController
         }
     }
 
+    @RequestMapping(value = "/eliminarCliente.htm", method = RequestMethod.POST)
+    public void eliminarCliente(String idCliente, HttpServletResponse response)
+    {
+        boolean exito = servicioCliente.eliminarCliente(idCliente);
+
+        if (exito)
+        {
+            response.setStatus(HttpServletResponse.SC_OK);
+        }
+        else
+        {
+            response.setStatus(HttpServletResponse.SC_CONFLICT);
+        }
+    }
+
 
     @RequestMapping(value = "/modificarCliente.htm", method = RequestMethod.POST)
     public void modificarCliente(@RequestBody  FilaTablaCliente fila)

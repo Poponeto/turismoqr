@@ -37,6 +37,7 @@ public abstract class ServicioCliente extends ServicioContacto implements IServi
     private final String subjectAutorizacion = "Su cuenta en TurismoQR fue autorizada!";
     private final String subjectReinicioContrasenia = "Se ha reiniciado su contasenia en TurismoQR!";
     private final String subjectActualizacion = "Se han actualizado sus datos en TurismoQR!";
+    private final String subjectEliminacion = "Se ha bloqueado su cuenta en TurismoQR.";
 
     public ServicioCliente(
             IAccesoDatos accesoDatos,
@@ -163,7 +164,7 @@ public abstract class ServicioCliente extends ServicioContacto implements IServi
 
         getAccesoDatos().Guardar(cliente);
 
-        //servicioEnvioMail.enviarEmail(getMensajeReinicioContrasenia(cliente), "Reinicio Contrasenia TurismoQR", cliente.getMail());
+        servicioEnvioMail.enviarEmail(getMensajeEliminacion(cliente), subjectEliminacion, cliente.getMail());
 
         return true;
     }
@@ -208,6 +209,14 @@ public abstract class ServicioCliente extends ServicioContacto implements IServi
                 + parsearDatosCliente(cliente);
 
         return cabecera + cuerpo;
+    }
+
+    private String getMensajeEliminacion(Cliente cliente)
+    {
+        String cabecera = "Se ha bloqueado su cuenta de usuario de TurismoQR, "
+                + "solicite ayuda al administrador si desea reactivarla.";
+
+        return cabecera;
     }
 
     private void agregarPermisosACliente(Cliente cliente) {

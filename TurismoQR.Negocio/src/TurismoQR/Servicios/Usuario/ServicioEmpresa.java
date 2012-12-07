@@ -70,22 +70,7 @@ public class ServicioEmpresa extends ServicioCliente
     }
 
     @Override
-    protected String getMensajeRegistracion(Cliente cliente)
-    {
-        String cabecera = "Gracias por registrarse en TurismoQR, "
-                + "su solicitud está siendo atendida y "
-                + "se responderá a la brevedad.";
-        String cuerpo = "Sus datos son: " +
-                "\nRazon Social: " + ((Empresa)cliente).getRazonSocial() +
-                "\nCUIT: " + ((Empresa)cliente).getCuit() +
-                "\nTelefono Fijo: " + ((Empresa)cliente).getTelefonoFijo() +
-                "\nTelefono Movil: " + ((Empresa)cliente).getCelular();
-
-        return cabecera + "\n\n" + cuerpo;
-    }
-
-    @Override
-    protected String getMensajeActualizacionEspecifico(Cliente cliente)
+    protected String parsearDatosCliente(Cliente cliente)
     {
         String cuerpo =
                 "\nRazon Social: " + ((Empresa)cliente).getRazonSocial() +

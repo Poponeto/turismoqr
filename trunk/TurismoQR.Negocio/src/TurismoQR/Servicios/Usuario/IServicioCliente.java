@@ -25,4 +25,6 @@ public interface IServicioCliente {
     public Collection<DTOCliente> consultarClientes();
     public Collection<DTORubro> obtenerRubrosPosibles();
     public Boolean reiniciarContraseñaCliente(String idCliente);
+    public Boolean desbloquearCliente(String idCliente);
+    public DTOCliente datosClienteActual(String nombreUsuaro);
 }

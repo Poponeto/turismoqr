@@ -14,7 +14,7 @@ function inicilizarTablaUsuarios(urlbase)
         autowidth: true,
         loadonce:true,
         shrinkToFit: true,
-        colNames:['Identificador','Nombre de Usuario','Contraseña'],
+        colNames:['Identificador','Nombre de Usuario','Contraseña','Habilitado','Expirado','Bloqueado'],
         colModel:[
         {
             name:'idUsuario',
@@ -33,9 +33,29 @@ function inicilizarTablaUsuarios(urlbase)
             width:210,
             editable: true
         },
-
+        {
+            name:'habilitado',
+            index:'habilitado',
+            width:210,
+            editable: false
+        },
+        {
+            name:'expirado',
+            index:'expirado',
+            width:210,
+            editable: false
+        },
+        {
+            name:'bloqueado',
+            index:'bloqueado',
+            width:210,
+            editable: false
+        },
         ],
         rowNum:10,
+        onSelectRow: function(id){
+            cargarInformacionUsuario(jQuery('#tablaUsuarios').jqGrid('getRowData',id));
+        },
         rowList:[10,20,30],
         pager: '#paginador',
         sortname: 'nombreUsuario',
@@ -49,8 +69,8 @@ function inicilizarTablaUsuarios(urlbase)
         height: '100%'
     });
     jQuery("#tablaUsuarios").jqGrid('navGrid','#paginador',{
-        edit:true,
-        add:true,
+        edit:false,
+        add:false,
         del:true,
         reload: true
     },
@@ -94,6 +114,51 @@ function inicilizarTablaUsuarios(urlbase)
 
 function inicializarPaginaAdministracionUsuarios(urlbase)
 {
-    debugger
+    $("#informacionUsuario").hide();
+    $("#botonReiniciarContraseniaUsuario").hide();
+    $("#botonEliminarUsuario").hide();
+    $("#botonDesbloquearUsuario").hide();
+
+    $("#botonAgregarUsuario").click(function(){
+        $('#popUpAgregarUsuario').dialog('open');
+    });
+
+    $("#popUpAgregarUsuario").dialog({
+        autoOpen: false,
+        width: '50%',
+        buttons: {
+            "Cancelar": function() {
+                $('#Contenedor').css('opacity','1');
+                $(this).dialog("close");
+            },
+            "Guardar": function() {
+
+                //llama ajax para guardar usuario y cierra en callback, luego recarga la grilla
+                $('#Contenedor').css('opacity','1');
+                $(this).dialog("close");
+            }
+        },
+        title: 'Crear Usuario.'
+    });
+
     inicilizarTablaUsuarios(urlbase);
+}
+
+function cargarInformacionUsuario(fila)
+{
+    $("#nombreUsuario").text(fila.nombreUsuario);
+    $("#contraseña").text(fila.contraseña);
+
+    if(fila.bloqueado == true)
+    {
+        $("#botonEliminarUsuario").hide();
+        $("#botonDesbloquearUsuario").show(1000);
+    }
+    else{
+        $("#botonDesbloquearUsuario").hide();
+        $("#botonEliminarUsuario").show(1000);
+    }
+
+    $("#botonReiniciarContraseniaUsuario").show(1000);
+    $("#informacionUsuario").show(1000);
 }

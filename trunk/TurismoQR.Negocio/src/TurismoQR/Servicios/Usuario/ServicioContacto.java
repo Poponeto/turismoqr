@@ -7,6 +7,7 @@ package TurismoQR.Servicios.Usuario;
 
 import TurismoQR.AccesoDatos.IAccesoDatos;
 import TurismoQR.ObjetosNegocio.Usuarios.Contacto;
+import TurismoQR.ObjetosTransmisionDatos.DTOContacto;
 import TurismoQR.ObjetosTransmisionDatos.IDTO;
 import TurismoQR.Traductores.ITraductor;
 
@@ -35,6 +36,13 @@ public abstract class ServicioContacto {
         return (contacto);
     }
 
+    protected void actualizarDatosContacto(Contacto contacto, DTOContacto dtoContacto)
+    {
+        contacto.setMail(dtoContacto.getMail());
+        contacto.setTelefonoFijo(dtoContacto.getTelefonoFijo());
+        contacto.setCelular(dtoContacto.getCelular());
+    }
+    
     public IAccesoDatos getAccesoDatos()
     {
         return accesoDatos;

@@ -11,7 +11,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Administracion Clientes</title>
 
         <%@ include file="/WEB-INF/jsp/Utils/ArchivosJQuery.html" %>
 
@@ -99,6 +99,7 @@
                     <button id="botonReiniciarContraseniaCliente">Reiniciar Contraseña</button>
                     <button id="botonAutorizarCliente">Autorizar Cliente</button>
                     <button id="botonEliminarCliente">Bloquear Cliente</button>
+                    <button id="botonDesbloquearCliente">Desbloquear Usuario</button>
                 </div>
                 
             </div>

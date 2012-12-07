@@ -6,6 +6,7 @@ import TurismoQR.ObjetosNegocio.Informacion.Idioma;
 import TurismoQR.ObjetosNegocio.Usuarios.Permisos.PermisoUsuario;
 import java.util.Collection;
 import java.util.Date;
+import java.util.Objects;
 
 public class Usuario implements IObjetoNegocio
 {
@@ -87,6 +88,28 @@ public class Usuario implements IObjetoNegocio
 
     public void setHabilitado(boolean habilitado) {
         this.habilitado = habilitado;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Usuario other = (Usuario) obj;
+        if (!Objects.equals(this.idObjeto, other.idObjeto)) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 79 * hash + Objects.hashCode(this.idObjeto);
+        return hash;
     }
 
     

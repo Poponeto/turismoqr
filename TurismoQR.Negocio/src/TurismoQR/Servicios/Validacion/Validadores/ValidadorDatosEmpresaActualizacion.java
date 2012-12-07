@@ -15,19 +15,18 @@ import java.util.Collection;
  *
  * @author Federico
  */
-public class ValidadorDatosEmpresa extends ValidarDatosEmpresaBase
+public class ValidadorDatosEmpresaActualizacion extends ValidarDatosEmpresaBase
 {
 
-    public ValidadorDatosEmpresa(IAccesoDatos accesoDatos, IServicioValidacionDatos servicioValidacionDatos)
+    public ValidadorDatosEmpresaActualizacion(IAccesoDatos accesoDatos, IServicioValidacionDatos servicioValidacionDatos)
     {
-        super(accesoDatos,servicioValidacionDatos);
+        super(accesoDatos, servicioValidacionDatos);
     }
-
 
     @Override
     protected boolean esActualizacion(DTOEmpresa dtoEmpresa)
     {
-        return dtoEmpresa.getIdContacto() == null;
+        return dtoEmpresa.getIdContacto() != null;
     }
 
     @Override
@@ -35,9 +34,13 @@ public class ValidadorDatosEmpresa extends ValidarDatosEmpresaBase
     {
         Collection<Empresa> empresas = accesoDatos.BuscarObjetosPorCaracteristica(Empresa.class, "cuit", dtoEmpresa.getCuit());
 
-            if (!empresas.isEmpty())
+
+        for (Empresa empresa : empresas)
+        {
+            if (!empresa.getIdObjeto().equalsIgnoreCase(dtoEmpresa.getIdContacto()))
             {
                 errores.agregarError("cuit", "Ya existe una empresa con ese numeor de CUIT cargada en el sistema.");
             }
+        }
     }
 }

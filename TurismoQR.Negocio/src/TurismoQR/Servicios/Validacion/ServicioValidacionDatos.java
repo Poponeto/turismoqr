@@ -11,7 +11,9 @@ import TurismoQR.Servicios.Validacion.Validadores.ValidadorDatosCliente;
 import TurismoQR.Servicios.Validacion.Validadores.ValidadorDatosContacto;
 import TurismoQR.Servicios.Validacion.Validadores.ValidadorDatosContactoEmpresa;
 import TurismoQR.Servicios.Validacion.Validadores.ValidadorDatosEmpresa;
+import TurismoQR.Servicios.Validacion.Validadores.ValidadorDatosEmpresaActualizacion;
 import TurismoQR.Servicios.Validacion.Validadores.ValidadorDatosPersona;
+import TurismoQR.Servicios.Validacion.Validadores.ValidadorDatosPersonaActualizacion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -52,7 +54,9 @@ public class ServicioValidacionDatos implements IServicioValidacionDatos
             new ValidadorDatosContacto(),
             new ValidadorDatosCliente(),
             new ValidadorDatosPersona(accesoDatos),
+            new ValidadorDatosPersonaActualizacion(accesoDatos),
             new ValidadorDatosEmpresa(accesoDatos, this),
+            new ValidadorDatosEmpresaActualizacion(accesoDatos, this),
             new ValidadorDatosContactoEmpresa()
         };
 

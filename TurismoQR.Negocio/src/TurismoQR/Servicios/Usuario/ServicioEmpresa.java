@@ -83,4 +83,16 @@ public class ServicioEmpresa extends ServicioCliente
 
         return cabecera + "\n\n" + cuerpo;
     }
+
+    @Override
+    protected String getMensajeActualizacionEspecifico(Cliente cliente)
+    {
+        String cuerpo =
+                "\nRazon Social: " + ((Empresa)cliente).getRazonSocial() +
+                "\nCUIT: " + ((Empresa)cliente).getCuit() +
+                "\nTelefono Fijo: " + ((Empresa)cliente).getTelefonoFijo() +
+                "\nTelefono Movil: " + ((Empresa)cliente).getCelular();
+
+        return cuerpo;
+    }
 }

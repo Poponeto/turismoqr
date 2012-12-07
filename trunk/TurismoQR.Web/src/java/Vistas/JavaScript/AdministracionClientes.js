@@ -155,14 +155,17 @@ function inicializarPaginaAdministracionClientes(urlbase)
     $("#informacionCliente").hide();
     $("#botonAutorizarCliente").hide();
     $("#botonReiniciarContraseniaCliente").hide();
-
+    $("#botonEliminarCliente").hide();
+    
     $("#botonAutorizarCliente").click(function(){
         var urlConsulta = urlbase + "/administracion/cliente/autorizarCliente.htm";
 
         $.ajax({
 
             url: urlConsulta,
-            data: {idCliente: $("#identificador").text()},
+            data: {
+                idCliente: $("#identificador").text()
+                },
             type: "POST",
             //contentType: "application/json",
             success: function(){
@@ -181,17 +184,40 @@ function inicializarPaginaAdministracionClientes(urlbase)
         $.ajax({
 
             url: urlConsulta,
-            data: {idCliente: $("#identificador").text()},
+            data: {
+                idCliente: $("#identificador").text()
+                },
             type: "POST",
             success: function(){
                 location.reload(true);
             },
             error: function(){
-                alert("A ocurrido un error al actualizar el cliente.");
+                alert("A ocurrido un error al reiniciar contraseña del cliente.");
             }
 
         });
-    })
+    });
+
+    $("#botonEliminarCliente").click(function(){
+        var urlConsulta = urlbase + "/administracion/cliente/eliminarCliente.htm";
+
+        $.ajax({
+
+            url: urlConsulta,
+            data: {
+                idCliente: $("#identificador").text()
+                },
+            type: "POST",
+            success: function(){
+                location.reload(true);
+            },
+            error: function(){
+                alert("A ocurrido un error al eliminar el cliente.");
+            }
+
+        });
+    });
+
 
 }
 
@@ -218,6 +244,14 @@ function cargarInformacionCliente(fila)
         $("#botonAutorizarCliente").hide();
         $("#botonReiniciarContraseniaCliente").show(1000);
     }
-
+    if($("#estado").text() === "Borrado")
+    {
+        $("#botonEliminarCliente").hide();
+    }
+    else
+    {
+        $("#botonEliminarCliente").show(1000);
+    }
+    
     $("#informacionCliente").show(1000);
 }

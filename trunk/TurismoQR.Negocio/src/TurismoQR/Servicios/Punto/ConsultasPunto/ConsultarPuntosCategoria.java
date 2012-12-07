@@ -6,7 +6,6 @@
 package TurismoQR.Servicios.Punto.ConsultasPunto;
 
 import TurismoQR.AccesoDatos.AccesoDatosPunto;
-import TurismoQR.AccesoDatos.IAccesoDatos;
 import TurismoQR.ObjetosNegocio.Categorias.Categoria;
 import TurismoQR.ObjetosNegocio.Punto.Punto;
 import java.util.Collection;

@@ -47,7 +47,7 @@ public class ServicioPersona extends ServicioCliente
         return ((Persona) cliente).getDni();
     }
 
-    private String parsearDatosParaMensaje(Cliente cliente)
+    protected String parsearDatosCliente(Cliente cliente)
     {
         return "\nApellido: " + ((Persona) cliente).getApellido()
                 + "\nNombre: " + ((Persona) cliente).getNombre()

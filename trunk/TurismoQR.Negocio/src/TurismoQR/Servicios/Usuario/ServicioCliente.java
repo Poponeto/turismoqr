@@ -207,7 +207,7 @@ public abstract class ServicioCliente extends ServicioContacto implements IServi
         String cuerpo = "\nLos datos de su cuenta son:"
                 + "\nNombre de Usuario: " + cliente.getUsuario().getNombreUsuario()
                 + "\nContraseña: " + cliente.getUsuario().getContraseña()
-                + "\n" +getMensajeActualizacionEspecifico(cliente);
+                + "\n" +parsearDatosCliente(cliente);
 
         return cabecera + "\n\n" + cuerpo;
 

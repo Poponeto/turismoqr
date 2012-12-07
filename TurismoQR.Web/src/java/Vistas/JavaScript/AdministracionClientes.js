@@ -107,7 +107,7 @@ function inicilizarTablaClientes(urlbase)
         }
     });
     jQuery("#tablaClientes").jqGrid('navGrid','#paginador',{
-        edit:true,
+        edit:false,
         add:false,
         del:false,
         reload: true
@@ -156,6 +156,7 @@ function inicializarPaginaAdministracionClientes(urlbase)
     $("#botonAutorizarCliente").hide();
     $("#botonReiniciarContraseniaCliente").hide();
     $("#botonEliminarCliente").hide();
+    $("#botonDesbloquearCliente").hide();
     
     $("#botonAutorizarCliente").click(function(){
         var urlConsulta = urlbase + "/administracion/cliente/autorizarCliente.htm";
@@ -218,6 +219,26 @@ function inicializarPaginaAdministracionClientes(urlbase)
         });
     });
 
+    $("#botonDesbloquearCliente").click(function(){
+        var urlConsulta = urlbase + "/administracion/cliente/desbloquearCliente.htm";
+
+        $.ajax({
+
+            url: urlConsulta,
+            data: {
+                idCliente: $("#identificador").text()
+                },
+            type: "POST",
+            success: function(){
+                location.reload(true);
+            },
+            error: function(){
+                alert("A ocurrido un error al desbloquear el cliente.");
+            }
+
+        });
+    });
+
 
 }
 
@@ -247,11 +268,14 @@ function cargarInformacionCliente(fila)
     if($("#estado").text() === "Borrado")
     {
         $("#botonEliminarCliente").hide();
+        $("#botonDesbloquearCliente").show(1000);
     }
     else
     {
+        $("#botonDesbloquearCliente").hide();
         $("#botonEliminarCliente").show(1000);
     }
-    
+
     $("#informacionCliente").show(1000);
+
 }

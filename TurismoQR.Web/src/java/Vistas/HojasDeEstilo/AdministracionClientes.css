@@ -45,3 +45,17 @@ fieldset[id*="informacion"] p label {
     margin-left: auto;
     margin-right: auto
 }
+
+#accionesUsuario {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width:25%
+}
+
+#accionesUsuario button{
+    display: inline-block;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto
+}

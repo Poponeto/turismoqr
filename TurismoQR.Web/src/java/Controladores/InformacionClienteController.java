@@ -9,8 +9,10 @@ import TurismoQR.Servicios.Usuario.IServicioCliente;
 import Utils.FilaTablaCliente;
 import Utils.IFila;
 import Utils.Tabla;
+import java.security.Principal;
 import java.util.Collection;
 import java.util.HashSet;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -124,10 +126,42 @@ public class InformacionClienteController
         }
     }
 
+    @RequestMapping(value = "/desbloquearCliente.htm", method = RequestMethod.POST)
+    public void desbloquearCliente(String idCliente, HttpServletResponse response)
+    {
+        boolean exito = servicioCliente.desbloquearCliente(idCliente);
+
+        if (exito)
+        {
+            response.setStatus(HttpServletResponse.SC_OK);
+        }
+        else
+        {
+            response.setStatus(HttpServletResponse.SC_CONFLICT);
+        }
+    }
+
+    @RequestMapping(value = "/datosClienteActual.htm", method = RequestMethod.GET)
+    public @ResponseBody DTOCliente datosClienteActual(Principal principal)
+    {
+        DTOCliente dtoCliente = servicioCliente.datosClienteActual(principal.getName());
+
+        return dtoCliente;
+    }
+
 
     @RequestMapping(value = "/modificarCliente.htm", method = RequestMethod.POST)
-    public void modificarCliente(@RequestBody  FilaTablaCliente fila)
+    public void modificarCliente(@RequestBody  FilaTablaCliente fila, HttpServletResponse response)
     {
-        servicioCliente.actualizarDatosCliente(null);
+        Boolean exito = servicioCliente.actualizarDatosCliente(null);
+
+        if (exito)
+        {
+            response.setStatus(HttpServletResponse.SC_OK);
+        }
+        else
+        {
+            response.setStatus(HttpServletResponse.SC_CONFLICT);
+        }
     }
 }

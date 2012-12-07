@@ -72,6 +72,9 @@ public class InformacionUsuarioController {
             fila.setContraseña(dtoUsuario.getContraseña());
             fila.setNombreUsuario(dtoUsuario.getNombreUsuario());
             fila.setIdUsuario(dtoUsuario.getIdUsuario());
+            fila.setBloqueado(!dtoUsuario.isAccountNonLocked());
+            fila.setExpirado(!dtoUsuario.isCredentialsNonExpired());
+            fila.setHabilitado(dtoUsuario.isEnabled());
             filas.add(fila);
         }
 
@@ -109,4 +112,6 @@ public class InformacionUsuarioController {
             return datos;
         }
     }
+
+
 }

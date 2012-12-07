@@ -13,6 +13,7 @@ import TurismoQR.ObjetosNegocio.Usuarios.Contacto;
 import TurismoQR.ObjetosNegocio.Usuarios.Permisos.PermisoRol;
 import TurismoQR.ObjetosNegocio.Usuarios.Permisos.PermisoUsuario;
 import TurismoQR.ObjetosNegocio.Usuarios.Rol;
+import TurismoQR.ObjetosNegocio.Usuarios.Usuario;
 import TurismoQR.ObjetosTransmisionDatos.DTOCliente;
 import TurismoQR.ObjetosTransmisionDatos.DTORubro;
 import TurismoQR.ObjetosTransmisionDatos.IDTO;
@@ -38,6 +39,7 @@ public abstract class ServicioCliente extends ServicioContacto implements IServi
     private final String subjectReinicioContrasenia = "Se ha reiniciado su contasenia en TurismoQR!";
     private final String subjectActualizacion = "Se han actualizado sus datos en TurismoQR!";
     private final String subjectEliminacion = "Se ha bloqueado su cuenta en TurismoQR.";
+    private final String subjectDesbloqueado = "Se ha desbloqueado su cuenta en TurismoQR!";
 
     public ServicioCliente(
             IAccesoDatos accesoDatos,
@@ -126,12 +128,12 @@ public abstract class ServicioCliente extends ServicioContacto implements IServi
 
         Cliente cliente = getAccesoDatos().BuscarObjeto(Cliente.class, dtoCliente.getIdContacto());
 
-        cliente.setMail(dtoCliente.getMail());
-        cliente.setTelefonoFijo(dtoCliente.getTelefonoFijo());
-        cliente.setCelular(dtoCliente.getCelular());
-        cliente.setCantidadDePuntosPermitidos(dtoCliente.getCantidadDePuntosPermitidos());
+        this.actualizarDatosContacto(cliente, dtoCliente);
 
+        cliente.setCantidadDePuntosPermitidos(dtoCliente.getCantidadDePuntosPermitidos());
         completarCliente(cliente, dto);
+
+        cliente.getUsuario().setNombreUsuario(getNombreUsuarioParaCliente(cliente));
 
         servicioEnvioMail.enviarEmail(
                 getMensajeActualizacion(cliente),
@@ -164,7 +166,7 @@ public abstract class ServicioCliente extends ServicioContacto implements IServi
 
         getAccesoDatos().Guardar(cliente);
 
-        servicioEnvioMail.enviarEmail(getMensajeEliminacion(cliente), subjectEliminacion, cliente.getMail());
+        servicioEnvioMail.enviarEmail(getMensajeEliminacion(), subjectEliminacion, cliente.getMail());
 
         return true;
     }
@@ -211,7 +213,7 @@ public abstract class ServicioCliente extends ServicioContacto implements IServi
         return cabecera + cuerpo;
     }
 
-    private String getMensajeEliminacion(Cliente cliente)
+    private String getMensajeEliminacion()
     {
         String cabecera = "Se ha bloqueado su cuenta de usuario de TurismoQR, "
                 + "solicite ayuda al administrador si desea reactivarla.";
@@ -232,6 +234,45 @@ public abstract class ServicioCliente extends ServicioContacto implements IServi
 
 
         cliente.getUsuario().setPermisosUsuario(permisosUsuario);
+    }
+
+    public DTOCliente datosClienteActual(String nombreUsuario)
+    {
+        Collection<Usuario> usuarios = getAccesoDatos().BuscarObjetosPorCaracteristica(Usuario.class, "nombreUsuario", nombreUsuario);
+        Collection<Cliente> clientes = getAccesoDatos().BuscarConjuntoObjetos(Cliente.class);
+        for(Usuario usuario : usuarios)
+        {
+            for(Cliente cliente : clientes)
+            {
+                if(cliente.getUsuario().equals(usuario))
+                {
+                    return (DTOCliente) getTraductor().traducir(cliente);
+                }
+            }
+        }
+
+        return null;
+    }
+
+    public Boolean desbloquearCliente(String idCliente)
+    {
+        Cliente cliente = getAccesoDatos().BuscarObjeto(Cliente.class, idCliente);
+        cliente.getUsuario().setBloqueado(false);
+
+        if(!cliente.getUsuario().isHabilitado())
+        {
+            cliente.setEstado(Ciclo.crearEstado(Ciclo.AUTORIZACION_PENDIENTE));
+        }
+        else
+        {
+            cliente.setEstado(Ciclo.crearEstado(Ciclo.HABILITADO));
+        }
+
+        getAccesoDatos().Guardar(cliente);
+
+        servicioEnvioMail.enviarEmail(subjectDesbloqueado, subjectDesbloqueado, cliente.getMail());
+
+        return true;
     }
     
     protected abstract void completarCliente(Cliente cliente, IDTO dtoCliente);

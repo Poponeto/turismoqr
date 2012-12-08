@@ -2,17 +2,17 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package Controladores;
 
 /**
  *
  * @author Federico
  */
-
+import TurismoQR.ObjetosTransmisionDatos.DTORol;
 import TurismoQR.ObjetosTransmisionDatos.DTOUsuario;
 import TurismoQR.Servicios.Usuario.IServicioUsuario;
 import TurismoQR.Servicios.Validacion.Errores;
+import TurismoQR.Servicios.Validacion.IServicioValidacionDatos;
 import Utils.FilaTablaUsuario;
 import Utils.IFila;
 import Utils.Tabla;
@@ -23,9 +23,11 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -35,22 +37,27 @@ import org.springframework.web.bind.annotation.ResponseBody;
  *
  * @author Federico
  */
-
 @Controller
 @RequestMapping("/administracion/usuario")
-public class InformacionUsuarioController {
+public class InformacionUsuarioController
+{
 
     IServicioUsuario servicioUsuario;
+    IServicioValidacionDatos servicioValidacionDatos;
 
     @Autowired
-    public void InformacionUsuarioController(IServicioUsuario servicioUsuario)
+    public void InformacionUsuarioController(
+            IServicioUsuario servicioUsuario,
+            IServicioValidacionDatos servicioValidacionDatos)
     {
         this.servicioUsuario = servicioUsuario;
+        this.servicioValidacionDatos = servicioValidacionDatos;
     }
 
     @RequestMapping(value = "/paginaAdministracionUsuarios.htm", method = RequestMethod.GET)
-    public String redirigir()
+    public String redirigir(ModelMap model)
     {
+        model.put("roles", servicioUsuario.obtenerRoles());
         return "Administracion/Usuario/AdministracionUsuarios";
     }
 
@@ -65,7 +72,7 @@ public class InformacionUsuarioController {
 
         Collection<IFila> filas = new HashSet<IFila>();
 
-        for(DTOUsuario dtoUsuario : dtosUsuario)
+        for (DTOUsuario dtoUsuario : dtosUsuario)
         {
             FilaTablaUsuario fila = new FilaTablaUsuario();
 
@@ -87,7 +94,7 @@ public class InformacionUsuarioController {
     @RequestMapping(value = "/cambiarContrasenia.htm", method = RequestMethod.POST)
     public
     @ResponseBody
-    Map<String,String> cambiarContrasenia(
+    Map<String, String> cambiarContrasenia(
             @RequestParam("contraseniaActual") String contraseniaActual,
             @RequestParam("nuevaContrasenia") String nuevaContrasenia,
             HttpServletRequest request,
@@ -95,9 +102,9 @@ public class InformacionUsuarioController {
     {
         String username = (String) request.getSession().getAttribute(UsernamePasswordAuthenticationFilter.SPRING_SECURITY_LAST_USERNAME_KEY);
 
-        Errores errores = servicioUsuario.cambiarContrasenia(username, contraseniaActual,  nuevaContrasenia);
+        Errores errores = servicioUsuario.cambiarContrasenia(username, contraseniaActual, nuevaContrasenia);
 
-        if(errores.hayErrores())
+        if (errores.hayErrores())
         {
             response.setStatus(HttpServletResponse.SC_FORBIDDEN);
             return errores;
@@ -113,5 +120,81 @@ public class InformacionUsuarioController {
         }
     }
 
+    @RequestMapping(value = "/reiniciarContrasenia.htm", method = RequestMethod.POST)
+    public
+    void reiniciarContrasenia(@RequestParam("nombreUsuario") String nombreUsuario, HttpServletResponse response)
+    {
+        Boolean exito = servicioUsuario.reiniciarContrasenia(nombreUsuario);
 
+        if(exito)
+        {
+            response.setStatus(HttpServletResponse.SC_OK);
+        }
+        else
+        {
+            response.setStatus(HttpServletResponse.SC_CONFLICT);
+        }
+    }
+
+    @RequestMapping(value = "/eliminarUsuario.htm", method = RequestMethod.POST)
+    public
+    void eliminarUsuario(@RequestParam("nombreUsuario") String nombreUsuario, HttpServletResponse response)
+    {
+        Boolean exito = servicioUsuario.eliminarUsuario(nombreUsuario);
+
+        if(exito)
+        {
+            response.setStatus(HttpServletResponse.SC_OK);
+        }
+        else
+        {
+            response.setStatus(HttpServletResponse.SC_CONFLICT);
+        }
+    }
+
+    @RequestMapping(value = "/desbloquearUsuario.htm", method = RequestMethod.POST)
+    public
+    void desbloquearUsuario(@RequestParam("nombreUsuario") String nombreUsuario, HttpServletResponse response)
+    {
+        Boolean exito = servicioUsuario.desbloquearUsuario(nombreUsuario);
+
+        if(exito)
+        {
+            response.setStatus(HttpServletResponse.SC_OK);
+        }
+        else
+        {
+            response.setStatus(HttpServletResponse.SC_CONFLICT);
+        }
+    }
+
+    @RequestMapping(value = "/crearUsuario.htm", method = RequestMethod.POST)
+    public
+    @ResponseBody
+    Map<String, String> crearUsuario(@RequestBody DTOUsuario dtoUsuario, HttpServletResponse response)
+    {
+        Errores errores = servicioValidacionDatos.validarDatos(dtoUsuario);
+
+        if (errores.hayErrores())
+        {
+            response.setStatus(HttpServletResponse.SC_CONFLICT);
+            return errores;
+        }
+        else
+        {
+            boolean exito = servicioUsuario.crearUsuario(dtoUsuario);
+
+            if (exito)
+            {
+                response.setStatus(HttpServletResponse.SC_OK);
+                return null;
+            }
+            else
+            {
+                response.setStatus(HttpServletResponse.SC_CONFLICT);
+                return null;
+            }
+        }
+
+    }
 }

@@ -104,3 +104,4 @@ ALTER TABLE `turismoqr`.`permisorol`
 DROP INDEX `permiso` ;
 INSERT INTO `turismoqr`.`permisorol` (`idPermisoRol`, `permiso`, `Rol`) VALUES ('2', '1', 'Administrador');
 INSERT INTO `turismoqr`.`permisorol` (`idPermisoRol`, `permiso`, `Rol`) VALUES ('3', '2', 'Administrador');
+UPDATE `turismoqr`.`cliente` SET `usuario`='2' WHERE `idCliente`='1';

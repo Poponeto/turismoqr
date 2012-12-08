@@ -144,7 +144,7 @@ public class InformacionClienteController
     @RequestMapping(value = "/datosClienteActual.htm", method = RequestMethod.GET)
     public @ResponseBody DTOCliente datosClienteActual(Principal principal)
     {
-        DTOCliente dtoCliente = servicioCliente.datosClienteActual(principal.getName());
+        DTOCliente dtoCliente = servicioCliente.obtenerDatosClienteDeUsuario(principal.getName());
 
         return dtoCliente;
     }

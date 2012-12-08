@@ -1,12 +1,9 @@
 package TurismoQR.ObjetosNegocio.Usuarios;
 
-import TurismoQR.ObjetosNegocio.Estados.Estado;
 import TurismoQR.ObjetosNegocio.IObjetoNegocio;
-import TurismoQR.ObjetosNegocio.Informacion.Idioma;
 import TurismoQR.ObjetosNegocio.Usuarios.Permisos.PermisoUsuario;
 import java.util.Collection;
 import java.util.Date;
-import java.util.Objects;
 
 public class Usuario implements IObjetoNegocio
 {
@@ -91,26 +88,32 @@ public class Usuario implements IObjetoNegocio
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (obj == null) {
+    public boolean equals(Object obj)
+    {
+        if (obj == null)
+        {
             return false;
         }
-        if (getClass() != obj.getClass()) {
+        if (getClass() != obj.getClass())
+        {
             return false;
         }
         final Usuario other = (Usuario) obj;
-        if (!Objects.equals(this.idObjeto, other.idObjeto)) {
+        if ((this.idObjeto == null) ? (other.idObjeto != null) : !this.idObjeto.equals(other.idObjeto))
+        {
             return false;
         }
         return true;
     }
 
     @Override
-    public int hashCode() {
-        int hash = 3;
-        hash = 79 * hash + Objects.hashCode(this.idObjeto);
+    public int hashCode()
+    {
+        int hash = 7;
+        hash = 37 * hash + (this.idObjeto != null ? this.idObjeto.hashCode() : 0);
         return hash;
     }
 
+  
     
 }

@@ -40,7 +40,13 @@ public class EstrategiaTraduccionUsuario implements IEstrategiaTraduccion<Usuari
 
     public Usuario traducir(IDTO<Usuario> dto)
     {
-        throw new UnsupportedOperationException("Not supported yet.");
+        DTOUsuario dtoUsuario = (DTOUsuario)dto;
+        Usuario usuario = new Usuario();
+
+        usuario.setContraseña(dtoUsuario.getContraseña());
+        usuario.setNombreUsuario(dtoUsuario.getNombreUsuario());
+        
+        return usuario;
     }
 
 }

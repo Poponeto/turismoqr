@@ -6,29 +6,23 @@ package TurismoQR.Servicios.Validacion.Validadores;
 
 import TurismoQR.AccesoDatos.IAccesoDatos;
 //import TurismoQR.ObjetosNegocio.Usuarios.Persona;
-import TurismoQR.ObjetosNegocio.Usuarios.Usuario;
+import TurismoQR.ConstantesDeNegocio;
+import TurismoQR.ObjetosNegocio.Usuarios.Rol;
 //import TurismoQR.ObjetosTransmisionDatos.DTOPersona;
 import TurismoQR.ObjetosTransmisionDatos.DTOUsuario;
 import TurismoQR.Servicios.Validacion.Errores;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  *
  * @author MARIANO
  */
-public class ValidadorDatosUsuario {
+public class ValidadorDatosUsuario implements Validador{
     
         IAccesoDatos accesoDatos;
 
     public ValidadorDatosUsuario(IAccesoDatos accesoDatos)
     {
         this.accesoDatos = accesoDatos;
-    }
-    
-    
-    ValidadorDatosUsuario() {
-        //throw new UnsupportedOperationException("Not yet implemented");
     }
     
     
@@ -41,7 +35,7 @@ public class ValidadorDatosUsuario {
     {
         DTOUsuario dtoUsuario = (DTOUsuario) objeto;
         
-         String regexNombreUsuario = "[a-zA-Z]+";
+         String regexNombreUsuario = "[a-zA-Z0-9]+";
         
         if (dtoUsuario.getNombreUsuario() == null || dtoUsuario.getNombreUsuario().isEmpty())
         {
@@ -49,7 +43,7 @@ public class ValidadorDatosUsuario {
         }
         else if (!dtoUsuario.getNombreUsuario().matches(regexNombreUsuario))
         {
-            errores.agregarError("nombreUsuario", "El nombre de usuario es inválido. Debe contener sólo letras.");
+            errores.agregarError("nombreUsuario", "El nombre de usuario es inválido. Debe contener sólo caracteres alfanumericos.");
         }
 
         
@@ -57,34 +51,16 @@ public class ValidadorDatosUsuario {
         {
             errores.agregarError("contraseña", "Debe especificar una contraseña.");
         }
-        else if (dtoUsuario.getContraseña().length() < 6)
+        else if (dtoUsuario.getContraseña().length() < ConstantesDeNegocio.MIN_LONGUITUD_PASS)
         {
-            errores.agregarError("contraseña", "Debe contener al menos 6 caracteres.");
-        }
-        else if (dtoUsuario.getContraseña().length() > 20)
-        {
-            errores.agregarError("contraseña", "Debe contener no más de 20 caracteres.");
+            errores.agregarError("contraseña", "Debe contener al menos "+ConstantesDeNegocio.MIN_LONGUITUD_PASS+" caracteres.");
         }
 
+        Rol rol = accesoDatos.BuscarObjeto(Rol.class, dtoUsuario.getDtoRol().getNombreRol());
         
-        if (dtoUsuario.getUsername() == null || dtoUsuario.getUsername().isEmpty())
+        if(rol == null)
         {
-            errores.agregarError("username", "Debe especificar un username.");
+            errores.agregarError("rol", "El rol especificado no existe.");
         }
-        else if (!dtoUsuario.getUsername().equals(dtoUsuario.getNombreUsuario()))
-        {
-        errores.agregarError("username", "El username debe ser igual que el nombre de usuario.");
-        }
-        
-        
-        if (dtoUsuario.getPassword() == null || dtoUsuario.getPassword().isEmpty())
-        {
-            errores.agregarError("password", "Debe especificar un password.");
-        }
-        else if (!dtoUsuario.getPassword().equals(dtoUsuario.getContraseña()))
-        {
-        errores.agregarError("password", "El password debe ser igual que la contraseña.");
-        }
-        
     }
 }

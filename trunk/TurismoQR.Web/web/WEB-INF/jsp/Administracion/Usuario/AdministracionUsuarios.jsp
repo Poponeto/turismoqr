@@ -3,7 +3,8 @@
     Created on : 06-nov-2012, 0:20:17
     Author     : Federico
 --%>
-
+<%@ taglib uri='http://java.sun.com/jsp/jstl/core' prefix='core'%>
+<%@ taglib uri='http://java.sun.com/jsp/jstl/functions' prefix='fn' %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
     "http://www.w3.org/TR/html4/loose.dtd">
@@ -14,6 +15,7 @@
         <title>Administracion Usuarios</title>
 
         <%@ include file="/WEB-INF/jsp/Utils/ArchivosJQuery.html" %>
+        <%@ include file="/WEB-INF/jsp/Utils/ArchivosError.html" %>
 
         <script type="text/javascript" src="${pageContext.request.contextPath}/Vistas/JavaScript/AdministracionUsuarios.js"></script>
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/Vistas/HojasDeEstilo/AdministracionClientes.css">
@@ -43,26 +45,32 @@
         </div>
 
         <div id="Contenido">
-            <button id="botonAgregarUsuario">Agregar Usuario</button>
+            <button id="botonAgregarUsuario" style="margin: 10px">Agregar Usuario</button>
 
             <div id="popUpAgregarUsuario">
                 <fieldset id="informacionPrincipal">
                     <legend> Informacion Usuario</legend>
-                    <p>
-                        Nombre de Usuario:&nbsp;
-                        <label id="identificador"></label>
-                    </p>
+                    
+                    <label name="labelnombreUsuario">
+                        Nombre de Usuario:<br>
+                        <input id="lineaDatosNombreUsuario" name="nombreUsuario" type="text" required="true"/>
+                    </label>
+                    <br>
 
-                    <p>
-                        Contraseña:&nbsp;
-                        <label id="nombreCliente"/>
-                    </p>
-
-                    <p>
-                        Rol:&nbsp;
-                        <label id="nombreCliente"/>
-                    </p>
-
+                    <label name="labelcontraseña">
+                        Contraseña:<br>
+                        <input id="lineaDatosContraseña" type="text" name="contraseña" required="true"/>
+                    </label>
+                    <br>
+                    <label name="labelrol">Rol:<br>
+                        <select id="selectRol" name="rol" size="1" >
+                            <core:forEach var="rol" items="${roles}">
+                                <option value="<core:out value="${rol.nombreRol}" />">
+                                    <core:out value="${rol.nombreRol}" />
+                                </option>
+                            </core:forEach>
+                        </select>
+                    </label>
                 </fieldset>
             </div>
 

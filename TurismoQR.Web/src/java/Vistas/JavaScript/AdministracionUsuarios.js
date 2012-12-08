@@ -119,6 +119,76 @@ function inicializarPaginaAdministracionUsuarios(urlbase)
     $("#botonEliminarUsuario").hide();
     $("#botonDesbloquearUsuario").hide();
 
+    $(":input").change(function(){
+        removerErrorDeEntrada(this);
+    });
+
+    $("#botonReiniciarContraseniaUsuario").click(function(){
+
+        var urlConsulta = urlbase + "/administracion/usuario/reiniciarContrasenia.htm";
+
+        $.ajax({
+
+            url: urlConsulta,
+            data: {
+                nombreUsuario: $("#nombreUsuario").text()
+            },
+            type: "POST",
+            success: function(){
+                location.reload(true);
+            },
+            error: function(){
+                alert("A ocurrido un error al reiniciar contrasenia de usuario.");
+            }
+
+        });
+
+    });
+
+    $("#botonEliminarUsuario").click(function(){
+
+        var urlConsulta = urlbase + "/administracion/usuario/eliminarUsuario.htm";
+
+        $.ajax({
+
+            url: urlConsulta,
+            data: {
+                nombreUsuario: $("#nombreUsuario").text()
+            },
+            type: "POST",
+            success: function(){
+                location.reload(true);
+            },
+            error: function(){
+                alert("A ocurrido un error al eliminar usuario.");
+            }
+
+        });
+
+    });
+
+    $("#botonDesbloquearUsuario").click(function(){
+
+        var urlConsulta = urlbase + "/administracion/usuario/desbloquearUsuario.htm";
+
+        $.ajax({
+
+            url: urlConsulta,
+            data: {
+                nombreUsuario: $("#nombreUsuario").text()
+            },
+            type: "POST",
+            success: function(){
+                location.reload(true);
+            },
+            error: function(){
+                alert("A ocurrido un error al desbloquear usuario.");
+            }
+
+        });
+
+    });
+
     $("#botonAgregarUsuario").click(function(){
         $('#popUpAgregarUsuario').dialog('open');
     });
@@ -133,9 +203,25 @@ function inicializarPaginaAdministracionUsuarios(urlbase)
             },
             "Guardar": function() {
 
-                //llama ajax para guardar usuario y cierra en callback, luego recarga la grilla
-                $('#Contenedor').css('opacity','1');
-                $(this).dialog("close");
+                var jsonUsuario = JSON.stringify(obtenerDatosUsuario());
+                var urlConsulta = urlbase + "/administracion/usuario/crearUsuario.htm";
+                debugger
+                $.ajax({
+
+                    url: urlConsulta,
+                    data: jsonUsuario,
+                    dataType: "json",
+                    contentType: "application/json",
+                    type: "POST",
+                    success: function(){
+                        location.reload(true);
+                    },
+                    error: function(jqXHR){
+                        var errores = jqXHR["responseText"];
+                        procesarErrores(jQuery.parseJSON(errores));
+                    }
+
+                });
             }
         },
         title: 'Crear Usuario.'
@@ -149,7 +235,7 @@ function cargarInformacionUsuario(fila)
     $("#nombreUsuario").text(fila.nombreUsuario);
     $("#contraseña").text(fila.contraseña);
 
-    if(fila.bloqueado == true)
+    if(fila.bloqueado === "true")
     {
         $("#botonEliminarUsuario").hide();
         $("#botonDesbloquearUsuario").show(1000);
@@ -161,4 +247,20 @@ function cargarInformacionUsuario(fila)
 
     $("#botonReiniciarContraseniaUsuario").show(1000);
     $("#informacionUsuario").show(1000);
+}
+
+function obtenerDatosUsuario()
+{
+    var datosUsuario = {};
+    var datosRol = {};
+
+
+    datosUsuario[$("#lineaDatosNombreUsuario").attr('name')] = $("#lineaDatosNombreUsuario").val();
+    datosUsuario[$("#lineaDatosContraseña").attr('name')] = $("#lineaDatosContraseña").val();
+
+    datosUsuario["dtoRol"] = datosRol;
+    datosRol['nombreRol'] = $("#selectRol").val();
+
+    return datosUsuario;
+
 }

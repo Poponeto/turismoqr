@@ -29,7 +29,7 @@ public class ValidadorDatosUsuarioTest {
         DTOUsuario dtoUsuario = mock(DTOUsuario.class);
         IAccesoDatos accesoDatos = mock(IAccesoDatos.class);
 
-        ValidadorDatosUsuario validadorDatosUsuario = new ValidadorDatosUsuario();
+        ValidadorDatosUsuario validadorDatosUsuario = new ValidadorDatosUsuario(accesoDatos);
         boolean resultadoDTOUsuario = validadorDatosUsuario.soportaObjeto(dtoUsuario);
 
         assertTrue(resultadoDTOUsuario);

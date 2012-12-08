@@ -7,6 +7,7 @@ package TurismoQR.Traductores;
 import TurismoQR.ObjetosNegocio.IObjetoNegocio;
 import TurismoQR.ObjetosTransmisionDatos.IDTO;
 import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.springframework.stereotype.Service;
@@ -31,7 +32,8 @@ public class FabricaDeEstrategiaTraduccion
         EstrategiaTraduccionEmpresa.class,
         EstrategiaTraduccionContactoEmpresa.class,
         EstrategiaTraduccionCategoria.class,
-        EstrategiaTraduccionRubro.class
+        EstrategiaTraduccionRubro.class,
+        EstrategiaTraduccionRol.class
     };
 
     public IEstrategiaTraduccion crearEstrategiaTraduccion(IObjetoNegocio objetoNegocio)
@@ -41,9 +43,16 @@ public class FabricaDeEstrategiaTraduccion
 
     public IEstrategiaTraduccion crearEstrategiaTraduccion(IDTO dto)
     {
-        ParameterizedType interfaceType = (ParameterizedType) dto.getClass().getGenericInterfaces()[0];
+        for(Type type : dto.getClass().getGenericInterfaces())
+        {
+            if(type instanceof ParameterizedType)
+            {
+                ParameterizedType interfaceType = (ParameterizedType) type;
+                return buscarEstrategiaTraduccion(((Class)interfaceType.getActualTypeArguments()[0]));
+            }
+        }
 
-        return buscarEstrategiaTraduccion(((Class)interfaceType.getActualTypeArguments()[0]));
+        return null;
     }
 
     private IEstrategiaTraduccion buscarEstrategiaTraduccion(Class claseDeEstrategia)

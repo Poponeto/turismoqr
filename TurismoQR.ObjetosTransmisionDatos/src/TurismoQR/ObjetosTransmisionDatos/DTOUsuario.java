@@ -5,6 +5,7 @@
 
 package TurismoQR.ObjetosTransmisionDatos;
 
+import TurismoQR.ObjetosNegocio.Usuarios.Usuario;
 import java.util.Collection;
 import java.util.HashSet;
 import org.springframework.security.core.GrantedAuthority;
@@ -14,7 +15,7 @@ import org.springframework.security.core.userdetails.UserDetails;
  *
  * @author Federico
  */
-public class DTOUsuario implements UserDetails, IDTO{
+public class DTOUsuario implements UserDetails, IDTO<Usuario>{
 
     private String idUsuario;
     private String contraseña;
@@ -23,7 +24,18 @@ public class DTOUsuario implements UserDetails, IDTO{
     private boolean expirado;
     private boolean bloqueado;
     private boolean habilitado;
+    private DTORol dtoRol;
 
+    public DTORol getDtoRol()
+    {
+        return dtoRol;
+    }
+
+    public void setDtoRol(DTORol dtoRol)
+    {
+        this.dtoRol = dtoRol;
+    }
+    
     public void setBloqueado(boolean bloqueado) {
         this.bloqueado = bloqueado;
     }

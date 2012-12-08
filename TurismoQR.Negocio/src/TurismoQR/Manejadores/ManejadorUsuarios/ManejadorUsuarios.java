@@ -5,9 +5,8 @@
 package TurismoQR.Manejadores.ManejadorUsuarios;
 
 import TurismoQR.AccesoDatos.AccesoDatosUsuario;
-import TurismoQR.ObjetosNegocio.Usuarios.Cliente;
+import TurismoQR.ConstantesDeNegocio;
 import TurismoQR.ObjetosNegocio.Usuarios.Usuario;
-import java.util.Calendar;
 import java.util.Collection;
 import java.util.Random;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,7 +45,7 @@ public class ManejadorUsuarios
     {
         Usuario usuario = new Usuario();
         usuario.setNombreUsuario(nombreUsuario);
-        usuario.setContraseña(generarContraseniaAleatoria(12));
+        usuario.setContraseña(generarContraseniaAleatoria(ConstantesDeNegocio.MIN_LONGUITUD_PASS));
         return usuario;
     }
 

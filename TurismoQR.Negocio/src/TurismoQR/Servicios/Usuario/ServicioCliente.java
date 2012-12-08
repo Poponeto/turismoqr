@@ -5,6 +5,7 @@
 package TurismoQR.Servicios.Usuario;
 
 import TurismoQR.AccesoDatos.IAccesoDatos;
+import TurismoQR.ConstantesDeNegocio;
 import TurismoQR.Manejadores.ManejadorUsuarios.ManejadorUsuarios;
 import TurismoQR.ObjetosNegocio.Categorias.Rubro;
 import TurismoQR.ObjetosNegocio.Estados.Ciclo;
@@ -148,7 +149,7 @@ public abstract class ServicioCliente extends ServicioContacto implements IServi
 
     public Boolean reiniciarContraseñaCliente(String idCliente) {
         Cliente cliente = getAccesoDatos().BuscarObjeto(Cliente.class, idCliente);
-        cliente.getUsuario().setContraseña(manejadorGuardado.generarContraseniaAleatoria(12));
+        cliente.getUsuario().setContraseña(manejadorGuardado.generarContraseniaAleatoria(ConstantesDeNegocio.MIN_LONGUITUD_PASS));
 
         cliente.getUsuario().setExpirado(true);
         cliente.getUsuario().setFechaExpiracion(Calendar.getInstance().getTime());
@@ -236,7 +237,7 @@ public abstract class ServicioCliente extends ServicioContacto implements IServi
         cliente.getUsuario().setPermisosUsuario(permisosUsuario);
     }
 
-    public DTOCliente datosClienteActual(String nombreUsuario)
+    public DTOCliente obtenerDatosClienteDeUsuario(String nombreUsuario)
     {
         Collection<Usuario> usuarios = getAccesoDatos().BuscarObjetosPorCaracteristica(Usuario.class, "nombreUsuario", nombreUsuario);
         Collection<Cliente> clientes = getAccesoDatos().BuscarConjuntoObjetos(Cliente.class);

@@ -8,8 +8,9 @@ package Controladores;
  *
  * @author Federico
  */
-import TurismoQR.ObjetosTransmisionDatos.DTORol;
+import TurismoQR.ObjetosTransmisionDatos.DTOCliente;
 import TurismoQR.ObjetosTransmisionDatos.DTOUsuario;
+import TurismoQR.Servicios.Usuario.IServicioCliente;
 import TurismoQR.Servicios.Usuario.IServicioUsuario;
 import TurismoQR.Servicios.Validacion.Errores;
 import TurismoQR.Servicios.Validacion.IServicioValidacionDatos;
@@ -25,7 +26,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -44,18 +44,36 @@ public class InformacionUsuarioController
 
     IServicioUsuario servicioUsuario;
     IServicioValidacionDatos servicioValidacionDatos;
+    IServicioCliente servicioCliente;
 
     @Autowired
     public void InformacionUsuarioController(
             IServicioUsuario servicioUsuario,
-            IServicioValidacionDatos servicioValidacionDatos)
+            IServicioValidacionDatos servicioValidacionDatos,
+            IServicioCliente servicioPersona)
     {
         this.servicioUsuario = servicioUsuario;
         this.servicioValidacionDatos = servicioValidacionDatos;
+        this.servicioCliente = servicioPersona;
+    }
+
+    @RequestMapping(value = "/informacionPersonal.htm", method = RequestMethod.GET)
+    public String paginaInformacionPersonal(ModelMap model, HttpServletRequest request)
+    {
+        String nombreUsuario = (String) request.getSession().getAttribute(UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_USERNAME_KEY);
+        DTOCliente dtoCliente = servicioCliente.obtenerDatosClienteDeUsuario(nombreUsuario);
+
+        if(dtoCliente == null)
+        {
+            model.put("usuario", nombreUsuario);
+            return "Administracion/Usuario/InformacionPersonalUsuario";
+        }
+        
+        return "redirect:/administracion/cliente/informacionPersonal.htm";
     }
 
     @RequestMapping(value = "/paginaAdministracionUsuarios.htm", method = RequestMethod.GET)
-    public String redirigir(ModelMap model)
+    public String paginaAdministracionUsuarios(ModelMap model)
     {
         model.put("roles", servicioUsuario.obtenerRoles());
         return "Administracion/Usuario/AdministracionUsuarios";

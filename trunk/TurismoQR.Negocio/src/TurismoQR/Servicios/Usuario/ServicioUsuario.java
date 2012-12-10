@@ -18,6 +18,7 @@ import TurismoQR.ObjetosNegocio.Usuarios.Permisos.PermisoUsuario;
 import TurismoQR.ObjetosNegocio.Usuarios.Rol;
 import TurismoQR.ObjetosTransmisionDatos.DTOCliente;
 import TurismoQR.ObjetosTransmisionDatos.DTORol;
+import TurismoQR.Servicios.Usuario.AccionUsuario.FabricaAccionesUsuario;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
@@ -42,6 +43,7 @@ public class ServicioUsuario implements IServicioUsuario
     private IAccesoDatos accesoDatos;
     private ITraductor traductor;
     private IServicioCliente servicioCliente;
+    private FabricaAccionesUsuario fabricaAccionesUsuario;
 
     @Autowired
     public ServicioUsuario(
@@ -49,14 +51,15 @@ public class ServicioUsuario implements IServicioUsuario
             ManejadorUsuarios manejadorGuardado,
             ITraductor traductor,
             IAccesoDatos accesoDatos,
-            IServicioCliente servicioPersona)
+            IServicioCliente servicioPersona,
+            FabricaAccionesUsuario fabricaAccionesUsuario)
     {
         this.manejadorLogin = manejadorLogin;
         this.manejadorGuardado = manejadorGuardado;
         this.traductor = traductor;
         this.accesoDatos = accesoDatos;
         this.servicioCliente = servicioPersona;
-
+        this.fabricaAccionesUsuario = fabricaAccionesUsuario;
     }
 
     public DTOUsuario cargarUsuario(String nombreUsuario) throws UsernameNotFoundException, DataAccessException
@@ -173,76 +176,25 @@ public class ServicioUsuario implements IServicioUsuario
 
     public Boolean reiniciarContrasenia(String nombreUsuario)
     {
-        DTOCliente dtoCliente = servicioCliente.obtenerDatosClienteDeUsuario(nombreUsuario);
-
-        if (dtoCliente == null)
-        {
-            Collection<Usuario> usuarios = accesoDatos.BuscarObjetosPorCaracteristica(Usuario.class, "nombreUsuario", nombreUsuario);
-
-            for (Usuario usuario : usuarios)
-            {
-                usuario.setContraseña(manejadorGuardado.generarContraseniaAleatoria(ConstantesDeNegocio.MIN_LONGUITUD_PASS));
-                accesoDatos.Guardar(usuario);
-
-                return true;
-            }
-
-            return false;
-
-        }
-        else
-        {
-            return servicioCliente.reiniciarContraseñaCliente(dtoCliente.getIdContacto());
-        }
+        return fabricaAccionesUsuario.crearAccionUsuario(FabricaAccionesUsuario.REINICIAR_CONTRASENIA).ejecutar(nombreUsuario);
     }
 
     public Boolean eliminarUsuario(String nombreUsuario)
     {
-        DTOCliente dtoCliente = servicioCliente.obtenerDatosClienteDeUsuario(nombreUsuario);
-
-        if (dtoCliente == null)
-        {
-
-            Collection<Usuario> usuarios = accesoDatos.BuscarObjetosPorCaracteristica(Usuario.class, "nombreUsuario", nombreUsuario);
-
-            for (Usuario usuario : usuarios)
-            {
-                usuario.setBloqueado(true);
-                accesoDatos.Guardar(usuario);
-
-                return true;
-            }
-
-            return false;
-        }
-        else
-        {
-            return servicioCliente.eliminarCliente(dtoCliente.getIdContacto());
-        }
+        return fabricaAccionesUsuario.crearAccionUsuario(FabricaAccionesUsuario.BLOQUEAR_USUARIO).ejecutar(nombreUsuario);
 
     }
 
     public Boolean desbloquearUsuario(String nombreUsuario)
     {
-        DTOCliente dtoCliente = servicioCliente.obtenerDatosClienteDeUsuario(nombreUsuario);
+        return fabricaAccionesUsuario.crearAccionUsuario(FabricaAccionesUsuario.DESBLOQUEAR_USUARIO).ejecutar(nombreUsuario);
+    }
 
-        if (dtoCliente == null)
-        {
-            Collection<Usuario> usuarios = accesoDatos.BuscarObjetosPorCaracteristica(Usuario.class, "nombreUsuario", nombreUsuario);
+    public Boolean cambiarNombreUsuario(String nombreUsuarioActual, String nuevoNombreUsuario)
+    {
+        Usuario usuario = manejadorLogin.cargarUsuario(nombreUsuarioActual);
+        usuario.setNombreUsuario(nuevoNombreUsuario);
 
-            for (Usuario usuario : usuarios)
-            {
-                usuario.setBloqueado(false);
-                accesoDatos.Guardar(usuario);
-
-                return true;
-            }
-            
-            return false;
-        }
-        else
-        {
-            return servicioCliente.desbloquearCliente(dtoCliente.getIdContacto());
-        }
+        return manejadorGuardado.guardarUsuario(usuario);
     }
 }

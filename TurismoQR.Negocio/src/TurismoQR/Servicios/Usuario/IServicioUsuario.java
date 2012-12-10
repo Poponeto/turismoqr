@@ -29,4 +29,5 @@ public interface IServicioUsuario  {
     public Collection<DTORol> obtenerRoles();
     public Boolean reiniciarContrasenia(String nombreUsuario);
     public Boolean desbloquearUsuario(String nombreUsuario);
+    public Boolean cambiarNombreUsuario(String nombreUsuarioActual, String nuevoNombreUsuario);
 }

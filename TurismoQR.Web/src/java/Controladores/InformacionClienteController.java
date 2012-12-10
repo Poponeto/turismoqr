@@ -5,6 +5,7 @@
 package Controladores;
 
 import TurismoQR.ObjetosTransmisionDatos.DTOCliente;
+import TurismoQR.ObjetosTransmisionDatos.DTOPersona;
 import TurismoQR.Servicios.Usuario.IServicioCliente;
 import Utils.FilaTablaCliente;
 import Utils.IFila;
@@ -16,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -42,6 +44,26 @@ public class InformacionClienteController
         this.servicioEmpresa = servicioEmpresa;
         this.servicioPersona = servicioPersona;
         this.servicioCliente = servicioPersona;
+    }
+
+    @RequestMapping(value = "/informacionPersonal.htm", method = RequestMethod.GET)
+    public String paginaInformacionPersonal(ModelMap model, Principal principal)
+    {
+        DTOCliente dtoCliente = servicioCliente.obtenerDatosClienteDeUsuario(principal.getName());
+
+        if(dtoCliente instanceof DTOPersona)
+        {
+            model.put("tipoCliente", "Persona");
+        }
+        else
+        {
+            model.put("tipoCliente", "Empresa");
+        }
+
+        model.put("nombreUsuario", principal.getName());
+        model.put("esCliente", true);
+        
+        return "Administracion/Usuario/InformacionPersonalCliente";
     }
 
     @RequestMapping(value = "/paginaAdministracionClientes.htm", method = RequestMethod.GET)
@@ -140,15 +162,6 @@ public class InformacionClienteController
             response.setStatus(HttpServletResponse.SC_CONFLICT);
         }
     }
-
-    @RequestMapping(value = "/datosClienteActual.htm", method = RequestMethod.GET)
-    public @ResponseBody DTOCliente datosClienteActual(Principal principal)
-    {
-        DTOCliente dtoCliente = servicioCliente.obtenerDatosClienteDeUsuario(principal.getName());
-
-        return dtoCliente;
-    }
-
 
     @RequestMapping(value = "/modificarCliente.htm", method = RequestMethod.POST)
     public void modificarCliente(@RequestBody  FilaTablaCliente fila, HttpServletResponse response)

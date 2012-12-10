@@ -72,6 +72,7 @@
                 <security:intercept-url pattern="/administracion/**" access="PERMISO_CLIENTE"/>
                 <security:intercept-url pattern="/punto/**" access="PERMISO_TURISTA"/>
                 <security:intercept-url pattern="/usuario/**" access="PERMISO_TURISTA"/>
+                <security:intercept-url pattern="/cliente/**" access="PERMISO_TURISTA"/>
                 <!--security:intercept-url pattern="/home.htm" access="PERMISO_TURISTA, PERMISO_ADMINISTRADOR"/-->
                 <!--security:intercept-url pattern="/**" access="denyAll"/-->
             </security:filter-security-metadata-source>

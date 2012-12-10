@@ -56,9 +56,9 @@
                         </a>
 
                         <ul>
-                            <sec:authorize url="/crearPunto/crearPuntoDeInteres.htm">
+                            <sec:authorize url="/administracion/usuario/informacionPersonal.htm">
                                 <li style="width:170px">
-                                    <a href="${pageContext.request.contextPath}/crearPunto/crearPuntoDeInteres.htm">Información Personal</a>
+                                    <a href="${pageContext.request.contextPath}/administracion/usuario/informacionPersonal.htm">Información Personal</a>
                                 </li>
                             </sec:authorize>
                             <sec:authorize url="/administracion/usuario/paginaAdministracionUsuarios.htm">

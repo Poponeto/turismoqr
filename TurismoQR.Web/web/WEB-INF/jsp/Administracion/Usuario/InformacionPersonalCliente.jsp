@@ -31,8 +31,7 @@
                     setTimeout('inicializarDatosContacto();$("#Contenedor").show();', 1000);
 
                 });
-
-
+                
             });
         </script>
     </head>

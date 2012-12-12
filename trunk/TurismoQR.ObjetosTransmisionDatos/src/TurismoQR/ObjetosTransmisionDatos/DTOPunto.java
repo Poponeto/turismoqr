@@ -19,6 +19,15 @@ public class DTOPunto implements IDTO<Punto>{
     private Collection<DTOImagen> imagenes;
     private DTOLocalizacion localizacion;
     private DTOCategoria categoria;
+    private DTOUsuario usuario;
+
+    public DTOUsuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(DTOUsuario usuario) {
+        this.usuario = usuario;
+    }
 
     public DTOCategoria getCategoria() {
         return categoria;

@@ -18,7 +18,7 @@ create table permiso (idPermiso varchar(255) not null, nombre varchar(255), desc
 create table permisoRol (idPermisoRol varchar(255) not null, permiso varchar(255) unique, Rol varchar(255), primary key (idPermisoRol));
 create table permisoUsuario (idPermisoUsuario varchar(255) not null, permiso varchar(255), Usuario varchar(255), primary key (idPermisoUsuario));
 create table persona (idPersona varchar(255) not null, apellido varchar(255), nombre varchar(255), sexo varchar(255), dni varchar(255) unique, fechaDeNacimiento date, primary key (idPersona));
-create table punto (idPunto varchar(255) not null, nombre varchar(255) unique, Localizacion varchar(255) not null unique, Informacion varchar(255) unique, categoriaPunto varchar(255) unique, ciclo varchar(255) unique, primary key (idPunto));
+create table punto (idPunto varchar(255) not null, nombre varchar(255) unique, Localizacion varchar(255) not null unique, Informacion varchar(255) unique, categoriaPunto varchar(255), usuarioPunto varchar(255), ciclo varchar(255) unique, primary key (idPunto));
 create table puntoComercial (idpuntoComercial varchar(255) not null, cliente varchar(255), primary key (idpuntoComercial));
 create table recurso (idRecurso varchar(255) not null, url varchar(255), primary key (idRecurso));
 create table rol (idRol varchar(255) not null, primary key (idRol));
@@ -46,6 +46,7 @@ alter table punto add index FK6612344EC58074B (Informacion), add constraint FK66
 alter table punto add index FK6612344F143869C (Localizacion), add constraint FK6612344F143869C foreign key (Localizacion) references localizacion (idLocalizacion);
 alter table punto add index FK66123447A3E6E41 (ciclo), add constraint FK66123447A3E6E41 foreign key (ciclo) references ciclo (idCiclo);
 alter table punto add index FK66123446B4AD834 (categoriaPunto), add constraint FK66123446B4AD834 foreign key (categoriaPunto) references categoria (idCategoria);
+alter table punto add index FK66123446B4AD824 (usuarioPunto), add constraint FK66123446B4AD824 foreign key (usuarioPunto) references usuario (idUsuario);
 alter table puntoComercial add index idCliente (cliente), add constraint idCliente foreign key (cliente) references cliente (idCliente);
 alter table puntoComercial add index FK96198B1BBF7EDB52 (idpuntoComercial), add constraint FK96198B1BBF7EDB52 foreign key (idpuntoComercial) references punto (idPunto);
 alter table rubro add index FK67D24FC6B66D9EC (categoriaRubro), add constraint FK67D24FC6B66D9EC foreign key (categoriaRubro) references categoria (idCategoria);
@@ -76,7 +77,7 @@ INSERT INTO `turismoqr`.`categoria` (`idCategoria`, `nombreCategoria`) VALUES ('
 INSERT INTO `turismoqr`.`categoria` (`idCategoria`, `nombreCategoria`) VALUES ('10', 'Universidad');
 INSERT INTO `turismoqr`.`categoria` (`idCategoria`, `nombreCategoria`) VALUES ('11', 'Software Factory');
 
-INSERT INTO `turismoqr`.`punto` (`idPunto`, `nombre`, `Localizacion`, `Informacion`,`categoriaPunto`) VALUES ('1', 'Punto de Interes', '1', '1','1');
+INSERT INTO `turismoqr`.`punto` (`idPunto`, `nombre`, `Localizacion`, `Informacion`,`categoriaPunto`,`usuarioPunto`) VALUES ('1', 'Punto de Interes', '1', '1','1','1');
 INSERT INTO `turismoqr`.`recurso` (`idRecurso`, `url`) VALUES ('1', 'imagen');
 INSERT INTO `turismoqr`.`imagen` (`idImagen`, `extension`, `Informacion`, `Punto`) VALUES ('1', 'jpg', '2', '1');
 INSERT INTO `turismoqr`.`recurso` (`idRecurso`, `url`) VALUES ('2', 'link');

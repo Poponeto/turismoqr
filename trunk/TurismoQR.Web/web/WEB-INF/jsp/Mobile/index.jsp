@@ -17,12 +17,12 @@
         <script src="${pageContext.request.contextPath}/Vistas/JavaScript/JQuery/jquery-1.8.1.min.js"></script>
         <script src="${pageContext.request.contextPath}/Vistas/JavaScript/JQuery/jquery.mobile-1.2.0.min.js"></script>
         <script src="${pageContext.request.contextPath}/Vistas/JavaScript/JQuery/jquery.lightbox-0.5.js"></script>
-        <script src="https://maps.google.com/maps/api/js?sensor=true"></script>
+        <script src="https://maps.google.com/maps/api/js?libraries=geometry&sensor=true"></script>
         <script src="${pageContext.request.contextPath}/Vistas/JavaScript/Mapa.js"></script>
         <script>
             $(document).ready(function(){
                 $(window).resize(function(){
-                    $('#contenedorMapa').css('height', $(window).height()/3 + 'px');
+                    $('div[id*="contenedorMapa"]').css('height', $(window).height()/3 + 'px');
                 });
                 $(window).resize();
                 inicializarCambioIdiomaInformacionPunto();
@@ -93,6 +93,12 @@
                 <div id="latitudPunto" style="display: none;">${punto.localizacion.latitud}</div>
                 <div id="longitudPunto" style="display: none;">${punto.localizacion.longitud}</div>
                 <div id="contenedorIdioma"><%@ include  file="/WEB-INF/jsp/Utils/ComboIdiomas.jsp" %></div>
+                <div id="contenedorOpciones">
+                    <div data-role="controlgroup" data-type="horizontal" align="center">
+                        <a href="javascript:tqrmapas.obtenerPuntosCercanos('${pageContext.request.contextPath}', '${punto.idPunto}', '${punto.localizacion.latitud}', '${punto.localizacion.longitud}');" data-role="button">Puntos Cercanos</a>
+                        <a href="javascript:tqrmapas.obtenerPuntosRelacionados('${pageContext.request.contextPath}' ,'${punto.categoria.nombreCategoria}')" data-role="button">Puntos Relacionados</a>
+                    </div>
+                </div>
                 <div id="contenedorMapa"></div>
                 <div id="categoriaPunto"  class="ui-corner-all" style="border: 1px solid black; padding: 10px; margin-top: 10px; background: white;">
                     <label for="textoCategoria">
@@ -146,6 +152,41 @@
                         </div>
                     </label>
                 </div>
+            </div>
+            <div id="footer" data-role="footer" data-position="fixed" data-tap-toggle="false" style="padding: 10px;"  align="center">
+                <img alt="" src="${pageContext.request.contextPath}/Vistas/Imagenes/TurismoQRTitulo.png" style="height: 20px; vertical-align: middle;"/>
+            </div>
+        </div>
+        <div id="puntosCercanos" data-role="page" style="background: lightgray;">
+            <div id="header" data-role="header" data-position="fixed" data-tap-toggle="false" style="padding: 10px; min-height: 20px;" align="center">
+                <a data-rel="back" data-icon="back">Atras</a>
+                Puntos Cercanos
+            </div>
+            <div data-role="content">
+                <div id="contenedorMapaCercanos"></div>
+            </div>
+            <div id="footer" data-role="footer" data-position="fixed" data-tap-toggle="false" style="padding: 10px;"  align="center">
+                <img alt="" src="${pageContext.request.contextPath}/Vistas/Imagenes/TurismoQRTitulo.png" style="height: 20px; vertical-align: middle;"/>
+            </div>
+        </div>
+        <div id="puntosRelacionados" data-role="page" style="background: lightgray;">
+            <div id="header" data-role="header" data-position="fixed" data-tap-toggle="false" style="padding: 10px; min-height: 20px;" align="center">
+                <a data-rel="back" data-icon="back">Atras</a>
+                ${punto.categoria.nombreCategoria}
+            </div>
+            <div data-role="content">
+                <div id="contenedorMapaRelacionados"></div>
+                <ul id="listaRelacionados" data-role="listview" style="margin : 0px;"></ul>
+            </div>
+            <div id="footer" data-role="footer" data-position="fixed" data-tap-toggle="false" style="padding: 10px;"  align="center">
+                <img alt="" src="${pageContext.request.contextPath}/Vistas/Imagenes/TurismoQRTitulo.png" style="height: 20px; vertical-align: middle;"/>
+            </div>
+        </div>
+        <div id="detallePunto" data-role="page" style="background: lightgray;">
+            <div id="header" data-role="header" data-position="fixed" data-tap-toggle="false" style="padding: 10px; min-height: 20px;" align="center">
+            </div>
+            <div data-role="content">
+                <div id="contenedorMapaDetalles"></div>
             </div>
             <div id="footer" data-role="footer" data-position="fixed" data-tap-toggle="false" style="padding: 10px;"  align="center">
                 <img alt="" src="${pageContext.request.contextPath}/Vistas/Imagenes/TurismoQRTitulo.png" style="height: 20px; vertical-align: middle;"/>

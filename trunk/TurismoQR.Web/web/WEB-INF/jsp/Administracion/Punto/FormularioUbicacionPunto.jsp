@@ -20,11 +20,6 @@
             <input id="alturaPunto" name="alturaPunto" type="text" placeholder="Ingrese la altura del punto de interes"/>
         </label>
         <br>
-        <label for="codigoPostalPunto">
-            Código Postal:<br>
-            <input id="codigoPostalPunto" name="codigoPostalPunto" type="text" placeholder="Ingrese el codigo postal del punto de interes"/>
-        </label>
-        <br>
         <label for="departamentoPunto">
             Departamento:<br>
             <select id="departamentoPunto" name="departamentoPunto">

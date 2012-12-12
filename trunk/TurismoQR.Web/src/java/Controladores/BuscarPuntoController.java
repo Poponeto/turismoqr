@@ -4,6 +4,7 @@
  */
 package Controladores;
 
+import TurismoQR.Manejadores.ManejadorLogin.ManejadorLogin;
 import TurismoQR.ObjetosTransmisionDatos.DTOCategoria;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -11,14 +12,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import TurismoQR.Servicios.Idioma.IServicioIdioma;
 import TurismoQR.ObjetosTransmisionDatos.DTOPunto;
+import TurismoQR.ObjetosTransmisionDatos.DTOUsuario;
 import TurismoQR.Servicios.Punto.IServicioPunto;
+import TurismoQR.Servicios.Usuario.IServicioUsuario;
 import Utils.FilaTablaPunto;
 import Utils.IFila;
 import Utils.Tabla;
 import java.util.Collection;
 import java.util.HashSet;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.web.access.WebInvocationPrivilegeEvaluator;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -34,14 +37,17 @@ public class BuscarPuntoController
 
     private IServicioPunto servicioPunto;
     private IServicioIdioma servicioIdioma;
+    private IServicioUsuario servicioUsuario;
 
     @Autowired
     public void InformacionPuntoController(
             IServicioPunto servicioPunto,
-            IServicioIdioma servicioIdioma)
+            IServicioIdioma servicioIdioma,
+            IServicioUsuario servicioUsuario)
     {
         this.servicioPunto = servicioPunto;
         this.servicioIdioma = servicioIdioma;
+        this.servicioUsuario = servicioUsuario;
     }
 
     @RequestMapping(value = "/paginaBuscarPunto.htm", method = RequestMethod.GET)
@@ -81,6 +87,46 @@ public class BuscarPuntoController
     Tabla obtenerInformacionTablaCategoria(@PathVariable("categoria") String categoria)
     {
         Collection<DTOPunto> puntos = servicioPunto.ConsultarPuntosDeInteresCategoria(categoria, "espanol");
+
+        Tabla tablaResultados = crearTablaResultados(puntos);
+
+        return tablaResultados;
+    }
+
+    @RequestMapping(value = "{usuario}/obtenerInformacionTablaUsuario.htm", method = RequestMethod.GET)
+    public
+    @ResponseBody
+    Tabla obtenerInformacionTablaUsuario(@PathVariable("usuario") String usuario)
+    {
+        DTOUsuario usuarioActivo = (DTOUsuario) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        Collection<DTOPunto> puntos = servicioPunto.ConsultarPuntosDeInteresPorUsuario(usuarioActivo.getNombreUsuario(), "espanol");
+
+        Tabla tablaResultados = crearTablaResultados(puntos);
+
+        return tablaResultados;
+    }
+
+    @RequestMapping(value = "{categoria}/{usuario}/obtenerInformacionTablaCategoriaUsuario.htm", method = RequestMethod.GET)
+    public
+    @ResponseBody
+    Tabla obtenerInformacionTablaCategoriaUsuario(@PathVariable("categoria") String categoria, @PathVariable("usuario") String usuario)
+    {
+        DTOUsuario usuarioActivo = (DTOUsuario) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        Collection<DTOPunto> puntos = servicioPunto.ConsultarPuntosDeInteresPorUsuarioCategoria(usuarioActivo.getNombreUsuario(), categoria, "espanol");
+
+        Tabla tablaResultados = crearTablaResultados(puntos);
+
+        return tablaResultados;
+    }
+
+    @RequestMapping(value = "{idPunto}/{radio}/puntosCercanos.htm", method = RequestMethod.GET)
+    public
+    @ResponseBody
+    Tabla obtenerInformacionTablaCercanos(@PathVariable("idPunto") String idPunto, @PathVariable("radio") double radio)
+    {
+        Collection<DTOPunto> puntos = servicioPunto.ConsultarPuntosDeInteresZona(servicioPunto.ConsultarPuntoInteres(idPunto, "espanol").getLocalizacion(), radio, "espanol");
 
         Tabla tablaResultados = crearTablaResultados(puntos);
 

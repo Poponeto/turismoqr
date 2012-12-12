@@ -10,12 +10,23 @@ var markers = new Array();
 
 function inicilizarTablaPuntos(urlbase)
 {
+    $('#tablaPuntos').GridUnload();
     crearTabla(urlbase + "/buscarPunto/obtenerInformacionTabla.htm", urlbase);
 }
 
 function filtroCategoria (categoria, urlbase) {
     $('#tablaPuntos').GridUnload();
     crearTabla(urlbase + "/buscarPunto/"+categoria+"/obtenerInformacionTablaCategoria.htm", urlbase);
+}
+
+function filtroUsuario (usuario, urlbase) {
+    $('#tablaPuntos').GridUnload();
+    crearTabla(urlbase + "/buscarPunto/"+usuario+"/obtenerInformacionTablaUsuario.htm", urlbase);
+}
+
+function filtroCategoriaUsuario (categoria, usuario, urlbase) {
+    $('#tablaPuntos').GridUnload();
+    crearTabla(urlbase + "/buscarPunto/"+categoria+"/"+usuario+"/obtenerInformacionTablaCategoriaUsuario.htm", urlbase);
 }
 
 function crearTabla(url, urlbase) {
@@ -123,6 +134,7 @@ function cargarPuntosEnMapa(filas, url)
         google.maps.event.addListener(marker, 'click', function(){
             
             var marker = this;
+            tqrmapas.marcadorActual = this;
 
             $.get(url + '/buscarPunto/obtenerMenuPunto.htm' , {idPunto: this.identificador}, function(data) {
                 

@@ -16,11 +16,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import TurismoQR.Servicios.Punto.IServicioPunto;
 import TurismoQR.Manejadores.ManejadorIdiomas.ManejadorIdiomas;
-import TurismoQR.ObjetosNegocio.Informacion.Idioma;
 import TurismoQR.ObjetosNegocio.Informacion.Imagen;
 import TurismoQR.ObjetosTransmisionDatos.DTOCategoria;
 import TurismoQR.ObjetosTransmisionDatos.DTOCodigoQR;
 import TurismoQR.ObjetosTransmisionDatos.DTOImagen;
+import TurismoQR.ObjetosTransmisionDatos.DTOUsuario;
 import TurismoQR.Servicios.Idioma.IServicioIdioma;
 import TurismoQR.Traductores.ITraductor;
 import Utils.DetallesImagenResponse;
@@ -36,6 +36,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.fileupload.FileItem;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -113,10 +114,14 @@ public class CrearPuntoController {
             ModelMap modelo
         )
     {
+        DTOUsuario usuario = (DTOUsuario) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
         DTOIdioma idiomaPunto = new DTOIdioma();
         idiomaPunto.setNombreIdioma(idioma);
 
         DTOPunto dtoPunto = new DTOPunto();
+
+        dtoPunto.setUsuario(usuario);
 
         if(idPunto.equals("") || idPunto.isEmpty()) {
             idPunto = null;
@@ -147,7 +152,7 @@ public class CrearPuntoController {
 
         modelo.put("nombrePunto", nombrePunto);
         modelo.put("idPuntoGuardado", idPuntoGuardado);
-        
+
         return "Administracion/Punto/ConfirmacionGuardarPunto";
     }
 

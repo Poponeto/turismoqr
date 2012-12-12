@@ -14,7 +14,9 @@
     contenedorMapas : null,
     marcador : null,
     geocoder: null,
-
+    marcadorActual : null,
+    address : '',
+    fullBounds : new google.maps.LatLngBounds(),
 
     /**
      * Crea el mapa y setea valores iniciales a los elementos.
@@ -61,13 +63,14 @@
     },
 
     geocodeDireccion : function() {
-        var address = $('#direccionPunto').attr('value') 
-            + ',' + $('#alturaPunto').attr('value')
-            + ',' + $('#departamentoPunto').attr('value')
-            + ',' + $('#codigoPostalPunto').attr('value')
-            + ', Mendoza';
+        tqrmapas.address = '';
+
+        tqrmapas.formatearDireccion($('#direccionPunto').attr('value'));
+        tqrmapas.formatearDireccion($('#alturaPunto').attr('value'));
+        tqrmapas.formatearDireccion($('#departamentoPunto').attr('value'));
+        tqrmapas.formatearDireccion('Mendoza');
         
-        tqrmapas.geocoder.geocode( {'address': address}, function(results, status) {
+        tqrmapas.geocoder.geocode( {'address': tqrmapas.address}, function(results, status) {
           if (status == google.maps.GeocoderStatus.OK) {
             tqrmapas.mapa.setCenter(results[0].geometry.location);
             tqrmapas.marcador.setPosition(results[0].geometry.location);
@@ -75,6 +78,19 @@
             alert("No se pudo realizar la geocodificacion por las siquientes razones: " + status);
           }
         });
+      },
+
+      /**
+       * Formatea la direccion teniendo en cuenta si existe una coma o no anteriormente;
+       */
+      formatearDireccion : function(text) {
+          if(text != '') {
+              if(tqrmapas.address != '') {
+                  tqrmapas.address += ','+text;
+              } else {
+                  tqrmapas.address += text;
+              }
+          }
       },
     
     /**
@@ -88,7 +104,7 @@
             tqrmapas.posicionMapa = tqrmapas.crearPosicionMapa(position, "html");
             exito();
         }, function() {
-          tqrmapas.manejadorErrorGeo(browserSoportado);
+          tqrmapas.manejadorErrorGeo(tqrmapas.browserSoportado);
           exito();
         });
       } else if (google.gears) {
@@ -139,9 +155,8 @@
 
     /**
      * Crea el mapa que sera utiliza en la aplicacion
-     * @param contenedor Contenedor en el cual se alojara el mapa
      */
-    crearMapa : function() {
+    crearMapa : function(funcion) {
 
         var coordenadas = new google.maps.LatLng(tqrmapas.lat, tqrmapas.lng);
 
@@ -151,7 +166,12 @@
             mapTypeId: google.maps.MapTypeId.ROADMAP
         };
 
+        tqrmapas.mapa = null;
         tqrmapas.mapa = new google.maps.Map(document.getElementById(tqrmapas.contenedorMapas), opcionesMapa);
+        
+        if(funcion) {
+            funcion();
+        }
     },
 
     /**
@@ -183,12 +203,20 @@
 
         var latLong = new google.maps.LatLng(latitud, longitud);
 
+        tqrmapas.fullBounds.extend(latLong);
+
         tqrmapas.marcador = new google.maps.Marker({
 		    position: latLong,
 		    draggable: draggable,
 		    map: tqrmapas.mapa,
 		    title: titulo
 		});
+                
+        tqrmapas.marcadores.push(tqrmapas.marcador);
+
+        tqrmapas.mapa.fitBounds(tqrmapas.fullBounds);
+
+        tqrmapas.mapa.panTo(latLong);
 
         var infoWindow = new google.maps.InfoWindow({content : titulo});
 
@@ -226,6 +254,72 @@
 
     inicializarContenedor : function(idContenedor) {
         tqrmapas.contenedorMapas = idContenedor;
+    },
+
+    obtenerPuntosCercanos : function(pageContext, idPunto, latitud, longitud) {
+
+        var distanciaRadio = 3000;
+
+        $.mobile.showPageLoadingMsg();
+        $.ajax({
+            url : pageContext+"/buscarPunto/"+idPunto+"/"+distanciaRadio+"/puntosCercanos.htm",
+            success : function(data){
+                $.mobile.hidePageLoadingMsg();
+
+                var puntoActual = new google.maps.LatLng(latitud, longitud);
+
+                tqrmapas.inicializarContenedor('contenedorMapaCercanos');
+                tqrmapas.mapa = tqrmapas.crearMapa(function(){
+                    $.each($(data['rows']), function(){
+                        var puntoDatos = new google.maps.LatLng($(this).attr('latitud'), $(this).attr('longitud'));
+                        var distancia = google.maps.geometry.spherical.computeDistanceBetween(puntoActual, puntoDatos);
+
+                        if(distancia < distanciaRadio){
+                            tqrmapas.crearNuevoMarcador('', null, $(this).attr('latitud'), $(this).attr('longitud'), false);
+                        }
+
+                    });
+
+                    $.mobile.changePage('#puntosCercanos');
+                });
+            },
+            error : function() {
+                $.mobile.hidePageLoadingMsg();
+                alert('error');
+            }
+        });
+    },
+
+    obtenerPuntosRelacionados : function(pageContext, categoria) {
+
+        $.mobile.showPageLoadingMsg();
+        $.ajax({
+            url : pageContext+"/buscarPunto/"+categoria+"/obtenerInformacionTablaCategoria.htm",
+            success : function(data){
+                $.mobile.hidePageLoadingMsg();
+                
+                tqrmapas.inicializarContenedor('contenedorMapaRelacionados');
+                tqrmapas.crearMapa(function(){
+                    var listaRelacionados = $('#listaRelacionados');
+
+                    $.each($(data['rows']), function(){
+                        tqrmapas.crearNuevoMarcador('', null, $(this).attr('latitud'), $(this).attr('longitud'), false);
+                        listaRelacionados.append('<li><a href="javascript:tqrmapas.centrarMapa(\''+$(this).attr('latitud')+'\',\''+$(this).attr('longitud')+'\');">'+$(this).attr('nombreIdentificador')+'</a></li>');
+                    });
+
+                    $.mobile.changePage('#puntosRelacionados');
+                });
+            },
+            error : function() {
+                $.mobile.hidePageLoadingMsg();
+                alert('error');
+            }
+        });
+    },
+
+    centrarMapa : function(latitud, longitud) {
+        var latLong = new google.maps.LatLng(latitud, longitud);
+        tqrmapas.mapa.panTo(latLong);
     }
 };
 

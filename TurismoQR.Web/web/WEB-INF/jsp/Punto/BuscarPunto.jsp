@@ -32,9 +32,27 @@
 
 
                 $('#categoria').on('change', function(){
-                    var categoria = $(this).val();
-                    filtroCategoria(categoria, "${pageContext.request.contextPath}");
+                    aplicarFiltros();
                 });
+
+                $('#usuario').on('change', function(){
+                    aplicarFiltros();
+                });
+
+                function aplicarFiltros() {
+                    var categoria = $('#categoria').val();
+                    var usuario = $('#usuario').val();
+
+                    if(usuario != 'default' && categoria != 'default') {
+                        filtroCategoriaUsuario(categoria, usuario, "${pageContext.request.contextPath}");
+                    } else if (usuario != 'default' && categoria == 'default') {
+                        filtroUsuario(usuario, "${pageContext.request.contextPath}");
+                    } else if (usuario == 'default' && categoria != 'default') {
+                        filtroCategoria(categoria, usuario, "${pageContext.request.contextPath}");
+                    } else if(usuario == 'default' && categoria == 'default') {
+                        inicilizarTablaPuntos('${pageContext.request.contextPath}');
+                    }
+                }
             });
 
             $(window).load(function() {
@@ -58,9 +76,14 @@
             </div>
         </sec:authorize>
 
-        <div id="contenedorFiltro" style="width: 100%; margin-left: auto; margin-right: auto; height: auto;padding: 10px; font-family: Calibri,Calibri,Calibri; font-size: 1.2em;" >
-            Filtrar por: <br>
-            Categoria: <%@ include  file="/WEB-INF/jsp/Utils/ComboCategoria.jsp" %>
+        <div id="contenedorFiltro" style="margin-left: auto; margin-right: auto; height: auto;padding: 10px; font-family: Calibri,Calibri,Calibri; font-size: 1.2em;" >
+            <fieldset id="filtros">
+                <legend> Filtrar por: </legend>
+                Categoria: <%@ include  file="/WEB-INF/jsp/Utils/ComboCategoria.jsp" %>
+                <sec:authorize ifNotGranted="PERMISO_TURISTA">
+                    Usuario: <%@ include  file="/WEB-INF/jsp/Utils/ComboUsuarios.jsp" %>
+                </sec:authorize>
+            </fieldset>
         </div>
 
         <div id="contenedorMapa" style="width: 100%; margin-left: auto; margin-right: auto; height: 400px;" ></div>

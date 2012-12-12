@@ -5,7 +5,9 @@
 
 package TurismoQR.Servicios.Punto.ConsultasPunto;
 
+import TurismoQR.AccesoDatos.AccesoDatosPunto;
 import TurismoQR.AccesoDatos.IAccesoDatos;
+import TurismoQR.ObjetosNegocio.Punto.Localizacion;
 import TurismoQR.ObjetosNegocio.Punto.Punto;
 import java.util.Collection;
 
@@ -15,25 +17,19 @@ import java.util.Collection;
  */
 public class ConsultarPuntoZona implements IConsultaPunto{
 
-    private String latitudDesde;
-    private String latitudHasta;
-    private String longitudDesde;
-    private String longitudHasta;
-    private IAccesoDatos accesoDatos;
+    private Collection<Localizacion> localizaciones;
+    private AccesoDatosPunto accesoDatos;
 
-    public ConsultarPuntoZona(String latitudDesde, String latitudHasta, String longitudDesde, String longitudHasta, IAccesoDatos accesoDatos)
+    public ConsultarPuntoZona(Collection<Localizacion> localizaciones, AccesoDatosPunto accesoDatos)
     {
-        this.latitudDesde = latitudDesde;
-        this.latitudHasta = latitudHasta;
-        this.longitudDesde = longitudDesde;
-        this.longitudHasta = longitudHasta;
+        this.localizaciones = localizaciones;
         this.accesoDatos = accesoDatos;
     }
     
 
     public Collection<Punto> ejecutarConsulta()
     {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return accesoDatos.buscarPuntoPorZona(this.localizaciones);
     }
 
 }

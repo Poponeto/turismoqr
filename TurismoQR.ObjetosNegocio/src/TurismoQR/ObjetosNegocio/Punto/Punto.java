@@ -6,6 +6,7 @@ import TurismoQR.ObjetosNegocio.Informacion.Imagen;
 import TurismoQR.ObjetosNegocio.Informacion.Informacion;
 import TurismoQR.ObjetosNegocio.Estados.Estado;
 import TurismoQR.ObjetosNegocio.IObjetoNegocio;
+import TurismoQR.ObjetosNegocio.Usuarios.Usuario;
 import java.util.Collection;
 
 public class Punto implements IObjetoNegocio
@@ -16,6 +17,15 @@ public class Punto implements IObjetoNegocio
     private Informacion informacion;
     private Collection<Imagen> imagenes;
     private Ciclo ciclo;
+    private Usuario usuario;
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
 
     public Ciclo getCiclo()
     {

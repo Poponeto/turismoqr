@@ -4,8 +4,8 @@
  */
 package TurismoQR.Servicios.Punto;
 
+import TurismoQR.AccesoDatos.AccesoDatosLocalizacion;
 import TurismoQR.AccesoDatos.AccesoDatosPunto;
-import TurismoQR.AccesoDatos.IAccesoDatos;
 import TurismoQR.ObjetosNegocio.Informacion.Imagen;
 import TurismoQR.ObjetosNegocio.Informacion.Informacion;
 import TurismoQR.ObjetosNegocio.Informacion.InformacionEnIdioma;
@@ -21,9 +21,15 @@ import TurismoQR.Manejadores.GeneradorCodigo.GeneradorCodigoQR;
 import TurismoQR.Manejadores.ManejadorCategoria.ManejadorCategoria;
 import TurismoQR.Manejadores.ManejadorEstados.ManejadorEstados;
 import TurismoQR.Manejadores.ManejadorIdiomas.ManejadorIdiomas;
+import TurismoQR.Manejadores.ManejadorLogin.ManejadorLogin;
 import TurismoQR.ObjetosNegocio.Categorias.Categoria;
 import TurismoQR.ObjetosNegocio.Estados.Ciclo;
+import TurismoQR.ObjetosNegocio.Punto.Localizacion;
+import TurismoQR.ObjetosNegocio.Usuarios.Usuario;
 import TurismoQR.ObjetosTransmisionDatos.DTOCategoria;
+import TurismoQR.ObjetosTransmisionDatos.DTOLocalizacion;
+import TurismoQR.Servicios.Punto.ConsultasPunto.ConsultarPuntoUsuario;
+import TurismoQR.Servicios.Punto.ConsultasPunto.ConsultarPuntoUsuarioCategoria;
 import TurismoQR.Servicios.Punto.ConsultasPunto.ConsultarPuntosCategoria;
 import TurismoQR.Traductores.ITraductor;
 import java.util.ArrayList;
@@ -44,21 +50,31 @@ public class ServicioPunto extends ServicioPuntoBase implements IServicioPunto
 {
 
     private AccesoDatosPunto accesoDatos;
+    private AccesoDatosLocalizacion accesoDatosLocalizacion;
     private GeneradorCodigoQR generadorCodigo;
     private ManejadorCategoria manejadorCategoria;
+    private ManejadorLogin manejadorLogin;
+
+    private final double longitudEcuador = 40075004;
+    private final double longitudGreenwich =  40007000;
+    private double distanciaCercania =  3000;
 
     @Autowired
     public ServicioPunto(ManejadorIdiomas manejadorIdioma,
             ManejadorEstados manejadorEstado,
             ManejadorCategoria manejadorCategoria,
+            ManejadorLogin manejadorLogin,
             AccesoDatosPunto accesoDatos,
+            AccesoDatosLocalizacion accesoDatosLocalizacion,
             ITraductor traductor,
             GeneradorCodigoQR generadorCodigo)
     {
         super(manejadorIdioma, traductor, manejadorEstado);
 
         this.accesoDatos = accesoDatos;
+        this.accesoDatosLocalizacion = accesoDatosLocalizacion;
         this.generadorCodigo = generadorCodigo;
+        this.manejadorLogin = manejadorLogin;
         this.manejadorCategoria = manejadorCategoria;
     }
 
@@ -79,6 +95,8 @@ public class ServicioPunto extends ServicioPuntoBase implements IServicioPunto
         nuevoPuntoDeInteres.setNombre(datosPunto.getNombrePunto());
 
         nuevoPuntoDeInteres.setCiclo(new Ciclo());
+
+        nuevoPuntoDeInteres.setUsuario(manejadorLogin.cargarUsuario(datosPunto.getUsuario().getNombreUsuario()));
 
         //Setea el estado del punto a habilitado
         nuevoPuntoDeInteres.setEstado(Ciclo.crearEstado(Ciclo.HABILITADO));
@@ -146,16 +164,16 @@ public class ServicioPunto extends ServicioPuntoBase implements IServicioPunto
         return dtoCodigoQR;
     }
 
-    public Collection<DTOPunto> ConsultarPuntosInteresZona(
-            String latitudDesde,
-            String latitudHasta,
-            String longitudDesde,
-            String longitudHasta,
-            String nombreIdioma)
-    {
-        IConsultaPunto consultaPunto = new ConsultarPuntoZona(latitudDesde, latitudHasta, longitudDesde, longitudHasta, accesoDatos);
-        return ConsultarPuntoInteresBase(consultaPunto, nombreIdioma);
-    }
+//    public Collection<DTOPunto> ConsultarPuntosInteresZona(
+//            String latitudDesde,
+//            String latitudHasta,
+//            String longitudDesde,
+//            String longitudHasta,
+//            String nombreIdioma)
+//    {
+//        IConsultaPunto consultaPunto = new ConsultarPuntoZona(latitudDesde, latitudHasta, longitudDesde, longitudHasta, accesoDatos);
+//        return ConsultarPuntoInteresBase(consultaPunto, nombreIdioma);
+//    }
 
     public Collection<DTOPunto> ConsultarPuntosDeInteres(String nombreIdioma)
     {
@@ -163,10 +181,43 @@ public class ServicioPunto extends ServicioPuntoBase implements IServicioPunto
         return ConsultarPuntoInteresBase(consultaPunto, nombreIdioma);
     }
 
+    public Collection<DTOPunto> ConsultarPuntosDeInteresPorUsuario(String nombreUsuario, String nombreIdioma)
+    {
+        Usuario usuario = manejadorLogin.cargarUsuario(nombreUsuario);
+        IConsultaPunto consultaPunto = new ConsultarPuntoUsuario(accesoDatos, usuario);
+        return ConsultarPuntoInteresBase(consultaPunto, nombreIdioma);
+    }
+
+    public Collection<DTOPunto> ConsultarPuntosDeInteresPorUsuarioCategoria(String nombreUsuario, String nombreCategoria, String nombreIdioma)
+    {
+        Usuario usuario = manejadorLogin.cargarUsuario(nombreUsuario);
+        Categoria categoria = manejadorCategoria.obtenerCategoria(nombreCategoria);
+        IConsultaPunto consultaPunto = new ConsultarPuntoUsuarioCategoria(accesoDatos, usuario, categoria);
+        return ConsultarPuntoInteresBase(consultaPunto, nombreIdioma);
+    }
+
     public Collection<DTOPunto> ConsultarPuntosDeInteresCategoria(String categoria, String nombreIdioma)
     {
         Categoria categoriaObject = getTraductor().traducir(this.obtenerDTOCategoria(categoria));
         IConsultaPunto consultaPunto = new ConsultarPuntosCategoria(categoriaObject, accesoDatos);
+        return ConsultarPuntoInteresBase(consultaPunto, nombreIdioma);
+    }
+
+    public Collection<DTOPunto> ConsultarPuntosDeInteresZona(DTOLocalizacion localizacion, double distanciaRadio, String nombreIdioma)
+    {
+        this.distanciaCercania = distanciaRadio;
+
+        ArrayList<DTOLocalizacion> desdeHasta = (ArrayList<DTOLocalizacion>)obtenerDistanciaEnGrados(localizacion);
+
+        Collection<Localizacion> localizaciones = accesoDatosLocalizacion
+                .buscarRangoLocalizacion(
+                getTraductor().traducir(desdeHasta.get(0)),
+                getTraductor().traducir(desdeHasta.get(1)));
+
+        IConsultaPunto consultaPunto = new ConsultarPuntoZona(
+                localizaciones,
+                accesoDatos);
+
         return ConsultarPuntoInteresBase(consultaPunto, nombreIdioma);
     }
 
@@ -213,6 +264,54 @@ public class ServicioPunto extends ServicioPuntoBase implements IServicioPunto
        DTOCategoria dtoCategoria = (DTOCategoria) getTraductor().traducir(categoria);
 
        return dtoCategoria;
+    }
+
+    private Collection<DTOLocalizacion> obtenerDistanciaEnGrados(DTOLocalizacion localizacionLugar)
+    {
+
+        Collection<DTOLocalizacion> desdeHasta = new ArrayList<DTOLocalizacion>();
+
+        double gradosEnLatitud = distanciaCercania/(longitudGreenwich/360);
+        double gradosEnLongitud = distanciaCercania/(obtenerLongitudDelParalelo(Double.parseDouble(localizacionLugar.getLatitud())) / 360);
+
+        //Obtiene la diferencia numérica en grados
+//        double diferenciaLatitudGradual = Long.parseLong(localizacionLugar.getLatitud()) - Long.parseLong(localizacionLugarPosible.getLatitud());
+//        double diferenciaLongitudGradual = Long.parseLong(localizacionLugar.getLongitud()) - Long.parseLong(localizacionLugarPosible.getLongitud());
+
+        //Diferencias numéricas, se calcula la longitud de un grado como la longitud del paralelo/meridiano
+        //sobre los 360 grados que tiene el círculo que lo contiene
+//        double diferenciaLatitudNumerica = diferenciaLatitudGradual * longitudGreenwich / 360;
+        
+        //La longitud del paralelo varia con la latitud
+//        double diferenciaLongitudNumerica = diferenciaLongitudGradual * obtenerLongitudDelParalelo(Long.parseLong(localizacionLugar.getLatitud())) / 360;
+
+        //Calcula las distancia por pitagoras (en metros)
+//        double distanciaEntrePuntos = Math.sqrt(Math.pow(diferenciaLatitudNumerica,2) + Math.pow(diferenciaLongitudNumerica,2));
+
+        DTOLocalizacion desde = new DTOLocalizacion();
+        desde.setLatitud(String.valueOf(Double.parseDouble(localizacionLugar.getLatitud()) - gradosEnLatitud));
+        desde.setLongitud(String.valueOf(Double.parseDouble(localizacionLugar.getLongitud()) - gradosEnLongitud));
+        desdeHasta.add(desde);
+
+        DTOLocalizacion hasta = new DTOLocalizacion();
+        hasta.setLatitud(String.valueOf(Double.parseDouble(localizacionLugar.getLatitud()) + gradosEnLatitud));
+        hasta.setLongitud(String.valueOf(Double.parseDouble(localizacionLugar.getLongitud()) + gradosEnLongitud));
+        desdeHasta.add(hasta);
+
+        return desdeHasta;
+    }
+
+    /**
+     * Calcula la longitud del paralelo de latitud especificada
+     * @param latitud
+     * @return Longitud del paralelo
+     */
+    private double obtenerLongitudDelParalelo(double latitud) {
+
+        //Calcula la longitud del paralelo por medio de calculos trigonometricos respecto a la longitud del ecuador, y los angulos correspondientes
+        double longitudParalelo = (Math.sin(Math.PI/2 - (Math.abs(latitud)* Math.PI/ 180)) * longitudEcuador) ;
+        return longitudParalelo;
+
     }
     
 }

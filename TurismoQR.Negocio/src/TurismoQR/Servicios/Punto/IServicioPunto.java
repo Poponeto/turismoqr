@@ -7,6 +7,7 @@ package TurismoQR.Servicios.Punto;
 
 import TurismoQR.ObjetosTransmisionDatos.DTOCategoria;
 import TurismoQR.ObjetosTransmisionDatos.DTOCodigoQR;
+import TurismoQR.ObjetosTransmisionDatos.DTOLocalizacion;
 import TurismoQR.ObjetosTransmisionDatos.DTOPunto;
 import java.util.Collection;
 import java.util.List;
@@ -16,13 +17,6 @@ import java.util.List;
  * @author Federico
  */
 public interface IServicioPunto {
-
-    public Collection<DTOPunto> ConsultarPuntosInteresZona(
-            String latitudDesde,
-            String latitudHasta,
-            String longitudDesde,
-            String longitudHasta,
-            String nombreIdioma);
     public Collection<DTOPunto> ConsultarPuntosDeInteres(String nombreIdioma);
     public DTOPunto ConsultarPuntoInteres(String idPuntoInteres, String nombreIdioma);
     public String CrearPuntoInteres(DTOPunto dtoPunto, String nombreIdioma);
@@ -31,4 +25,7 @@ public interface IServicioPunto {
     public List<DTOCategoria> obtenerCategoriasPunto();
     public DTOCategoria obtenerDTOCategoria(String nombreCategoria);
     public Collection<DTOPunto> ConsultarPuntosDeInteresCategoria(String idCategoria, String nombreIdioma);
+    public Collection<DTOPunto> ConsultarPuntosDeInteresZona(DTOLocalizacion localizacion, double distanciaRadio, String nombreIdioma);
+    public Collection<DTOPunto> ConsultarPuntosDeInteresPorUsuario(String nombreUsuario, String nombreIdioma);
+    public Collection<DTOPunto> ConsultarPuntosDeInteresPorUsuarioCategoria(String nombreUsuario, String nombreCategoria, String nombreIdioma);
 }

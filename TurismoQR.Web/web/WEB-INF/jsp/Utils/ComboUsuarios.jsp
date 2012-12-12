@@ -1,4 +1,4 @@
-<%-- 
+<%--
     Document   : ComboCategoria
     Created on : 15/11/2012, 22:08:44
     Author     : Chelo
@@ -11,15 +11,12 @@
 
 
 <div style="display: inline-block;" >
-    <select id="categoria" name="categoria" size="1" >
+    <select id="usuario" name="usuario" size="1" >
         <option value="default">
-            Seleccione una categoria
+            Todos
         </option>
-        <core:forEach var="categoria" items="${categorias}">
-            <option value="<core:out value="${categoria.nombreCategoria}" />">
-                <core:out value="${categoria.nombreCategoria}" />
-            </option>
-        </core:forEach>
+        <option value="1">
+            Propios
+        </option>
     </select>
 </div>
-

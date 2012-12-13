@@ -15,6 +15,7 @@
 
         <%@ include file="/WEB-INF/jsp/Utils/ArchivosJQuery.html" %>
         <%@ include file="/WEB-INF/jsp/Utils/ArchivosError.html" %>
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/Vistas/HojasDeEstilo/Fieldset.css">
 
         <script type="text/javascript" >
             $(document).ready(function(){

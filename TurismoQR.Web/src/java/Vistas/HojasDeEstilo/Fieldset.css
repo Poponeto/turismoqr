@@ -1,0 +1,31 @@
+/* 
+    Document   : Fieldset
+    Created on : Dec 13, 2012, 10:23:38 AM
+    Author     : ftacchini
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/* 
+   TODO customize this sample style
+   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
+*/
+
+fieldset {
+    display: block;
+    -webkit-margin-start: 2px;
+    -webkit-margin-end: 2px;
+    -webkit-padding-before: 0.35em;
+    -webkit-padding-start: 0.75em;
+    -webkit-padding-end: 0.75em;
+    -webkit-padding-after: 0.625em;
+    border: 2px groove threedface;
+    border-image: initial;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+legend {
+    width: initial;
+    margin-bottom: initial;
+    border-bottom: initial;
+}

@@ -23,6 +23,7 @@
         <link rel="stylesheet" href="http://blueimp.github.com/cdn/css/bootstrap-responsive.min.css">
         <!--[if lt IE 7]><link rel="stylesheet" href="http://blueimp.github.com/cdn/css/bootstrap-ie6.min.css"><![endif]-->
         <link rel="stylesheet" href="http://blueimp.github.com/Bootstrap-Image-Gallery/css/bootstrap-image-gallery.min.css">
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/Vistas/HojasDeEstilo/Fieldset.css">
 
 
         <script type="text/javascript">
@@ -42,24 +43,6 @@
                 display: block;
                 margin-left: auto;
                 margin-right: auto;
-            }
-            fieldset {
-                display: block;
-                -webkit-margin-start: 2px;
-                -webkit-margin-end: 2px;
-                -webkit-padding-before: 0.35em;
-                -webkit-padding-start: 0.75em;
-                -webkit-padding-end: 0.75em;
-                -webkit-padding-after: 0.625em;
-                border: 2px groove threedface;
-                border-image: initial;
-                border-radius: 10px;
-                margin-bottom: 10px;
-            }
-            legend {
-                width: initial;
-                margin-bottom: initial;
-                border-bottom: initial;
             }
         </style>
     </head>

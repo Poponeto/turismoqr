@@ -19,6 +19,13 @@
         <script type="text/javascript" src="${pageContext.request.contextPath}/Vistas/JavaScript/DatosContacto.js"></script>
         <script type="text/javascript" src="${pageContext.request.contextPath}/Vistas/JavaScript/InformacionPersonal.js"></script>
 
+        <link rel="stylesheet" href="http://blueimp.github.com/cdn/css/bootstrap.min.css">
+        <link rel="stylesheet" href="http://blueimp.github.com/cdn/css/bootstrap-responsive.min.css">
+        <!--[if lt IE 7]><link rel="stylesheet" href="http://blueimp.github.com/cdn/css/bootstrap-ie6.min.css"><![endif]-->
+        <link rel="stylesheet" href="http://blueimp.github.com/Bootstrap-Image-Gallery/css/bootstrap-image-gallery.min.css">
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/Vistas/HojasDeEstilo/Fieldset.css">
+
+
         <script type="text/javascript">
 
             $(document).ready(function(){
@@ -38,10 +45,14 @@
     <body>
         <%@ include  file="/WEB-INF/jsp/Utils/Cabecera.jsp" %>
 
+        <div id="contenedorMenu" class="ui-widget-header">
+            <%@ include  file="/WEB-INF/jsp/Utils/MenuCabecera.jsp" %>
+        </div>
+
         <div id="Contenedor">
 
             <div>
-                <button id="botonEditar">Editar</button>
+                <button id="botonGuardar">Guardar</button>
             </div>
 
             <div id="Contenido" style="padding: 30px;">
@@ -54,6 +65,7 @@
 
                 <div>
                     <button id="botonActualizar">Actualizar Informacion Personal</button>
+                    <button id="botonCambiarContrasenia">Cambiar Contraseña</button>
                 </div>
 
 

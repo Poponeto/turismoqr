@@ -4,11 +4,17 @@
  */
 var tqrformnav = {
     forms : new Array(),
+    requestContext : '',
+    errorVerificacion : false,
 
     init : function(forms) {
         forms.each(function(){
             tqrformnav.forms.push($(this).attr('id'));
         });
+    },
+
+    initRequestContext : function(requestContext) {
+        tqrformnav.requestContext = requestContext;
     },
 
     anterior : function(form) {
@@ -62,21 +68,55 @@ var tqrformnav = {
 
 
     validarFormularios : function (callback) {
-        var inputsVisibles = $('fieldset:visible :input');
         var inputsVacios = false;
 
-        inputsVisibles.each(function(){
-            if($(this).attr('required') != undefined
-                && ($(this).attr('value') == '' && $(this).text() == '')) {
+        var fieldsetVisible = $('fieldset:visible');
+
+        if(fieldsetVisible.attr('id') == 'camposInformacionPunto'){
+            if($('#nombrePunto').val() == ''){
+                $('#nombrePuntoError').text('No puedes dejar este campo vacio');
+                $('#nombrePuntoError').show(1000);
+
+                $('#esperaVerificacion').css('display', 'none');
+
                 inputsVacios = true;
             }
-        });
 
-        if(inputsVacios){
-            alert('Por favor, llena todos los campos requeridos antes de continuar');
-        } else {
-            callback();
+            if($('#categoria').val() == 'default'){
+                $('#categoriaPuntoError').text('Debes seleccionar una categoria');
+                $('#categoriaPuntoError').show(1000);
+
+                inputsVacios = true;
+            }
+
+            if(!inputsVacios){
+//            alert('Por favor, llena todos los campos requeridos antes de continuar');
+//        } else {
+                callback();
+            }
         }
+
+        if(fieldsetVisible.attr('id') == 'camposLocalizacionPunto'){
+            verificarPuntoPorLocalizacion(tqrformnav.requestContext, $('#latitudValue').text(), $('#longitudValue').text(), function(){
+                if(!tqrformnav.errorVerificacion){
+    //            alert('Por favor, llena todos los campos requeridos antes de continuar');
+    //        } else {
+                    callback();
+                }
+            });
+
+            
+        }
+
+//        var inputsVisibles = $('fieldset:visible :input');
+//        var inputsVacios = false;
+
+//        inputsVisibles.each(function(){
+//            if($(this).attr('required') != undefined
+//                && ($(this).attr('value') == '' && $(this).text() == '')) {
+//                inputsVacios = true;
+//            }
+//        });
     }
 };
 

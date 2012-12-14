@@ -48,9 +48,14 @@
             Latitud: <div id="latitudValue">${punto.localizacion.latitud}</div><input type="text" id="latitudPunto" name="latitudPunto" style="display:none" required="true" value="${punto.localizacion.latitud}"/>
         </label>
         <br>
-        <label for="informacionPunto">
+        <label for="longitudPunto">
             Longitud: <div id="longitudValue">${punto.localizacion.longitud}</div><input type="text" id="longitudPunto" name="longitudPunto" style="display:none" required="true" value="${punto.localizacion.longitud}"/>
         </label>
+        <div id="esperaVerificacionLocalizacion" style="display:none;">
+            <img src="${pageContext.request.contextPath}/Vistas/Imagenes/loading.gif" style="height : 20px;"/>
+        </div>
+        <div id="localizacionPuntoError" style="display:none; border: 1px solid black; padding: 2px; color: white; background: red; text-align: center;">
+        </div>
         <br>
     </div>
     <div>

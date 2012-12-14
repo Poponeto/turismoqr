@@ -6,6 +6,8 @@
  var tqrmapas = {
 
     mapa : null,
+    mapaCercanos : null,
+    mapaRelacionados : null,
     marcadores : [],
     lat : null,
     lng : null,
@@ -153,10 +155,15 @@
         return ubicacion;
     },
 
+
+    crearMapa : function(funcion) {
+        tqrmapas.mapa = tqrmapas.crearInstanciaMapa(funcion);
+    },
+
     /**
      * Crea el mapa que sera utiliza en la aplicacion
      */
-    crearMapa : function(funcion) {
+    crearInstanciaMapa : function(funcion) {
 
         var coordenadas = new google.maps.LatLng(tqrmapas.lat, tqrmapas.lng);
 
@@ -166,12 +173,13 @@
             mapTypeId: google.maps.MapTypeId.ROADMAP
         };
 
-        tqrmapas.mapa = null;
-        tqrmapas.mapa = new google.maps.Map(document.getElementById(tqrmapas.contenedorMapas), opcionesMapa);
+        var mapa = new google.maps.Map(document.getElementById(tqrmapas.contenedorMapas), opcionesMapa);
         
-        if(funcion) {
-            funcion();
-        }
+//        if(funcion) {
+//            funcion();
+//        }
+
+        return mapa;
     },
 
     /**
@@ -190,7 +198,7 @@
      * @param titulo Titulo del nuevo marcador
      * @param draggable Define si el marcador es arrastrable
      */
-    crearNuevoMarcador : function(titulo, funcion, latitud, longitud, draggable) {
+    crearNuevoMarcador : function(titulo, funcion, latitud, longitud, draggable, mapa) {
 
         if(latitud == null && longitud == null) {
             latitud = tqrmapas.lat;
@@ -201,22 +209,26 @@
             draggable = true;
         }
 
+        if(!mapa) {
+            mapa = tqrmapas.mapa;
+        }
+
         var latLong = new google.maps.LatLng(latitud, longitud);
 
-        tqrmapas.fullBounds.extend(latLong);
+//        tqrmapas.fullBounds.extend(latLong);
 
         tqrmapas.marcador = new google.maps.Marker({
 		    position: latLong,
 		    draggable: draggable,
-		    map: tqrmapas.mapa,
+		    map: mapa,
 		    title: titulo
 		});
                 
         tqrmapas.marcadores.push(tqrmapas.marcador);
 
-        tqrmapas.mapa.fitBounds(tqrmapas.fullBounds);
+//        mapa.fitBounds(tqrmapas.fullBounds);
 
-        tqrmapas.mapa.panTo(latLong);
+        mapa.panTo(latLong);
 
         var infoWindow = new google.maps.InfoWindow({content : titulo});
 
@@ -269,19 +281,18 @@
                 var puntoActual = new google.maps.LatLng(latitud, longitud);
 
                 tqrmapas.inicializarContenedor('contenedorMapaCercanos');
-                tqrmapas.mapa = tqrmapas.crearMapa(function(){
-                    $.each($(data['rows']), function(){
-                        var puntoDatos = new google.maps.LatLng($(this).attr('latitud'), $(this).attr('longitud'));
-                        var distancia = google.maps.geometry.spherical.computeDistanceBetween(puntoActual, puntoDatos);
+                tqrmapas.mapaCercanos = tqrmapas.crearInstanciaMapa();
 
-                        if(distancia < distanciaRadio){
-                            tqrmapas.crearNuevoMarcador('', null, $(this).attr('latitud'), $(this).attr('longitud'), false);
-                        }
+                $.each($(data['rows']), function(){
+                    var puntoDatos = new google.maps.LatLng($(this).attr('latitud'), $(this).attr('longitud'));
+                    var distancia = google.maps.geometry.spherical.computeDistanceBetween(puntoActual, puntoDatos);
 
-                    });
-
-                    $.mobile.changePage('#puntosCercanos');
+                    if(distancia < distanciaRadio){
+                        tqrmapas.crearNuevoMarcador('', null, $(this).attr('latitud'), $(this).attr('longitud'), false, tqrmapas.mapaCercanos);
+                    }
                 });
+
+                $.mobile.changePage('#puntosCercanos');
             },
             error : function() {
                 $.mobile.hidePageLoadingMsg();
@@ -299,16 +310,16 @@
                 $.mobile.hidePageLoadingMsg();
                 
                 tqrmapas.inicializarContenedor('contenedorMapaRelacionados');
-                tqrmapas.crearMapa(function(){
-                    var listaRelacionados = $('#listaRelacionados');
+                tqrmapas.mapaRelacionados = tqrmapas.crearInstanciaMapa();
 
-                    $.each($(data['rows']), function(){
-                        tqrmapas.crearNuevoMarcador('', null, $(this).attr('latitud'), $(this).attr('longitud'), false);
-                        listaRelacionados.append('<li><a href="javascript:tqrmapas.centrarMapa(\''+$(this).attr('latitud')+'\',\''+$(this).attr('longitud')+'\');">'+$(this).attr('nombreIdentificador')+'</a></li>');
-                    });
+                var listaRelacionados = $('#listaRelacionados');
 
-                    $.mobile.changePage('#puntosRelacionados');
+                $.each($(data['rows']), function(){
+                    tqrmapas.crearNuevoMarcador('', null, $(this).attr('latitud'), $(this).attr('longitud'), false, tqrmapas.mapaRelacionados);
+                    listaRelacionados.append('<li><a href="javascript:tqrmapas.centrarMapa(\''+$(this).attr('latitud')+'\',\''+$(this).attr('longitud')+'\');">'+$(this).attr('nombreIdentificador')+'</a></li>');
                 });
+
+                $.mobile.changePage('#puntosRelacionados');
             },
             error : function() {
                 $.mobile.hidePageLoadingMsg();
@@ -319,7 +330,7 @@
 
     centrarMapa : function(latitud, longitud) {
         var latLong = new google.maps.LatLng(latitud, longitud);
-        tqrmapas.mapa.panTo(latLong);
+        tqrmapas.mapaRelacionados.panTo(latLong);
     }
 };
 

@@ -318,4 +318,52 @@ public class CrearPuntoController {
 
         return detallesOperacion;
     }
+
+    @RequestMapping("/{nombrePunto}/verificarPuntoPorNombre.htm")
+    public @ResponseBody DetallesImagenResponse handleRequestVerificarPuntoNombre(
+            @PathVariable("nombrePunto") String nombrePunto,
+            HttpServletResponse response) {
+
+        DetallesImagenResponse detallesOperacion = new DetallesImagenResponse();
+
+        DTOPunto punto = servicioPunto.ConsultarPuntosDeInteresPorNombre(nombrePunto, "espanol");
+
+        if(punto.getIdPunto() != null){
+            detallesOperacion.setEstadoOperacion("ERROR");
+            detallesOperacion.setMensaje("Ya existe un punto registrado con este nombre");
+
+            response.setStatus(200);
+        }
+
+        response.setContentType("application/json");
+        
+        return detallesOperacion;
+    }
+
+    @RequestMapping(value = "/verificarPuntoPorLocalizacion.htm", method = RequestMethod.POST)
+    public @ResponseBody DetallesImagenResponse handleRequestVerificarPuntoLocalizacion(
+            @RequestParam("latitud") String latitudPunto,
+            @RequestParam("longitud") String longitudPunto,
+            HttpServletResponse response) {
+
+        DetallesImagenResponse detallesOperacion = new DetallesImagenResponse();
+
+        DTOLocalizacion localizacion = new DTOLocalizacion();
+
+        localizacion.setLatitud(latitudPunto);
+        localizacion.setLongitud(longitudPunto);
+
+        DTOPunto punto = servicioPunto.ConsultarPuntosDeInteresPorLocalizacion(localizacion, "espanol");
+
+        if(punto.getIdPunto() != null){
+            detallesOperacion.setEstadoOperacion("ERROR");
+            detallesOperacion.setMensaje("Ya existe un punto registrado en esta localizacion");
+
+            response.setStatus(200);
+        }
+
+        response.setContentType("application/json");
+
+        return detallesOperacion;
+    }
 }

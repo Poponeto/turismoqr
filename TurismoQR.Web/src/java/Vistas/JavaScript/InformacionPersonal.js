@@ -3,18 +3,53 @@
  * and open the template in the editor.
  */
 
+function inicializarComponentesInformacionUsuario(nombreUsuario, urlBase)
+{
+    inicializarComponentesInformacionPersonal(nombreUsuario, urlBase);
+}
 
-function inicializarComponentesInformacionPersonal(tipoCliente, urlBase)
+
+function inicializarComponentesInformacionPersonal(nombreUsuario, urlBase)
 {
 
-    $("#botonActualizar").click(function(){
-        actualizarInformacionPersonal(tipoCliente, urlBase);
-        return false;
+    $("#popUpFormularioCambioContrasenia").dialog({
+        autoOpen: false,
+        width: '50%',
+        buttons: {
+            "Cancelar": function() {
+                $('#Contenedor').css('opacity','1');
+                $(this).dialog("close");
+            },
+            "Confirmar": function() {
+
+                actualizarContraseña(urlBase);
+            }
+        },
+        title: 'Cambiar Contraseña.'
     });
+
+    $("#nombreUsuario").val(nombreUsuario);
+    $("#nombreUsuario").attr('disabled','disabled');
+    $("#botonGuardarNombreUsuario").hide();
+
+    $("#botonCambiarContrasenia").click(function(){
+        $("#popUpFormularioCambioContrasenia").dialog('open');
+
+    });
+
+    $("#botonCambiarNombreUsuario").click(function(){
+        $("#nombreUsuario").removeAttr('disabled');
+        $("#botonGuardarNombreUsuario").show();
+    });
+
+    $("#botonGuardarNombreUsuario").click(function(){
+       //ajax function to save user name
+    });
+    
 
 }
 
-function actualizarInformacionPersonal(tipoCliente, urlBase)
+function actualizarInformacionPersonalCliente(tipoCliente, urlBase)
 {
     if (hayErrores())
     {

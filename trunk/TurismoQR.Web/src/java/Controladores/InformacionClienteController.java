@@ -16,6 +16,8 @@ import java.util.HashSet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -47,20 +49,30 @@ public class InformacionClienteController
     }
 
     @RequestMapping(value = "/informacionPersonal.htm", method = RequestMethod.GET)
-    public String paginaInformacionPersonal(ModelMap model, Principal principal)
+    public String paginaInformacionPersonal(ModelMap model)
     {
-        DTOCliente dtoCliente = servicioCliente.obtenerDatosClienteDeUsuario(principal.getName());
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        UserDetails userDetails = null;
+        if (principal instanceof UserDetails) {
+            userDetails = (UserDetails) principal;
+        }
+
+        String nombreUsuario = userDetails.getUsername();
+
+        DTOCliente dtoCliente = servicioCliente.obtenerDatosClienteDeUsuario(nombreUsuario);
 
         if(dtoCliente instanceof DTOPersona)
         {
+            model.put("formularioCliente", RegistroClienteController.generarURLFormularioPersona());
             model.put("tipoCliente", "Persona");
         }
         else
         {
+            model.put("formularioCliente", RegistroClienteController.generarURLFormularioEmpresa());
             model.put("tipoCliente", "Empresa");
         }
 
-        model.put("nombreUsuario", principal.getName());
+        model.put("nombreUsuario", nombreUsuario);
         model.put("esCliente", true);
         
         return "Administracion/Usuario/InformacionPersonalCliente";

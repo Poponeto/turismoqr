@@ -66,13 +66,11 @@
         <property name="accessDecisionManager" ref="accesoPorConcensoUnanime"/>
         <property name="securityMetadataSource">
             <security:filter-security-metadata-source>
-                <security:intercept-url pattern="/administracion/usuario/cambiarContrasenia.htm" access="PERMISO_TURISTA"/>
+                <security:intercept-url pattern="/administracion/usuario/informacionPersonal.htm" access="PERMISO_CLIENTE"/>
+                <security:intercept-url pattern="/administracion/cliente/informacionPersonal.htm" access="PERMISO_CLIENTE"/>
                 <security:intercept-url pattern="/administracion/cliente/**" access="PERMISO_ADMINISTRADOR"/>
                 <security:intercept-url pattern="/administracion/usuario/**" access="PERMISO_ADMINISTRADOR"/>
                 <security:intercept-url pattern="/administracion/**" access="PERMISO_CLIENTE"/>
-                <security:intercept-url pattern="/punto/**" access="PERMISO_TURISTA"/>
-                <security:intercept-url pattern="/usuario/**" access="PERMISO_TURISTA"/>
-                <security:intercept-url pattern="/cliente/**" access="PERMISO_TURISTA"/>
                 <!--security:intercept-url pattern="/home.htm" access="PERMISO_TURISTA, PERMISO_ADMINISTRADOR"/-->
                 <!--security:intercept-url pattern="/**" access="denyAll"/-->
             </security:filter-security-metadata-source>

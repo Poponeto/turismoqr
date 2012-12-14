@@ -40,4 +40,16 @@ public class AccesoDatosLocalizacion extends AccesoDatos {
         return BuscarConjuntoObjetos(criterioDeBusqueda);
     }
 
+    public Localizacion buscarLocalizacion(String latitud, String longitud)
+    {
+        DetachedCriteria criterioDeBusqueda = DetachedCriteria.forClass(Localizacion.class);
+        //DetachedCriteria buscarPorNombreDeIdioma = criterioDeBusqueda.createCriteria("BuscarIdiomaPorNombre");
+
+        criterioDeBusqueda
+                .add(Restrictions.eq("latitud", latitud))
+                .add(Restrictions.eq("longitud", longitud));
+
+        return BuscarObjeto(criterioDeBusqueda);
+    }
+
 }

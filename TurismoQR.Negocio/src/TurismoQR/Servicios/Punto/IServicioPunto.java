@@ -28,4 +28,6 @@ public interface IServicioPunto {
     public Collection<DTOPunto> ConsultarPuntosDeInteresZona(DTOLocalizacion localizacion, double distanciaRadio, String nombreIdioma);
     public Collection<DTOPunto> ConsultarPuntosDeInteresPorUsuario(String nombreUsuario, String nombreIdioma);
     public Collection<DTOPunto> ConsultarPuntosDeInteresPorUsuarioCategoria(String nombreUsuario, String nombreCategoria, String nombreIdioma);
+    public DTOPunto ConsultarPuntosDeInteresPorNombre(String nombrePunto, String nombreIdioma);
+    public DTOPunto ConsultarPuntosDeInteresPorLocalizacion(DTOLocalizacion dtoLocalizacion, String nombreIdioma);
 }

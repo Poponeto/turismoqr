@@ -52,7 +52,12 @@ class AccesoDatos extends HibernateDaoSupport implements IAccesoDatos
 
     public <E extends IObjetoNegocio> E BuscarObjeto(DetachedCriteria criteria)
     {
-        E objeto = (E) getHibernateTemplate().findByCriteria(criteria).get(0);
+        E objeto = null;
+
+        if(!getHibernateTemplate().findByCriteria(criteria).isEmpty()) {
+            objeto = (E) getHibernateTemplate().findByCriteria(criteria).get(0);
+        }
+//        E objeto = (E) getHibernateTemplate().findByCriteria(criteria).get(0);
         getHibernateTemplate().initialize(objeto);
         return objeto;
     }

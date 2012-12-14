@@ -28,6 +28,8 @@ import TurismoQR.ObjetosNegocio.Punto.Localizacion;
 import TurismoQR.ObjetosNegocio.Usuarios.Usuario;
 import TurismoQR.ObjetosTransmisionDatos.DTOCategoria;
 import TurismoQR.ObjetosTransmisionDatos.DTOLocalizacion;
+import TurismoQR.Servicios.Punto.ConsultasPunto.ConsultarPuntoPorLocalizacion;
+import TurismoQR.Servicios.Punto.ConsultasPunto.ConsultarPuntoPorNombre;
 import TurismoQR.Servicios.Punto.ConsultasPunto.ConsultarPuntoUsuario;
 import TurismoQR.Servicios.Punto.ConsultasPunto.ConsultarPuntoUsuarioCategoria;
 import TurismoQR.Servicios.Punto.ConsultasPunto.ConsultarPuntosCategoria;
@@ -179,6 +181,38 @@ public class ServicioPunto extends ServicioPuntoBase implements IServicioPunto
     {
         IConsultaPunto consultaPunto = new ConsultarTodosPuntos(accesoDatos);
         return ConsultarPuntoInteresBase(consultaPunto, nombreIdioma);
+    }
+
+    public DTOPunto ConsultarPuntosDeInteresPorNombre(String nombrePunto, String nombreIdioma)
+    {
+        IConsultaPunto consultaPunto = new ConsultarPuntoPorNombre(nombrePunto, accesoDatos);
+        HashSet<DTOPunto> punto = (HashSet<DTOPunto>) ConsultarPuntoInteresBase(consultaPunto, nombreIdioma);
+
+        DTOPunto puntoLista = new DTOPunto();
+
+        if(punto.iterator().hasNext()){
+            puntoLista = punto.iterator().next();
+        }
+
+
+        return puntoLista;
+    }
+
+    public DTOPunto ConsultarPuntosDeInteresPorLocalizacion(DTOLocalizacion dtoLocalizacion, String nombreIdioma)
+    {
+
+        Localizacion localizacion = accesoDatosLocalizacion.buscarLocalizacion(dtoLocalizacion.getLatitud(), dtoLocalizacion.getLongitud());
+
+        if(localizacion != null) {
+            IConsultaPunto consultaPunto = new ConsultarPuntoPorLocalizacion(localizacion, accesoDatos);
+            HashSet<DTOPunto> punto = (HashSet<DTOPunto>) ConsultarPuntoInteresBase(consultaPunto, nombreIdioma);
+
+            DTOPunto puntoLista = punto.iterator().next();
+
+            return puntoLista;
+        }
+
+        return new DTOPunto();
     }
 
     public Collection<DTOPunto> ConsultarPuntosDeInteresPorUsuario(String nombreUsuario, String nombreIdioma)

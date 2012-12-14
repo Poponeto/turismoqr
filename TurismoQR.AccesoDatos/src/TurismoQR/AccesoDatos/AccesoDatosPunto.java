@@ -45,6 +45,24 @@ public class AccesoDatosPunto extends AccesoDatos {
         return BuscarConjuntoObjetos(criterioDeBusqueda);
     }
 
+    public Punto buscarPuntoPorNombre(String nombrePunto)
+    {
+        DetachedCriteria criterioDeBusqueda = DetachedCriteria.forClass(Punto.class);
+
+        criterioDeBusqueda.add(Restrictions.eq("nombre", nombrePunto));
+
+        return BuscarObjeto(criterioDeBusqueda);
+    }
+
+    public Punto buscarPuntoPorLocalizacion(Localizacion localizacion)
+    {
+        DetachedCriteria criterioDeBusqueda = DetachedCriteria.forClass(Punto.class);
+
+        criterioDeBusqueda.add(Restrictions.eq("localizacion", localizacion));
+
+        return BuscarObjeto(criterioDeBusqueda);
+    }
+
     public Collection<Punto> buscarPuntoPorCategoria(Categoria categoria)
     {
         DetachedCriteria criterioDeBusqueda = DetachedCriteria.forClass(Punto.class);

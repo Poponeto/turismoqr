@@ -48,6 +48,7 @@
         
         <script type="text/javascript">
             $(document).ready(function(){
+                tqrformnav.initRequestContext('${pageContext.request.contextPath}');
                 tqrmapas.iniciarMapas();
                 iniciarCrearPunto();
                 inicializarComponentes();
@@ -94,6 +95,32 @@
                 if($('#categoriaPunto').text() != '') {
                     $('#categoria').attr('value',$('#categoriaPunto').text());
                 }
+
+                $('#nombrePunto').blur(function(){
+                    if($('#nombrePunto').val() != '') {
+                        verificarPuntoPorNombre('${pageContext.request.contextPath}', $('#nombrePunto').val());
+                    }
+                });
+
+                $('#categoria').focus(function(){
+                    $('#categoriaPuntoError').hide(1000);
+                });
+
+                $('#nombrePunto').focus(function(){
+                    $('#nombrePuntoError').hide(1000);
+                });
+
+                $('#direccionPunto').focus(function(){
+                    $('#localizacionPuntoError').hide(1000);
+                });
+
+                $('#alturaPunto').focus(function(){
+                    $('#localizacionPuntoError').hide(1000);
+                });
+
+                $('#departamentoPunto').focus(function(){
+                    $('#localizacionPuntoError').hide(1000);
+                });
 
                 tqrgaleria.initComentarios();
             });

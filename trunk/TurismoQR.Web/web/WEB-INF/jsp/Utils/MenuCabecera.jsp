@@ -95,7 +95,7 @@
             <div id="contenedorDeInformacionTurismoQR">
                 <a href="${pageContext.request.contextPath}/aboutUS.htm">¿Quiénes Somos?</a>
             </div>
-            <sec:authorize ifNotGranted="PERMISO_TURISTA">
+                <sec:authorize ifAllGranted="PERMISO_CLIENTE">
                 <div id="contenedorDeLogoutTurismoQR">
 
                     <a href="${pageContext.request.contextPath}/j_myApplication_logout" >Logout</a>

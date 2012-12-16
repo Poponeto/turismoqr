@@ -106,3 +106,8 @@ DROP INDEX `permiso` ;
 INSERT INTO `turismoqr`.`permisorol` (`idPermisoRol`, `permiso`, `Rol`) VALUES ('2', '1', 'Administrador');
 INSERT INTO `turismoqr`.`permisorol` (`idPermisoRol`, `permiso`, `Rol`) VALUES ('3', '2', 'Administrador');
 UPDATE `turismoqr`.`cliente` SET `usuario`='2' WHERE `idCliente`='1';
+INSERT INTO `turismoqr`.`permiso` (`idPermiso`, `nombre`, `descripcion`) VALUES ('3', 'PERMISO_TURISTA', 'Permiso de turista');
+INSERT INTO `turismoqr`.`permisorol` (`idPermisoRol`, `permiso`, `Rol`) VALUES ('4', '3', 'Administrador');
+INSERT INTO `turismoqr`.`permisorol` (`idPermisoRol`, `permiso`, `Rol`) VALUES ('5', '3', 'Cliente');
+INSERT INTO `turismoqr`.`permisousuario` (`idPermisoUsuario`, `permiso`, `Usuario`) VALUES ('4', '3', '1');
+INSERT INTO `turismoqr`.`permisousuario` (`idPermisoUsuario`, `permiso`, `Usuario`) VALUES ('5', '3', '2');

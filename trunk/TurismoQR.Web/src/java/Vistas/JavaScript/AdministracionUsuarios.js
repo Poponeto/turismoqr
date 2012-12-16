@@ -203,25 +203,33 @@ function inicializarPaginaAdministracionUsuarios(urlbase)
             },
             "Guardar": function() {
 
-                var jsonUsuario = JSON.stringify(obtenerDatosUsuario());
-                var urlConsulta = urlbase + "/administracion/usuario/crearUsuario.htm";
-                debugger
-                $.ajax({
+                if (hayErrores())
+                {
+                    alert("Hay errores, solucionelos antes de continuar.");
+                }
+                else
+                {
+                    var jsonUsuario = JSON.stringify(obtenerDatosUsuario());
+                    var urlConsulta = urlbase + "/administracion/usuario/crearUsuario.htm";
+                    debugger
+                    $.ajax({
 
-                    url: urlConsulta,
-                    data: jsonUsuario,
-                    dataType: "json",
-                    contentType: "application/json",
-                    type: "POST",
-                    success: function(){
-                        location.reload(true);
-                    },
-                    error: function(jqXHR){
-                        var errores = jqXHR["responseText"];
-                        procesarErrores(jQuery.parseJSON(errores));
-                    }
+                        url: urlConsulta,
+                        data: jsonUsuario,
+                        dataType: "json",
+                        contentType: "application/json",
+                        type: "POST",
+                        success: function(){
+                            location.reload(true);
+                        },
+                        error: function(jqXHR){
+                            var errores = jqXHR["responseText"];
+                            procesarErrores(jQuery.parseJSON(errores));
+                        }
 
-                });
+                    });
+
+                }
             }
         },
         title: 'Crear Usuario.'

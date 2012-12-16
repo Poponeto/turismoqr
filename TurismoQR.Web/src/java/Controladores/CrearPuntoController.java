@@ -67,6 +67,7 @@ public class CrearPuntoController {
 
     private static final String actualizarPuntoInteres = "actualizarPuntoInteres.htm";
     private static final String eliminarPuntoInteres = "eliminarPuntoInteres.htm";
+    private static final String verCodigoQRPuntoInteres = "mostrarCodigoQR.htm";
 
 
     @Autowired
@@ -191,6 +192,21 @@ public class CrearPuntoController {
         String idioma = "espanol";
         //TODO Obtener el idioma por default del usuario
         return "redirect:/informacionPunto/" + idioma + "/" + idPunto +"/obtenerInformacionPunto.htm";
+    }
+
+    @RequestMapping(value = "/{idPunto}/" + verCodigoQRPuntoInteres,
+                    method = RequestMethod.GET)
+    public String verCodigoQRPuntoInteres(
+            @PathVariable String idPunto,
+            ModelMap model)
+    {
+        String idioma = "espanol";
+
+        DTOPunto punto = servicioPunto.ConsultarPuntoInteres(idPunto, idioma);
+
+        model.put("punto", punto);
+
+        return "Administracion/Punto/MostrarCodigoQR";
     }
     
     @RequestMapping("/subirArchivo.htm")

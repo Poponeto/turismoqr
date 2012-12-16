@@ -42,7 +42,6 @@ public class ServicioUsuario implements IServicioUsuario
     private ManejadorUsuarios manejadorGuardado;
     private IAccesoDatos accesoDatos;
     private ITraductor traductor;
-    private IServicioCliente servicioCliente;
     private FabricaAccionesUsuario fabricaAccionesUsuario;
 
     @Autowired
@@ -51,14 +50,12 @@ public class ServicioUsuario implements IServicioUsuario
             ManejadorUsuarios manejadorGuardado,
             ITraductor traductor,
             IAccesoDatos accesoDatos,
-            IServicioCliente servicioPersona,
             FabricaAccionesUsuario fabricaAccionesUsuario)
     {
         this.manejadorLogin = manejadorLogin;
         this.manejadorGuardado = manejadorGuardado;
         this.traductor = traductor;
         this.accesoDatos = accesoDatos;
-        this.servicioCliente = servicioPersona;
         this.fabricaAccionesUsuario = fabricaAccionesUsuario;
     }
 
@@ -190,11 +187,32 @@ public class ServicioUsuario implements IServicioUsuario
         return fabricaAccionesUsuario.crearAccionUsuario(FabricaAccionesUsuario.DESBLOQUEAR_USUARIO).ejecutar(nombreUsuario);
     }
 
-    public Boolean cambiarNombreUsuario(String nombreUsuarioActual, String nuevoNombreUsuario)
+    public Errores cambiarNombreUsuario(String nombreUsuarioActual, String nuevoNombreUsuario)
     {
-        Usuario usuario = manejadorLogin.cargarUsuario(nombreUsuarioActual);
-        usuario.setNombreUsuario(nuevoNombreUsuario);
+        Errores errores = new Errores();
 
-        return manejadorGuardado.guardarUsuario(usuario);
+        if (!nombreUsuarioActual.equals(nuevoNombreUsuario))
+        {
+            Collection<Usuario> usuarios = accesoDatos.BuscarObjetosPorCaracteristica(Usuario.class, "nombreUsuario", nuevoNombreUsuario);
+
+            if (!usuarios.isEmpty())
+            {
+                errores.agregarError("nombreUsuario", "El nombre de usuario especificado ya existe.");
+            }
+
+            if (!errores.hayErrores())
+            {
+                Usuario usuario = manejadorLogin.cargarUsuario(nombreUsuarioActual);
+                usuario.setNombreUsuario(nuevoNombreUsuario);
+
+                manejadorGuardado.guardarUsuario(usuario);
+            }
+        }
+        else
+        {
+            errores.agregarError("nombreUsuario", "El nuevo nombre de Usuario es igual a su nombre de usuario actual.");
+        }
+
+        return errores;
     }
 }

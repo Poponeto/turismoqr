@@ -64,20 +64,21 @@ public class InformacionUsuarioController
     {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         UserDetails userDetails = null;
-        if (principal instanceof UserDetails) {
+        if (principal instanceof UserDetails)
+        {
             userDetails = (UserDetails) principal;
         }
-        
+
         String nombreUsuario = userDetails.getUsername();
 
         DTOCliente dtoCliente = servicioCliente.obtenerDatosClienteDeUsuario(nombreUsuario);
 
-        if(dtoCliente == null)
+        if (dtoCliente == null)
         {
             model.put("usuario", nombreUsuario);
             return "Administracion/Usuario/InformacionPersonalUsuario";
         }
-        
+
         return "redirect:/administracion/cliente/informacionPersonal.htm";
     }
 
@@ -127,8 +128,25 @@ public class InformacionUsuarioController
             HttpServletRequest request,
             HttpServletResponse response)
     {
-        String username = (String) request.getSession().getAttribute(UsernamePasswordAuthenticationFilter.SPRING_SECURITY_LAST_USERNAME_KEY);
+        String username = null;
 
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        UserDetails userDetails = null;
+        if (principal instanceof UserDetails)
+        {
+            userDetails = (UserDetails) principal;
+        }
+
+        if(userDetails != null)
+        {
+            String nombreUsuario = userDetails.getUsername();
+            username = nombreUsuario;
+        }
+        else
+        {
+            username =  (String) request.getSession().getAttribute(UsernamePasswordAuthenticationFilter.SPRING_SECURITY_LAST_USERNAME_KEY);
+        }
+        
         Errores errores = servicioUsuario.cambiarContrasenia(username, contraseniaActual, nuevaContrasenia);
 
         if (errores.hayErrores())
@@ -148,12 +166,11 @@ public class InformacionUsuarioController
     }
 
     @RequestMapping(value = "/reiniciarContrasenia.htm", method = RequestMethod.POST)
-    public
-    void reiniciarContrasenia(@RequestParam("nombreUsuario") String nombreUsuario, HttpServletResponse response)
+    public void reiniciarContrasenia(@RequestParam("nombreUsuario") String nombreUsuario, HttpServletResponse response)
     {
         Boolean exito = servicioUsuario.reiniciarContrasenia(nombreUsuario);
 
-        if(exito)
+        if (exito)
         {
             response.setStatus(HttpServletResponse.SC_OK);
         }
@@ -164,12 +181,11 @@ public class InformacionUsuarioController
     }
 
     @RequestMapping(value = "/eliminarUsuario.htm", method = RequestMethod.POST)
-    public
-    void eliminarUsuario(@RequestParam("nombreUsuario") String nombreUsuario, HttpServletResponse response)
+    public void eliminarUsuario(@RequestParam("nombreUsuario") String nombreUsuario, HttpServletResponse response)
     {
         Boolean exito = servicioUsuario.eliminarUsuario(nombreUsuario);
 
-        if(exito)
+        if (exito)
         {
             response.setStatus(HttpServletResponse.SC_OK);
         }
@@ -180,12 +196,11 @@ public class InformacionUsuarioController
     }
 
     @RequestMapping(value = "/desbloquearUsuario.htm", method = RequestMethod.POST)
-    public
-    void desbloquearUsuario(@RequestParam("nombreUsuario") String nombreUsuario, HttpServletResponse response)
+    public void desbloquearUsuario(@RequestParam("nombreUsuario") String nombreUsuario, HttpServletResponse response)
     {
         Boolean exito = servicioUsuario.desbloquearUsuario(nombreUsuario);
 
-        if(exito)
+        if (exito)
         {
             response.setStatus(HttpServletResponse.SC_OK);
         }
@@ -223,5 +238,34 @@ public class InformacionUsuarioController
             }
         }
 
+    }
+
+    @RequestMapping(value = "/cambiarNombre.htm", method = RequestMethod.POST)
+    public
+    @ResponseBody
+    Map<String, String> cambiarNombre(@RequestParam("nuevoNombreUsuario") String nuevoNombreUsuario, HttpServletResponse response)
+    {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        UserDetails userDetails = null;
+        if (principal instanceof UserDetails)
+        {
+            userDetails = (UserDetails) principal;
+        }
+
+        String nombreUsuario = userDetails.getUsername();
+
+
+        Errores errores = servicioUsuario.cambiarNombreUsuario(nombreUsuario, nuevoNombreUsuario);
+
+        if (!errores.hayErrores())
+        {
+            response.setStatus(HttpServletResponse.SC_OK);
+        }
+        else
+        {
+            response.setStatus(HttpServletResponse.SC_CONFLICT);
+        }
+
+        return errores;
     }
 }

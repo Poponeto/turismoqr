@@ -6,14 +6,18 @@ function inicializarDatosCambioContraseña()
 {
     $("#contraseniaActual").change(function(){
        removerErrorDeEntrada(this);
+       $("#contenedorNuevoPassword .mensajeErrorEntrada").remove();
     });
 
     $("#nuevaContrasenia").change(function(){
+        debugger
         removerErrorDeEntrada(this)
+        $("#contenedorNuevoPassword .mensajeErrorEntrada").remove();
     });
 
     $("#repitaPassword").change(function(){
-        removerErrorDeEntrada(this);
+        removerErrorDeEntrada(this)
+        $("#contenedorNuevoPassword .mensajeErrorEntrada").remove();
     });
 }
 
@@ -51,7 +55,6 @@ function actualizarContraseña(urlBase)
     else
     {
         var datosCambioContraseña = obtenerDatosCambioContraseña();
-        var urlAccion = urlBase + "/administracion/usuario/cambiarContrasenia.htm";
 
         if (probarNuevaContraseña(datosCambioContraseña))
         {
@@ -59,15 +62,17 @@ function actualizarContraseña(urlBase)
             delete datosCambioContraseña[$("#repitaPassword").attr("name")];
 
             $.ajax({
-                url: urlAccion,
+                url:  urlBase + "/administracion/usuario/cambiarContrasenia.htm",
                 dataType: "json",
                 data: datosCambioContraseña,
                 type: "POST",
                 success: function(data){
+                    debugger
                     var urlRedirect = urlBase + "/" +data["urlRedirigir"];
                     window.location.replace(urlRedirect);
                 },
                 error: function(jqXHR){
+                    debugger
                     var errores = jqXHR["responseText"];
                     procesarErrores(jQuery.parseJSON(errores));
                 }

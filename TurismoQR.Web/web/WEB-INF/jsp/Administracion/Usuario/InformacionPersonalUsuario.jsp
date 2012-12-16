@@ -30,11 +30,18 @@
             $(document).ready(function(){
 
                 inicializarComponentes();
-
+                inicializarDatosCambioContraseña();
                 inicializarComponentesInformacionUsuario("${usuario}", "${pageContext.request.contextPath}");
             });
 
         </script>
+
+        <style TYPE="text/css">
+            #popUpFormularioCambioContrasenia input {
+                width: 99%;
+            }
+        </style>
+
     </head>
     <body>
 
@@ -51,16 +58,16 @@
 
                     <div id="contenedorInformacionUsuario">
 
-                        <label name="labelnombreUsuario">
+                        <label id="labelNombreUsuario" name="labelnombreUsuario">
                             Nombre de Usuario:
                             <input id="nombreUsuario" name="nombreUsuario" type="text">
                         </label>
 
-                        <button id="botonGuardarNombreUsuario">Guardar</button>
 
                     </div>
 
                     <div id="contenedorAccionesInformacionPersonal" style="width: 25%">
+                        <button id="botonGuardarNombreUsuario" style="width: 100%">Guardar</button>
                         <button id="botonCambiarNombreUsuario" style="width: 100%">Cambiar Nombre de Usuario</button>
                         <button id="botonCambiarContrasenia" style="width: 100%">Cambiar Contraseña</button>
                     </div>

@@ -37,6 +37,10 @@
             <sec:authorize url="/administracion/crearPunto/${punto.idPunto}/eliminarPuntoInteres.htm">
                 <a href="${pageContext.request.contextPath}/administracion/crearPunto/${punto.idPunto}/eliminarPuntoInteres.htm">Eliminar Punto de Interés.</a>
             </sec:authorize>
+            <br>
+            <sec:authorize url="/administracion/crearPunto/${punto.idPunto}/mostrarCodigoQR.htm">
+                <a href="${pageContext.request.contextPath}/administracion/crearPunto/${punto.idPunto}/mostrarCodigoQR.htm">Ver Codigo QR del Punto de Interés.</a>
+            </sec:authorize>
                 
             <div style="margin-top: 15px">
                 <h1>

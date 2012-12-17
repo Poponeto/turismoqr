@@ -17,5 +17,9 @@
         </set>
        <many-to-one name="ciclo" unique="true" class="TurismoQR.ObjetosNegocio.Estados.Ciclo" column="ciclo" cascade="all"/>
 
+       <property name="fechaCreacion"/>
+       <property name="fechaModificacion"/>
+       <property name="cantidadDeVisitas"/>
+
     </class>
 </hibernate-mapping>

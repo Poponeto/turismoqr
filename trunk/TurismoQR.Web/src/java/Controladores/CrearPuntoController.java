@@ -28,8 +28,11 @@ import Utils.UploadedFile;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -71,7 +74,7 @@ public class CrearPuntoController {
 
 
     @Autowired
-    public void LoginController(IServicioPunto servicioPunto, IServicioIdioma servicioIdioma, ManejadorIdiomas manejadorIdioma, ManejadorCategoria manejadorCategoria, ITraductor traductor)
+    public void CrearPuntoController(IServicioPunto servicioPunto, IServicioIdioma servicioIdioma, ManejadorIdiomas manejadorIdioma, ManejadorCategoria manejadorCategoria, ITraductor traductor)
     {
         this.servicioPunto = servicioPunto;
         this.servicioIdioma = servicioIdioma;
@@ -112,6 +115,8 @@ public class CrearPuntoController {
             @RequestParam("idioma") String idioma,
             @RequestParam("categoria") String categoria,
             @RequestParam("idPunto") String idPunto,
+            @RequestParam("fechaCreacion") String fechaCreacion,
+            @RequestParam("cantidadDeVisitas") String cantidadDeVisitas,
             ModelMap modelo
         )
     {
@@ -149,7 +154,25 @@ public class CrearPuntoController {
         dtoPunto.setLocalizacion(localizacionPunto);
         dtoPunto.setImagenes(getImagenesPunto());
 
-        String idPuntoGuardado = servicioPunto.CrearPuntoInteres(dtoPunto, idioma);
+        if(fechaCreacion.equals("") || fechaCreacion.isEmpty()) {
+            dtoPunto.setFechaCreacion(null);
+        } else {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S");
+            try {
+                Date date = dateFormat.parse(fechaCreacion);
+                dtoPunto.setFechaCreacion(date);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+
+        if(cantidadDeVisitas.equals("") || cantidadDeVisitas.isEmpty()) {
+            dtoPunto.setCantidadDeVisitas(0);
+        } else {
+            dtoPunto.setCantidadDeVisitas(Integer.parseInt(cantidadDeVisitas));
+        }
+
+        String idPuntoGuardado = servicioPunto.CrearPuntoInteres(dtoPunto, idioma, false);
 
         modelo.put("nombrePunto", nombrePunto);
         modelo.put("idPuntoGuardado", idPuntoGuardado);

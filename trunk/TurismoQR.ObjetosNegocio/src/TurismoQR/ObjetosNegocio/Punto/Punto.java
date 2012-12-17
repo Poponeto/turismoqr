@@ -8,6 +8,7 @@ import TurismoQR.ObjetosNegocio.Estados.Estado;
 import TurismoQR.ObjetosNegocio.IObjetoNegocio;
 import TurismoQR.ObjetosNegocio.Usuarios.Usuario;
 import java.util.Collection;
+import java.util.Date;
 
 public class Punto implements IObjetoNegocio
 {
@@ -18,6 +19,33 @@ public class Punto implements IObjetoNegocio
     private Collection<Imagen> imagenes;
     private Ciclo ciclo;
     private Usuario usuario;
+    private Date fechaCreacion;
+    private Date fechaModificacion;
+    private int cantidadDeVisitas;
+
+    public Date getFechaModificacion() {
+        return fechaModificacion;
+    }
+
+    public void setFechaModificacion(Date fechaModificacion) {
+        this.fechaModificacion = fechaModificacion;
+    }
+
+    public int getCantidadDeVisitas() {
+        return cantidadDeVisitas;
+    }
+
+    public void setCantidadDeVisitas(int cantidadDeVisitas) {
+        this.cantidadDeVisitas = cantidadDeVisitas;
+    }
+
+    public Date getFechaCreacion() {
+        return fechaCreacion;
+    }
+
+    public void setFechaCreacion(Date fechaCreacion) {
+        this.fechaCreacion = fechaCreacion;
+    }
 
     public Usuario getUsuario() {
         return usuario;

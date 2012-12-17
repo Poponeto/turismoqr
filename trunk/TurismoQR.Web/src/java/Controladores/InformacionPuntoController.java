@@ -107,6 +107,14 @@ public class InformacionPuntoController {
     {
         DTOPunto dtoPunto = servicioPunto.ConsultarPuntoInteres(idPunto, idioma);
         Collection<DTOIdioma> dtoIdiomas = servicioIdioma.consultarPosiblesIdiomas(idPunto);
+
+        DTOPunto puntoActualizado = dtoPunto;
+
+        int increaseCantidadVisitas = dtoPunto.getCantidadDeVisitas() + 1;
+        puntoActualizado.setCantidadDeVisitas(increaseCantidadVisitas);
+
+        servicioPunto.CrearPuntoInteres(puntoActualizado, idioma, true);
+
         model.put("punto", dtoPunto);
         model.put("idiomas", dtoIdiomas);
 

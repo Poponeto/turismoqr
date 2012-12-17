@@ -42,11 +42,6 @@
                                     <a href="${pageContext.request.contextPath}/buscarPunto/paginaBuscarPunto.htm">Buscar Punto</a>
                                 </li>
                             </sec:authorize>
-                            <sec:authorize url="/buscarPunto/paginaBuscarPunto.htm">
-                                <li style="width:220px">
-                                    <a href="#">Generar Código QR de Punto</a>
-                                </li>
-                            </sec:authorize>
                         </ul>
                     </li>
 

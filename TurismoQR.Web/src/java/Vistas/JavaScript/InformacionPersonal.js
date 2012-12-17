@@ -56,7 +56,8 @@ function inicializarComponentesInformacionUsuario(nombreUsuario, urlBase)
 
 function inicializarComponentesInformacionCliente(tipoCliente, urlBase)
 {
-    debugger
+    
+    $("#botonAgregarContacto").hide();
     $("#botonGuardar").hide();
     $(":input").attr('disabled','disabled');
 
@@ -64,6 +65,8 @@ function inicializarComponentesInformacionCliente(tipoCliente, urlBase)
         $(":input").removeAttr('disabled');
         $(this).hide();
         $("#botonGuardar").show();
+        $("#botonAgregarContacto").show();
+        $('[id*="botonEliminarContactoEmpresa"]').removeAttr('disabled');
     });
 
     $("#botonGuardar").click(function(){
@@ -82,6 +85,7 @@ function inicializarComponentesInformacionCliente(tipoCliente, urlBase)
 
     $("#popUpFormularioCambioContrasenia :input").removeAttr('disabled');
     $(":button").removeAttr('disabled');
+    $('[id*="botonEliminarContactoEmpresa"]').attr('disabled','disabled');
     
     inicializarComponentesInformacionPersonal( urlBase);
 }

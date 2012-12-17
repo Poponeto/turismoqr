@@ -70,9 +70,16 @@ public class InformacionPuntoController {
     public String obtenerInformacionPuntoIdiomaDefault(
             @PathVariable String idPunto)
     {
-        String idioma = "espanol";
+        String idiomadefault = "espanol";
+
+        Collection<DTOIdioma> dtoIdiomas = servicioIdioma.consultarPosiblesIdiomas(idPunto);
+        for(DTOIdioma idioma : dtoIdiomas)
+        {
+            return "redirect:/informacionPunto/" + idioma.getNombreIdioma() + "/" + idPunto +"/obtenerInformacionPunto.htm";
+
+        }
         //TODO Obtener el idioma por default del usuario
-        return "redirect:/informacionPunto/" + idioma + "/" + idPunto +"/obtenerInformacionPunto.htm";
+        return "redirect:/informacionPunto/" + idiomadefault + "/" + idPunto +"/obtenerInformacionPunto.htm";
     }
 
     @RequestMapping(value = "/categorias/",

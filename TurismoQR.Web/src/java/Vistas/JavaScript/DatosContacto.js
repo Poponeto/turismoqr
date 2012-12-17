@@ -126,18 +126,17 @@ function obtenerDatosContactoEmpresa()
 
 function setearDatosContactoEmpresa(datosClienteJSON)
 {
-    $(datosClienteJSON).each(function(id){
+    $(datosClienteJSON.contactos).each(function(id){
 
+            $('.contactoEmpresa:hidden:first #lineaDatosNombreContactoEmpresa').val(datosClienteJSON.contactos[id][$('.contactoEmpresa:hidden:first #lineaDatosNombreContactoEmpresa').attr("name")]);
+            $('.contactoEmpresa:hidden:first #lineaDatosApellidoContactoEmpresa').val(datosClienteJSON.contactos[id][$('.contactoEmpresa:hidden:first #lineaDatosApellidoContactoEmpresa').attr("name")]);
+            $('.contactoEmpresa:hidden:first #selectGeneroContactoEmpresa').val(datosClienteJSON.contactos[id][$('.contactoEmpresa:hidden:first #selectGeneroContactoEmpresa').attr("name")]);
 
-            $('#.contactoEmpresa:hidden:first #lineaDatosNombreContactoEmpresa').val(datosClienteJSON[id][$('#.contactoEmpresa:hidden:first #lineaDatosNombreContactoEmpresa').attr("name")]);
-            $('#.contactoEmpresa:hidden:first #lineaDatosApellidoContactoEmpresa').val(datosClienteJSON[id][$('#.contactoEmpresa:hidden:first #lineaDatosApellidoContactoEmpresa').attr("name")]);
-            $('#.contactoEmpresa:hidden:first #selectGeneroContactoEmpresa').val(datosClienteJSON[id][$('#.contactoEmpresa:hidden:first #selectGeneroContactoEmpresa').attr("name")]);
+            $('.contactoEmpresa:hidden:first #lineaDatosMailContactoEmpresa').val(datosClienteJSON.contactos[id]['mail']);
+            $('.contactoEmpresa:hidden:first #lineaDatosCelularContactoEmpresa').val(datosClienteJSON.contactos[id][$('.contactoEmpresa:hidden:first #lineaDatosCelularContactoEmpresa').attr("name")]);
+            $('.contactoEmpresa:hidden:first #lineaDatosTelefonoFijoContactoEmpresa').val(datosClienteJSON.contactos[id][$('.contactoEmpresa:hidden:first #lineaDatosTelefonoFijoContactoEmpresa').attr("name")]);
 
-            $('#.contactoEmpresa:hidden:first #lineaDatosMailContactoEmpresa').val(datosClienteJSON[id]['mail']);
-            $('#.contactoEmpresa:hidden:first #lineaDatosCelularContactoEmpresa').val(datosClienteJSON[id][$('#.contactoEmpresa:hidden:first #lineaDatosCelularContactoEmpresa').attr("name")]);
-            $('#.contactoEmpresa:hidden:first #lineaDatosTelefonoFijoContactoEmpresa').val(datosClienteJSON[id][$('#.contactoEmpresa:hidden:first #lineaDatosTelefonoFijoContactoEmpresa').attr("name")]);
-
-            $('#.contactoEmpresa:hidden:first').show();
+            $("#botonAgregarContacto").click();
 
         });
 }

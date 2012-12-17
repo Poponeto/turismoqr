@@ -283,7 +283,7 @@ public class InformacionClienteController
 
         String nombreUsuario = userDetails.getUsername();
 
-        DTOCliente dtoCliente = servicioCliente.obtenerDatosClienteDeUsuario(nombreUsuario);
+        DTOCliente dtoCliente = servicioEmpresa.obtenerDatosClienteDeUsuario(nombreUsuario);
 
         return dtoCliente;
     }

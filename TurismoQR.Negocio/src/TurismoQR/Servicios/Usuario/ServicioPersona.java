@@ -8,6 +8,7 @@ import TurismoQR.AccesoDatos.IAccesoDatos;
 import TurismoQR.Manejadores.ManejadorUsuarios.ManejadorUsuarios;
 import TurismoQR.ObjetosNegocio.Usuarios.Cliente;
 import TurismoQR.ObjetosNegocio.Usuarios.Persona;
+import TurismoQR.ObjetosTransmisionDatos.DTOCliente;
 import TurismoQR.ObjetosTransmisionDatos.DTOPersona;
 import TurismoQR.ObjetosTransmisionDatos.IDTO;
 import TurismoQR.Servicios.Mail.IServicioEnvioMail;
@@ -69,5 +70,10 @@ public class ServicioPersona extends ServicioCliente
         persona.setFechaDeNacimiento(dtoPersona.getFechaDeNacimiento());
         persona.setNombre(dtoPersona.getNombre());
         persona.setSexo(dtoPersona.getSexo());
+    }
+
+    @Override
+    protected void completarDatosInterfazCliente(Cliente cliente, DTOCliente dtoCliente) {
+        
     }
 }

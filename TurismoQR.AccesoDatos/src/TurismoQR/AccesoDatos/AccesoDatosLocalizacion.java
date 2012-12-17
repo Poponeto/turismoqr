@@ -46,8 +46,7 @@ public class AccesoDatosLocalizacion extends AccesoDatos {
         //DetachedCriteria buscarPorNombreDeIdioma = criterioDeBusqueda.createCriteria("BuscarIdiomaPorNombre");
 
         criterioDeBusqueda
-                .add(Restrictions.eq("latitud", latitud))
-                .add(Restrictions.eq("longitud", longitud));
+                .add(Restrictions.and(Restrictions.eq("latitud", latitud), Restrictions.eq("longitud", longitud)));
 
         return BuscarObjeto(criterioDeBusqueda);
     }

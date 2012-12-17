@@ -36,9 +36,8 @@
                     $('#contenedorFormularioCliente').html(data);
                     inicializarComponentes();
                     inicializarDatosCambioContraseña();
-                    inicializarComponentesInformacionCliente("${tipoCliente}", "${pageContext.request.contextPath}");
-                    setTimeout('inicializarDatosContacto();$("#Contenedor").show();', 1000);
-
+                    setTimeout('inicializarDatosContacto();', 500);
+                    setTimeout('inicializarComponentesInformacionCliente("${tipoCliente}", "${pageContext.request.contextPath}");$("#Contenedor").show();', 1000);
                 });
                 
             });

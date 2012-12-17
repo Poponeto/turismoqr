@@ -19,7 +19,7 @@ import java.util.List;
 public interface IServicioPunto {
     public Collection<DTOPunto> ConsultarPuntosDeInteres(String nombreIdioma);
     public DTOPunto ConsultarPuntoInteres(String idPuntoInteres, String nombreIdioma);
-    public String CrearPuntoInteres(DTOPunto dtoPunto, String nombreIdioma);
+    public String CrearPuntoInteres(DTOPunto dtoPunto, String nombreIdioma, boolean merge);
     public DTOCodigoQR GenerarCodigoQR(String idPuntoInteres, int tamaño, String requestContext, String formatoImagen);
     public boolean eliminarPuntoInteres(String idPunto);
     public List<DTOCategoria> obtenerCategoriasPunto();

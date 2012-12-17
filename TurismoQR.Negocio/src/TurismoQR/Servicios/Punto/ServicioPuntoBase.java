@@ -17,6 +17,7 @@ import TurismoQR.Servicios.Punto.ConsultasPunto.IConsultaPunto;
 import TurismoQR.Manejadores.ManejadorEstados.ManejadorEstados;
 import TurismoQR.Manejadores.ManejadorIdiomas.ManejadorIdiomas;
 import TurismoQR.ObjetosTransmisionDatos.DTOCategoria;
+import TurismoQR.ObjetosTransmisionDatos.DTOUsuario;
 import TurismoQR.Traductores.ITraductor;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -111,6 +112,10 @@ public abstract class ServicioPuntoBase
         
         if(punto.getImagenes() != null && !punto.getImagenes().isEmpty()) {
             dtoPunto.setImagenes(crearDTOImagenes(punto.getImagenes(), idioma));
+        }
+
+        if(punto.getUsuario() != null) {
+            dtoPunto.setUsuario((DTOUsuario)traductor.traducir(punto.getUsuario()));
         }
         
         DTOLocalizacion dtoLocalizacion = (DTOLocalizacion) traductor.traducir(punto.getLocalizacion());

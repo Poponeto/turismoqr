@@ -36,6 +36,7 @@ import TurismoQR.Servicios.Punto.ConsultasPunto.ConsultarPuntosCategoria;
 import TurismoQR.Traductores.ITraductor;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -85,7 +86,7 @@ public class ServicioPunto extends ServicioPuntoBase implements IServicioPunto
      * @param datosPunto Un DTO que contiene todos los datos necesarios para crear el punto
      */
     @Transactional(readOnly = false)
-    public String CrearPuntoInteres(DTOPunto datosPunto, String nombreIdioma)
+    public String CrearPuntoInteres(DTOPunto datosPunto, String nombreIdioma, boolean merge)
     {
         //Crea un nuevo punto de interes
         Punto nuevoPuntoDeInteres = new Punto();
@@ -145,8 +146,22 @@ public class ServicioPunto extends ServicioPuntoBase implements IServicioPunto
         //Setea los datos de localizacion del punto
         nuevoPuntoDeInteres.setLocalizacion(getTraductor().traducir(datosPunto.getLocalizacion()));
 
+        if(datosPunto.getFechaCreacion() != null) {
+            nuevoPuntoDeInteres.setFechaCreacion(datosPunto.getFechaCreacion());
+            nuevoPuntoDeInteres.setFechaModificacion(new Date());
+        } else {
+            nuevoPuntoDeInteres.setFechaCreacion(new Date());
+        }
+
+        nuevoPuntoDeInteres.setCantidadDeVisitas(datosPunto.getCantidadDeVisitas());
+
         //Persiste el punto creado previamente
-        accesoDatos.Guardar(nuevoPuntoDeInteres);
+
+        if(!merge) {
+            accesoDatos.Guardar(nuevoPuntoDeInteres);
+        } else {
+            accesoDatos.Actualizar(nuevoPuntoDeInteres);
+        }
 
         return nuevoPuntoDeInteres.getIdObjeto();
     }

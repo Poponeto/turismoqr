@@ -7,6 +7,7 @@ package TurismoQR.ObjetosTransmisionDatos;
 
 import TurismoQR.ObjetosNegocio.Punto.Punto;
 import java.util.Collection;
+import java.util.Date;
 
 /**
  *
@@ -20,7 +21,34 @@ public class DTOPunto implements IDTO<Punto>{
     private DTOLocalizacion localizacion;
     private DTOCategoria categoria;
     private DTOUsuario usuario;
+    private Date fechaCreacion;
+    private Date fechaModificacion;
+    private int cantidadDeVisitas;
 
+    public int getCantidadDeVisitas() {
+        return cantidadDeVisitas;
+    }
+
+    public void setCantidadDeVisitas(int cantidadDeVisitas) {
+        this.cantidadDeVisitas = cantidadDeVisitas;
+    }
+
+    public Date getFechaCreacion() {
+        return fechaCreacion;
+    }
+
+    public void setFechaCreacion(Date fechaCreacion) {
+        this.fechaCreacion = fechaCreacion;
+    }
+
+    public Date getFechaModificacion() {
+        return fechaModificacion;
+    }
+
+    public void setFechaModificacion(Date fechaModificacion) {
+        this.fechaModificacion = fechaModificacion;
+    }
+    
     public DTOUsuario getUsuario() {
         return usuario;
     }

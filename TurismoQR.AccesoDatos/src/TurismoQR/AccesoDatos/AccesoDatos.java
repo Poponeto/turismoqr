@@ -67,6 +67,11 @@ class AccesoDatos extends HibernateDaoSupport implements IAccesoDatos
         return (Collection<E>) getHibernateTemplate().findByCriteria(criteria);
     }
 
+    public void Actualizar(IObjetoNegocio objetoNegocio)
+    {
+        getHibernateTemplate().merge(objetoNegocio);
+    }
+
     public void Guardar(IObjetoNegocio objetoNegocio)
     {
         getHibernateTemplate().saveOrUpdate(objetoNegocio);

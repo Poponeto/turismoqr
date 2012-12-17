@@ -33,6 +33,8 @@
             Informacion relacionada:<br>
             <textarea id="informacionPunto" name="informacionPunto" placeholder="Ingrese la informacion correspondiente al punto" rows="18">${punto.informacion.texto}</textarea>
         </label>
+        <input id="fechaCreacion" name="fechaCreacion" type="text" value="${punto.fechaCreacion}" style="display: none;"/>
+        <input id="cantidadDeVisitas" name="cantidadDeVisitas" type="text" value="${punto.cantidadDeVisitas}" style="display: none;"/>
     </div>
 </fieldset>
 <input id="idioma" name="idioma" type="text" style="display: none;"/>

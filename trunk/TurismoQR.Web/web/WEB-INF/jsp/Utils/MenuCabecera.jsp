@@ -88,7 +88,7 @@
 
         <div class="menuderecho">
             <div id="contenedorDeInformacionTurismoQR">
-                <a href="${pageContext.request.contextPath}/aboutUS.htm">¿Quiénes Somos?</a>
+                <a href="${pageContext.request.contextPath}/administracion/aboutUS.htm">¿Quiénes Somos?</a>
             </div>
                 <sec:authorize ifAllGranted="PERMISO_CLIENTE">
                 <div id="contenedorDeLogoutTurismoQR">

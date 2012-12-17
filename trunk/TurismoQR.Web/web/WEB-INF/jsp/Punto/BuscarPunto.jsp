@@ -70,7 +70,7 @@
     <body style="margin: 0px;">
         <%@ include  file="/WEB-INF/jsp/Utils/Cabecera.jsp" %>
 
-        <sec:authorize ifNotGranted="PERMISO_TURISTA">
+        <sec:authorize ifAnyGranted="PERMISO_CLIENTE">
             <div id="contenedorMenu" class="ui-widget-header">
                 <%@ include  file="/WEB-INF/jsp/Utils/MenuCabecera.jsp" %>
             </div>

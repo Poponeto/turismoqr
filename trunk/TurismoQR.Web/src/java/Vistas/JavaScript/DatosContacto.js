@@ -52,6 +52,14 @@ function obtenerDatosContacto()
     return contactoJSON;
 }
 
+function setearDatosContacto(datosClienteJSON)
+{
+    $('#lineaDatosMail').val(datosClienteJSON[$('#lineaDatosMail').attr("name")]);
+    $('#lineaDatosCelular').val(datosClienteJSON[$('#lineaDatosCelular').attr("name")]);
+    $('#lineaDatosTelefonoFijo').val(datosClienteJSON[$('#lineaDatosTelefonoFijo').attr("name")]);
+
+}
+
 function obtenerDatosCliente()
 {
     var clienteJSON = obtenerDatosContacto();
@@ -59,6 +67,13 @@ function obtenerDatosCliente()
     clienteJSON[$('#lineaDatoscantidadDePuntosDeseados').attr("name")] = $('#lineaDatoscantidadDePuntosDeseados').val();
 
     return clienteJSON;
+}
+
+function setearDatosCliente(datosClienteJSON)
+{
+    $('#lineaDatoscantidadDePuntosDeseados').val(datosClienteJSON[$('#lineaDatoscantidadDePuntosDeseados').attr("name")]);
+
+    setearDatosContacto(datosClienteJSON);
 }
 
 function obtenerDatosEmpresa()
@@ -75,6 +90,16 @@ function obtenerDatosEmpresa()
     empresaJSON["contactos"] = contactosEmpresaJSON;
 
     return empresaJSON;
+}
+
+function setearDatosEmpresa(datosClienteJSON)
+{
+    $('#lineaDatosCuit').val(datosClienteJSON[$('#lineaDatosCuit').attr("name")] );
+    $('#lineaDatosRazonSocial').val(datosClienteJSON[$('#lineaDatosRazonSocial').attr("name")]);
+    $('#selectRubro').val(datosClienteJSON.rubro.nombreRubro);
+
+    setearDatosContactoEmpresa(datosClienteJSON)
+    setearDatosCliente(datosClienteJSON);
 }
 
 function obtenerDatosContactoEmpresa()
@@ -99,6 +124,24 @@ function obtenerDatosContactoEmpresa()
     return contactosEmpresaJSON;
 }
 
+function setearDatosContactoEmpresa(datosClienteJSON)
+{
+    $(datosClienteJSON).each(function(id){
+
+
+            $('#.contactoEmpresa:hidden:first #lineaDatosNombreContactoEmpresa').val(datosClienteJSON[id][$('#.contactoEmpresa:hidden:first #lineaDatosNombreContactoEmpresa').attr("name")]);
+            $('#.contactoEmpresa:hidden:first #lineaDatosApellidoContactoEmpresa').val(datosClienteJSON[id][$('#.contactoEmpresa:hidden:first #lineaDatosApellidoContactoEmpresa').attr("name")]);
+            $('#.contactoEmpresa:hidden:first #selectGeneroContactoEmpresa').val(datosClienteJSON[id][$('#.contactoEmpresa:hidden:first #selectGeneroContactoEmpresa').attr("name")]);
+
+            $('#.contactoEmpresa:hidden:first #lineaDatosMailContactoEmpresa').val(datosClienteJSON[id]['mail']);
+            $('#.contactoEmpresa:hidden:first #lineaDatosCelularContactoEmpresa').val(datosClienteJSON[id][$('#.contactoEmpresa:hidden:first #lineaDatosCelularContactoEmpresa').attr("name")]);
+            $('#.contactoEmpresa:hidden:first #lineaDatosTelefonoFijoContactoEmpresa').val(datosClienteJSON[id][$('#.contactoEmpresa:hidden:first #lineaDatosTelefonoFijoContactoEmpresa').attr("name")]);
+
+            $('#.contactoEmpresa:hidden:first').show();
+
+        });
+}
+
 function obtenerDatosPersona()
 {
     var personaJSON = obtenerDatosCliente();
@@ -110,6 +153,19 @@ function obtenerDatosPersona()
     personaJSON[$('#selectGenero').attr("name")] = $('#selectGenero').val();
 
     return personaJSON;
+}
+
+function setearDatosPersona(datosClienteJSON)
+{
+
+    $('#lineaDatosNombre').val(datosClienteJSON[$('#lineaDatosNombre').attr("name")]);
+    $('#lineaDatosApellido').val(datosClienteJSON[$('#lineaDatosApellido').attr("name")]);
+    $('#lineaDatosFechaNacimiento').val(datosClienteJSON[$('#lineaDatosFechaNacimiento').attr("name")]);
+    $('#lineaDatosdni').val(datosClienteJSON[$('#lineaDatosdni').attr("name")]);
+    $('#selectGenero').val(datosClienteJSON[$('#selectGenero').attr("name")]);
+
+    setearDatosCliente(datosClienteJSON);
+
 }
 
 function manejarErroresContactos(errores)

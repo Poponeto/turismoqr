@@ -13,19 +13,20 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Informacion Personal</title>
 
-        <%@ include file="/WEB-INF/jsp/Utils/ArchivosJQuery.html" %>
-        <%@ include file="/WEB-INF/jsp/Utils/ArchivosError.html" %>
-
-        <script type="text/javascript" src="${pageContext.request.contextPath}/Vistas/JavaScript/DatosContacto.js"></script>
+        <script type="text/javascript" src="${pageContext.request.contextPath}/Vistas/JavaScript/DatosCambioContrasenia.js"></script>
+        <script type="text/javascript" src="${pageContext.request.contextPath}/Vistas/JavaScript/ProcesamientoError.js"></script>
         <script type="text/javascript" src="${pageContext.request.contextPath}/Vistas/JavaScript/InformacionPersonal.js"></script>
 
         <link rel="stylesheet" href="http://blueimp.github.com/cdn/css/bootstrap.min.css">
         <link rel="stylesheet" href="http://blueimp.github.com/cdn/css/bootstrap-responsive.min.css">
         <!--[if lt IE 7]><link rel="stylesheet" href="http://blueimp.github.com/cdn/css/bootstrap-ie6.min.css"><![endif]-->
         <link rel="stylesheet" href="http://blueimp.github.com/Bootstrap-Image-Gallery/css/bootstrap-image-gallery.min.css">
+
+        <%@ include file="/WEB-INF/jsp/Utils/ArchivosJQuery.html" %>
+        <%@ include file="/WEB-INF/jsp/Utils/ArchivosError.html" %>
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/Vistas/HojasDeEstilo/Fieldset.css">
-
-
+        <script type="text/javascript" src="${pageContext.request.contextPath}/Vistas/JavaScript/DatosContacto.js"></script>
+       
         <script type="text/javascript">
 
             $(document).ready(function(){
@@ -34,13 +35,20 @@
                 $.get('${pageContext.request.contextPath}/${formularioCliente}', function(data) {
                     $('#contenedorFormularioCliente').html(data);
                     inicializarComponentes();
-                    inicializarComponentesInformacionPersonal("${tipoCliente}", "${pageContext.request.contextPath}");
+                    inicializarDatosCambioContraseña();
+                    inicializarComponentesInformacionCliente("${tipoCliente}", "${pageContext.request.contextPath}");
                     setTimeout('inicializarDatosContacto();$("#Contenedor").show();', 1000);
 
                 });
                 
             });
         </script>
+
+        <style TYPE="text/css">
+            input {
+                width: 99%;
+            }
+        </style>
     </head>
     <body>
         <%@ include  file="/WEB-INF/jsp/Utils/Cabecera.jsp" %>
@@ -51,10 +59,6 @@
 
         <div id="Contenedor">
 
-            <div>
-                <button id="botonGuardar">Guardar</button>
-            </div>
-
             <div id="Contenido" style="padding: 30px;">
                 <div id="contenedorFormularioCliente">
                 </div>
@@ -63,11 +67,15 @@
 
                 <%@ include file = "/WEB-INF/jsp/Registro/FormularioContacto.jsp" %>
 
-                <div>
-                    <button id="botonActualizar">Actualizar Informacion Personal</button>
-                    <button id="botonCambiarContrasenia">Cambiar Contraseña</button>
+                <div id="contenedorAccionesInformacionPersonal" style="width: 25%">
+                    <button id="botonGuardar" style="width: 100%">Guardar</button>
+                    <button id="botonActualizar" style="width: 100%">Actualizar Informacion Personal</button>
+                    <button id="botonCambiarContrasenia" style="width: 100%">Cambiar Contraseña</button>
                 </div>
 
+                <div id="popUpFormularioCambioContrasenia">
+                    <%@ include  file="/WEB-INF/jsp/Utils/FormularioCambioContrasenia.jsp" %>
+                </div>
 
             </div>
         </div>

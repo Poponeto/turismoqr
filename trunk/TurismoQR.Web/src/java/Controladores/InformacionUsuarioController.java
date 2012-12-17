@@ -60,7 +60,7 @@ public class InformacionUsuarioController
     }
 
     @RequestMapping(value = "/informacionPersonal.htm", method = RequestMethod.GET)
-    public String paginaInformacionPersonal(ModelMap model, HttpServletRequest request)
+    public String paginaInformacionPersonal(ModelMap model)
     {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         UserDetails userDetails = null;

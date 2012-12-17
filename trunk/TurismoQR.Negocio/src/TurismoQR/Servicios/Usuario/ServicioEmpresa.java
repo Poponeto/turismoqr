@@ -66,7 +66,7 @@ public class ServicioEmpresa extends ServicioCliente
     @Override
     protected String getNombreUsuarioParaCliente(Cliente cliente)
     {
-        return ((Empresa)cliente).getCuit();
+        return ((Empresa)cliente).getCuit().replaceAll("-","");
     }
 
     @Override
@@ -79,5 +79,18 @@ public class ServicioEmpresa extends ServicioCliente
                 "\nTelefono Movil: " + ((Empresa)cliente).getCelular();
 
         return cuerpo;
+    }
+
+    @Override
+    protected void actualizarCliente(Cliente cliente, IDTO dtoCliente)
+    {
+        Empresa empresa = (Empresa)cliente;
+
+        DTOEmpresa dtoEmpresa = (DTOEmpresa)dtoCliente;
+
+        empresa.setCuit(dtoEmpresa.getCuit());
+        empresa.setRazonSocial(dtoEmpresa.getRazonSocial());
+
+        completarCliente(cliente, dtoCliente);
     }
 }

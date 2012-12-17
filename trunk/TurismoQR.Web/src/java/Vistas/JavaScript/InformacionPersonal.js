@@ -5,29 +5,6 @@
 
 function inicializarComponentesInformacionUsuario(nombreUsuario, urlBase)
 {
-    inicializarComponentesInformacionPersonal(nombreUsuario, urlBase);
-}
-
-
-function inicializarComponentesInformacionPersonal(nombreUsuario, urlBase)
-{
-
-    $("#popUpFormularioCambioContrasenia").dialog({
-        autoOpen: false,
-        width: '50%',
-        buttons: {
-            "Cancelar": function() {
-                $('#Contenedor').css('opacity','1');
-                $(this).dialog("close");
-            },
-            "Confirmar": function() {
-
-                actualizarContraseña(urlBase);
-            }
-        },
-        title: 'Cambiar Contraseña.'
-    });
-
     $("#nombreUsuario").val(nombreUsuario);
 
     $("#nombreUsuario").change(function(){
@@ -37,11 +14,6 @@ function inicializarComponentesInformacionPersonal(nombreUsuario, urlBase)
     $("#nombreUsuario").attr('disabled','disabled');
     $("#botonGuardarNombreUsuario").hide();
 
-    $("#botonCambiarContrasenia").click(function(){
-        $("#popUpFormularioCambioContrasenia").dialog('open');
-
-    });
-
     $("#botonCambiarNombreUsuario").click(function(){
         $("#nombreUsuario").removeAttr('disabled');
         $(this).hide();
@@ -49,7 +21,7 @@ function inicializarComponentesInformacionPersonal(nombreUsuario, urlBase)
     });
 
     $("#botonGuardarNombreUsuario").click(function(){
-    
+
         if (hayErrores())
         {
             alert("Hay errores, solucionelos antes de continuar.");
@@ -78,8 +50,65 @@ function inicializarComponentesInformacionPersonal(nombreUsuario, urlBase)
             });
         }
     });
-    
 
+    inicializarComponentesInformacionPersonal( urlBase);
+}
+
+function inicializarComponentesInformacionCliente(tipoCliente, urlBase)
+{
+    debugger
+    $("#botonGuardar").hide();
+    $(":input").attr('disabled','disabled');
+
+    $("#botonActualizar").click(function(){
+        $(":input").removeAttr('disabled');
+        $(this).hide();
+        $("#botonGuardar").show();
+    });
+
+    $("#botonGuardar").click(function(){
+        actualizarInformacionPersonalCliente(tipoCliente, urlBase);
+    });
+
+    $.ajax({
+        url: urlBase + "/administracion/cliente/obtenerDatosClienteActual.htm",
+        dataType: "json",
+        type: "GET",
+        success: function(data){
+            debugger
+            setearDatosInformacionPersonalCliente(data, tipoCliente);
+        }
+    });
+
+    $("#popUpFormularioCambioContrasenia :input").removeAttr('disabled');
+    $(":button").removeAttr('disabled');
+    
+    inicializarComponentesInformacionPersonal( urlBase);
+}
+
+function inicializarComponentesInformacionPersonal( urlBase)
+{
+
+    $("#popUpFormularioCambioContrasenia").dialog({
+        autoOpen: false,
+        width: '50%',
+        buttons: {
+            "Cancelar": function() {
+                $('#Contenedor').css('opacity','1');
+                $(this).dialog("close");
+            },
+            "Confirmar": function() {
+
+                actualizarContraseña(urlBase);
+            }
+        },
+        title: 'Cambiar Contraseña.'
+    });
+
+    $("#botonCambiarContrasenia").click(function(){
+        $("#popUpFormularioCambioContrasenia").dialog('open');
+
+    });
 }
 
 function actualizarInformacionPersonalCliente(tipoCliente, urlBase)
@@ -102,7 +131,7 @@ function actualizarInformacionPersonalCliente(tipoCliente, urlBase)
         }
         debugger
         var jsonCliente = JSON.stringify(datosCliente);
-        var urlAccion = urlBase + "/cliente/modificarCliente"+tipoCliente+".htm";
+        var urlAccion = urlBase + "/administracion/cliente/modificar"+tipoCliente+".htm";
 
         $.ajax({
             url: urlAccion,
@@ -111,7 +140,8 @@ function actualizarInformacionPersonalCliente(tipoCliente, urlBase)
             data: jsonCliente,
             type: "POST",
             success: function(){
-                location.reload(true);
+                var urlRedirect = urlBase + "/j_myApplication_logout";
+                window.location.replace(urlRedirect);
             },
             error: function(jqXHR){
                 var errores = jqXHR["responseText"];
@@ -121,4 +151,18 @@ function actualizarInformacionPersonalCliente(tipoCliente, urlBase)
 
     }
 
+}
+
+function setearDatosInformacionPersonalCliente(data, tipoCliente)
+{
+    if (tipoCliente === "Empresa")
+    {
+        datosCliente = setearDatosEmpresa(data);
+    }
+    if (tipoCliente === "Persona")
+    {
+        datosCliente = setearDatosPersona(data);
+    }
+
+        
 }

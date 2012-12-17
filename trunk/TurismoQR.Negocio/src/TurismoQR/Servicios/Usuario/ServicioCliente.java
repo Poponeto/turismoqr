@@ -247,7 +247,11 @@ public abstract class ServicioCliente extends ServicioContacto implements IServi
             {
                 if(cliente.getUsuario().equals(usuario))
                 {
-                    return (DTOCliente) getTraductor().traducir(cliente);
+                    DTOCliente clienteActual = (DTOCliente) getTraductor().traducir(cliente);
+
+                    completarDatosInterfazCliente(cliente, clienteActual);
+
+                    return clienteActual;
                 }
             }
         }
@@ -283,4 +287,7 @@ public abstract class ServicioCliente extends ServicioContacto implements IServi
     protected abstract String getNombreUsuarioParaCliente(Cliente cliente);
 
     protected abstract String parsearDatosCliente(Cliente cliente);
+    
+    protected abstract void completarDatosInterfazCliente(Cliente cliente, DTOCliente dtoCliente);
 }
+

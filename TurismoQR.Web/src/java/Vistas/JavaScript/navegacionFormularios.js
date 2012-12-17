@@ -18,7 +18,7 @@ var tqrformnav = {
     },
 
     anterior : function(form) {
-        tqrformnav.validarFormularios(function(){
+        //tqrformnav.validarFormularios(function(){
             var formId = form.attr('id');
             var index = $.inArray(formId, tqrformnav.forms);
             var previousIndex = index - 1;
@@ -38,7 +38,7 @@ var tqrformnav = {
                     $('#previous').addClass('disabled');
                 }
             }
-        });
+        //});
     },
 
     siguiente : function(form) {

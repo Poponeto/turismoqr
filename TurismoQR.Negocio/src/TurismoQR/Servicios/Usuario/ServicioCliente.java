@@ -9,6 +9,7 @@ import TurismoQR.ConstantesDeNegocio;
 import TurismoQR.Manejadores.ManejadorUsuarios.ManejadorUsuarios;
 import TurismoQR.ObjetosNegocio.Categorias.Rubro;
 import TurismoQR.ObjetosNegocio.Estados.Ciclo;
+import TurismoQR.ObjetosNegocio.Punto.Punto;
 import TurismoQR.ObjetosNegocio.Usuarios.Cliente;
 import TurismoQR.ObjetosNegocio.Usuarios.Contacto;
 import TurismoQR.ObjetosNegocio.Usuarios.Permisos.PermisoRol;
@@ -214,8 +215,7 @@ public abstract class ServicioCliente extends ServicioContacto implements IServi
         return cabecera + cuerpo;
     }
 
-    private String getMensajeEliminacion()
-    {
+    private String getMensajeEliminacion() {
         String cabecera = "Se ha bloqueado su cuenta de usuario de TurismoQR, "
                 + "solicite ayuda al administrador si desea reactivarla.";
 
@@ -237,16 +237,12 @@ public abstract class ServicioCliente extends ServicioContacto implements IServi
         cliente.getUsuario().setPermisosUsuario(permisosUsuario);
     }
 
-    public DTOCliente obtenerDatosClienteDeUsuario(String nombreUsuario)
-    {
+    public DTOCliente obtenerDatosClienteDeUsuario(String nombreUsuario) {
         Collection<Usuario> usuarios = getAccesoDatos().BuscarObjetosPorCaracteristica(Usuario.class, "nombreUsuario", nombreUsuario);
         Collection<Cliente> clientes = getAccesoDatos().BuscarConjuntoObjetos(Cliente.class);
-        for(Usuario usuario : usuarios)
-        {
-            for(Cliente cliente : clientes)
-            {
-                if(cliente.getUsuario().equals(usuario))
-                {
+        for (Usuario usuario : usuarios) {
+            for (Cliente cliente : clientes) {
+                if (cliente.getUsuario().equals(usuario)) {
                     DTOCliente clienteActual = (DTOCliente) getTraductor().traducir(cliente);
 
                     completarDatosInterfazCliente(cliente, clienteActual);
@@ -259,17 +255,13 @@ public abstract class ServicioCliente extends ServicioContacto implements IServi
         return null;
     }
 
-    public Boolean desbloquearCliente(String idCliente)
-    {
+    public Boolean desbloquearCliente(String idCliente) {
         Cliente cliente = getAccesoDatos().BuscarObjeto(Cliente.class, idCliente);
         cliente.getUsuario().setBloqueado(false);
 
-        if(!cliente.getUsuario().isHabilitado())
-        {
+        if (!cliente.getUsuario().isHabilitado()) {
             cliente.setEstado(Ciclo.crearEstado(Ciclo.AUTORIZACION_PENDIENTE));
-        }
-        else
-        {
+        } else {
             cliente.setEstado(Ciclo.crearEstado(Ciclo.HABILITADO));
         }
 
@@ -279,7 +271,19 @@ public abstract class ServicioCliente extends ServicioContacto implements IServi
 
         return true;
     }
-    
+
+    public Boolean esClienteDueñoDePunto(String idPunto, String nombreUsuaro) {
+        
+        Punto punto = getAccesoDatos().BuscarObjeto(Punto.class, idPunto);
+
+        if(punto.getUsuario().getNombreUsuario().equalsIgnoreCase(nombreUsuaro))
+        {
+            return true;
+        }
+
+        return false;
+    }
+
     protected abstract void completarCliente(Cliente cliente, IDTO dtoCliente);
 
     protected abstract void actualizarCliente(Cliente cliente, IDTO dtoCliente);
@@ -287,7 +291,6 @@ public abstract class ServicioCliente extends ServicioContacto implements IServi
     protected abstract String getNombreUsuarioParaCliente(Cliente cliente);
 
     protected abstract String parsearDatosCliente(Cliente cliente);
-    
+
     protected abstract void completarDatosInterfazCliente(Cliente cliente, DTOCliente dtoCliente);
 }
-

@@ -119,7 +119,7 @@ function verificarPuntoPorNombre(requestContext, nombrePunto) {
 function verificarPuntoPorLocalizacion(requestContext, latitud, longitud, callback) {
     $('#esperaVerificacionLocalizacion').show(1000);
 
-    var jsonfile={latitud:JSON.stringify(latitud), longitud:JSON.stringify(longitud)};
+    var jsonfile={latitud:latitud, longitud:longitud};
 
     $.ajax({
         type : 'POST',

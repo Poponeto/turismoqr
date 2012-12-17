@@ -67,6 +67,9 @@
         <property name="securityMetadataSource">
             <security:filter-security-metadata-source>
 
+                <security:intercept-url pattern="/administracion/crearPunto/**/actualizarPuntoInteres.htm" access="PERMISO_CLIENTE,CONTENIDO_DUENIO"/>
+                <security:intercept-url pattern="/administracion/crearPunto/**/eliminarPuntoInteres.htm" access="PERMISO_CLIENTE,CONTENIDO_DUENIO"/>
+
                 <security:intercept-url pattern="/administracion/usuario/cambiarContrasenia.htm" access="PERMISO_TURISTA"/>
                 <security:intercept-url pattern="/administracion/usuario/informacionPersonal.htm" access="PERMISO_CLIENTE"/>
                 <security:intercept-url pattern="/administracion/cliente/informacionPersonal.htm" access="PERMISO_CLIENTE"/>
@@ -91,6 +94,8 @@
             <list>
                 <bean class="org.springframework.security.access.vote.RoleVoter">
                     <property name="rolePrefix" value="PERMISO_"/>
+                </bean>
+                <bean class="Controladores.AccesoPropietarioContenido">
                 </bean>
             </list>
         </property>

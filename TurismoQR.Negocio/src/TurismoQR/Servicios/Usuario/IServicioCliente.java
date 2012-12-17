@@ -27,4 +27,5 @@ public interface IServicioCliente {
     public Boolean reiniciarContraseñaCliente(String idCliente);
     public Boolean desbloquearCliente(String idCliente);
     public DTOCliente obtenerDatosClienteDeUsuario(String nombreUsuaro);
+    public Boolean esClienteDueñoDePunto(String idPunto, String nombreUsuario);
 }

@@ -28,25 +28,27 @@
         <div id="Contenido">
             <sec:authorize url="/informacionPunto/${punto.idPunto}/obtenerInformacionPuntoIdiomaDefault.htm">
                 <a href="${pageContext.request.contextPath}/informacionPunto/${punto.idPunto}/obtenerInformacionPuntoIdiomaDefault.htm">Ver Informaciòn de Punto de Interés.</a>
+                <br>
             </sec:authorize>
-            <br>
-            <sec:authorize url="/administracion/crearPunto/${punto.idPunto}/actualizarPuntoInteres.htm">
-                <a href="${pageContext.request.contextPath}/administracion/crearPunto/${punto.idPunto}/actualizarPuntoInteres.htm">Actualizar Punto de Interés.</a>
-            </sec:authorize>
-            <br>
-            <sec:authorize url="/administracion/crearPunto/${punto.idPunto}/eliminarPuntoInteres.htm">
-                <a href="${pageContext.request.contextPath}/administracion/crearPunto/${punto.idPunto}/eliminarPuntoInteres.htm">Eliminar Punto de Interés.</a>
-            </sec:authorize>
-            <br>
             <sec:authorize url="/administracion/crearPunto/${punto.idPunto}/mostrarCodigoQR.htm">
                 <a href="${pageContext.request.contextPath}/administracion/crearPunto/${punto.idPunto}/mostrarCodigoQR.htm">Ver Codigo QR del Punto de Interés.</a>
+                <br>
             </sec:authorize>
-                
+            <sec:authorize url="/administracion/crearPunto/${punto.idPunto}/actualizarPuntoInteres.htm">
+                <a href="${pageContext.request.contextPath}/administracion/crearPunto/${punto.idPunto}/actualizarPuntoInteres.htm">Actualizar Punto de Interés.</a>
+                <br>
+            </sec:authorize>
+            <sec:authorize url="/administracion/crearPunto/${punto.idPunto}/eliminarPuntoInteres.htm">
+                <a href="${pageContext.request.contextPath}/administracion/crearPunto/${punto.idPunto}/eliminarPuntoInteres.htm">Eliminar Punto de Interés.</a>
+                <br>
+            </sec:authorize>
+
+
             <div style="margin-top: 15px">
                 <h1>
                     ${punto.nombrePunto}
                 </h1>
-                
+
                 <a style="margin-top: 15px">
                     Latitud: ${punto.localizacion.latitud}
                 </a>

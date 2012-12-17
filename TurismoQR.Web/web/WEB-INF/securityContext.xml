@@ -70,6 +70,9 @@
                 <security:intercept-url pattern="/administracion/usuario/cambiarContrasenia.htm" access="PERMISO_TURISTA"/>
                 <security:intercept-url pattern="/administracion/usuario/informacionPersonal.htm" access="PERMISO_CLIENTE"/>
                 <security:intercept-url pattern="/administracion/cliente/informacionPersonal.htm" access="PERMISO_CLIENTE"/>
+                <security:intercept-url pattern="/administracion/cliente/obtenerDatosClienteActual.htm" access="PERMISO_CLIENTE"/>
+                <security:intercept-url pattern="/administracion/cliente/modificarPersona.htm" access="PERMISO_CLIENTE"/>
+                <security:intercept-url pattern="/administracion/cliente/modificarEmpresa.htm" access="PERMISO_CLIENTE"/>
                 <security:intercept-url pattern="/punto/**" access="PERMISO_TURISTA"/>
                 <security:intercept-url pattern="/usuario/**" access="PERMISO_TURISTA"/>
                 <security:intercept-url pattern="/cliente/**" access="PERMISO_TURISTA"/>

@@ -5,15 +5,18 @@
 package Controladores;
 
 import TurismoQR.ObjetosTransmisionDatos.DTOCliente;
+import TurismoQR.ObjetosTransmisionDatos.DTOEmpresa;
 import TurismoQR.ObjetosTransmisionDatos.DTOPersona;
 import TurismoQR.Servicios.Usuario.IServicioCliente;
+import TurismoQR.Servicios.Validacion.Errores;
+import TurismoQR.Servicios.Validacion.IServicioValidacionDatos;
 import Utils.FilaTablaCliente;
 import Utils.IFila;
 import Utils.Tabla;
-import java.security.Principal;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
-import javax.servlet.http.HttpServletRequest;
+import java.util.Map;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -37,15 +40,18 @@ public class InformacionClienteController
     private IServicioCliente servicioEmpresa;
     private IServicioCliente servicioPersona;
     private IServicioCliente servicioCliente;
+    private IServicioValidacionDatos servicioValidacionDatos;
 
     @Autowired
     public InformacionClienteController(
             IServicioCliente servicioEmpresa,
-            IServicioCliente servicioPersona)
+            IServicioCliente servicioPersona,
+            IServicioValidacionDatos servicioValidacionDatos)
     {
         this.servicioEmpresa = servicioEmpresa;
         this.servicioPersona = servicioPersona;
         this.servicioCliente = servicioPersona;
+        this.servicioValidacionDatos = servicioValidacionDatos;
     }
 
     @RequestMapping(value = "/informacionPersonal.htm", method = RequestMethod.GET)
@@ -72,8 +78,7 @@ public class InformacionClienteController
             model.put("tipoCliente", "Empresa");
         }
 
-        model.put("nombreUsuario", nombreUsuario);
-        model.put("esCliente", true);
+        model.put("cliente", dtoCliente);
         
         return "Administracion/Usuario/InformacionPersonalCliente";
     }
@@ -175,18 +180,111 @@ public class InformacionClienteController
         }
     }
 
-    @RequestMapping(value = "/modificarCliente.htm", method = RequestMethod.POST)
-    public void modificarCliente(@RequestBody  FilaTablaCliente fila, HttpServletResponse response)
+    @RequestMapping(value = "/modificarEmpresa.htm", method = RequestMethod.POST)
+    public
+    @ResponseBody
+    Map<String, String> modificarEmpresa(@RequestBody  DTOEmpresa dtoEmpresa, HttpServletResponse response)
     {
-        Boolean exito = servicioCliente.actualizarDatosCliente(null);
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        UserDetails userDetails = null;
+        if (principal instanceof UserDetails) {
+            userDetails = (UserDetails) principal;
+        }
 
-        if (exito)
+        String nombreUsuario = userDetails.getUsername();
+
+        DTOCliente dtoCliente = servicioCliente.obtenerDatosClienteDeUsuario(nombreUsuario);
+        dtoEmpresa.setIdContacto(dtoCliente.getIdContacto());
+
+        Errores errores = servicioValidacionDatos.validarDatos(dtoEmpresa);
+
+        response.setContentType("application/json");
+
+        if (errores.hayErrores())
         {
-            response.setStatus(HttpServletResponse.SC_OK);
+            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+            return errores;
         }
         else
         {
-            response.setStatus(HttpServletResponse.SC_CONFLICT);
+            boolean exito = servicioEmpresa.actualizarDatosCliente(dtoEmpresa);
+
+            Map<String, String> datos = new HashMap<String, String>();
+
+            if (exito)
+            {
+                response.setStatus(HttpServletResponse.SC_OK);
+            }
+            else
+            {
+                response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            }
+
+            return datos;
+
         }
+
+    }
+
+    @RequestMapping(value = "/modificarPersona.htm", method = RequestMethod.POST)
+    public 
+    @ResponseBody
+    Map<String, String> modificarPersona(@RequestBody  DTOPersona dtoPersona, HttpServletResponse response)
+    {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        UserDetails userDetails = null;
+        if (principal instanceof UserDetails) {
+            userDetails = (UserDetails) principal;
+        }
+
+        String nombreUsuario = userDetails.getUsername();
+
+        DTOCliente dtoCliente = servicioCliente.obtenerDatosClienteDeUsuario(nombreUsuario);
+        dtoPersona.setIdContacto(dtoCliente.getIdContacto());
+
+        Errores errores = servicioValidacionDatos.validarDatos(dtoPersona);
+
+        response.setContentType("application/json");
+
+        if (errores.hayErrores())
+        {
+            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+            return errores;
+        }
+        else
+        {
+            boolean exito = servicioPersona.actualizarDatosCliente(dtoPersona);
+
+            Map<String, String> datos = new HashMap<String, String>();
+
+            if (exito)
+            {
+                response.setStatus(HttpServletResponse.SC_OK);
+            }
+            else
+            {
+                response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            }
+
+            return datos;
+
+        }
+
+    }
+
+    @RequestMapping(value = "/obtenerDatosClienteActual.htm", method = RequestMethod.GET)
+    public @ResponseBody DTOCliente obtenerDatosClienteActual()
+    {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        UserDetails userDetails = null;
+        if (principal instanceof UserDetails) {
+            userDetails = (UserDetails) principal;
+        }
+
+        String nombreUsuario = userDetails.getUsername();
+
+        DTOCliente dtoCliente = servicioCliente.obtenerDatosClienteDeUsuario(nombreUsuario);
+
+        return dtoCliente;
     }
 }

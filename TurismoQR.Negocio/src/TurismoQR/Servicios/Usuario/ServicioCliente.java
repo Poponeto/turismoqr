@@ -132,7 +132,7 @@ public abstract class ServicioCliente extends ServicioContacto implements IServi
         this.actualizarDatosContacto(cliente, dtoCliente);
 
         cliente.setCantidadDePuntosPermitidos(dtoCliente.getCantidadDePuntosPermitidos());
-        completarCliente(cliente, dto);
+        actualizarCliente(cliente, dto);
 
         cliente.getUsuario().setNombreUsuario(getNombreUsuarioParaCliente(cliente));
 
@@ -277,6 +277,8 @@ public abstract class ServicioCliente extends ServicioContacto implements IServi
     }
     
     protected abstract void completarCliente(Cliente cliente, IDTO dtoCliente);
+
+    protected abstract void actualizarCliente(Cliente cliente, IDTO dtoCliente);
 
     protected abstract String getNombreUsuarioParaCliente(Cliente cliente);
 

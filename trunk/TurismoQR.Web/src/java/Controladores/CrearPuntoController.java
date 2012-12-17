@@ -208,13 +208,12 @@ public class CrearPuntoController {
     }
 
     @RequestMapping(value = "/{idPunto}/" + eliminarPuntoInteres,
-                    method = RequestMethod.POST)
+                    method = RequestMethod.GET)
     public String eliminarPuntoInteres(
             @PathVariable String idPunto)
     {
-        String idioma = "espanol";
-        //TODO Obtener el idioma por default del usuario
-        return "redirect:/informacionPunto/" + idioma + "/" + idPunto +"/obtenerInformacionPunto.htm";
+        servicioPunto.eliminarPuntoInteres(idPunto);
+        return "Administracion/Administracion";
     }
 
     @RequestMapping(value = "/{idPunto}/" + verCodigoQRPuntoInteres,

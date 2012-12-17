@@ -154,30 +154,34 @@
             <%@ include  file="/WEB-INF/jsp/Utils/MenuCabecera.jsp" %>
         </div>
         <div id="Contenido" style="padding: 15px 30px;" class="ui-widget-content">
-            <div id="reportePuntosPorUsuario">
-                <h1>Cantidad de puntos por usuario</h1><br>
+            <div id="reportePuntosPorUsuario" style="background: white; border: 2px solid brown !important; border-radius: 20px;">
+                <h3>Cantidad de puntos por usuario</h3><br>
                 <div id="tableUsuario"></div>
                 <div id="chartUsuario"></div>
             </div>
-            <div id="reportePuntosPorCategoria">
-                <h1>Cantidad de puntos por categoria</h1><br>
+            <br>
+            <div id="reportePuntosPorCategoria" style="background: white; border: 2px solid brown !important; border-radius: 20px;">
+                <h3>Cantidad de puntos por categoria</h3><br>
                 <div id="tableCategoria"></div>
                 <div id="chartCategoria"></div>
             </div>
-            <div id="reportePuntosCreadosPorMes">
-                <h1>Cantidad de puntos creados por mes</h1><br>
-                <h3>(Ultimos cuatro meses)</h3><br>
+            <br>
+            <div id="reportePuntosCreadosPorMes" style="background: white; border: 2px solid brown !important; border-radius: 20px;">
+                <h3>Cantidad de puntos creados por mes</h3>
+                <h3>(Últimos cuatro meses)</h3><br>
                 <div id="tableCreados"></div>
                 <div id="chartCreados"></div>
             </div>
-            <div id="reportePuntosModificadosPorMes">
-                <h1>Cantidad de puntos modificados por mes</h1><br>
-                <h3>(Ultimos cuatro meses)</h3><br>
+            <br>
+            <div id="reportePuntosModificadosPorMes" style="background: white; border: 2px solid brown !important; border-radius: 20px;">
+                <h3>Cantidad de puntos modificados por mes</h3>
+                <h3>(Últimos cuatro meses)</h3><br>
                 <div id="tableModificados"></div>
                 <div id="chartModificados"></div>
             </div>
-            <div id="reporteVisitasPorPunto">
-                <h1>Cantidad de visitas por punto</h1>
+            <br>
+            <div id="reporteVisitasPorPunto" style="background: white; border: 2px solid brown !important; border-radius: 20px;">
+                <h3>Cantidad de visitas por punto</h3>
                 <div id="tableVisitas"></div>
                 <div id="chartVisitas"></div>
             </div>

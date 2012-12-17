@@ -67,6 +67,7 @@
         <property name="securityMetadataSource">
             <security:filter-security-metadata-source>
 
+                <security:intercept-url pattern="/administracion/crearPunto/crearPuntoDeInteres.htm" access="PERMISO_CLIENTE,CANTIDAD_PUNTOS"/>
                 <security:intercept-url pattern="/administracion/crearPunto/**/actualizarPuntoInteres.htm" access="PERMISO_CLIENTE,CONTENIDO_DUENIO"/>
                 <security:intercept-url pattern="/administracion/crearPunto/**/eliminarPuntoInteres.htm" access="PERMISO_CLIENTE,CONTENIDO_DUENIO"/>
 
@@ -96,6 +97,8 @@
                     <property name="rolePrefix" value="PERMISO_"/>
                 </bean>
                 <bean class="Controladores.AccesoPropietarioContenido">
+                </bean>
+                <bean class="Controladores.AccesoCantidadPuntos">
                 </bean>
             </list>
         </property>

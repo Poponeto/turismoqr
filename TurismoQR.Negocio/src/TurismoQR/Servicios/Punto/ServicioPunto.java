@@ -25,6 +25,7 @@ import TurismoQR.Manejadores.ManejadorLogin.ManejadorLogin;
 import TurismoQR.ObjetosNegocio.Categorias.Categoria;
 import TurismoQR.ObjetosNegocio.Estados.Ciclo;
 import TurismoQR.ObjetosNegocio.Punto.Localizacion;
+import TurismoQR.ObjetosNegocio.Usuarios.Cliente;
 import TurismoQR.ObjetosNegocio.Usuarios.Usuario;
 import TurismoQR.ObjetosTransmisionDatos.DTOCategoria;
 import TurismoQR.ObjetosTransmisionDatos.DTOLocalizacion;
@@ -360,6 +361,36 @@ public class ServicioPunto extends ServicioPuntoBase implements IServicioPunto
         //Calcula la longitud del paralelo por medio de calculos trigonometricos respecto a la longitud del ecuador, y los angulos correspondientes
         double longitudParalelo = (Math.sin(Math.PI/2 - (Math.abs(latitud)* Math.PI/ 180)) * longitudEcuador) ;
         return longitudParalelo;
+
+    }
+
+    public Boolean puedeCrearPuntos(String nombreUsuario) {
+        int cantidadPuntosUsuario = 0;
+
+        Collection<Punto> puntos = accesoDatos.BuscarConjuntoObjetos(Punto.class);
+
+        for(Punto punto : puntos)
+        {
+            if(punto.getUsuario().getNombreUsuario().equalsIgnoreCase(nombreUsuario) && getManejadorEstado().esEstadoValidoConsulta(punto.getEstado()))
+            {
+                cantidadPuntosUsuario ++;
+            }
+        }
+
+        Collection<Cliente> clientes = accesoDatos.BuscarConjuntoObjetos(Cliente.class);
+
+        for(Cliente cliente : clientes)
+        {
+            if(cliente.getUsuario().getNombreUsuario().equalsIgnoreCase(nombreUsuario))
+            {
+                if(cliente.getCantidadDePuntosPermitidos() > cantidadPuntosUsuario)
+                {
+                    return true;
+                }
+            }
+        }
+
+        return false;
 
     }
     

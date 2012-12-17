@@ -30,4 +30,5 @@ public interface IServicioPunto {
     public Collection<DTOPunto> ConsultarPuntosDeInteresPorUsuarioCategoria(String nombreUsuario, String nombreCategoria, String nombreIdioma);
     public DTOPunto ConsultarPuntosDeInteresPorNombre(String nombrePunto, String nombreIdioma);
     public DTOPunto ConsultarPuntosDeInteresPorLocalizacion(DTOLocalizacion dtoLocalizacion, String nombreIdioma);
+    public Boolean puedeCrearPuntos(String nombreUsuario);
 }

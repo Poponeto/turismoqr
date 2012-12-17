@@ -72,7 +72,7 @@
                     <!--sec:authorize ifAnyGranted="PERMISO_VERINFORMES"-->
                     <li id ="menuDeOpcionesInformes">
 
-                        <a href="${pageContext.request.contextPath}/crearPunto/crearPuntoDeInteres.htm" class="menuPrincipal"><img alt=""  id="imagenMenu4" src="${pageContext.request.contextPath}/Vistas/HojasDeEstilo/images/chart.gif"/>&nbsp;Informes&nbsp;&nbsp;&nbsp<img alt=""  id="imagenMenu5" src="${pageContext.request.contextPath}/Vistas/HojasDeEstilo/images/down.png"/></a>
+                        <a href="${pageContext.request.contextPath}/administracion/verReporte/reporte.htm" class="menuPrincipal"><img alt=""  id="imagenMenu4" src="${pageContext.request.contextPath}/Vistas/HojasDeEstilo/images/chart.gif"/>&nbsp;Informes&nbsp;&nbsp;&nbsp<img alt=""  id="imagenMenu5" src="${pageContext.request.contextPath}/Vistas/HojasDeEstilo/images/down.png"/></a>
 
                         <ul>
 

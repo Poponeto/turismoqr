@@ -29,9 +29,19 @@
                     $('#popUpEmpresaPersona').dialog('open');
                     return false;
                 });
+
+                $('#recuperarContraseñaLink').click(function(){
+                    $('#Contenedor').css('opacity','0.5');
+                    $('#popUpRecuperarContraseña').dialog('open');
+                    return false;
+                });
                 
                 $.get('${pageContext.request.contextPath}/cliente/opcionesRegistroCliente.htm', function(data) {
                     $('#ContenedorDelPopUp').html(data);
+                });
+
+                $.get('${pageContext.request.contextPath}/cliente/popUpRecuperarContrasenia.htm', function(data) {
+                    $('#ContenedorDelPopUpRecuperarContraseña').html(data);
                 });
         });
         $(window).load(function() {
@@ -41,6 +51,30 @@
                 $("[name=formularioDeLogin]").prepend('<p class="mensajeErrorEntrada">Datos de usuario incorrectos. Verifique los datos e intente nuevamente.</p>');
             }
         });
+
+        function restaurarContraseña(emailCliente){
+            var urlConsulta = "${pageContext.request.contextPath}" + "/login/reiniciarContraseniaClienteConEmail.htm";
+
+            $.ajax({
+
+                url: urlConsulta,
+                data: {
+                    emailCliente: emailCliente
+                    },
+                type: "POST",
+                success: function(){
+                    $('#contenedorCargandoMail').hide(1000);
+                    location.reload(true);
+                    alert('Se ha enviado un mail con sus nuevas credenciales a su direccion de correo electronico');
+                },
+                error: function(){
+                    $('#contenedorCargandoMail').hide(1000);
+                    $('#contenedorErrorMail').show(1000)
+                }
+
+            });
+        };
+
         </script>
     </head>
 
@@ -89,6 +123,9 @@
         </div>
 
         <div id="ContenedorDelPopUp">
+        </div>
+
+        <div id="ContenedorDelPopUpRecuperarContraseña">
         </div>
 
     </body>

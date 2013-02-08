@@ -95,6 +95,23 @@ public abstract class ServicioCliente extends ServicioContacto implements IServi
         return cliente;
     }
 
+    @Override
+    public String obtenerIdClienteConEmail(String emailCliente) {
+        Collection<Contacto> contactos = getAccesoDatos().BuscarObjetosPorCaracteristica(Contacto.class, "mail", emailCliente);
+
+        Contacto contacto = null;
+
+        if(contactos.iterator().hasNext()) {
+            contacto = contactos.iterator().next();
+        }
+
+        String contactoId = "";
+        if(contacto != null) {
+            contactoId = contacto.getIdObjeto();
+        }
+        return contactoId;
+    }
+
     public Collection<DTOCliente> consultarClientes() {
         Collection<Cliente> clientes = getAccesoDatos().BuscarConjuntoObjetos(Cliente.class);
 

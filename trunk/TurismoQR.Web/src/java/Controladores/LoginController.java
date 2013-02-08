@@ -1,6 +1,7 @@
 package Controladores;
 
 
+import TurismoQR.Servicios.Usuario.IServicioCliente;
 import TurismoQR.Servicios.Usuario.IServicioUsuario;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import javax.servlet.http.HttpServletResponse;
 
 /*
  * To change this template, choose Tools | Templates
@@ -29,11 +32,13 @@ public class LoginController implements UserDetailsService {
 
     
     IServicioUsuario servicioUsuario;
+    IServicioCliente servicioCliente;
 
     @Autowired
-    public void LoginController(IServicioUsuario servicioUsuario)
+    public void LoginController(IServicioUsuario servicioUsuario, IServicioCliente servicioPersona)
     {
         this.servicioUsuario = servicioUsuario;
+        this.servicioCliente = servicioPersona;
     }
 
 
@@ -63,6 +68,29 @@ public class LoginController implements UserDetailsService {
         modelo.addAttribute("usuario", username);
 
         return "CuentaExpirada";
+    }
+
+    @RequestMapping(value = "/reiniciarContraseniaClienteConEmail.htm", method = RequestMethod.POST)
+    public void reiniciarContraseñaClienteConEmail(String emailCliente, HttpServletResponse response)
+    {
+        String idCliente = servicioCliente.obtenerIdClienteConEmail(emailCliente);
+
+        boolean exito = false;
+
+        if(idCliente != null && idCliente != "") {
+            exito = servicioCliente.reiniciarContraseñaCliente(idCliente);
+        }
+        
+
+        if (exito)
+        {
+            response.setStatus(HttpServletResponse.SC_OK);
+        }
+        else
+        {
+            response.setStatus(HttpServletResponse.SC_CONFLICT);
+        }
+        
     }
 
 }

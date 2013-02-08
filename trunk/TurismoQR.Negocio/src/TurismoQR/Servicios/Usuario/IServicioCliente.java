@@ -28,4 +28,5 @@ public interface IServicioCliente {
     public Boolean desbloquearCliente(String idCliente);
     public DTOCliente obtenerDatosClienteDeUsuario(String nombreUsuaro);
     public Boolean esClienteDueñoDePunto(String idPunto, String nombreUsuario);
+    public String obtenerIdClienteConEmail(String emailCliente);
 }

@@ -82,6 +82,12 @@ public class RegistroClienteController
         return "cliente/" + confirmacionRegistroCliente;
     }
 
+    @RequestMapping(value = "/popUpRecuperarContrasenia.htm", method = RequestMethod.GET)
+    public String redirigirPopUp(ModelMap model)
+    {
+        return "RecuperarContraseñaPopUp";
+    }
+
     @RequestMapping(value = "/opcionesRegistroCliente.htm", method = RequestMethod.GET)
     public String redirigir(ModelMap model)
     {

@@ -28,6 +28,9 @@
                                 <td>Contraseña:</td>
                                 <td><input id="lineaDatosPassword" type='password' name='password'></td>
                             </tr>
+                            <tr>
+                                <td><a id="recuperarContraseñaLink" href="#">¿Olvidaste tu contraseña?</a></td>
+                            </tr>
                         </table>
                     </div>
                 </div>

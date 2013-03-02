@@ -102,42 +102,49 @@ function agregarInputComentario() {
 }
 
 function verificarPuntoPorNombre(requestContext, nombrePunto) {
-    $('#esperaVerificacion').show(1000);
+    if(nuevoPunto) {
+        $('#esperaVerificacion').show(1000);
 
-    $.ajax({
-        url : requestContext+'/administracion/crearPunto/'+nombrePunto+'/verificarPuntoPorNombre.htm',
-        success : function(data) {
-            $('#esperaVerificacion').hide(1000);
-            if(data.estadoOperacion == "ERROR") {
-                $('#nombrePuntoError').text(data.mensaje);
-                $('#nombrePuntoError').show(1000);
+        $.ajax({
+            url : requestContext+'/administracion/crearPunto/'+nombrePunto+'/verificarPuntoPorNombre.htm',
+            success : function(data) {
+                $('#esperaVerificacion').hide(1000);
+                if(data.estadoOperacion == "ERROR") {
+                    $('#nombrePuntoError').text(data.mensaje);
+                    $('#nombrePuntoError').show(1000);
+                }
             }
-        }
-    });
+        });
+    }
 }
 
 function verificarPuntoPorLocalizacion(requestContext, latitud, longitud, callback) {
-    $('#esperaVerificacionLocalizacion').show(1000);
+    if (nuevoPunto){
+        $('#esperaVerificacionLocalizacion').show(1000);
 
-    var jsonfile={latitud:latitud, longitud:longitud};
+        var jsonfile={latitud:latitud, longitud:longitud};
 
-    $.ajax({
-        type : 'POST',
-        url : requestContext+'/administracion/crearPunto/verificarPuntoPorLocalizacion.htm',
-        data : jsonfile,
-        success : function(data) {
-            $('#esperaVerificacionLocalizacion').hide(1000);
-            if(data.estadoOperacion == "ERROR") {
-                $('#localizacionPuntoError').text(data.mensaje);
-                $('#localizacionPuntoError').show(1000);
+        $.ajax({
+            type : 'POST',
+            url : requestContext+'/administracion/crearPunto/verificarPuntoPorLocalizacion.htm',
+            data : jsonfile,
+            success : function(data) {
+                $('#esperaVerificacionLocalizacion').hide(1000);
+                if(data.estadoOperacion == "ERROR") {
+                    $('#localizacionPuntoError').text(data.mensaje);
+                    $('#localizacionPuntoError').show(1000);
 
-                tqrformnav.errorVerificacion = true;
-            } else {
-                tqrformnav.errorVerificacion = false;
-                callback();
-            }
-        },
-        dataType : "json"
-    });
+                    tqrformnav.errorVerificacion = true;
+                } else {
+                    tqrformnav.errorVerificacion = false;
+                    callback();
+                }
+            },
+            dataType : "json"
+        });
+    } else {
+        tqrformnav.errorVerificacion = false;
+        callback();
+    }
 }
 

@@ -274,10 +274,18 @@ public class CrearPuntoController {
 
         Collection<DTOImagen> imagenes = getImagenesPunto();
         String pathArchivo = "";
+
+        DTOImagen imagenABorrar = null;
+
         for(DTOImagen imagen : imagenes){
+            imagenABorrar = imagen;
             if(imagen.getUrl().contains(archivo)) {
                 pathArchivo = imagen.getUrl();
             }
+        }
+
+        if(imagenABorrar != null) {
+            imagenes.remove(imagenABorrar);
         }
 
         response.setContentType("application/json");

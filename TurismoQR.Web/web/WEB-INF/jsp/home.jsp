@@ -125,7 +125,7 @@
         <div id="ContenedorDelPopUp">
         </div>
 
-        <div id="ContenedorDelPopUpRecuperarContraseña">
+        <div id="ContenedorDelPopUpRecuperarContraseña" style="display: none;">
         </div>
 
     </body>

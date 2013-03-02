@@ -50,8 +50,12 @@ var tqrgaleria = {
     },
 
     eliminarImagen : function(imagen) {
+        var imagenABorrar = imagen;
+        if(imagen.indexOf('/') != -1) {
+            imagenABorrar = imagen.substring(imagen.lastIndexOf('/') + 1);
+        }
         $.ajax({
-            url: $('#requestContext').text().trim()+'/administracion/crearPunto/'+imagen+'/borrarArchivo.htm',
+            url: $('#requestContext').text().trim()+'/administracion/crearPunto/'+imagenABorrar+'/borrarArchivo.htm',
             success : function(data) {
                 tqrgaleria.quitarImagenDeGaleria(imagen);
             }

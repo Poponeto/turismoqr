@@ -15,9 +15,11 @@
         
         <core:if test="${punto.idPunto != null}">
             <title>Modificar Punto de Interes</title>
+            <script type="text/javascript">var nuevoPunto = false;</script>
         </core:if>
         <core:if test="${punto.idPunto == null}">
             <title>Nuevo Punto de Interes</title>
+            <script type="text/javascript">var nuevoPunto = true;</script>
         </core:if>
 
         <%@ include file="/WEB-INF/jsp/Utils/ArchivosJQuery.html" %>

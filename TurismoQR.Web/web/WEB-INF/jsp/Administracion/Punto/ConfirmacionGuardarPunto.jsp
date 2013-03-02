@@ -34,6 +34,7 @@
                         $('#codigoQR').append('<img id="imagenCodigo" src="' + $('#requestContext').text() + '/imagenes/mostrarImagen?img=' + data.mensaje + '"/><br>');
                         $('#codigoQR').fadeIn(1000);
                         $('#botonImprimir').fadeIn(1000);
+                        $('#linkCodigoQR').fadeOut(1000);
                     }
                 });
             }
@@ -54,7 +55,7 @@
         <div id="Contenido" style="padding: 15px 30px;" class="ui-widget-content">
             <h1>Punto guardado satisfactoriamente!</h1>
             El punto de interes <b>${nombrePunto}</b> ha sido creado correctamente.<br>
-            Si desea generar el codigo QR para este punto haga click <a href="javascript:obtenerCodigoQR();">aqui</a><br>
+            <div id="linkCodigoQR">Si desea generar el codigo QR para este punto haga click <a href="javascript:obtenerCodigoQR();">aqui</a><br></div>
             <div id="codigoQR" style="display: none; margin-top: 10px; text-align: center;"></div>
             <div id="botonImprimir" style="display: none; margin-top: 10px; text-align: center;">
                 <a href="javascript:imprimirCodigoQR();"><img alt="" src="${pageContext.request.contextPath}/Vistas/Imagenes/printer.png" style="display: inline-block;  height: 60px;"/>

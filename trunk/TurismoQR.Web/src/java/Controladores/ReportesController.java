@@ -7,7 +7,6 @@ package Controladores;
 
 import TurismoQR.Manejadores.ManejadorCategoria.ManejadorCategoria;
 import TurismoQR.Manejadores.ManejadorIdiomas.ManejadorIdiomas;
-import TurismoQR.Manejadores.ManejadorLogin.ManejadorLogin;
 import TurismoQR.ObjetosTransmisionDatos.DTOCategoria;
 import TurismoQR.ObjetosTransmisionDatos.DTOPunto;
 import TurismoQR.ObjetosTransmisionDatos.DTOUsuario;
@@ -20,9 +19,7 @@ import Utils.Reportes.PuntosCreadosPorMes;
 import Utils.Reportes.PuntosModificadosPorMes;
 import Utils.Reportes.PuntosPorCategoria;
 import Utils.Reportes.PuntosPorUsuario;
-import com.sun.org.apache.bcel.internal.generic.AALOAD;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
@@ -32,7 +29,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  *
@@ -130,38 +126,56 @@ public class ReportesController {
             puntosPorCategoria.add(puntosCategoria);
         }
 
-        for(int i = mesFechaInicial; i < (mesFechaFinal + 1); i++) {
-           PuntosCreadosPorMes puntosPorMes = new PuntosCreadosPorMes((String)meses.get(i), 0);
+        int mesActualCreados = mesFechaInicial;
 
-           for(DTOPunto punto : puntos) {
-               Date fechaCreacion = punto.getFechaCreacion();
-               if(fechaCreacion != null && fechaCreacion.after(fechaInicialDate) && fechaCreacion.before(fechaFinalDate)) {
-                   int mesPunto = Integer.parseInt(formatDate.format(fechaCreacion));
+        for(int i = 0; i < 4; i++) {
 
-                   if(mesPunto == i) {
-                       int cantidadPuntos = puntosPorMes.getCantidadPuntos();
-                       puntosPorMes.setCantidadPuntos(cantidadPuntos + 1);
-                   }
-               }
-           }
-           puntosCreadosPorMes.add(puntosPorMes);
+            if (mesActualCreados > 12) {
+                mesActualCreados = 1;
+            }
+
+            PuntosCreadosPorMes puntosPorMes = new PuntosCreadosPorMes((String)meses.get(mesActualCreados), 0);
+
+            for(DTOPunto punto : puntos) {
+            Date fechaCreacion = punto.getFechaCreacion();
+            if(fechaCreacion != null && fechaCreacion.after(fechaInicialDate) && fechaCreacion.before(fechaFinalDate)) {
+                int mesPunto = Integer.parseInt(formatDate.format(fechaCreacion));
+
+                if(mesPunto == mesActualCreados) {
+                    int cantidadPuntos = puntosPorMes.getCantidadPuntos();
+                    puntosPorMes.setCantidadPuntos(cantidadPuntos + 1);
+                }
+            }
+            }
+            puntosCreadosPorMes.add(puntosPorMes);
+
+            mesActualCreados += 1;
         }
 
-        for(int i = mesFechaInicial; i < (mesFechaFinal + 1); i++) {
-           PuntosModificadosPorMes puntosModPorMes = new PuntosModificadosPorMes((String)meses.get(i), 0);
+        int mesActualModificados = mesFechaInicial;
 
-           for(DTOPunto punto : puntos) {
+        for(int i = 0; i < 4; i++) {
+
+            if (mesActualModificados > 12) {
+                mesActualModificados = 1;
+            }
+
+            PuntosModificadosPorMes puntosModPorMes = new PuntosModificadosPorMes((String)meses.get(mesActualModificados), 0);
+
+            for(DTOPunto punto : puntos) {
                Date fechaModificacion = punto.getFechaModificacion();
                if(fechaModificacion != null && fechaModificacion.after(fechaInicialDate) && fechaModificacion.before(fechaFinalDate)) {
                    int mesPunto = Integer.parseInt(formatDate.format(fechaModificacion));
 
-                   if(mesPunto == i) {
+                   if(mesPunto == mesActualModificados) {
                        int cantidadPuntos = puntosModPorMes.getCantidadPuntos();
                        puntosModPorMes.setCantidadPuntos(cantidadPuntos + 1);
                    }
                }
-           }
-           puntosModificadosPorMes.add(puntosModPorMes);
+            }
+            puntosModificadosPorMes.add(puntosModPorMes);
+
+            mesActualModificados += 1;
         }
 
         for(DTOPunto punto : puntos) {

@@ -238,7 +238,7 @@
 
         <div id="dialog">
             <div>
-                <form id="fileupload" action="<core:url value='../crearPunto/subirArchivo.htm'/>" method="POST" enctype="multipart/form-data">
+                <form id="fileupload" action="<core:url value='/administracion/crearPunto/subirArchivo.htm'/>" method="POST" enctype="multipart/form-data">
                     <table role="presentation" class="table table-striped"><tbody class="files" data-toggle="modal-gallery" data-target="#modal-gallery"></tbody></table>
                     <div id="archivos">
                         <span class="btn btn-success fileinput-button">

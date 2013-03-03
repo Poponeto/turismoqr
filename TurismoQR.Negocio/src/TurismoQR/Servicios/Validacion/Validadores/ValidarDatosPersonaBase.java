@@ -74,7 +74,7 @@ public abstract class ValidarDatosPersonaBase implements Validador{
             errores.agregarError("sexo", "El genero debe ser masculino o femenino.");
         }
 
-        String regexNombreApellido = "[a-zA-Z]+";
+        String regexNombreApellido = "[a-zA-Z\\s]+";
 
         if (dtoPersona.getApellido() == null || dtoPersona.getApellido().isEmpty())
         {

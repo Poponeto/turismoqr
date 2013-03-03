@@ -9,6 +9,9 @@
     <property name="hibernate.connection.password">root</property>
     <property name="hibernate.show_sql">true</property>
     <property name="hibernate.format_sql">true</property>
+    <property name="hibernate.connection.useUnicode">true</property>
+    <property name="hibernate.connection.characterEncoding">UTF-8</property>
+    <property name="hibernate.connection.charSet">UTF-8</property> 
     <mapping resource="TurismoQR/ArchivosMapeo/Periodo.hbm.xml"/>
     <mapping resource="TurismoQR/ArchivosMapeo/Punto.hbm.xml"/>
     <mapping resource="TurismoQR/ArchivosMapeo/Localizacion.hbm.xml"/>

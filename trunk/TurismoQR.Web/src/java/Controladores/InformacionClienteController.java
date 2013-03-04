@@ -7,6 +7,8 @@ package Controladores;
 import TurismoQR.ObjetosTransmisionDatos.DTOCliente;
 import TurismoQR.ObjetosTransmisionDatos.DTOEmpresa;
 import TurismoQR.ObjetosTransmisionDatos.DTOPersona;
+import TurismoQR.ObjetosTransmisionDatos.DTOPunto;
+import TurismoQR.Servicios.Punto.IServicioPunto;
 import TurismoQR.Servicios.Usuario.IServicioCliente;
 import TurismoQR.Servicios.Validacion.Errores;
 import TurismoQR.Servicios.Validacion.IServicioValidacionDatos;
@@ -36,7 +38,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("/administracion/cliente")
 public class InformacionClienteController
 {
-
+    private IServicioPunto servicioPunto;
     private IServicioCliente servicioEmpresa;
     private IServicioCliente servicioPersona;
     private IServicioCliente servicioCliente;
@@ -44,6 +46,7 @@ public class InformacionClienteController
 
     @Autowired
     public InformacionClienteController(
+            IServicioPunto servicioPunto,
             IServicioCliente servicioEmpresa,
             IServicioCliente servicioPersona,
             IServicioValidacionDatos servicioValidacionDatos)
@@ -52,6 +55,7 @@ public class InformacionClienteController
         this.servicioPersona = servicioPersona;
         this.servicioCliente = servicioPersona;
         this.servicioValidacionDatos = servicioValidacionDatos;
+        this.servicioPunto = servicioPunto;
     }
 
     @RequestMapping(value = "/informacionPersonal.htm", method = RequestMethod.GET)
@@ -100,6 +104,8 @@ public class InformacionClienteController
         Collection<DTOCliente> dtosCliente = servicioCliente.consultarClientes();
         Collection<IFila> filas = new HashSet<IFila>();
 
+        Collection<DTOPunto> puntos = servicioPunto.ConsultarPuntosDeInteres("espanol");
+
         for (DTOCliente dtoCliente : dtosCliente)
         {
             FilaTablaCliente fila = new FilaTablaCliente();
@@ -109,10 +115,17 @@ public class InformacionClienteController
             fila.setTelefonoFijo(dtoCliente.getTelefonoFijo());
             fila.setTipoCliente(dtoCliente.getTipoCliente());//
             fila.setNombreCliente(dtoCliente.getNombreCliente());//
-            fila.setPuntosQuePosee(dtoCliente.getCantidadDePuntosQuePosee());
             fila.setIdCliente(dtoCliente.getIdContacto());
             fila.setEstadoCliente(dtoCliente.getEstadoCliente());
             filas.add(fila);
+
+            String nombreUsuario = dtoCliente.getNombreCliente();
+            for(DTOPunto punto : puntos){
+                if(punto.getUsuario().getNombreUsuario().equals(nombreUsuario)){
+
+                    fila.setPuntosQuePosee(fila.getPuntosQuePosee() + 1);
+                }
+            }
         }
 
         tabla.setRows(filas);

@@ -119,9 +119,9 @@ public class InformacionClienteController
             fila.setEstadoCliente(dtoCliente.getEstadoCliente());
             filas.add(fila);
 
-            String nombreUsuario = dtoCliente.getNombreCliente();
+            String idContacto = dtoCliente.getIdContacto();
             for(DTOPunto punto : puntos){
-                if(punto.getUsuario().getNombreUsuario().equals(nombreUsuario)){
+                if(punto.getUsuario().getIdUsuario().equals(idContacto)){
 
                     fila.setPuntosQuePosee(fila.getPuntosQuePosee() + 1);
                 }

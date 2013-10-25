@@ -14,6 +14,13 @@
 
         <script type="text/javascript">
 
+           
+            function ajustarPantalla(){
+                
+            }
+            
+            
+            
             function getParameterByName(name) {
                 var match = RegExp('[?&]' + name + '=([^&]*)')
                 .exec(window.location.search);
@@ -43,37 +50,37 @@
                 $.get('${pageContext.request.contextPath}/cliente/popUpRecuperarContrasenia.htm', function(data) {
                     $('#ContenedorDelPopUpRecuperarContraseña').html(data);
                 });
-        });
-        $(window).load(function() {
-
-            if(getParameterByName("failure"))
-            {
-                $("[name=formularioDeLogin]").prepend('<p class="mensajeErrorEntrada">Datos de usuario incorrectos. Verifique los datos e intente nuevamente.</p>');
-            }
-        });
-
-        function restaurarContraseña(emailCliente){
-            var urlConsulta = "${pageContext.request.contextPath}" + "/login/reiniciarContraseniaClienteConEmail.htm";
-
-            $.ajax({
-
-                url: urlConsulta,
-                data: {
-                    emailCliente: emailCliente
-                    },
-                type: "POST",
-                success: function(){
-                    $('#contenedorCargandoMail').hide(1000);
-                    location.reload(true);
-                    alert('Se ha enviado un mail con sus nuevas credenciales a su direccion de correo electronico');
-                },
-                error: function(){
-                    $('#contenedorCargandoMail').hide(1000);
-                    $('#contenedorErrorMail').show(1000)
-                }
-
             });
-        };
+            $(window).load(function() {
+
+                if(getParameterByName("failure"))
+                {
+                    $("[name=formularioDeLogin]").prepend('<p class="mensajeErrorEntrada">Datos de usuario incorrectos. Verifique los datos e intente nuevamente.</p>');
+                }
+            });
+
+            function restaurarContraseña(emailCliente){
+                var urlConsulta = "${pageContext.request.contextPath}" + "/login/reiniciarContraseniaClienteConEmail.htm";
+
+                $.ajax({
+
+                    url: urlConsulta,
+                    data: {
+                        emailCliente: emailCliente
+                    },
+                    type: "POST",
+                    success: function(){
+                        $('#contenedorCargandoMail').hide(1000);
+                        location.reload(true);
+                        alert('Se ha enviado un mail con sus nuevas credenciales a su direccion de correo electronico');
+                    },
+                    error: function(){
+                        $('#contenedorCargandoMail').hide(1000);
+                        $('#contenedorErrorMail').show(1000)
+                    }
+
+                });
+            };
 
         </script>
     </head>
@@ -82,7 +89,7 @@
         <%@ include  file="/WEB-INF/jsp/Utils/Cabecera.jsp" %>
 
         <div id="Contenedor">
-            
+
             <div>
                 <table id="contenidoPrincipal" style="width: 100%;">
                     <tr>

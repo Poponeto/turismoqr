@@ -79,7 +79,7 @@ public abstract class ServicioCliente extends ServicioContacto implements IServi
 
         agregarPermisosACliente(cliente);
 
-        cliente.setCantidadDePuntosPermitidos(((DTOCliente) dtoContacto).getCantidadDePuntosPermitidos());
+        cliente.setCantidadDePuntosPermitidos(Integer.parseInt(((DTOCliente) dtoContacto).getCantidadDePuntosPermitidos()));
         cliente.setEstado(Ciclo.crearEstado(Ciclo.AUTORIZACION_PENDIENTE));
 
         completarCliente(cliente, dtoContacto);
@@ -149,7 +149,7 @@ public abstract class ServicioCliente extends ServicioContacto implements IServi
 
         this.actualizarDatosContacto(cliente, dtoCliente);
 
-        cliente.setCantidadDePuntosPermitidos(dtoCliente.getCantidadDePuntosPermitidos());
+        cliente.setCantidadDePuntosPermitidos(Integer.parseInt(dtoCliente.getCantidadDePuntosPermitidos()));
         actualizarCliente(cliente, dto);
 
         cliente.getUsuario().setNombreUsuario(getNombreUsuarioParaCliente(cliente));

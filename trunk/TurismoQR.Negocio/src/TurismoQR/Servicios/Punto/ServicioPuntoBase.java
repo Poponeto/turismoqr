@@ -27,15 +27,13 @@ import java.util.HashSet;
  *
  * @author Federico
  */
-public abstract class ServicioPuntoBase
-{
+public abstract class ServicioPuntoBase {
 
     private ManejadorIdiomas manejadorIdioma;
     private ITraductor traductor;
     private ManejadorEstados manejadorEstado;
 
-    public ServicioPuntoBase(ManejadorIdiomas manejadorIdioma, ITraductor traductor,  ManejadorEstados manejadorEstado)
-    {
+    public ServicioPuntoBase(ManejadorIdiomas manejadorIdioma, ITraductor traductor, ManejadorEstados manejadorEstado) {
         this.manejadorIdioma = manejadorIdioma;
         this.traductor = traductor;
         this.manejadorEstado = manejadorEstado;
@@ -45,46 +43,40 @@ public abstract class ServicioPuntoBase
         return manejadorEstado;
     }
 
-    protected ManejadorIdiomas getManejadorIdioma()
-    {
+    protected ManejadorIdiomas getManejadorIdioma() {
         return manejadorIdioma;
     }
 
-    protected ITraductor getTraductor()
-    {
+    protected ITraductor getTraductor() {
         return traductor;
     }
 
-    protected Collection<DTOPunto> ConsultarPuntoInteresBase(IConsultaPunto consultaPunto, String idioma)
-    {
+    protected Collection<DTOPunto> ConsultarPuntoInteresBase(IConsultaPunto consultaPunto, String idioma) {
         Collection<Punto> puntos = consultaPunto.ejecutarConsulta();
+
         return traducirResultado(puntos, idioma);
     }
 
-    public Collection<DTOImagen> crearDTOImagenes(Collection<Imagen> imagenes, final Idioma idioma)
-    {
+    public Collection<DTOImagen> crearDTOImagenes(Collection<Imagen> imagenes, final Idioma idioma) {
         Collection<DTOImagen> dtoImagenes = new ArrayList<DTOImagen>();
 
-        for (Imagen imagen : imagenes)
-        {
+        for (Imagen imagen : imagenes) {
             dtoImagenes.add(crearDTOImagen(imagen, idioma));
         }
 
         return dtoImagenes;
     }
 
-    public DTOImagen crearDTOImagen(Imagen imagen, final Idioma idioma)
-    {
+    public DTOImagen crearDTOImagen(Imagen imagen, final Idioma idioma) {
         InformacionEnIdioma informacionImagen = null;
 
-        if(imagen.getInformacion() != null) {
+        if (imagen.getInformacion() != null) {
             informacionImagen = manejadorIdioma.seleccionarInformacionDeImagenEnIdioma(imagen, idioma);
         }
 
         DTOImagen dtoImagen = (DTOImagen) traductor.traducir(imagen);
 
-        if (informacionImagen != null)
-        {
+        if (informacionImagen != null) {
             DTOInformacionEnIdioma dtoInformacion = (DTOInformacionEnIdioma) traductor.traducir(informacionImagen);
             dtoImagen.setInformacion(dtoInformacion);
         }
@@ -92,51 +84,59 @@ public abstract class ServicioPuntoBase
         return dtoImagen;
     }
 
-    protected void completarDTOPunto(Punto punto, DTOPunto dtoPunto, String nombreIdioma)
-    {
+    protected void completarDTOPunto(Punto punto, DTOPunto dtoPunto, String nombreIdioma) {
         Idioma idioma = manejadorIdioma.obtenerIdioma(nombreIdioma);
 
         InformacionEnIdioma informacionPunto = manejadorIdioma.seleccionarInformacionDePuntoEnIdioma(punto, idioma);
 
-        if (informacionPunto != null)
-        {
+        if (informacionPunto != null) {
             DTOInformacionEnIdioma dtoInformacion = (DTOInformacionEnIdioma) traductor.traducir(informacionPunto);
             DTOIdioma dtoIdioma = (DTOIdioma) traductor.traducir(informacionPunto.getIdioma());
             dtoPunto.setInformacion(dtoInformacion);
             dtoInformacion.setIdioma(dtoIdioma);
+        } else {
+            if (nombreIdioma=="espanol") {
+                nombreIdioma = "ingles";
+                idioma = manejadorIdioma.obtenerIdioma(nombreIdioma);
+                informacionPunto = manejadorIdioma.seleccionarInformacionDePuntoEnIdioma(punto, idioma);
+                if (informacionPunto != null) {
+                    DTOInformacionEnIdioma dtoInformacion = (DTOInformacionEnIdioma) traductor.traducir(informacionPunto);
+                    DTOIdioma dtoIdioma = (DTOIdioma) traductor.traducir(informacionPunto.getIdioma());
+                    dtoPunto.setInformacion(dtoInformacion);
+                    dtoInformacion.setIdioma(dtoIdioma);
+                }
+
+            }
         }
 
-        if(punto.getCategoria() != null) {
-            dtoPunto.setCategoria((DTOCategoria)traductor.traducir(punto.getCategoria()));
+        if (punto.getCategoria() != null) {
+            dtoPunto.setCategoria((DTOCategoria) traductor.traducir(punto.getCategoria()));
         }
-        
-        if(punto.getImagenes() != null && !punto.getImagenes().isEmpty()) {
+
+        if (punto.getImagenes() != null && !punto.getImagenes().isEmpty()) {
             dtoPunto.setImagenes(crearDTOImagenes(punto.getImagenes(), idioma));
         }
 
-        if(punto.getUsuario() != null) {
-            dtoPunto.setUsuario((DTOUsuario)traductor.traducir(punto.getUsuario()));
+        if (punto.getUsuario() != null) {
+            dtoPunto.setUsuario((DTOUsuario) traductor.traducir(punto.getUsuario()));
         }
-        
+
         DTOLocalizacion dtoLocalizacion = (DTOLocalizacion) traductor.traducir(punto.getLocalizacion());
         dtoPunto.setLocalizacion(dtoLocalizacion);
 
         //TODO set links
     }
 
-    private Collection<DTOPunto> traducirResultado(Collection<Punto> puntos, String nombreIdioma)
-    {
+    private Collection<DTOPunto> traducirResultado(Collection<Punto> puntos, String nombreIdioma) {
         Collection<DTOPunto> dtosPunto = new HashSet<DTOPunto>();
 
-        for (Punto punto  : puntos)
-        {
-            if (punto != null && manejadorEstado.esEstadoValidoConsulta(punto.getEstado()))
-            {
+        for (Punto punto : puntos) {
+            if (punto != null && manejadorEstado.esEstadoValidoConsulta(punto.getEstado())) {
                 DTOPunto dtoPunto = (DTOPunto) getTraductor().traducir(punto);
 
                 completarDTOPunto(punto, dtoPunto, nombreIdioma);
 
-                dtosPunto.add(dtoPunto) ;
+                dtosPunto.add(dtoPunto);
             }
         }
 

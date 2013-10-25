@@ -40,9 +40,11 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
+import java.util.regex.Matcher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 /**
  *
@@ -50,18 +52,16 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Transactional
 @Service
-public class ServicioPunto extends ServicioPuntoBase implements IServicioPunto
-{
+public class ServicioPunto extends ServicioPuntoBase implements IServicioPunto {
 
     private AccesoDatosPunto accesoDatos;
     private AccesoDatosLocalizacion accesoDatosLocalizacion;
     private GeneradorCodigoQR generadorCodigo;
     private ManejadorCategoria manejadorCategoria;
     private ManejadorLogin manejadorLogin;
-
     private final double longitudEcuador = 40075004;
-    private final double longitudGreenwich =  40007000;
-    private double distanciaCercania =  3000;
+    private final double longitudGreenwich = 40007000;
+    private double distanciaCercania = 3000;
 
     @Autowired
     public ServicioPunto(ManejadorIdiomas manejadorIdioma,
@@ -71,8 +71,7 @@ public class ServicioPunto extends ServicioPuntoBase implements IServicioPunto
             AccesoDatosPunto accesoDatos,
             AccesoDatosLocalizacion accesoDatosLocalizacion,
             ITraductor traductor,
-            GeneradorCodigoQR generadorCodigo)
-    {
+            GeneradorCodigoQR generadorCodigo) {
         super(manejadorIdioma, traductor, manejadorEstado);
 
         this.accesoDatos = accesoDatos;
@@ -83,20 +82,24 @@ public class ServicioPunto extends ServicioPuntoBase implements IServicioPunto
     }
 
     /**
-     * Servicio que permite guardar un punto en base a los datos especificados por el usuario
-     * @param datosPunto Un DTO que contiene todos los datos necesarios para crear el punto
+     * Servicio que permite guardar un punto en base a los datos especificados
+     * por el usuario
+     *
+     * @param datosPunto Un DTO que contiene todos los datos necesarios para
+     * crear el punto
      */
     @Transactional(readOnly = false)
-    public String CrearPuntoInteres(DTOPunto datosPunto, String nombreIdioma, boolean merge)
-    {
+    public String CrearPuntoInteres(DTOPunto datosPunto, String nombreIdioma, boolean merge) {
         //Crea un nuevo punto de interes
         Punto nuevoPuntoDeInteres = new Punto();
 
-        if(datosPunto.getIdPunto() != null) {
+        if (datosPunto.getIdPunto() != null) {
             nuevoPuntoDeInteres.setIdObjeto(datosPunto.getIdPunto());
         }
 
+
         nuevoPuntoDeInteres.setNombre(datosPunto.getNombrePunto());
+
 
         nuevoPuntoDeInteres.setCiclo(new Ciclo());
 
@@ -108,17 +111,18 @@ public class ServicioPunto extends ServicioPuntoBase implements IServicioPunto
         //Setea las imagenes correspondientes al punto, si las hubiera.
         Collection<DTOImagen> dtoImagenes = datosPunto.getImagenes();
         Collection<Imagen> imagenesPuntoGuardar = new HashSet<Imagen>();
-        if (dtoImagenes != null && !dtoImagenes.isEmpty())
-        {
-            for (DTOImagen dtoImagen : datosPunto.getImagenes())
-            {
+        if (dtoImagenes != null && !dtoImagenes.isEmpty()) {
+            for (DTOImagen dtoImagen : datosPunto.getImagenes()) {
                 Imagen imagenPunto = getTraductor().traducir(dtoImagen);
                 Informacion infoImagen = new Informacion();
 
-                if(dtoImagen.getInformacion() != null) {
+                if (dtoImagen.getInformacion() != null) {
                     Collection<InformacionEnIdioma> infoEnIdiomaImagen = new HashSet<InformacionEnIdioma>();
                     InformacionEnIdioma infoImagenIdioma = getTraductor().traducir(dtoImagen.getInformacion());
-                    infoImagenIdioma.setIdioma(getManejadorIdioma().obtenerIdioma("espanol"));
+                   if(dtoImagen.getInformacion().getIdioma()==null){
+                       dtoImagen.getInformacion().setIdioma(datosPunto.getInformacion().getIdioma());
+                   }
+                    infoImagenIdioma.setIdioma(getManejadorIdioma().obtenerIdioma(dtoImagen.getInformacion().getIdioma().getNombreIdioma()));
                     infoEnIdiomaImagen.add(infoImagenIdioma);
                     infoImagen.setInformacionEnIdiomas(infoEnIdiomaImagen);
                 }
@@ -129,12 +133,12 @@ public class ServicioPunto extends ServicioPuntoBase implements IServicioPunto
 
         nuevoPuntoDeInteres.setImagenes(imagenesPuntoGuardar);
 
-        nuevoPuntoDeInteres.setCategoria((Categoria)manejadorCategoria.obtenerCategoria(datosPunto.getCategoria().getNombreCategoria()));
+        nuevoPuntoDeInteres.setCategoria((Categoria) manejadorCategoria.obtenerCategoria(datosPunto.getCategoria().getNombreCategoria()));
 
 
         //Setea la informacion del punto
-        if (datosPunto.getInformacion() != null)
-        {
+        if (datosPunto.getInformacion() != null) {
+
             Collection<InformacionEnIdioma> infoEnIdiomas = new HashSet<InformacionEnIdioma>();
             InformacionEnIdioma infoIdioma = getTraductor().traducir(datosPunto.getInformacion());
             infoIdioma.setIdioma(getManejadorIdioma().obtenerIdioma(datosPunto.getInformacion().getIdioma().getNombreIdioma()));
@@ -147,7 +151,7 @@ public class ServicioPunto extends ServicioPuntoBase implements IServicioPunto
         //Setea los datos de localizacion del punto
         nuevoPuntoDeInteres.setLocalizacion(getTraductor().traducir(datosPunto.getLocalizacion()));
 
-        if(datosPunto.getFechaCreacion() != null) {
+        if (datosPunto.getFechaCreacion() != null) {
             nuevoPuntoDeInteres.setFechaCreacion(datosPunto.getFechaCreacion());
             nuevoPuntoDeInteres.setFechaModificacion(new Date());
         } else {
@@ -158,7 +162,7 @@ public class ServicioPunto extends ServicioPuntoBase implements IServicioPunto
 
         //Persiste el punto creado previamente
 
-        if(!merge) {
+        if (!merge) {
             accesoDatos.Guardar(nuevoPuntoDeInteres);
         } else {
             accesoDatos.Actualizar(nuevoPuntoDeInteres);
@@ -169,12 +173,17 @@ public class ServicioPunto extends ServicioPuntoBase implements IServicioPunto
 
     /**
      * Genera un codigo QR en base al Id de un punto de interes
-     * @param idPuntoInteres Id del punto de interes para el cual se creara el codigo QR.
+     *
+     * @param idPuntoInteres Id del punto de interes para el cual se creara el
+     * codigo QR.
      * @return DTOCodigoQR DTO con datos correspondientes al codigo QR generado.
      */
-    public DTOCodigoQR GenerarCodigoQR(String idPuntoInteres, int tamaño, String requestContext, String formatoImagen)
-    {
+    public DTOCodigoQR GenerarCodigoQR(String idPuntoInteres, int tamaño, String requestContext, String formatoImagen) {
         String rutaCodigoQR = generadorCodigo.generarCodigoQR(idPuntoInteres, tamaño, requestContext, formatoImagen);
+
+        System.out.println(rutaCodigoQR);
+
+
 
         DTOCodigoQR dtoCodigoQR = new DTOCodigoQR();
         dtoCodigoQR.setRutaImagenCodigo(rutaCodigoQR);
@@ -192,21 +201,18 @@ public class ServicioPunto extends ServicioPuntoBase implements IServicioPunto
 //        IConsultaPunto consultaPunto = new ConsultarPuntoZona(latitudDesde, latitudHasta, longitudDesde, longitudHasta, accesoDatos);
 //        return ConsultarPuntoInteresBase(consultaPunto, nombreIdioma);
 //    }
-
-    public Collection<DTOPunto> ConsultarPuntosDeInteres(String nombreIdioma)
-    {
+    public Collection<DTOPunto> ConsultarPuntosDeInteres(String nombreIdioma) {
         IConsultaPunto consultaPunto = new ConsultarTodosPuntos(accesoDatos);
         return ConsultarPuntoInteresBase(consultaPunto, nombreIdioma);
     }
 
-    public DTOPunto ConsultarPuntosDeInteresPorNombre(String nombrePunto, String nombreIdioma)
-    {
+    public DTOPunto ConsultarPuntosDeInteresPorNombre(String nombrePunto, String nombreIdioma) {
         IConsultaPunto consultaPunto = new ConsultarPuntoPorNombre(nombrePunto, accesoDatos);
         HashSet<DTOPunto> punto = (HashSet<DTOPunto>) ConsultarPuntoInteresBase(consultaPunto, nombreIdioma);
 
         DTOPunto puntoLista = new DTOPunto();
 
-        if(punto.iterator().hasNext()){
+        if (punto.iterator().hasNext()) {
             puntoLista = punto.iterator().next();
         }
 
@@ -214,12 +220,11 @@ public class ServicioPunto extends ServicioPuntoBase implements IServicioPunto
         return puntoLista;
     }
 
-    public DTOPunto ConsultarPuntosDeInteresPorLocalizacion(DTOLocalizacion dtoLocalizacion, String nombreIdioma)
-    {
+    public DTOPunto ConsultarPuntosDeInteresPorLocalizacion(DTOLocalizacion dtoLocalizacion, String nombreIdioma) {
 
         Localizacion localizacion = accesoDatosLocalizacion.buscarLocalizacion(dtoLocalizacion.getLatitud(), dtoLocalizacion.getLongitud());
 
-        if(localizacion != null) {
+        if (localizacion != null) {
             IConsultaPunto consultaPunto = new ConsultarPuntoPorLocalizacion(localizacion, accesoDatos);
             HashSet<DTOPunto> punto = (HashSet<DTOPunto>) ConsultarPuntoInteresBase(consultaPunto, nombreIdioma);
 
@@ -231,36 +236,31 @@ public class ServicioPunto extends ServicioPuntoBase implements IServicioPunto
         return new DTOPunto();
     }
 
-    public Collection<DTOPunto> ConsultarPuntosDeInteresPorUsuario(String nombreUsuario, String nombreIdioma)
-    {
+    public Collection<DTOPunto> ConsultarPuntosDeInteresPorUsuario(String nombreUsuario, String nombreIdioma) {
         Usuario usuario = manejadorLogin.cargarUsuario(nombreUsuario);
         IConsultaPunto consultaPunto = new ConsultarPuntoUsuario(accesoDatos, usuario);
         return ConsultarPuntoInteresBase(consultaPunto, nombreIdioma);
     }
 
-    public Collection<DTOPunto> ConsultarPuntosDeInteresPorUsuarioCategoria(String nombreUsuario, String nombreCategoria, String nombreIdioma)
-    {
+    public Collection<DTOPunto> ConsultarPuntosDeInteresPorUsuarioCategoria(String nombreUsuario, String nombreCategoria, String nombreIdioma) {
         Usuario usuario = manejadorLogin.cargarUsuario(nombreUsuario);
         Categoria categoria = manejadorCategoria.obtenerCategoria(nombreCategoria);
         IConsultaPunto consultaPunto = new ConsultarPuntoUsuarioCategoria(accesoDatos, usuario, categoria);
         return ConsultarPuntoInteresBase(consultaPunto, nombreIdioma);
     }
 
-    public Collection<DTOPunto> ConsultarPuntosDeInteresCategoria(String categoria, String nombreIdioma)
-    {
+    public Collection<DTOPunto> ConsultarPuntosDeInteresCategoria(String categoria, String nombreIdioma) {
         Categoria categoriaObject = getTraductor().traducir(this.obtenerDTOCategoria(categoria));
         IConsultaPunto consultaPunto = new ConsultarPuntosCategoria(categoriaObject, accesoDatos);
         return ConsultarPuntoInteresBase(consultaPunto, nombreIdioma);
     }
 
-    public Collection<DTOPunto> ConsultarPuntosDeInteresZona(DTOLocalizacion localizacion, double distanciaRadio, String nombreIdioma)
-    {
+    public Collection<DTOPunto> ConsultarPuntosDeInteresZona(DTOLocalizacion localizacion, double distanciaRadio, String nombreIdioma) {
         this.distanciaCercania = distanciaRadio;
 
-        ArrayList<DTOLocalizacion> desdeHasta = (ArrayList<DTOLocalizacion>)obtenerDistanciaEnGrados(localizacion);
+        ArrayList<DTOLocalizacion> desdeHasta = (ArrayList<DTOLocalizacion>) obtenerDistanciaEnGrados(localizacion);
 
-        Collection<Localizacion> localizaciones = accesoDatosLocalizacion
-                .buscarRangoLocalizacion(
+        Collection<Localizacion> localizaciones = accesoDatosLocalizacion.buscarRangoLocalizacion(
                 getTraductor().traducir(desdeHasta.get(0)),
                 getTraductor().traducir(desdeHasta.get(1)));
 
@@ -272,57 +272,52 @@ public class ServicioPunto extends ServicioPuntoBase implements IServicioPunto
     }
 
     /*
-     * Servicio que permite buscar la informacion de un punto de interes en base a
-     * su id, y al idioma en que la informacion quiere obtenerse
+     * Servicio que permite buscar la informacion de un punto de interes en base
+     * a su id, y al idioma en que la informacion quiere obtenerse
      */
-    public DTOPunto ConsultarPuntoInteres(String idPuntoInteres, String nombreIdioma)
-    {
+    public DTOPunto ConsultarPuntoInteres(String idPuntoInteres, String nombreIdioma) {
         IConsultaPunto consultaPunto = new ConsultarPuntoId(idPuntoInteres, accesoDatos);
         return (DTOPunto) ConsultarPuntoInteresBase(consultaPunto, nombreIdioma).toArray()[0];
     }
 
-    public boolean eliminarPuntoInteres(String idPunto) 
-    {
+    public boolean eliminarPuntoInteres(String idPunto) {
 
-       Punto punto = accesoDatos.BuscarObjeto(Punto.class, idPunto);
-       punto.setEstado(Ciclo.crearEstado(Ciclo.BORRADO));
+        Punto punto = accesoDatos.BuscarObjeto(Punto.class, idPunto);
+        punto.setEstado(Ciclo.crearEstado(Ciclo.BORRADO));
 
-       accesoDatos.Guardar(punto);
+        accesoDatos.Guardar(punto);
 
-       return true;
+        return true;
     }
 
-    public List<DTOCategoria> obtenerCategoriasPunto()
-    {
+    public List<DTOCategoria> obtenerCategoriasPunto() {
 
-       List<Categoria> categorias = (List<Categoria>)manejadorCategoria.obtenerPosiblesCategorias();
-       List<DTOCategoria> dtoCategorias = new ArrayList<DTOCategoria>();
+        List<Categoria> categorias = (List<Categoria>) manejadorCategoria.obtenerPosiblesCategorias();
+        List<DTOCategoria> dtoCategorias = new ArrayList<DTOCategoria>();
 
-       for(Categoria categoria : categorias) {
-           DTOCategoria dtoCategoria = (DTOCategoria) getTraductor().traducir(categoria);
-           dtoCategorias.add(dtoCategoria);
-       }
+        for (Categoria categoria : categorias) {
+            DTOCategoria dtoCategoria = (DTOCategoria) getTraductor().traducir(categoria);
+            dtoCategorias.add(dtoCategoria);
+        }
 
-       return dtoCategorias;
+        return dtoCategorias;
     }
 
-    public DTOCategoria obtenerDTOCategoria(String nombreCategoria)
-    {
+    public DTOCategoria obtenerDTOCategoria(String nombreCategoria) {
 
-       Categoria categoria = (Categoria)manejadorCategoria.obtenerCategoria(nombreCategoria);
+        Categoria categoria = (Categoria) manejadorCategoria.obtenerCategoria(nombreCategoria);
 
-       DTOCategoria dtoCategoria = (DTOCategoria) getTraductor().traducir(categoria);
+        DTOCategoria dtoCategoria = (DTOCategoria) getTraductor().traducir(categoria);
 
-       return dtoCategoria;
+        return dtoCategoria;
     }
 
-    private Collection<DTOLocalizacion> obtenerDistanciaEnGrados(DTOLocalizacion localizacionLugar)
-    {
+    private Collection<DTOLocalizacion> obtenerDistanciaEnGrados(DTOLocalizacion localizacionLugar) {
 
         Collection<DTOLocalizacion> desdeHasta = new ArrayList<DTOLocalizacion>();
 
-        double gradosEnLatitud = distanciaCercania/(longitudGreenwich/360);
-        double gradosEnLongitud = distanciaCercania/(obtenerLongitudDelParalelo(Double.parseDouble(localizacionLugar.getLatitud())) / 360);
+        double gradosEnLatitud = distanciaCercania / (longitudGreenwich / 360);
+        double gradosEnLongitud = distanciaCercania / (obtenerLongitudDelParalelo(Double.parseDouble(localizacionLugar.getLatitud())) / 360);
 
         //Obtiene la diferencia numérica en grados
 //        double diferenciaLatitudGradual = Long.parseLong(localizacionLugar.getLatitud()) - Long.parseLong(localizacionLugarPosible.getLatitud());
@@ -331,7 +326,7 @@ public class ServicioPunto extends ServicioPuntoBase implements IServicioPunto
         //Diferencias numéricas, se calcula la longitud de un grado como la longitud del paralelo/meridiano
         //sobre los 360 grados que tiene el círculo que lo contiene
 //        double diferenciaLatitudNumerica = diferenciaLatitudGradual * longitudGreenwich / 360;
-        
+
         //La longitud del paralelo varia con la latitud
 //        double diferenciaLongitudNumerica = diferenciaLongitudGradual * obtenerLongitudDelParalelo(Long.parseLong(localizacionLugar.getLatitud())) / 360;
 
@@ -353,13 +348,14 @@ public class ServicioPunto extends ServicioPuntoBase implements IServicioPunto
 
     /**
      * Calcula la longitud del paralelo de latitud especificada
+     *
      * @param latitud
      * @return Longitud del paralelo
      */
     private double obtenerLongitudDelParalelo(double latitud) {
 
         //Calcula la longitud del paralelo por medio de calculos trigonometricos respecto a la longitud del ecuador, y los angulos correspondientes
-        double longitudParalelo = (Math.sin(Math.PI/2 - (Math.abs(latitud)* Math.PI/ 180)) * longitudEcuador) ;
+        double longitudParalelo = (Math.sin(Math.PI / 2 - (Math.abs(latitud) * Math.PI / 180)) * longitudEcuador);
         return longitudParalelo;
 
     }
@@ -369,22 +365,17 @@ public class ServicioPunto extends ServicioPuntoBase implements IServicioPunto
 
         Collection<Punto> puntos = accesoDatos.BuscarConjuntoObjetos(Punto.class);
 
-        for(Punto punto : puntos)
-        {
-            if(punto.getUsuario().getNombreUsuario().equalsIgnoreCase(nombreUsuario) && getManejadorEstado().esEstadoValidoConsulta(punto.getEstado()))
-            {
-                cantidadPuntosUsuario ++;
+        for (Punto punto : puntos) {
+            if (punto.getUsuario().getNombreUsuario().equalsIgnoreCase(nombreUsuario) && getManejadorEstado().esEstadoValidoConsulta(punto.getEstado())) {
+                cantidadPuntosUsuario++;
             }
         }
 
         Collection<Cliente> clientes = accesoDatos.BuscarConjuntoObjetos(Cliente.class);
 
-        for(Cliente cliente : clientes)
-        {
-            if(cliente.getUsuario().getNombreUsuario().equalsIgnoreCase(nombreUsuario))
-            {
-                if(cliente.getCantidadDePuntosPermitidos() > cantidadPuntosUsuario)
-                {
+        for (Cliente cliente : clientes) {
+            if (cliente.getUsuario().getNombreUsuario().equalsIgnoreCase(nombreUsuario)) {
+                if (cliente.getCantidadDePuntosPermitidos() > cantidadPuntosUsuario) {
                     return true;
                 }
             }
@@ -393,5 +384,29 @@ public class ServicioPunto extends ServicioPuntoBase implements IServicioPunto
         return false;
 
     }
-    
+
+    /**
+     * Servicio que permite guardar un punto en base a los datos especificados
+     * por el usuario
+     *
+     * @param datosPunto Un DTO que contiene todos los datos necesarios para
+     * crear el punto
+     */
+    @Transactional(readOnly = false)
+    public void ActualizarPunto(DTOPunto puntoActualizado, String idioma, int cantidadVisitas) {
+        //Crea un nuevo punto de interes
+        IConsultaPunto consultaPunto = new ConsultarPuntoId(puntoActualizado.getIdPunto(), accesoDatos);
+        Punto nuevoPuntoDeInteres = new Punto();
+        Collection<Punto> puntos = consultaPunto.ejecutarConsulta();
+
+        for (Punto punto : puntos) {
+           nuevoPuntoDeInteres=punto;
+         
+        }
+
+        nuevoPuntoDeInteres.setCantidadDeVisitas(cantidadVisitas);
+        
+        accesoDatos.Actualizar(nuevoPuntoDeInteres);
+
+    }
 }

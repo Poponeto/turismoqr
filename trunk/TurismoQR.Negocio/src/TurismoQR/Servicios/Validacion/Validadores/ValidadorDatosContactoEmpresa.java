@@ -23,7 +23,7 @@ public class ValidadorDatosContactoEmpresa implements Validador
     {
         DTOContactoEmpresa dtoContactoEmpresa = (DTOContactoEmpresa) objeto;
 
-        String regexNombreApellido = "[a-zA-Z]+";
+        String regexNombreApellido = "^[a-zA-Z áéíóúAÉÍÓÚÑñ]+$";
 
         if (dtoContactoEmpresa.getApellido() == null || dtoContactoEmpresa.getApellido().isEmpty())
         {

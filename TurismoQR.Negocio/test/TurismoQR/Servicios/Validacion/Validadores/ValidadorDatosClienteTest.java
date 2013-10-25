@@ -53,7 +53,7 @@ public class ValidadorDatosClienteTest {
 
         DTOCliente dtoCliente = mock(DTOCliente.class);
 
-        when(dtoCliente.getCantidadDePuntosPermitidos()).thenReturn(-1).thenReturn(16);
+        when(Integer.parseInt(dtoCliente.getCantidadDePuntosPermitidos())).thenReturn(-1).thenReturn(16);
 
         ValidadorDatosCliente validadorDatosCliente = new ValidadorDatosCliente();
         validadorDatosCliente.validar(dtoCliente, errores1);

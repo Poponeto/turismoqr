@@ -18,9 +18,11 @@ public abstract class EstrategiaTraduccionCliente extends EstrategiaTraduccionCo
     {
         DTOCliente dtoCliente = (DTOCliente)iniciarContacto(objetoNegocio);
 
-        dtoCliente.setCantidadDePuntosPermitidos(objetoNegocio.getCantidadDePuntosPermitidos());
-        dtoCliente.setCantidadDePuntosQuePosee(objetoNegocio.getPuntosDeCliente().size());
+        dtoCliente.setCantidadDePuntosPermitidos(String.valueOf(objetoNegocio.getCantidadDePuntosPermitidos()));
+        dtoCliente.setCantidadDePuntosQuePosee(String.valueOf(objetoNegocio.getPuntosDeCliente().size()));
         dtoCliente.setEstadoCliente(objetoNegocio.getEstado().getNombreDeEstado());
+        dtoCliente.setUsuario(objetoNegocio.getUsuario().getIdObjeto());
+        
 
         return dtoCliente;
     }
@@ -29,7 +31,7 @@ public abstract class EstrategiaTraduccionCliente extends EstrategiaTraduccionCo
     {
         Cliente cliente = (Cliente)iniciarContacto(dto);
 
-        cliente.setCantidadDePuntosPermitidos(dto.getCantidadDePuntosPermitidos());
+        cliente.setCantidadDePuntosPermitidos(Integer.parseInt(dto.getCantidadDePuntosPermitidos()));
 
         return cliente;
     }

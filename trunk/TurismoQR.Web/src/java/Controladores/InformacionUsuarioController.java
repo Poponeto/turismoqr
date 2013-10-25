@@ -108,7 +108,7 @@ public class InformacionUsuarioController
             fila.setNombreUsuario(dtoUsuario.getNombreUsuario());
             fila.setIdUsuario(dtoUsuario.getIdUsuario());
             fila.setBloqueado(!dtoUsuario.isAccountNonLocked());
-            fila.setExpirado(!dtoUsuario.isCredentialsNonExpired());
+            fila.setExpirado(!dtoUsuario.isAccountNonExpired());
             fila.setHabilitado(dtoUsuario.isEnabled());
             filas.add(fila);
         }

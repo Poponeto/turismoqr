@@ -43,11 +43,14 @@ public class GeneradorCodigoQR {
         if (formatoImagen == null) {
             formatoImagen = FORMATO_IMAGEN;
         }
-               
+        String ip="YOUR IP MOBILE";
+        String localhost="localhost:8080/";
+        
         String datos = requestContext + DIRECCION_CONSULTA + idPuntoInteres + VISTA_MOVIL;
         
+       
         try{
-            qrCode = qrCodeWriter.encode(datos, BarcodeFormat.QR_CODE, tamaño, tamaño);
+            qrCode = qrCodeWriter.encode(localhost+datos, BarcodeFormat.QR_CODE, tamaño, tamaño);
 
             BufferedImage qrCodeImage = escribirImagen(qrCode);
             

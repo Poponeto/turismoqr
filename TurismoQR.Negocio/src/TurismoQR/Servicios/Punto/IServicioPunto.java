@@ -31,4 +31,6 @@ public interface IServicioPunto {
     public DTOPunto ConsultarPuntosDeInteresPorNombre(String nombrePunto, String nombreIdioma);
     public DTOPunto ConsultarPuntosDeInteresPorLocalizacion(DTOLocalizacion dtoLocalizacion, String nombreIdioma);
     public Boolean puedeCrearPuntos(String nombreUsuario);
+
+    public void ActualizarPunto(DTOPunto puntoActualizado,String idioma,int cantidadDeVisistas);
 }

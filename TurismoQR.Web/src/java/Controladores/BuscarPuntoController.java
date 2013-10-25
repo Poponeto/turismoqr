@@ -32,8 +32,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 @Controller("buscarPunto")
 @RequestMapping("/buscarPunto")
-public class BuscarPuntoController
-{
+public class BuscarPuntoController {
 
     private IServicioPunto servicioPunto;
     private IServicioIdioma servicioIdioma;
@@ -43,16 +42,14 @@ public class BuscarPuntoController
     public void InformacionPuntoController(
             IServicioPunto servicioPunto,
             IServicioIdioma servicioIdioma,
-            IServicioUsuario servicioUsuario)
-    {
+            IServicioUsuario servicioUsuario) {
         this.servicioPunto = servicioPunto;
         this.servicioIdioma = servicioIdioma;
         this.servicioUsuario = servicioUsuario;
     }
 
     @RequestMapping(value = "/paginaBuscarPunto.htm", method = RequestMethod.GET)
-    public String redirigir(ModelMap model)
-    {
+    public String redirigir(ModelMap model) {
         Collection<DTOCategoria> dtoCategorias = servicioPunto.obtenerCategoriasPunto();
         model.put("categorias", dtoCategorias);
 
@@ -60,8 +57,7 @@ public class BuscarPuntoController
     }
 
     @RequestMapping(value = "/obtenerMenuPunto.htm", method = RequestMethod.GET)
-    public String obtenerMenuPunto(@RequestParam("idPunto") String idPunto, ModelMap model)
-    {
+    public String obtenerMenuPunto(@RequestParam("idPunto") String idPunto, ModelMap model) {
         DTOPunto dtoPunto = servicioPunto.ConsultarPuntoInteres(idPunto, null);
 
         model.addAttribute("punto", dtoPunto);
@@ -70,22 +66,18 @@ public class BuscarPuntoController
     }
 
     @RequestMapping(value = "/obtenerInformacionTabla.htm", method = RequestMethod.GET)
-    public 
-    @ResponseBody
-    Tabla obtenerInformacionTabla()
-    {
+    public @ResponseBody
+    Tabla obtenerInformacionTabla() {
         Collection<DTOPunto> puntos = servicioPunto.ConsultarPuntosDeInteres("espanol");
 
         Tabla tablaResultados = crearTablaResultados(puntos);
-        
+
         return tablaResultados;
     }
 
     @RequestMapping(value = "{categoria}/obtenerInformacionTablaCategoria.htm", method = RequestMethod.GET)
-    public
-    @ResponseBody
-    Tabla obtenerInformacionTablaCategoria(@PathVariable("categoria") String categoria)
-    {
+    public @ResponseBody
+    Tabla obtenerInformacionTablaCategoria(@PathVariable("categoria") String categoria) {
         Collection<DTOPunto> puntos = servicioPunto.ConsultarPuntosDeInteresCategoria(categoria, "espanol");
 
         Tabla tablaResultados = crearTablaResultados(puntos);
@@ -94,10 +86,8 @@ public class BuscarPuntoController
     }
 
     @RequestMapping(value = "{usuario}/obtenerInformacionTablaUsuario.htm", method = RequestMethod.GET)
-    public
-    @ResponseBody
-    Tabla obtenerInformacionTablaUsuario(@PathVariable("usuario") String usuario)
-    {
+    public @ResponseBody
+    Tabla obtenerInformacionTablaUsuario(@PathVariable("usuario") String usuario) {
         DTOUsuario usuarioActivo = (DTOUsuario) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         Collection<DTOPunto> puntos = servicioPunto.ConsultarPuntosDeInteresPorUsuario(usuarioActivo.getNombreUsuario(), "espanol");
@@ -108,24 +98,27 @@ public class BuscarPuntoController
     }
 
     @RequestMapping(value = "{categoria}/{usuario}/obtenerInformacionTablaCategoriaUsuario.htm", method = RequestMethod.GET)
-    public
-    @ResponseBody
-    Tabla obtenerInformacionTablaCategoriaUsuario(@PathVariable("categoria") String categoria, @PathVariable("usuario") String usuario)
-    {
-        DTOUsuario usuarioActivo = (DTOUsuario) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    public @ResponseBody
+    Tabla obtenerInformacionTablaCategoriaUsuario(@PathVariable("categoria") String categoria, @PathVariable("usuario") String usuario) {
+        System.out.println(usuario);
+        try {
+            DTOUsuario usuarioActivo = (DTOUsuario) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            Collection<DTOPunto> puntos = servicioPunto.ConsultarPuntosDeInteresPorUsuarioCategoria(usuarioActivo.getNombreUsuario(), categoria, "espanol");
+            Tabla tablaResultados = crearTablaResultados(puntos);
+            return tablaResultados;
+        } catch (Exception e) {
+            Collection<DTOPunto> puntos = servicioPunto.ConsultarPuntosDeInteresCategoria(categoria, "espanol");
 
-        Collection<DTOPunto> puntos = servicioPunto.ConsultarPuntosDeInteresPorUsuarioCategoria(usuarioActivo.getNombreUsuario(), categoria, "espanol");
+            Tabla tablaResultados = crearTablaResultados(puntos);
 
-        Tabla tablaResultados = crearTablaResultados(puntos);
+            return tablaResultados;
+        }
 
-        return tablaResultados;
     }
 
     @RequestMapping(value = "{idPunto}/{radio}/puntosCercanos.htm", method = RequestMethod.GET)
-    public
-    @ResponseBody
-    Tabla obtenerInformacionTablaCercanos(@PathVariable("idPunto") String idPunto, @PathVariable("radio") double radio)
-    {
+    public @ResponseBody
+    Tabla obtenerInformacionTablaCercanos(@PathVariable("idPunto") String idPunto, @PathVariable("radio") double radio) {
         Collection<DTOPunto> puntos = servicioPunto.ConsultarPuntosDeInteresZona(servicioPunto.ConsultarPuntoInteres(idPunto, "espanol").getLocalizacion(), radio, "espanol");
 
         Tabla tablaResultados = crearTablaResultados(puntos);
@@ -137,8 +130,7 @@ public class BuscarPuntoController
         Tabla tabla = new Tabla();
         Collection<IFila> filas = new HashSet<IFila>();
 
-        for (DTOPunto punto : puntos)
-        {
+        for (DTOPunto punto : puntos) {
             FilaTablaPunto fila = new FilaTablaPunto();
             fila.setIdentificador(punto.getIdPunto());
             fila.setNombreIdentificador(punto.getNombrePunto());

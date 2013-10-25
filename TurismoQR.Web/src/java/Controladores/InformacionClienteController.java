@@ -111,21 +111,21 @@ public class InformacionClienteController
             FilaTablaCliente fila = new FilaTablaCliente();
             fila.setCelular(dtoCliente.getCelular());
             fila.setMail(dtoCliente.getMail());
-            fila.setPuntosPermitidos(dtoCliente.getCantidadDePuntosPermitidos());
+            fila.setPuntosPermitidos(Integer.parseInt(dtoCliente.getCantidadDePuntosPermitidos()));
             fila.setTelefonoFijo(dtoCliente.getTelefonoFijo());
             fila.setTipoCliente(dtoCliente.getTipoCliente());//
             fila.setNombreCliente(dtoCliente.getNombreCliente());//
             fila.setIdCliente(dtoCliente.getIdContacto());
             fila.setEstadoCliente(dtoCliente.getEstadoCliente());
-            filas.add(fila);
-
-            String idContacto = dtoCliente.getIdContacto();
+            
+            String idUsuario = dtoCliente.getUsuario();
             for(DTOPunto punto : puntos){
-                if(punto.getUsuario().getIdUsuario().equals(idContacto)){
-
+                if(punto.getUsuario().getIdUsuario().equals(idUsuario)){
                     fila.setPuntosQuePosee(fila.getPuntosQuePosee() + 1);
+                    System.out.println(fila.getNombreCliente());
                 }
             }
+            filas.add(fila);
         }
 
         tabla.setRows(filas);

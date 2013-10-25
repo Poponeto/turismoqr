@@ -21,7 +21,7 @@
         <%@ include file="/WEB-INF/jsp/Utils/ArchivosJQuery.html" %>
         <link rel="stylesheet" href="${pageContext.request.contextPath}/Vistas/HojasDeEstilo/jquery.lightbox-0.5.css">
         <script src="${pageContext.request.contextPath}/Vistas/JavaScript/JQuery/jquery.lightbox-0.5.js"></script>  
-        <script type="text/javascript">
+        <script type="text/javascript" charset="UTF-8">
             
             $(function(){
                 $('#galeria a').lightBox({

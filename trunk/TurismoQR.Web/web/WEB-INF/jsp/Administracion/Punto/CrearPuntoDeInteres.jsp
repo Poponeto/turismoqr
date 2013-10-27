@@ -23,16 +23,16 @@
         </core:if>
 
         <%@ include file="/WEB-INF/jsp/Utils/ArchivosJQuery.html" %>
-        <script type="text/javascript" src="http://blueimp.github.com/JavaScript-Templates/tmpl.min.js"></script>
-        <script type="text/javascript" src="http://blueimp.github.com/JavaScript-Load-Image/load-image.min.js"></script>
-        <script type="text/javascript" src="http://blueimp.github.com/JavaScript-Canvas-to-Blob/canvas-to-blob.min.js"></script>
-        <script type="text/javascript" src="http://blueimp.github.com/cdn/js/bootstrap.min.js"></script>
-        <script type="text/javascript" src="http://blueimp.github.com/Bootstrap-Image-Gallery/js/bootstrap-image-gallery.min.js"></script>
-        <link rel="stylesheet" href="http://blueimp.github.com/cdn/css/bootstrap.min.css">
+        <script type="text/javascript" src="${pageContext.request.contextPath}/Vistas/JavaScript/JQuery/tmpl.min.js"></script>
+        <script type="text/javascript" src="${pageContext.request.contextPath}/Vistas/JavaScript/JQuery/load-image.min.js"></script>
+        <script type="text/javascript" src="${pageContext.request.contextPath}/Vistas/JavaScript/JQuery/canvas-to-blob.min.js"></script>
+        <script type="text/javascript" src="${pageContext.request.contextPath}/Vistas/JavaScript/JQuery/bootstrap.min.js"></script>
+        <script type="text/javascript" src="${pageContext.request.contextPath}/Vistas/JavaScript/JQuery/bootstrap-image-gallery.min.js"></script>
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/Vistas/HojasDeEstilo/bootstrap.min.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/Vistas/HojasDeEstilo/style.css">
-        <link rel="stylesheet" href="http://blueimp.github.com/cdn/css/bootstrap-responsive.min.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/Vistas/HojasDeEstilo/bootstrap-responsive.min.css">
         <!--[if lt IE 7]><link rel="stylesheet" href="http://blueimp.github.com/cdn/css/bootstrap-ie6.min.css"><![endif]-->
-        <link rel="stylesheet" href="http://blueimp.github.com/Bootstrap-Image-Gallery/css/bootstrap-image-gallery.min.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/Vistas/HojasDeEstilo/bootstrap-image-gallery.min.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/Vistas/HojasDeEstilo/subirArchivoPopUp.css">
         <script type="text/javascript" src="${pageContext.request.contextPath}/Vistas/JavaScript/InicializadorComponentes.js"></script>
         <script type="text/javascript" src="${pageContext.request.contextPath}/Vistas/JavaScript/IniciarPaginaCrearPunto.js"></script>

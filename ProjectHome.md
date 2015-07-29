@@ -1,0 +1,1 @@
+Permite al usuario conocer las características de un punto de interés desde su dispositivo móvil, al escanear un código QR.
